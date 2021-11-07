@@ -5,18 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 
 class ActionFragment : Fragment() {
     var _binding: FragmentActionBinding? = null
+    val viewModel: ActionViewModel by viewModels()
 
     val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -24,7 +25,7 @@ class ActionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentActionBinding.inflate(inflater,container,false)
+        _binding = FragmentActionBinding.inflate(inflater, container, false)
         return binding!!.root
     }
 
