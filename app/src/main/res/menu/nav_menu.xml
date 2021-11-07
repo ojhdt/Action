@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/actionFragment"
+        android:icon="@drawable/ic_outline_directions_run_24"
+        android:title="@string/nav_action"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/achievementFragment"
+        android:icon="@drawable/ic_outline_emoji_events_24"
+        android:title="@string/nav_achievement"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/exploreFragment"
+        android:icon="@drawable/ic_outline_explore_24"
+        android:title="@string/nav_explore"
+        app:showAsAction="ifRoom" />
+</menu>

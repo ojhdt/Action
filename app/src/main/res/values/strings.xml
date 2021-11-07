@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Action</string>
+    <string name="nav_action">行动</string>
+    <string name="nav_achievement">成就</string>
+    <string name="nav_explore">发现</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
