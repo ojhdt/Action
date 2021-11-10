@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
+import com.ojhdtapp.action.logic.model.Action
 
 class ActionFragment : Fragment() {
     private var _binding: FragmentActionBinding? = null
@@ -37,14 +38,19 @@ class ActionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val headlineAdapter = HeadlineAdapter()
         val actionNowAdapter = ActionNowAdapter()
-        val concatAdapter = ConcatAdapter(headlineAdapter,actionNowAdapter)
+        val concatAdapter = ConcatAdapter(
+            headlineAdapter,
+            LabelAdapter(resources.getString(R.string.action_now_label)),
+            actionNowAdapter,
+            LabelAdapter(resources.getString(R.string.action_suggest_more)),
+            )
         binding.actionRecyclerView.run {
             adapter = concatAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
-        headlineAdapter.submitList(listOf(HeadlineMessages("只要","行动","就永远不会太晚")))
-        viewModel.actionNowLive.observe(this){
+        headlineAdapter.submitList(listOf(HeadlineMessages("只要", "行动", "就永远不会太晚")))
+        viewModel.actionNowLive.observe(this) {
             actionNowAdapter.submitList(it)
         }
         viewModel.refresh()

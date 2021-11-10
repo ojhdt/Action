@@ -5,7 +5,7 @@ import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
 
 class ActionViewModel : ViewModel() {
-    private var _actionNowLive = MutableLiveData<List<Action>>()
+    private var _actionNowLive = MutableLiveData<MutableList<Action>>()
 
     val actionNowLive: LiveData<List<Action>> get() = Transformations.switchMap(_actionNowLive) { Repository.getActionNowLive() }
 

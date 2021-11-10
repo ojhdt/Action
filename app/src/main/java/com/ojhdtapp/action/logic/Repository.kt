@@ -6,7 +6,7 @@ import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.Action
 
 object Repository {
-    fun getActionNowLive() = liveData<List<Action>> {
+    fun getActionNowLive() = liveData {
         val list = listOf(
             Action(
                 "勤关水龙头",

@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.ojhdtapp.action.databinding.ActionActionNowCellBinding
 import com.ojhdtapp.action.databinding.ActionHeadlineBinding
+import com.ojhdtapp.action.databinding.ActionLabelBinding
 import com.ojhdtapp.action.logic.model.Action
 
 //Headline
@@ -81,10 +83,37 @@ class ActionNowViewHolder(val binding: ActionActionNowCellBinding) :
             data.label.forEach {
                 actionChips.addView(Chip(binding.root.context).apply {
                     text = it.second
-                    chipIcon = ResourcesCompat.getDrawable(getResources(), it.first, null);
+                    chipIcon = ResourcesCompat.getDrawable(resources, it.first, null);
                 })
             }
         }
+    }
+}
+
+class LabelAdapter(val label:String = "标题") : RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
+    inner class LabelViewHolder(val binding: ActionLabelBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(string: String) {
+            binding.labelText.text = string
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LabelViewHolder {
+        return LabelViewHolder(
+            ActionLabelBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: LabelViewHolder, position: Int) {
+        holder.bind(label)
+    }
+
+    override fun getItemCount(): Int {
+        return 1
     }
 }
 

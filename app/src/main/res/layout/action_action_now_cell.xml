@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="?attr/materialCardViewFilledStyle"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true">
+    android:background="?attr/colorSurface"
+    android:paddingHorizontal="16dp"
+    android:paddingBottom="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        style="?attr/materialCardViewFilledStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:clickable="true">
 
-        <TextView
-            android:id="@+id/action_content"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
-            android:maxLines="2"
-            android:text="@string/lorem_ipsum"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-            app:layout_constraintEnd_toStartOf="@+id/action_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/action_image" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/action_image"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="?attr/colorPrimaryContainer"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/action_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:round="12dp" />
+            <TextView
+                android:id="@+id/action_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="64dp"
+                android:maxLines="2"
+                android:text="@string/lorem_ipsum"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+                app:layout_constraintEnd_toStartOf="@+id/action_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/action_image" />
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/action_image">
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/action_image"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="?attr/colorPrimaryContainer"
+                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/action_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:round="12dp" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/action_chips"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:singleLine="true" />
-        </HorizontalScrollView>
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/action_image">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/action_chips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:singleLine="true" />
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
