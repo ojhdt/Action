@@ -39,7 +39,7 @@ class ActionFragment : Fragment() {
             adapter = headlineAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        headlineAdapter.submitList(listOf(HeadlineMessages("AA","B","CC")))
+        headlineAdapter.submitList(listOf(HeadlineMessages("只要","行动","就永远不会太晚")))
     }
 
     override fun onDestroyView() {

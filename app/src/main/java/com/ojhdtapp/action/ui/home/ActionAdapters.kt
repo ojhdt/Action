@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ojhdtapp.action.databinding.ActionHeadlineBinding
 
-data class HeadlineMessages(val titleA:String, val titleB:String, val titleC:String)
+data class HeadlineMessages(val titleA: String, val titleB: String, val titleC: String)
 
-class HeadlineAdapter : ListAdapter<HeadlineMessages,HeadlineViewHolder>(TheSameDiffCallBack()){
+class HeadlineAdapter : ListAdapter<HeadlineMessages, HeadlineViewHolder>(TheSameDiffCallBack()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeadlineViewHolder {
-        val binding = ActionHeadlineBinding.inflate(LayoutInflater.from(parent.context))
+        val binding =
+            ActionHeadlineBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HeadlineViewHolder(binding)
     }
 
@@ -22,18 +23,18 @@ class HeadlineAdapter : ListAdapter<HeadlineMessages,HeadlineViewHolder>(TheSame
     }
 }
 
-class HeadlineViewHolder(binding: ActionHeadlineBinding) : RecyclerView.ViewHolder(binding.root){
-    val titleAView:TextView = binding.actionTitleATextView
-    val titleBView:TextView = binding.actionTitleBTextView
-    val titleCView:TextView = binding.actionTitleCTextView
-    fun bind(data:HeadlineMessages){
+class HeadlineViewHolder(binding: ActionHeadlineBinding) : RecyclerView.ViewHolder(binding.root) {
+    val titleAView: TextView = binding.actionTitleATextView
+    val titleBView: TextView = binding.actionTitleBTextView
+    val titleCView: TextView = binding.actionTitleCTextView
+    fun bind(data: HeadlineMessages) {
         titleAView.text = data.titleA
         titleBView.text = data.titleB
         titleCView.text = data.titleC
     }
 }
 
-open class TheSameDiffCallBack : DiffUtil.ItemCallback<HeadlineMessages>(){
+open class TheSameDiffCallBack : DiffUtil.ItemCallback<HeadlineMessages>() {
     override fun areItemsTheSame(oldItem: HeadlineMessages, newItem: HeadlineMessages): Boolean {
         return false
     }

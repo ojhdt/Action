@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="64dp">
+    android:background="@drawable/action_headline_bg"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="64dp">
 
     <TextView
         android:id="@+id/actionTitleATextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_title_a"
         android:textColor="?attr/colorPrimary"
@@ -20,7 +22,7 @@
 
     <TextView
         android:id="@+id/actionTitleBTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_title_b"
         android:textColor="?attr/colorPrimary"
@@ -31,7 +33,7 @@
 
     <TextView
         android:id="@+id/actionTitleCTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_title_c"
         android:textColor="?attr/colorPrimary"
