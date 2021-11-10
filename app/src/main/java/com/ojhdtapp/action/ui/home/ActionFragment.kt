@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 
 class ActionFragment : Fragment() {
-    var _binding: FragmentActionBinding? = null
+    private var _binding: FragmentActionBinding? = null
     val viewModel: ActionViewModel by viewModels()
 
-    val binding get() = _binding
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,18 @@ class ActionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentActionBinding.inflate(inflater, container, false)
-        return binding!!.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val headlineAdapter = HeadlineAdapter()
+        binding.actionRecyclerView.run {
+            adapter = headlineAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+        headlineAdapter.submitList(listOf(HeadlineMessages("AA","B","CC")))
     }
 
     override fun onDestroyView() {
