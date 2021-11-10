@@ -29,7 +29,7 @@
             android:id="@+id/action_image"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorPrimaryContainer"
             app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/action_content"
