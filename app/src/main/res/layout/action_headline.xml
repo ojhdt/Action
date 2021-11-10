@@ -25,8 +25,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_title_b"
+        android:textAppearance="?attr/textAppearanceDisplayLarge"
         android:textColor="?attr/colorPrimary"
-        android:textSize="57sp"
         app:layout_constraintBottom_toTopOf="@+id/actionTitleCTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/actionTitleATextView" />
