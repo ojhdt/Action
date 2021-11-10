@@ -34,8 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/action_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:round="12dp"
-            app:srcCompat="@drawable/anonymous" />
+            app:round="12dp" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
@@ -50,17 +49,7 @@
                 android:id="@+id/action_chips"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:singleLine="true">
-
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Assist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sample"
-                    app:chipIcon="@drawable/ic_baseline_emoji_events_24"
-                    app:ensureMinTouchTargetSize="true" />
-
-            </com.google.android.material.chip.ChipGroup>
+                app:singleLine="true"/>
         </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

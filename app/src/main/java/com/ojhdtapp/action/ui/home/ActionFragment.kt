@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ojhdtapp.action.R
@@ -33,13 +35,19 @@ class ActionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val headlineAdapter = HeadlineAdapter()
+        val actionNowAdapter = ActionNowAdapter()
+        val concatAdapter = ConcatAdapter(headlineAdapter,actionNowAdapter)
         binding.actionRecyclerView.run {
-            adapter = headlineAdapter
+            adapter = concatAdapter
             layoutManager = LinearLayoutManager(context)
         }
+
         headlineAdapter.submitList(listOf(HeadlineMessages("只要","行动","就永远不会太晚")))
+        viewModel.actionNowLive.observe(this){
+            actionNowAdapter.submitList(it)
+        }
+        viewModel.refresh()
     }
 
     override fun onDestroyView() {
