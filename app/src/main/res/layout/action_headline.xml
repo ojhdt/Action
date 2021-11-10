@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/action_headline_bg"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="64dp">
+    android:paddingVertical="48dp">
 
     <TextView
         android:id="@+id/actionTitleATextView"

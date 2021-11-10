@@ -34,6 +34,8 @@ class HeadlineViewHolder(binding: ActionHeadlineBinding) : RecyclerView.ViewHold
     }
 }
 
+
+
 open class TheSameDiffCallBack : DiffUtil.ItemCallback<HeadlineMessages>() {
     override fun areItemsTheSame(oldItem: HeadlineMessages, newItem: HeadlineMessages): Boolean {
         return false
