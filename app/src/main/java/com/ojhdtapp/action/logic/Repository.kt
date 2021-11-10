@@ -7,7 +7,13 @@ import com.ojhdtapp.action.logic.model.Action
 
 object Repository {
     fun getActionNowLive() = liveData<List<Action>> {
-        val list = listOf<Action>(
+        val list = listOf(
+            Action(
+                "勤关水龙头",
+                R.drawable.anonymous,
+                "一些内容",
+                listOf(Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"))
+            ),
             Action(
                 "勤关水龙头",
                 R.drawable.anonymous,
