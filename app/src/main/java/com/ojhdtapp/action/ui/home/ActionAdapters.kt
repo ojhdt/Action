@@ -83,14 +83,17 @@ class ActionNowViewHolder(val binding: ActionActionNowCellBinding) :
             data.label.forEach {
                 actionChips.addView(Chip(binding.root.context).apply {
                     text = it.second
-                    chipIcon = ResourcesCompat.getDrawable(resources, it.first, null);
+                    it.first?.let {
+                        chipIcon = ResourcesCompat.getDrawable(resources, it, null);
+                    }
                 })
             }
         }
     }
 }
 
-class LabelAdapter(val label:String = "标题") : RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
+class LabelAdapter(val label: String = "标题") :
+    RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
     inner class LabelViewHolder(val binding: ActionLabelBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(string: String) {
