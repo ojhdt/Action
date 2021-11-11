@@ -36,6 +36,8 @@ class ActionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Adapter for rv
         val headlineAdapter = HeadlineAdapter()
         val actionNowAdapter = ActionNowAdapter()
         val suggestMoreAdapter = SuggestMoreAdapter()
@@ -59,6 +61,9 @@ class ActionFragment : Fragment() {
             suggestMoreAdapter.submitList(it)
         }
         viewModel.refresh()
+
+        // Hide FAB when scrolled
+
     }
 
     override fun onDestroyView() {
