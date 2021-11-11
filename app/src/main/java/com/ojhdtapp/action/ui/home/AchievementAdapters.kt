@@ -15,10 +15,10 @@ import com.ojhdtapp.action.databinding.AchievementMediumCardBinding
 import com.ojhdtapp.action.databinding.AchievementSmallCardBinding
 import com.ojhdtapp.action.logic.model.StatisticsBlock
 
-class StatisticsAdapter(itemView: View) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var totalTitleA: String = BaseApplication.context.getString(R.string.action_title_a)
+class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var totalTitleA: String = BaseApplication.context.getString(R.string.achievement_total_a)
     private var totalNum: Int = 0
-    private var totalTitleC: String = BaseApplication.context.getString(R.string.action_title_c)
+    private var totalTitleC: String = BaseApplication.context.getString(R.string.achievement_total_c)
     private var list: MutableList<StatisticsBlock> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -43,7 +43,7 @@ class StatisticsAdapter(itemView: View) : RecyclerView.Adapter<RecyclerView.View
                 val binding = AchievementSmallCardBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent.findViewById(R.id.achievementContainer),
-                    true
+                    false
                 )
                 return StatisticsViewHolder(binding)
             }
@@ -52,7 +52,7 @@ class StatisticsAdapter(itemView: View) : RecyclerView.Adapter<RecyclerView.View
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder.bindingAdapterPosition) {
+        when (getItemViewType(position)) {
             0 -> {
                 (holder as TotalViewHolder).bind(totalTitleA, totalNum, totalTitleC)
             }
@@ -66,11 +66,15 @@ class StatisticsAdapter(itemView: View) : RecyclerView.Adapter<RecyclerView.View
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return list.size + 2
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) 0 else 1
+        return when (position) {
+            0 -> 0
+            1 -> 1
+            else -> 2
+        }
     }
 
     fun setTotalNum(num: Int) {

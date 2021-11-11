@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
+import com.ojhdtapp.action.logic.model.StatisticsBlock
 
 class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
@@ -42,6 +44,16 @@ class AchievementFragment : Fragment() {
             )
         )
         NavigationUI.setupWithNavController(binding.toolbar,findNavController(),appBarConfiguration)
+
+        val statisticsAdapter = StatisticsAdapter()
+        binding.recyclerView.run{
+            adapter = statisticsAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+        statisticsAdapter.setTotalNum(30)
+        statisticsAdapter.submitList(listOf(
+            StatisticsBlock(R.drawable.ic_outline_emoji_events_24)
+        ))
     }
 
     override fun onDestroyView() {
