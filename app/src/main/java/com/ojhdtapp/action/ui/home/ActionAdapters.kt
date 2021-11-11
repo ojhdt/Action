@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
+import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.databinding.ActionActionNowCellBinding
 import com.ojhdtapp.action.databinding.ActionHeadlineBinding
 import com.ojhdtapp.action.databinding.ActionLabelBinding
@@ -86,7 +88,7 @@ class ActionNowViewHolder(val binding: ActionActionNowCellBinding) :
                 actionChips.addView(Chip(binding.root.context).apply {
                     text = it.second
                     it.first?.let {
-                        chipIcon = ResourcesCompat.getDrawable(resources, it, null);
+                        setChipIconResource(it)
                     }
                 })
             }
