@@ -47,7 +47,7 @@ class ActionFragment : Fragment() {
             suggestMoreAdapter
             )
         binding.actionRecyclerView.run {
-            dapter = concatAdapter
+            adapter = concatAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
