@@ -23,7 +23,7 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/statisticsIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/circle_color_primary"
@@ -31,14 +31,14 @@
                 app:srcCompat="@drawable/ic_baseline_star_outline_24" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/statisticsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAppearance="?attr/textAppearanceBodyMedium" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/statisticsNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sample_number"

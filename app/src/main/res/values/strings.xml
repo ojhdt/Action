@@ -12,6 +12,8 @@
     <string name="action_now_label">现在行动</string>
     <string name="action_suggest_more">建议</string>
 
+    <string name="achievement_toolbar_history">历史</string>
+
     <string name="title">标题</string>
     <string name="subhead">副标题</string>
     <string name="go_further">前往</string>

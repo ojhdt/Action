@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/actionFragment"
         android:name="com.ojhdtapp.action.ui.home.ActionFragment"
-        android:label="fragment_action"
+        android:label="@string/nav_action"
         tools:layout="@layout/fragment_action" />
     <fragment
         android:id="@+id/achievementFragment"
         android:name="com.ojhdtapp.action.ui.home.AchievementFragment"
-        android:label="fragment_achievement"
+        android:label="@string/nav_achievement"
         tools:layout="@layout/fragment_achievement" />
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.ojhdtapp.action.ui.home.ExploreFragment"
-        android:label="fragment_explore"
+        android:label="@string/nav_explore"
         tools:layout="@layout/fragment_explore" />
 </navigation>
