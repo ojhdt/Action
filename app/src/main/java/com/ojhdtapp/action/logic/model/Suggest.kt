@@ -2,6 +2,7 @@ package com.ojhdtapp.action.logic.model
 
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Entity
@@ -14,4 +15,7 @@ data class Suggest(
     val type: Int = 0,
     val content: String,
     val label: List<Pair<Int?, String>> = listOf()
-): Parcelable
+) : Parcelable {
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+}

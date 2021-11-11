@@ -14,7 +14,9 @@ import com.google.android.material.chip.Chip
 import com.ojhdtapp.action.databinding.ActionActionNowCellBinding
 import com.ojhdtapp.action.databinding.ActionHeadlineBinding
 import com.ojhdtapp.action.databinding.ActionLabelBinding
+import com.ojhdtapp.action.databinding.ActionSuggestMoreCellBinding
 import com.ojhdtapp.action.logic.model.Action
+import com.ojhdtapp.action.logic.model.Suggest
 
 //Headline
 
@@ -88,6 +90,50 @@ class ActionNowViewHolder(val binding: ActionActionNowCellBinding) :
                     }
                 })
             }
+        }
+    }
+}
+
+class SuggestMoreAdapter :
+    ListAdapter<Suggest, SuggestMoreViewHolder>(object : DiffUtil.ItemCallback<Suggest>() {
+        override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
+            return oldItem.title == newItem.title
+        }
+    }) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestMoreViewHolder {
+        val binding = ActionSuggestMoreCellBinding.inflate(
+            LayoutInflater.from(
+                parent
+                    .context
+            ), parent, false
+        )
+        return SuggestMoreViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: SuggestMoreViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+}
+
+class SuggestMoreViewHolder(val binding: ActionSuggestMoreCellBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(data: Suggest) {
+        binding.run {
+            suggestTitle.text = data.title
+            suggestSubhead.text = data.subhead
+            if (data.imgUrl != null) {
+                Glide.with(binding.root.context)
+                    .load(data.imgUrl)
+//                    .placeholder()
+                    .into(suggestImage)
+            } else {
+                suggestImage.visibility = View.GONE
+            }
+            suggestContent.text = data.content
         }
     }
 }

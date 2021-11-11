@@ -38,20 +38,25 @@ class ActionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val headlineAdapter = HeadlineAdapter()
         val actionNowAdapter = ActionNowAdapter()
+        val suggestMoreAdapter = SuggestMoreAdapter()
         val concatAdapter = ConcatAdapter(
             headlineAdapter,
             LabelAdapter(resources.getString(R.string.action_now_label)),
             actionNowAdapter,
             LabelAdapter(resources.getString(R.string.action_suggest_more)),
+            suggestMoreAdapter
             )
         binding.actionRecyclerView.run {
-            adapter = concatAdapter
+            dapter = concatAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
         headlineAdapter.submitList(listOf(HeadlineMessages("只要", "行动", "就永远不会太晚")))
         viewModel.actionNowLive.observe(this) {
             actionNowAdapter.submitList(it)
+        }
+        viewModel.suggestMoreLive.observe(this){
+            suggestMoreAdapter.submitList(it)
         }
         viewModel.refresh()
     }
