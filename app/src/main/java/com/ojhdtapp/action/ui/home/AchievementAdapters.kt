@@ -117,7 +117,7 @@ class StatisticsViewHolder(val binding: AchievementSmallCardBinding) :
 }
 
 class StatisticsBlockSpaceItemDecoration(val listLength: Int) : RecyclerView.ItemDecoration() {
-    private val space = DensityUtil.dip2px(BaseApplication.context, 6f)
+    private val space = DensityUtil.dip2px(BaseApplication.context, 12f)
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
