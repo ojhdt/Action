@@ -5,11 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginTop
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
@@ -17,8 +22,9 @@ import com.ojhdtapp.action.logic.model.StatisticsBlock
 
 class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
-
     val binding get() = _binding!!
+
+    val viewModel by viewModels<AchievementViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +55,10 @@ class AchievementFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
+        binding.appbar.apply {
+            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
+            setPadding(0, offset, 0, 0)
+        }
 
         val statisticsAdapter = StatisticsAdapter()
         binding.recyclerView.run {
