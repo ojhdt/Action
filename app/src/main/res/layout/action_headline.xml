@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="80dp"
+    android:layout_marginTop="132dp"
     android:background="@drawable/action_headline_bg"
     android:paddingHorizontal="24dp"
-    android:paddingVertical="48dp">
+    android:paddingVertical="60dp">
 
     <TextView
         android:id="@+id/actionTitleATextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_title_a"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
         android:textColor="?attr/colorPrimary"
-        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/actionTitleBTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/action_title_c"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
         android:textColor="?attr/colorPrimary"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

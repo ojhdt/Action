@@ -140,12 +140,13 @@ class SuggestMoreViewHolder(val binding: ActionSuggestMoreCellBinding) :
     }
 }
 
-class LabelAdapter(val label: String = "标题") :
+class LabelAdapter(private val label: String = "标题", private val subLabel: String = "附标题") :
     RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
-    inner class LabelViewHolder(val binding: ActionLabelBinding) :
+    inner class LabelViewHolder(private val binding: ActionLabelBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(string: String) {
-            binding.labelText.text = string
+        fun bind(label: String, subLabel: String) {
+            binding.labelText.text = label
+            binding.subLabelText.text = subLabel
         }
     }
 
@@ -160,7 +161,7 @@ class LabelAdapter(val label: String = "标题") :
     }
 
     override fun onBindViewHolder(holder: LabelViewHolder, position: Int) {
-        holder.bind(label)
+        holder.bind(label, subLabel)
     }
 
     override fun getItemCount(): Int {

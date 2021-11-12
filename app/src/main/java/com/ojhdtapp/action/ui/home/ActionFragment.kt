@@ -46,9 +46,9 @@ class ActionFragment : Fragment() {
         val suggestMoreAdapter = SuggestMoreAdapter()
         val concatAdapter = ConcatAdapter(
             headlineAdapter,
-            LabelAdapter(resources.getString(R.string.action_now_label)),
+            LabelAdapter(resources.getString(R.string.action_now_label),"根据你的状态推荐的行动"),
             actionNowAdapter,
-            LabelAdapter(resources.getString(R.string.action_suggest_more)),
+            LabelAdapter(resources.getString(R.string.action_suggest_more), "更多有助于保护环境的建议"),
             suggestMoreAdapter
         )
         binding.actionRecyclerView.run {
