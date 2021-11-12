@@ -25,10 +25,11 @@
         tools:context=".ui.home.ActionFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/welcomeTextContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="24dp"
-            android:paddingVertical="60dp"
+            android:paddingVertical="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

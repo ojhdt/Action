@@ -1,18 +1,22 @@
 package com.ojhdtapp.action.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.marginTop
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
@@ -40,15 +44,27 @@ class ActionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Set StatusBar Offset
+        binding.welcomeTextContainer.run {
+            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
+            setPadding(paddingLeft, paddingTop + offset, paddingRight, paddingBottom)
+        }
+
         // Adapter for rv
         val headlineAdapter = ActionAdapters.HeadlineAdapter()
         val actionNowAdapter = ActionAdapters.ActionNowAdapter()
         val suggestMoreAdapter = ActionAdapters.SuggestMoreAdapter()
         val concatAdapter = ConcatAdapter(
             headlineAdapter,
-            ActionAdapters.LabelAdapter(resources.getString(R.string.action_now_label),"根据你的状态推荐的行动"),
+            ActionAdapters.LabelAdapter(
+                resources.getString(R.string.action_now_label),
+                "根据你的状态推荐的行动"
+            ),
             actionNowAdapter,
-            ActionAdapters.LabelAdapter(resources.getString(R.string.action_suggest_more), "更多有助于保护环境的建议"),
+            ActionAdapters.LabelAdapter(
+                resources.getString(R.string.action_suggest_more),
+                "更多有助于保护环境的建议"
+            ),
             suggestMoreAdapter
         )
         binding.actionRecyclerView.run {

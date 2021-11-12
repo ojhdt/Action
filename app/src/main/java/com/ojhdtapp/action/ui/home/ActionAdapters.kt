@@ -5,14 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.databinding.ActionActionNowCellBinding
 import com.ojhdtapp.action.databinding.ActionHeadlineBinding
 import com.ojhdtapp.action.databinding.ActionLabelBinding
@@ -29,6 +35,11 @@ object ActionAdapters {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeadlineViewHolder {
             val binding =
                 ActionHeadlineBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            // Set StatusBar Offset
+            binding.root.apply {
+                val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
+                (layoutParams as RecyclerView.LayoutParams).topMargin = marginTop + offset
+            }
             return HeadlineViewHolder(binding)
         }
 
