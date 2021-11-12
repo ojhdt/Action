@@ -1,11 +1,13 @@
 package com.ojhdtapp.action.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.DrawableUtils
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
@@ -15,10 +17,13 @@ import com.ojhdtapp.action.databinding.AchievementMediumCardBinding
 import com.ojhdtapp.action.databinding.AchievementSmallCardBinding
 import com.ojhdtapp.action.logic.model.StatisticsBlock
 
+
 class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var totalTitleA: String = BaseApplication.context.getString(R.string.achievement_total_a)
+    private var totalTitleA: String =
+        BaseApplication.context.getString(R.string.achievement_total_a)
     private var totalNum: Int = 0
-    private var totalTitleC: String = BaseApplication.context.getString(R.string.achievement_total_c)
+    private var totalTitleC: String =
+        BaseApplication.context.getString(R.string.achievement_total_c)
     private var list: MutableList<StatisticsBlock> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -31,18 +36,10 @@ class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     )
                 return TotalViewHolder(binding)
             }
-            1 -> {
-                val binding = AchievementCardContainerBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                return object : RecyclerView.ViewHolder(binding.root) {}
-            }
             else -> {
                 val binding = AchievementSmallCardBinding.inflate(
                     LayoutInflater.from(parent.context),
-                    parent.findViewById(R.id.achievementContainer),
+                    parent,
                     false
                 )
                 return StatisticsViewHolder(binding)
@@ -56,24 +53,21 @@ class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             0 -> {
                 (holder as TotalViewHolder).bind(totalTitleA, totalNum, totalTitleC)
             }
-            1 -> {
-            }
             else -> {
-                val item = list[position - 2]
+                val item = list[position - 1]
                 (holder as StatisticsViewHolder).bind(item)
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return list.size + 2
+        return list.size + 1
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             0 -> 0
-            1 -> 1
-            else -> 2
+            else -> 1
         }
     }
 

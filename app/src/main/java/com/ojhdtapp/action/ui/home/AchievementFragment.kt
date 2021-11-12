@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
@@ -43,17 +44,33 @@ class AchievementFragment : Fragment() {
                 R.id.exploreFragment
             )
         )
-        NavigationUI.setupWithNavController(binding.toolbar,findNavController(),appBarConfiguration)
+        NavigationUI.setupWithNavController(
+            binding.toolbar,
+            findNavController(),
+            appBarConfiguration
+        )
 
         val statisticsAdapter = StatisticsAdapter()
-        binding.recyclerView.run{
+        binding.recyclerView.run { 
             adapter = statisticsAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 2).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if (position != 0 && position < 4 + 1) 1
+                        else 2
+                    }
+                }
+            }
         }
         statisticsAdapter.setTotalNum(30)
-        statisticsAdapter.submitList(listOf(
-            StatisticsBlock(R.drawable.ic_outline_emoji_events_24)
-        ))
+        statisticsAdapter.submitList(
+            listOf(
+                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
+                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
+                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
+                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
+            )
+        )
     }
 
     override fun onDestroyView() {
