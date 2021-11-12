@@ -41,14 +41,14 @@ class ActionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Adapter for rv
-        val headlineAdapter = HeadlineAdapter()
-        val actionNowAdapter = ActionNowAdapter()
-        val suggestMoreAdapter = SuggestMoreAdapter()
+        val headlineAdapter = ActionAdapters.HeadlineAdapter()
+        val actionNowAdapter = ActionAdapters.ActionNowAdapter()
+        val suggestMoreAdapter = ActionAdapters.SuggestMoreAdapter()
         val concatAdapter = ConcatAdapter(
             headlineAdapter,
-            LabelAdapter(resources.getString(R.string.action_now_label),"根据你的状态推荐的行动"),
+            ActionAdapters.LabelAdapter(resources.getString(R.string.action_now_label),"根据你的状态推荐的行动"),
             actionNowAdapter,
-            LabelAdapter(resources.getString(R.string.action_suggest_more), "更多有助于保护环境的建议"),
+            ActionAdapters.LabelAdapter(resources.getString(R.string.action_suggest_more), "更多有助于保护环境的建议"),
             suggestMoreAdapter
         )
         binding.actionRecyclerView.run {
@@ -56,7 +56,7 @@ class ActionFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        headlineAdapter.submitList(listOf(HeadlineMessages("只要", "行动", "就永远不会太晚")))
+        headlineAdapter.submitList(listOf(ActionAdapters.HeadlineMessages("只要", "行动", "就永远不会太晚")))
         viewModel.actionNowLive.observe(this) {
             actionNowAdapter.submitList(it)
         }

@@ -1,6 +1,8 @@
 package com.ojhdtapp.action.ui.home
 
 import android.content.Context
+import android.graphics.Rect
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.AchievementCardContainerBinding
 import com.ojhdtapp.action.databinding.AchievementMediumCardBinding
@@ -112,3 +115,26 @@ class StatisticsViewHolder(val binding: AchievementSmallCardBinding) :
         }
     }
 }
+
+class StatisticsBlockSpaceItemDecoration(val listLength: Int) : RecyclerView.ItemDecoration() {
+    private val space = DensityUtil.dip2px(BaseApplication.context, 6f)
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        outRect.top = space
+        outRect.bottom = space
+        val position = parent.getChildAdapterPosition(view)
+        if (position != 0 && position < listLength + 1) {
+            // Right
+            if (position % 2 == 0) {
+                outRect.left = space
+            } else {
+                outRect.right = space
+            }
+        }
+    }
+}
+

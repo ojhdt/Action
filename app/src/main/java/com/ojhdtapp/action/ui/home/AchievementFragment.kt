@@ -61,6 +61,7 @@ class AchievementFragment : Fragment() {
                     }
                 }
             }
+            addItemDecoration(StatisticsBlockSpaceItemDecoration(4))
         }
         statisticsAdapter.setTotalNum(30)
         statisticsAdapter.submitList(
