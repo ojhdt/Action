@@ -2,10 +2,13 @@ package com.ojhdtapp.action
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,7 +37,19 @@ class MainActivity : AppCompatActivity() {
 
         // Hide NavigationBar & StatusBAr
         WindowCompat.setDecorFitsSystemWindows(window, false)
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+//            v.updatePadding(top = insets.systemWindowInsets.top)
+//            insets
+//        }
 
+        //  Set SystemBar Appearance
+//        val controller = binding.root.windowInsetsController
+//        if (controller != null) {
+//            controller.setSystemBarsAppearance(
+//                APPEARANCE_LIGHT_STATUS_BARS, // value
+//                APPEARANCE_LIGHT_STATUS_BARS // mask
+//            )
+//        }
 
 
         // Navigation
