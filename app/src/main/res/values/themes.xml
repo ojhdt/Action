@@ -43,5 +43,11 @@
         <item name="colorPrimaryInverse">@color/md_theme_light_primaryInverse</item>
 
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+        <item name="android:statusBarColor">
+            @android:color/transparent
+        </item>
     </style>
 </resources>

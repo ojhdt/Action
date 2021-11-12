@@ -51,7 +51,7 @@ class AchievementFragment : Fragment() {
         )
 
         val statisticsAdapter = StatisticsAdapter()
-        binding.recyclerView.run { 
+        binding.recyclerView.run {
             adapter = statisticsAdapter
             layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
