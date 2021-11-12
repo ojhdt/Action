@@ -81,6 +81,7 @@ class ActionNowViewHolder(val binding: ActionActionNowCellBinding) :
     fun bind(data: Action) {
         binding.run {
             actionContent.text = data.title
+            actionSource.text = "${data.source}•${data.timestamp.time}"
             Glide.with(binding.root)
                 .load(data.imageID)
                 .into(binding.actionImage)
