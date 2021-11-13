@@ -146,14 +146,15 @@ object AchievementAdapters {
             state: RecyclerView.State
         ) {
             outRect.top = space
-            outRect.bottom = space
             val position = parent.getChildAdapterPosition(view)
             if (position != 0 && position < listLength + 1) {
                 // Right
                 if (position % 2 == 0) {
-                    outRect.left = space
+                    outRect.left = space / 2
+                    outRect.right = space * 2
                 } else {
-                    outRect.right = space
+                    outRect.left = space * 2
+                    outRect.right = space / 2
                 }
             }
         }
@@ -176,5 +177,5 @@ object AchievementAdapters {
         }
     }
 
-    class AchievementViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
+    class AchievementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
