@@ -2,5 +2,5 @@ package com.ojhdtapp.action.ui.home
 
 import androidx.lifecycle.ViewModel
 
-class AchievementViewModel: ViewModel() {
+class _AchievementViewModel: ViewModel() {
 }

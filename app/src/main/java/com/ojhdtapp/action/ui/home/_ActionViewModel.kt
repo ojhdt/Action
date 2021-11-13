@@ -6,7 +6,7 @@ import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 import com.ojhdtapp.action.logic.model.User
 
-class ActionViewModel : ViewModel() {
+class _ActionViewModel : ViewModel() {
     private var _actionNowLive = MutableLiveData<MutableList<Action>>()
     private var _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
     private val _userInfoLive = MutableLiveData<Any?>()
