@@ -27,7 +27,7 @@
         <item>再接再厉！</item>
         <item>你是一位英雄！</item>
     </string-array>
-    <string name="achievement_xp_needed">你还需要额外%1$s经验来提升到等级%2$s</string>
+    <string name="achievement_xp_needed">你还需要额外 %1$s 经验来提升到等级 %2$s</string>
 
     <string name="achievement_gained">已解锁的成就</string>
     <string name="achievement_sort_by_alpha">按字母顺序排序</string>

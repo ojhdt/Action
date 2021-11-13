@@ -1,7 +1,11 @@
 package com.ojhdtapp.action.ui.home
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Rect
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -226,6 +230,13 @@ object AchievementAdapters {
                 nowLevel.text = levelNow.toString()
                 nextLevel.text = (levelNow + 1).toString()
                 progressBar.setProgress(progress, true)
+//                val message = binding.root.resources.getString(
+//                    R.string.achievement_xp_needed,
+//                    neededXP.toString(),
+//                    (levelNow + 1).toString()
+//                )
+//                val styledMessage = SpannableStringBuilder(message).setSpan(ForegroundColorSpan(
+//                    Color.BLACK, ,Spannable.SPAN_EXCLUSIVE_INCLUSIVE))
                 nextLevelMessage.text = binding.root.resources.getString(
                     R.string.achievement_xp_needed,
                     neededXP.toString(),
