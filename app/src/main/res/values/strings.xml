@@ -21,6 +21,14 @@
 
     <string name="achievement_total_a">哇噢！你已累计完成了不同类型的行动</string>
     <string name="achievement_total_c">次</string>
+
+    <string-array name="achievement_xps">
+        <item>行动起来！</item>
+        <item>再接再厉！</item>
+        <item>你是一位英雄！</item>
+    </string-array>
+    
+    <string name="achievement_xp_needed">你还需要额外%1$s经验来提升到等级%2$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_number">80</string>

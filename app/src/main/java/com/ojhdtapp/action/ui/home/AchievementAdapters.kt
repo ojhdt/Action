@@ -15,9 +15,9 @@ import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
-import com.ojhdtapp.action.databinding.AchievementCardContainerBinding
 import com.ojhdtapp.action.databinding.AchievementMediumCardBinding
 import com.ojhdtapp.action.databinding.AchievementSmallCardBinding
+import com.ojhdtapp.action.databinding.AchievementXpBinding
 import com.ojhdtapp.action.logic.model.StatisticsBlock
 
 
@@ -88,6 +88,27 @@ class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 }
 
+class XPAdapter : RecyclerView.Adapter<XPViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): XPViewHolder {
+        val binding =
+            AchievementXpBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.animationView.run {
+            setOnClickListener {
+                if (isAnimating == false) playAnimation()
+            }
+        }
+        return XPViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: XPViewHolder, position: Int) {
+        holder.bind(28, 200, 60)
+    }
+
+    override fun getItemCount(): Int {
+        return 1
+    }
+}
+
 class TotalViewHolder(val binding: AchievementMediumCardBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(
@@ -138,3 +159,19 @@ class StatisticsBlockSpaceItemDecoration(val listLength: Int) : RecyclerView.Ite
     }
 }
 
+class XPViewHolder(val binding: AchievementXpBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(levelNow: Int, neededXP: Int, progress: Int) {
+        binding.run {
+            levelTitle.text =
+                binding.root.resources.getStringArray(R.array.achievement_xps).random()
+            nowLevel.text = levelNow.toString()
+            nextLevel.text = (levelNow + 1).toString()
+            progressBar.setProgress(progress, true)
+            nextLevelMessage.text = binding.root.resources.getString(
+                R.string.achievement_xp_needed,
+                neededXP.toString(),
+                (levelNow + 1).toString()
+            )
+        }
+    }
+}

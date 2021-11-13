@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,8 +62,10 @@ class AchievementFragment : Fragment() {
         }
 
         val statisticsAdapter = StatisticsAdapter()
+        val xpAdapter = XPAdapter()
         binding.recyclerView.run {
-            adapter = statisticsAdapter
+            val concatAdapter = ConcatAdapter(statisticsAdapter,xpAdapter)
+            adapter = concatAdapter
             layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
