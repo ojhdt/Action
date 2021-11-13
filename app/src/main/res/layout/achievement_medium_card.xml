@@ -54,13 +54,13 @@
             app:layout_constraintStart_toEndOf="@+id/totalB" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/business" />
+            app:lottie_rawRes="@raw/congratulations" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
