@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentExploreBinding
@@ -13,6 +14,7 @@ class ExploreFragment : Fragment() {
     var _binding: FragmentExploreBinding? = null
 
     val binding get() = _binding
+    val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

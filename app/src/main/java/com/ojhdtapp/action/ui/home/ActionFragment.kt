@@ -6,25 +6,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.marginTop
 import androidx.core.view.updatePadding
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
+import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
 
 class ActionFragment : Fragment() {
     private var _binding: FragmentActionBinding? = null
-    val viewModel: ActionViewModel by viewModels()
+    val viewModel: SharedViewModel by activityViewModels()
 
     val binding get() = _binding!!
 
@@ -58,12 +62,12 @@ class ActionFragment : Fragment() {
             headlineAdapter,
             ActionAdapters.LabelAdapter(
                 resources.getString(R.string.action_now_label),
-                "根据你的状态推荐的行动"
+                resources.getString(R.string.action_now_label_description)
             ),
             actionNowAdapter,
             ActionAdapters.LabelAdapter(
                 resources.getString(R.string.action_suggest_more),
-                "更多有助于保护环境的建议"
+                resources.getString(R.string.action_suggest_more_description)
             ),
             suggestMoreAdapter
         )
@@ -72,15 +76,39 @@ class ActionFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        headlineAdapter.submitList(listOf(ActionAdapters.HeadlineMessages("只要", "行动", "就永远不会太晚")))
+        resources.run {
+            val headlineMessages = listOf<String>(
+                getString(R.string.action_title_a),
+                getString(R.string.action_title_b),
+                getString(R.string.action_title_c)
+            )
+            headlineAdapter.submitList(
+                listOf(
+                    ActionAdapters.HeadlineMessages(
+                        headlineMessages[0],
+                        headlineMessages[1],
+                        headlineMessages[2]
+                    )
+                )
+            )
+        }
         viewModel.actionNowLive.observe(this) {
             actionNowAdapter.submitList(it)
         }
         viewModel.suggestMoreLive.observe(this) {
             suggestMoreAdapter.submitList(it)
         }
-        viewModel.refresh()
+//        viewModel.refresh()
 
+        // Welcome Text & Avatar
+        viewModel.userInfoLive.observe(this) {
+            binding.welcomeTextView.text =
+                resources.getStringArray(R.array.action_welcomes).random() + it.username
+            Glide.with(BaseApplication.context)
+                .load(ContextCompat.getDrawable(BaseApplication.context, it.avatarResID))
+                .into(binding.welcomeAvatarImageView)
+        }
+//        viewModel.getUserInfo()
     }
 
     override fun onDestroyView() {

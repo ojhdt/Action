@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -21,10 +22,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.ojhdtapp.action.databinding.ActivityMainBinding
+import com.ojhdtapp.action.ui.home.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
+    val viewModel:SharedViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +37,12 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         navController = navHostFragment.findNavController()
         setContentView(binding.root)
+
+        // Refresh Fragment Data
+        viewModel.run {
+            refresh()
+            getUserInfo()
+        }
 
         // Hide NavigationBar & StatusBAr
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -51,9 +60,10 @@ class MainActivity : AppCompatActivity() {
 //            )
 //        }
 
-
         // Navigation
         NavigationUI.setupWithNavController(binding.homeNav, navController)
 //        navController.addOnDestinationChangedListener { controller, destination, arguments -> TODO("Not yet implemented") }
+
+
     }
 }

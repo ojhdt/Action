@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.marginTop
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -26,7 +27,7 @@ class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
     val binding get() = _binding!!
 
-    val viewModel by viewModels<AchievementViewModel>()
+    val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

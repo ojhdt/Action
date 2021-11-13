@@ -6,6 +6,7 @@ import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
+import com.ojhdtapp.action.logic.model.User
 import java.sql.Timestamp
 
 object Repository {
@@ -42,4 +43,9 @@ object Repository {
         emit(list)
     }
 
+    fun getUserInfoLive(): LiveData<User> {
+        return liveData {
+            emit(User("Username", R.drawable.anonymous, Timestamp(0)))
+        }
+    }
 }

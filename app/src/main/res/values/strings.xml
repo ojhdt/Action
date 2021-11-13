@@ -4,13 +4,20 @@
     <string name="nav_achievement">成就</string>
     <string name="nav_explore">发现</string>
 
-    <string name="action_welcome">你好，%1$s！</string>
+
+    <string-array name="action_welcomes">
+        <item>你好，</item>
+        <item>好久不见，</item>
+        <item>很高兴见到你，</item>
+    </string-array>
     <string name="action_title_a">只要</string>
     <string name="action_title_b">行动</string>
     <string name="action_title_c">就永远不会太晚</string>
 
     <string name="action_now_label">现在行动</string>
+    <string name="action_now_label_description">根据你的状态推荐的行动</string>
     <string name="action_suggest_more">建议</string>
+    <string name="action_suggest_more_description">更多有助于保护环境的建议</string>
 
     <string name="achievement_toolbar_history">历史</string>
 
