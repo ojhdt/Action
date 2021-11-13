@@ -61,8 +61,8 @@ class AchievementFragment : Fragment() {
             setPadding(0, offset, 0, 0)
         }
 
-        val statisticsAdapter = StatisticsAdapter()
-        val xpAdapter = XPAdapter()
+        val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
+        val xpAdapter = AchievementAdapters.XPAdapter()
         binding.recyclerView.run {
             val concatAdapter = ConcatAdapter(statisticsAdapter,xpAdapter)
             adapter = concatAdapter
@@ -74,7 +74,7 @@ class AchievementFragment : Fragment() {
                     }
                 }
             }
-            addItemDecoration(StatisticsBlockSpaceItemDecoration(4))
+            addItemDecoration(AchievementAdapters.StatisticsBlockSpaceItemDecoration(4))
         }
         statisticsAdapter.setTotalNum(30)
         statisticsAdapter.submitList(
