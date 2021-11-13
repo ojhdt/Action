@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:id="@+id/action_image"
+        android:id="@+id/achievement_icon"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="24dp"
@@ -30,8 +30,8 @@
         android:text="@string/title"
         android:textAppearance="?attr/textAppearanceBodyMedium"
         app:layout_constraintBottom_toTopOf="@+id/achievement_description"
-        app:layout_constraintStart_toEndOf="@+id/action_image"
-        app:layout_constraintTop_toTopOf="@+id/action_image" />
+        app:layout_constraintStart_toEndOf="@+id/achievement_icon"
+        app:layout_constraintTop_toTopOf="@+id/achievement_icon" />
 
     <TextView
         android:id="@+id/achievement_description"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="?attr/textAppearanceBodySmall"
-        app:layout_constraintBottom_toBottomOf="@+id/action_image"
+        app:layout_constraintBottom_toBottomOf="@+id/achievement_icon"
         app:layout_constraintStart_toStartOf="@+id/achievement_description"
         app:layout_constraintTop_toBottomOf="@+id/achievement_description" />
 

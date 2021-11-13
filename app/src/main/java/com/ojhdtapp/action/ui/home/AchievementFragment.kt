@@ -19,6 +19,7 @@ import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
+import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.StatisticsBlock
 
 class AchievementFragment : Fragment() {
@@ -63,8 +64,9 @@ class AchievementFragment : Fragment() {
 
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()
+        val achievementListAdapter = AchievementAdapters.AchievementListAdapter()
         binding.recyclerView.run {
-            val concatAdapter = ConcatAdapter(statisticsAdapter,xpAdapter)
+            val concatAdapter = ConcatAdapter(statisticsAdapter,xpAdapter,achievementListAdapter)
             adapter = concatAdapter
             layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -85,6 +87,11 @@ class AchievementFragment : Fragment() {
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
             )
         )
+        achievementListAdapter.submitList(listOf(
+            Achievement(),
+            Achievement(),
+            Achievement(),
+        ))
     }
 
     override fun onDestroyView() {

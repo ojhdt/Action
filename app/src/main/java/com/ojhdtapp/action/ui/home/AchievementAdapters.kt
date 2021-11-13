@@ -15,11 +15,10 @@ import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
-import com.ojhdtapp.action.databinding.AchievementListBinding
-import com.ojhdtapp.action.databinding.AchievementMediumCardBinding
-import com.ojhdtapp.action.databinding.AchievementSmallCardBinding
-import com.ojhdtapp.action.databinding.AchievementXpBinding
+import com.ojhdtapp.action.databinding.*
+import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.StatisticsBlock
+import java.sql.Timestamp
 
 object AchievementAdapters {
     class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -110,6 +109,64 @@ object AchievementAdapters {
         }
     }
 
+    class AchievementListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        private var isSortByTime = true
+        private var list: MutableList<Achievement> = mutableListOf()
+
+        fun rearrange() {
+            if (isSortByTime)
+                list.sortBy { it.timestamp }
+            else list.sortBy { it.title }
+        }
+
+        fun submitList(nlist: List<Achievement>) {
+            list.clear()
+            list.addAll(nlist)
+            rearrange()
+            notifyDataSetChanged()
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            when (viewType) {
+                0 -> {
+                    val binding = AchievementListBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    binding.root.setOnClickListener {
+                        isSortByTime = !isSortByTime
+                        rearrange()
+                        notifyDataSetChanged()
+                    }
+                    return ContainerViewHolder(binding)
+                }
+                else -> {
+                    val binding = AchievementListCellBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent.findViewById(R.id.achievementContainer),
+                        false
+                    )
+                    return CellViewHolder(binding)
+                }
+            }
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            when (getItemViewType(position)) {
+                0 -> (holder as ContainerViewHolder).bind(isSortByTime)
+                else -> (holder as CellViewHolder).bind(list[position - 1])
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return list.size + 1
+        }
+
+        override fun getItemViewType(position: Int): Int {
+            return if (position == 0) 0 else 1
+        }
+
+    }
+
     class TotalViewHolder(val binding: AchievementMediumCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
@@ -178,7 +235,7 @@ object AchievementAdapters {
         }
     }
 
-    class AchievementViewHolder(val binding: AchievementListBinding) :
+    class ContainerViewHolder(val binding: AchievementListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(isSortByTime: Boolean) {
             binding.run {
@@ -186,6 +243,25 @@ object AchievementAdapters {
                     if (isSortByTime) binding.root.resources.getText(R.string.achievement_sort_by_time) else binding.root.resources.getText(
                         R.string.achievement_sort_by_alpha
                     )
+            }
+        }
+    }
+
+    class CellViewHolder(private val binding: AchievementListCellBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Achievement) {
+            binding.run {
+                Glide.with(root)
+                    .load(ContextCompat.getDrawable(root.context, data.drawableID))
+                    .into(achievementIcon)
+                achievementTitle.text = data.title
+                achievementDescription.text = data.description
+                achievementMessages.text = root.resources.getString(
+                    R.string.achievement_cell_messages,
+                    data.type,
+                    data.xp.toString()
+                )
+                achievementTime.text = data.timestamp.toString()
             }
         }
     }
