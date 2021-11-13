@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.databinding.AchievementListBinding
 import com.ojhdtapp.action.databinding.AchievementMediumCardBinding
 import com.ojhdtapp.action.databinding.AchievementSmallCardBinding
 import com.ojhdtapp.action.databinding.AchievementXpBinding
@@ -177,5 +178,15 @@ object AchievementAdapters {
         }
     }
 
-    class AchievementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class AchievementViewHolder(val binding: AchievementListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(isSortByTime: Boolean) {
+            binding.run {
+                sortBy.text =
+                    if (isSortByTime) binding.root.resources.getText(R.string.achievement_sort_by_time) else binding.root.resources.getText(
+                        R.string.achievement_sort_by_alpha
+                    )
+            }
+        }
+    }
 }
