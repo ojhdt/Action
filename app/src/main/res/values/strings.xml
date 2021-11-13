@@ -40,6 +40,16 @@
     <string name="achievement_sort_by_alpha">按字母顺序排序</string>
     <string name="achievement_sort_by_time">按解锁时间排序</string>
     <string name="achievement_cell_messages">%1$s • %2$sXP</string>
+
+    <string name="weather_location">地区</string>
+    <string name="weather_skycon">晴朗</string>
+    <string name="weather_temperature_now">12°</string>
+    <string name="weather_temperature_lowest">8°</string>
+    <string name="weather_temperature_highest">16°</string>
+    <string name="weather_temperature_template">10°</string>
+    <string name="weather_time_template">10:00</string>
+    <string name="weather_tomorrow">明天</string>
+    <string name="weather_the_day_after_tomorrow">后天</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_number">80</string>

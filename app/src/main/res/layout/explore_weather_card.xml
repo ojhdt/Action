@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewElevatedStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="24dp"
+    android:clickable="true"
+    app:cardCornerRadius="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/weatherLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_location"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/weatherSkycon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_skycon"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weatherLocation" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/weatherIconNow"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/weather_sunny"
+            app:lottie_repeatMode="restart" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="54dp" />
+
+        <TextView
+            android:id="@+id/weatherTemperatureNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_temperature_now"
+            android:textAppearance="?attr/textAppearanceDisplayMedium"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <TextView
+            android:id="@+id/weatherTemperatureHighest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_temperature_highest"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toStartOf="@+id/weatherTemperatureNow"
+            app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNow" />
+
+        <TextView
+            android:id="@+id/weatherTemperatureLowest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/weather_temperature_lowest"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/weatherTemperatureHighest"
+            app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNow" />
+
+        <TextView
+            android:id="@+id/weatherTemperatureNextHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/weather_temperature_template"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@+id/weatherIconNextHour"
+            app:layout_constraintStart_toStartOf="@+id/weatherIconNextHour"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/weatherIconNextHour"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNextHour"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/weather_sunny"
+            app:lottie_repeatMode="restart" />
+
+        <TextView
+            android:id="@+id/weatherTimeNextHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_time_template"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@+id/weatherIconNextHour"
+            app:layout_constraintStart_toStartOf="@+id/weatherIconNextHour"
+            app:layout_constraintTop_toBottomOf="@+id/weatherIconNextHour" />
+
+        <TextView
+            android:id="@+id/weatherTemperatureNext2Hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_temperature_template"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@+id/weatherIconNext2Hour"
+            app:layout_constraintStart_toStartOf="@+id/weatherIconNext2Hour"
+            app:layout_constraintTop_toTopOf="@+id/weatherTemperatureNextHour" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/weatherIconNext2Hour"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/weatherIconNextHour"
+            app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNext2Hour"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/weather_sunny"
+            app:lottie_repeatMode="restart" />
+
+        <TextView
+            android:id="@+id/weatherTimeNext2Hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weather_time_template"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="@+id/weatherIconNext2Hour"
+            app:layout_constraintStart_toStartOf="@+id/weatherIconNext2Hour"
+            app:layout_constraintTop_toBottomOf="@+id/weatherIconNext2Hour" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

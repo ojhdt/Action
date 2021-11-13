@@ -41,7 +41,6 @@
                 android:text="@string/title"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/welcomeAvatarImageView"
                 app:layout_constraintHorizontal_bias="0.5"
