@@ -142,7 +142,7 @@ object AchievementAdapters {
                 else -> {
                     val binding = AchievementListCellBinding.inflate(
                         LayoutInflater.from(parent.context),
-                        parent.findViewById(R.id.achievementContainer),
+                        parent,
                         false
                     )
                     return CellViewHolder(binding)
@@ -243,6 +243,14 @@ object AchievementAdapters {
                     if (isSortByTime) binding.root.resources.getText(R.string.achievement_sort_by_time) else binding.root.resources.getText(
                         R.string.achievement_sort_by_alpha
                     )
+                Glide.with(root)
+                    .load(
+                        ContextCompat.getDrawable(
+                            root.context,
+                            if (isSortByTime) R.drawable.ic_outline_sort_24 else R.drawable.ic_outline_sort_by_alpha_24
+                        )
+                    )
+                    .into(sortByIcon)
             }
         }
     }
