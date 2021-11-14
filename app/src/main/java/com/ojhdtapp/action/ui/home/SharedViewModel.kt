@@ -48,10 +48,12 @@ class SharedViewModel : ViewModel() {
         ) { Repository.getFinishedActionLive() }
 
     fun gainedAchievementRefresh() {
+        Log.d("aaa", "GetDataA")
         _gainedAchievementLive.value = _gainedAchievementLive.value
     }
 
     fun finishedActionRefresh() {
+        Log.d("aaa", "GetDataB")
         _finishedActionLive.value = _finishedActionLive.value
     }
 }

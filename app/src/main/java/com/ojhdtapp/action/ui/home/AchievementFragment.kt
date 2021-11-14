@@ -1,6 +1,7 @@
 package com.ojhdtapp.action.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class AchievementFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("aaa", "Fragment Rebuilded")
         // Inflate the layout for this fragment
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
         return binding.root
@@ -66,24 +68,23 @@ class AchievementFragment : Fragment() {
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()
         val achievementListAdapter = AchievementAdapters.AchievementListAdapter()
-        val mylayoutManager = GridLayoutManager(context, 2)
+        val mylayoutManager = GridLayoutManager(context, 2).apply {
+            spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
+                override fun getSpanSize(position: Int): Int {
+                    return 2
+                }
+            }
+        }
         binding.recyclerView.run {
             val concatAdapter = ConcatAdapter(statisticsAdapter, xpAdapter, achievementListAdapter)
             adapter = concatAdapter
-            layoutManager = mylayoutManager.apply {
-                spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
-                    override fun getSpanSize(position: Int): Int {
-                        return 2
-                    }
-                }
-            }
+            layoutManager = mylayoutManager
         }
         viewModel.finishedActionLive.observe(this) {
             statisticsAdapter.setTotalNum(it.size)
             //分类逻辑
             //分好类的StatisticsBlock列表
             val sortedStatisticsBlockList = listOf(
-                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
