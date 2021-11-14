@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
@@ -80,7 +81,7 @@ object AchievementAdapters {
 
         fun setTotalNum(num: Int) {
             totalNum = num
-            notifyDataSetChanged()
+            notifyItemChanged(0)
         }
 
         fun submitList(nlist: List<StatisticsBlock>) {

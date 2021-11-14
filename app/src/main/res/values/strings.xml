@@ -20,6 +20,7 @@
     <string name="action_suggest_more_description">更多有助于保护环境的建议</string>
 
     <string name="achievement_toolbar_history">历史</string>
+    <string name="achievement_toolbar_refresh">刷新</string>
 
     <string name="title">标题</string>
     <string name="subhead">副标题</string>

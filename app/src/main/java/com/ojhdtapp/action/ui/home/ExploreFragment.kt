@@ -13,7 +13,7 @@ import com.ojhdtapp.action.databinding.FragmentExploreBinding
 class ExploreFragment : Fragment() {
     var _binding: FragmentExploreBinding? = null
 
-    val binding get() = _binding
+    val binding get() = _binding!!
     val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class ExploreFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentExploreBinding.inflate(inflater,container,false)
-        return binding!!.root
+        return binding.root
     }
 
     override fun onDestroyView() {

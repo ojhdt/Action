@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_outline_history_24"
         android:title="@string/achievement_toolbar_history"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/ic_outline_refresh_24"
+        android:title="@string/achievement_toolbar_refresh"
+        app:showAsAction="never" />
 </menu>
