@@ -39,7 +39,6 @@ class AchievementFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("aaa", "Fragment Rebuilded")
         // Inflate the layout for this fragment
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,6 +47,7 @@ class AchievementFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Setup Appbar
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.actionFragment,
