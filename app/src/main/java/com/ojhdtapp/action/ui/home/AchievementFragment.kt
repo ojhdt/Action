@@ -66,33 +66,44 @@ class AchievementFragment : Fragment() {
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()
         val achievementListAdapter = AchievementAdapters.AchievementListAdapter()
+        val mylayoutManager = GridLayoutManager(context, 2)
         binding.recyclerView.run {
-            val concatAdapter = ConcatAdapter(statisticsAdapter,xpAdapter,achievementListAdapter)
+            val concatAdapter = ConcatAdapter(statisticsAdapter, xpAdapter, achievementListAdapter)
             adapter = concatAdapter
-            layoutManager = GridLayoutManager(context, 2).apply {
-                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            layoutManager = mylayoutManager.apply {
+                spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
                     override fun getSpanSize(position: Int): Int {
-                        return if (position != 0 && position < 4 + 1) 1
-                        else 2
+                        return 2
                     }
                 }
             }
-            addItemDecoration(AchievementAdapters.StatisticsBlockSpaceItemDecoration(4))
         }
-        statisticsAdapter.setTotalNum(30)
-        statisticsAdapter.submitList(
-            listOf(
+        viewModel.finishedActionLive.observe(this) {
+            statisticsAdapter.setTotalNum(it.size)
+            //分类逻辑
+            //分好类的StatisticsBlock列表
+            val sortedStatisticsBlockList = listOf(
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
             )
-        )
-        achievementListAdapter.submitList(listOf(
-            Achievement(),
-            Achievement(),
-            Achievement(),
-        ))
+            statisticsAdapter.submitList(sortedStatisticsBlockList)
+            mylayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (position != 0 && position < sortedStatisticsBlockList.size + 1) 1
+                    else 2
+                }
+            }
+            binding.recyclerView.addItemDecoration(
+                AchievementAdapters.StatisticsBlockSpaceItemDecoration(
+                    sortedStatisticsBlockList.size
+                )
+            )
+        }
+        viewModel.gainedAchievementLive.observe(this) {
+            achievementListAdapter.submitList(it)
+        }
     }
 
     override fun onDestroyView() {

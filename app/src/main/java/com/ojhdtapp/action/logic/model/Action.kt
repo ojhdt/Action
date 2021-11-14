@@ -13,8 +13,9 @@ data class Action(
     val imageID: Int = 0,
     val content: String = "Content",
     val source: String = "Source",
-    val timestamp: Timestamp,
-    val label: List<Pair<Int?, String>> = listOf()
+    val timestamp: Timestamp = Timestamp(0),
+    val label: List<Pair<Int?, String>> = listOf(),
+    var finished:Boolean = false
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 import com.ojhdtapp.action.logic.model.User
@@ -46,6 +47,28 @@ object Repository {
     fun getUserInfoLive(): LiveData<User> {
         return liveData {
             emit(User("Username", R.drawable.anonymous, Timestamp(0)))
+        }
+    }
+
+    fun getGainedAchievementLive(): LiveData<List<Achievement>> {
+        return liveData {
+            val list = listOf(
+                Achievement(),
+                Achievement(),
+                Achievement(),
+            )
+            emit(list)
+        }
+    }
+
+    fun getFinishedActionLive(): LiveData<List<Action>> {
+        return liveData {
+            val list = listOf<Action>(
+                Action(finished = true),
+                Action(finished = true),
+                Action(finished = true)
+            )
+            emit(list)
         }
     }
 }

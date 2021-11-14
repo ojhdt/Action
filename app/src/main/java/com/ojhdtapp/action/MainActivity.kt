@@ -40,8 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         // Refresh Fragment Data
         viewModel.run {
-            refresh()
+            actionRefresh()
+            suggestRefresh()
             getUserInfo()
+            gainedAchievementRefresh()
+            finishedActionRefresh()
         }
 
         // Hide NavigationBar & StatusBAr
