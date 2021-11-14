@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.home
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
@@ -230,7 +231,11 @@ object AchievementAdapters {
                     binding.root.resources.getStringArray(R.array.achievement_xps).random()
                 nowLevel.text = levelNow.toString()
                 nextLevel.text = (levelNow + 1).toString()
-                progressBar.setProgress(progress, true)
+                ObjectAnimator.ofInt(progressBar, "progress", progress).apply {
+                    duration = 1000
+                    start()
+                }
+//                progressBar.setProgress(progress)
 //                val message = binding.root.resources.getString(
 //                    R.string.achievement_xp_needed,
 //                    neededXP.toString(),
