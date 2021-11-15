@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressView">
+        <attr name="progress" format="integer"/>
+        <attr name="color" format="color"/>
+    </declare-styleable>
+</resources>
