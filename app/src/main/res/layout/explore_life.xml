@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -46,38 +45,82 @@
                 app:progress="60" />
 
             <ImageView
-                android:id="@+id/airIcon2"
+                android:id="@+id/lifeIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="12dp"
                 android:background="@drawable/circle_color_primary"
                 android:padding="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/airTitle2"
+                app:layout_constraintBottom_toTopOf="@+id/lifeTltle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:srcCompat="@drawable/ic_baseline_star_outline_24" />
 
             <TextView
-                android:id="@+id/airTitle2"
+                android:id="@+id/lifeTltle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
-                app:layout_constraintBottom_toTopOf="@+id/airNum2"
-                app:layout_constraintStart_toStartOf="@+id/airIcon2"
-                app:layout_constraintTop_toBottomOf="@+id/airIcon2" />
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                app:layout_constraintBottom_toTopOf="@+id/lifeNum"
+                app:layout_constraintStart_toStartOf="@+id/lifeIcon"
+                app:layout_constraintTop_toBottomOf="@+id/lifeIcon" />
 
             <TextView
-                android:id="@+id/airNum2"
+                android:id="@+id/lifeNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sample_number"
                 android:textAppearance="?attr/textAppearanceDisplayMedium"
                 android:textColor="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/airTitle2"
-                app:layout_constraintTop_toBottomOf="@+id/airTitle2" />
+                app:layout_constraintStart_toStartOf="@+id/lifeTltle"
+                app:layout_constraintTop_toBottomOf="@+id/lifeTltle" />
+
+            <TextView
+                android:id="@+id/ultravioletText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/life_ultraviolet"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/ultravioletNum"
+                app:layout_constraintStart_toStartOf="@+id/ultravioletNum" />
+
+            <TextView
+                android:id="@+id/ultravioletNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/sample_number"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/confortText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/life_comfort"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/comfortNum"
+                app:layout_constraintStart_toStartOf="@+id/comfortNum" />
+
+            <TextView
+                android:id="@+id/comfortNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="12dp"
+                android:text="@string/sample_number"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/comfortProcessView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
