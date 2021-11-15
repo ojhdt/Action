@@ -46,10 +46,6 @@
                 android:textAppearance="?attr/textAppearanceDisplayMedium"
                 android:textColor="?attr/colorPrimary" />
 
-            <Space
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:background="#9C27B0" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
