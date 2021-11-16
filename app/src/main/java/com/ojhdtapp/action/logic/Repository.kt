@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
-import com.ojhdtapp.action.logic.model.Achievement
-import com.ojhdtapp.action.logic.model.Action
-import com.ojhdtapp.action.logic.model.Suggest
-import com.ojhdtapp.action.logic.model.User
+import com.ojhdtapp.action.logic.model.*
 import java.sql.Timestamp
 
 object Repository {
@@ -70,5 +67,17 @@ object Repository {
             )
             emit(list)
         }
+    }
+
+    fun getWeatherMessageLive():LiveData<Weather>{
+
+    }
+
+    fun getAirMessageLive():LiveData<WeatherMessageBlock>{
+
+    }
+
+    fun getLifeMessageLive():LiveData<LifeMessageBlock>{
+
     }
 }

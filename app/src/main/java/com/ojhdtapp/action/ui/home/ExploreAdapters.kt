@@ -59,7 +59,7 @@ object ExploreAdapters {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val item = getItem(position)
-            when(holder.itemViewType){
+            when (holder.itemViewType) {
                 0 -> (holder as WeatherViewHolder).bind(item as Weather)
                 1 -> (holder as AirViewHolder).bind(item as WeatherMessageBlock)
                 else -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
@@ -77,38 +77,29 @@ object ExploreAdapters {
             binding.run {
                 weatherLocation.text = weather.location
                 weatherSkycon.text = weather.skycon
-                loadWithGlide(weatherIconNow, weather.temperatureNow.drawableID)
+                weatherIconNow.setAnimation(weather.temperatureNow.rawID)
                 weatherTemperatureNow.text = weather.temperatureNow.value.toString()
                 weatherTemperatureHighest.text = weather.temperatureNow.highest.toString()
                 weatherTemperatureLowest.text = weather.temperatureNow.lowest.toString()
-                loadWithGlide(weatherIconNextHour, weather.temperature1HourLater.drawableID)
+                weatherIconNextHour.setAnimation(weather.temperature1HourLater.rawID)
                 weatherTemperatureNextHour.text = weather.temperature1HourLater.value.toString()
-                loadWithGlide(weatherIconNext2Hour, weather.temperature2HoursLater.drawableID)
+                weatherIconNext2Hour.setAnimation(weather.temperature2HoursLater.rawID)
                 weatherTemperatureNext2Hour.text = weather.temperature2HoursLater.value.toString()
-                loadWithGlide(weatherIconNext3Hour, weather.temperature3HoursLater.drawableID)
+                weatherIconNext3Hour.setAnimation(weather.temperature3HoursLater.rawID)
                 weatherTemperatureNext3Hour.text = weather.temperature3HoursLater.value.toString()
-                loadWithGlide(weatherIconNext4Hour, weather.temperature4HoursLater.drawableID)
+                weatherIconNext4Hour.setAnimation(weather.temperature4HoursLater.rawID)
                 weatherTemperatureNext4Hour.text = weather.temperature4HoursLater.value.toString()
-                loadWithGlide(weatherIconTomorrow, weather.temperatureTomorrow.drawableID)
+                weatherIconTomorrow.setAnimation(weather.temperatureTomorrow.rawID)
                 weatherTemperatureTomorrowLowest.text =
                     weather.temperatureTomorrow.lowest.toString()
                 weatherTemperatureTomorrowHighest.text =
                     weather.temperatureTomorrow.highest.toString()
-                loadWithGlide(
-                    weatherIconTheDayAfterTomorrow,
-                    weather.temperatureTheDayAfterTomorrow.drawableID
-                )
+                weatherIconTheDayAfterTomorrow.setAnimation(weather.temperatureTheDayAfterTomorrow.rawID)
                 weatherTemperatureTheDayAfterTomorrowLowest.text =
                     weather.temperatureTheDayAfterTomorrow.lowest.toString()
                 weatherTemperatureTheDayAfterTomorrowHighest.text =
                     weather.temperatureTheDayAfterTomorrow.highest.toString()
             }
-        }
-
-        private fun loadWithGlide(view: ImageView, id: Int) {
-            Glide.with(binding.root)
-                .load(ContextCompat.getDrawable(binding.root.context, id))
-                .into(view)
         }
     }
 
@@ -141,7 +132,7 @@ object ExploreAdapters {
     }
 
     class LifeViewHolder(val binding: ExploreLifeBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data:LifeMessageBlock) {
+        fun bind(data: LifeMessageBlock) {
             binding.run {
                 ValueAnimator.ofInt(0, data.ultravioletValue).apply {
                     duration = 1000

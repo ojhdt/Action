@@ -9,11 +9,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentExploreBinding
+import com.ojhdtapp.action.logic.model.Weather
+import com.ojhdtapp.action.logic.model.WeatherTemperature
 
 class ExploreFragment : Fragment() {
     var _binding: FragmentExploreBinding? = null
@@ -31,7 +34,7 @@ class ExploreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentExploreBinding.inflate(inflater,container,false)
+        _binding = FragmentExploreBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,6 +56,26 @@ class ExploreFragment : Fragment() {
         binding.appbar.apply {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(0, offset, 0, 0)
+        }
+
+        // RecyclerView
+        val weatherAdapter = ExploreAdapters.WeatherAdapter()
+        binding.recyclerView.run {
+            adapter = weatherAdapter
+            layoutManager = GridLayoutManager(context, 2).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        when (position) {
+                            1 -> 1
+                            2 -> 1
+                            else -> 2
+                        }
+                    }
+
+                }
+            }
+            weatherAdapter.submitList(listOf(Weather("定位中", "请求数据中",
+                WeatherTemperature(R.))))
         }
     }
 

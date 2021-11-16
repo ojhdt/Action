@@ -7,10 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.ojhdtapp.action.logic.Repository
-import com.ojhdtapp.action.logic.model.Achievement
-import com.ojhdtapp.action.logic.model.Action
-import com.ojhdtapp.action.logic.model.Suggest
-import com.ojhdtapp.action.logic.model.User
+import com.ojhdtapp.action.logic.model.*
 
 class SharedViewModel : ViewModel() {
     // Action Fragment
@@ -54,4 +51,22 @@ class SharedViewModel : ViewModel() {
     fun finishedActionRefresh() {
         _finishedActionLive.value = _finishedActionLive.value
     }
+
+    //Explore Fragment
+    private val _weatherMessage = MutableLiveData<Weather>()
+    private val _airMessage = MutableLiveData<WeatherMessageBlock>()
+    private val _lifeMessage = MutableLiveData<LifeMessageBlock>()
+
+    val weatherMessageLive: LiveData<Weather>
+        get() = Transformations.switchMap(_weatherMessage) {
+            Repository.getWeatherMessageLive()
+        }
+    val airMessageLive: LiveData<WeatherMessageBlock>
+        get() = Transformations.switchMap(_airMessage) {
+            Repository.getAirMessageLive()
+        }
+    val lifeMessageLive: LiveData<LifeMessageBlock>
+        get() = Transformations.switchMap(_lifeMessage) {
+            Repository.getLifeMessageLive()
+        }
 }

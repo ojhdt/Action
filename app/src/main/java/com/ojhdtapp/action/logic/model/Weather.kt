@@ -9,4 +9,4 @@ data class Weather(
     val temperatureTheDayAfterTomorrow: WeatherTemperature,
 )
 
-data class WeatherTemperature(val drawableID:Int, val value:Int, val lowest:Int = 0, val highest:Int = 0)
+data class WeatherTemperature(val rawID:Int, val value:Int, val lowest:Int = 0, val highest:Int = 0)
