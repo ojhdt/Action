@@ -33,19 +33,16 @@ class ProgressView @JvmOverloads constructor(
             }
         }
     }
-
+    public fun setProgress(value:Int){
+        progress = value
+    }
+    public fun getProgress():Int{
+        return progress
+    }
     private var mwidth = 0f
     private var mheight = 0f
-    private var progress: Int? = null
-        get() = field
-        set(value) {
-            field = value
-        }
+    private var progress: Int = 0
     private var paintColor: Int? = null
-        get() = field
-        set(value) {
-            field = value
-        }
     private val fillcolorPrimaryPaint = Paint().apply {
         style = Paint.Style.FILL
         color = paintColor!!

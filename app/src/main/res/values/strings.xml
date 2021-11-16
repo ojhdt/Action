@@ -52,6 +52,8 @@
     <string name="weather_tomorrow">明天</string>
     <string name="weather_the_day_after_tomorrow">后天</string>
 
+    <string name="life">生活</string>
+    <string name="air">大气污染</string>
     <string name="life_ultraviolet">紫外线</string>
     <string name="life_comfort">舒适度</string>
     <!-- TODO: Remove or change this placeholder text -->
