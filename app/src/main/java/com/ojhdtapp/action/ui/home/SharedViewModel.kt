@@ -1,7 +1,5 @@
 package com.ojhdtapp.action.ui.home
 
-import android.util.Log
-import androidx.coordinatorlayout.widget.DirectedAcyclicGraph
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -53,11 +51,11 @@ class SharedViewModel : ViewModel() {
     }
 
     //Explore Fragment
-    private val _weatherMessage = MutableLiveData<Weather>()
+    private val _weatherMessage = MutableLiveData<WeatherBlock>()
     private val _airMessage = MutableLiveData<WeatherMessageBlock>()
     private val _lifeMessage = MutableLiveData<LifeMessageBlock>()
 
-    val weatherMessageLive: LiveData<Weather>
+    val weatherMessageLive: LiveData<WeatherBlock>
         get() = Transformations.switchMap(_weatherMessage) {
             Repository.getWeatherMessageLive()
         }

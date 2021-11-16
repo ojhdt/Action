@@ -56,6 +56,26 @@
     <string name="air">大气污染</string>
     <string name="life_ultraviolet">紫外线</string>
     <string name="life_comfort">舒适度</string>
+
+    <string name="weather_type_clear">晴</string>
+    <string name="weather_type_partly_cloudy">多云</string>
+    <string name="weather_type_cloudy">阴</string>
+    <string name="weather_type_light_haze">轻度雾霾</string>
+    <string name="weather_type_moderate_haze">中度雾霾</string>
+    <string name="weather_type_heavy_haze">重度雾霾</string>
+    <string name="weather_type_light_rain">小雨</string>
+    <string name="weather_type_moderate_rain">中雨</string>
+    <string name="weather_type_heavy_rain">大雨</string>
+    <string name="weather_type_storm_rain">暴雨</string>
+    <string name="weather_type_fog">雾</string>
+    <string name="weather_type_light_snow">小雪</string>
+    <string name="weather_type_moderate_snow">中雪</string>
+    <string name="weather_type_heavy_snow">大雪</string>
+    <string name="weather_type_storm_snow">暴雪</string>
+    <string name="weather_type_dust">浮尘</string>
+    <string name="weather_type_sand">沙尘</string>
+    <string name="weather_type_wind">大风</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_number">80</string>

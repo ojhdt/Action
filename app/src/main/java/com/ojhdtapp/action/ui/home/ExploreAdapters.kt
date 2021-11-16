@@ -2,23 +2,18 @@ package com.ojhdtapp.action.ui.home
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ExploreAirQualityBinding
 import com.ojhdtapp.action.databinding.ExploreAirQualityErrorBinding
 import com.ojhdtapp.action.databinding.ExploreLifeBinding
 import com.ojhdtapp.action.databinding.ExploreWeatherCardBinding
 import com.ojhdtapp.action.logic.model.LifeMessageBlock
-import com.ojhdtapp.action.logic.model.Weather
+import com.ojhdtapp.action.logic.model.WeatherBlock
 import com.ojhdtapp.action.logic.model.WeatherMessageBlock
 
 object ExploreAdapters {
@@ -60,7 +55,7 @@ object ExploreAdapters {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val item = getItem(position)
             when (holder.itemViewType) {
-                0 -> (holder as WeatherViewHolder).bind(item as Weather)
+                0 -> (holder as WeatherViewHolder).bind(item as WeatherBlock)
                 1 -> (holder as AirViewHolder).bind(item as WeatherMessageBlock)
                 else -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
             }
@@ -73,32 +68,32 @@ object ExploreAdapters {
 
     class WeatherViewHolder(val binding: ExploreWeatherCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(weather: Weather) {
+        fun bind(weatherBlock: WeatherBlock) {
             binding.run {
-                weatherLocation.text = weather.location
-                weatherSkycon.text = weather.skycon
-                weatherIconNow.setAnimation(weather.temperatureNow.rawID)
-                weatherTemperatureNow.text = weather.temperatureNow.value.toString()
-                weatherTemperatureHighest.text = weather.temperatureNow.highest.toString()
-                weatherTemperatureLowest.text = weather.temperatureNow.lowest.toString()
-                weatherIconNextHour.setAnimation(weather.temperature1HourLater.rawID)
-                weatherTemperatureNextHour.text = weather.temperature1HourLater.value.toString()
-                weatherIconNext2Hour.setAnimation(weather.temperature2HoursLater.rawID)
-                weatherTemperatureNext2Hour.text = weather.temperature2HoursLater.value.toString()
-                weatherIconNext3Hour.setAnimation(weather.temperature3HoursLater.rawID)
-                weatherTemperatureNext3Hour.text = weather.temperature3HoursLater.value.toString()
-                weatherIconNext4Hour.setAnimation(weather.temperature4HoursLater.rawID)
-                weatherTemperatureNext4Hour.text = weather.temperature4HoursLater.value.toString()
-                weatherIconTomorrow.setAnimation(weather.temperatureTomorrow.rawID)
+                weatherLocation.text = weatherBlock.location
+                weatherSkycon.text = weatherBlock.skycon
+                weatherIconNow.setAnimation(weatherBlock.temperatureNow.rawID)
+                weatherTemperatureNow.text = weatherBlock.temperatureNow.value.toString()
+                weatherTemperatureHighest.text = weatherBlock.temperatureNow.highest.toString()
+                weatherTemperatureLowest.text = weatherBlock.temperatureNow.lowest.toString()
+                weatherIconNextHour.setAnimation(weatherBlock.temperature1HourLater.rawID)
+                weatherTemperatureNextHour.text = weatherBlock.temperature1HourLater.value.toString()
+                weatherIconNext2Hour.setAnimation(weatherBlock.temperature2HoursLater.rawID)
+                weatherTemperatureNext2Hour.text = weatherBlock.temperature2HoursLater.value.toString()
+                weatherIconNext3Hour.setAnimation(weatherBlock.temperature3HoursLater.rawID)
+                weatherTemperatureNext3Hour.text = weatherBlock.temperature3HoursLater.value.toString()
+                weatherIconNext4Hour.setAnimation(weatherBlock.temperature4HoursLater.rawID)
+                weatherTemperatureNext4Hour.text = weatherBlock.temperature4HoursLater.value.toString()
+                weatherIconTomorrow.setAnimation(weatherBlock.temperatureTomorrow.rawID)
                 weatherTemperatureTomorrowLowest.text =
-                    weather.temperatureTomorrow.lowest.toString()
+                    weatherBlock.temperatureTomorrow.lowest.toString()
                 weatherTemperatureTomorrowHighest.text =
-                    weather.temperatureTomorrow.highest.toString()
-                weatherIconTheDayAfterTomorrow.setAnimation(weather.temperatureTheDayAfterTomorrow.rawID)
+                    weatherBlock.temperatureTomorrow.highest.toString()
+                weatherIconTheDayAfterTomorrow.setAnimation(weatherBlock.temperatureTheDayAfterTomorrow.rawID)
                 weatherTemperatureTheDayAfterTomorrowLowest.text =
-                    weather.temperatureTheDayAfterTomorrow.lowest.toString()
+                    weatherBlock.temperatureTheDayAfterTomorrow.lowest.toString()
                 weatherTemperatureTheDayAfterTomorrowHighest.text =
-                    weather.temperatureTheDayAfterTomorrow.highest.toString()
+                    weatherBlock.temperatureTheDayAfterTomorrow.highest.toString()
             }
         }
     }

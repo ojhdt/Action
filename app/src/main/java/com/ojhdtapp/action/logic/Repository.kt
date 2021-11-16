@@ -69,7 +69,7 @@ object Repository {
         }
     }
 
-    fun getWeatherMessageLive():LiveData<Weather>{
+    fun getWeatherMessageLive():LiveData<WeatherBlock>{
 
     }
 
