@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ExploreAirQualityBinding
 import com.ojhdtapp.action.databinding.ExploreAirQualityErrorBinding
 import com.ojhdtapp.action.databinding.ExploreLifeBinding
@@ -15,6 +16,7 @@ import com.ojhdtapp.action.databinding.ExploreWeatherCardBinding
 import com.ojhdtapp.action.logic.model.LifeMessageBlock
 import com.ojhdtapp.action.logic.model.WeatherBlock
 import com.ojhdtapp.action.logic.model.WeatherMessageBlock
+import java.util.*
 
 object ExploreAdapters {
     class WeatherAdapter :
@@ -56,7 +58,14 @@ object ExploreAdapters {
             val item = getItem(position)
             when (holder.itemViewType) {
                 0 -> (holder as WeatherViewHolder).bind(item as WeatherBlock)
-                1 -> (holder as AirViewHolder).bind(item as WeatherMessageBlock)
+                1 -> {
+                    if ((item as WeatherMessageBlock).progress > 80) {
+                        (holder as AirErrorViewHolder).bind(item)
+                    } else {
+                        (holder as AirViewHolder).bind(item)
+                    }
+                }
+
                 else -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
             }
         }
@@ -68,32 +77,77 @@ object ExploreAdapters {
 
     class WeatherViewHolder(val binding: ExploreWeatherCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        private val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        private fun getStringResource(id: Int, arg: String): String {
+            return binding.root.resources.getString(id, arg)
+        }
+
         fun bind(weatherBlock: WeatherBlock) {
             binding.run {
                 weatherLocation.text = weatherBlock.location
                 weatherSkycon.text = weatherBlock.skycon
                 weatherIconNow.setAnimation(weatherBlock.temperatureNow.rawID)
-                weatherTemperatureNow.text = weatherBlock.temperatureNow.value.toString()
+                weatherTemperatureNow.text = getStringResource(
+                    R.string.weather_temperature_value,
+                    weatherBlock.temperatureNow.value.toString()
+                )
 //                weatherTemperatureHighest.text = weatherBlock.temperatureNow.highest.toString()
 //                weatherTemperatureLowest.text = weatherBlock.temperatureNow.lowest.toString()
                 weatherIconNextHour.setAnimation(weatherBlock.temperature1HourLater.rawID)
-                weatherTemperatureNextHour.text = weatherBlock.temperature1HourLater.value.toString()
+                weatherTemperatureNextHour.text = getStringResource(
+                    R.string.weather_temperature_value,
+                    weatherBlock.temperature1HourLater.value.toString()
+                )
+                weatherTimeNextHour.text = getStringResource(
+                    R.string.weather_time_value,
+                    ((systemCalendarHour + 1) % 24).toString()
+                )
                 weatherIconNext2Hour.setAnimation(weatherBlock.temperature2HoursLater.rawID)
-                weatherTemperatureNext2Hour.text = weatherBlock.temperature2HoursLater.value.toString()
+                weatherTemperatureNext2Hour.text = getStringResource(
+                    R.string.weather_temperature_value,
+                    weatherBlock.temperature2HoursLater.value.toString()
+                )
+                weatherTimeNext2Hour.text = getStringResource(
+                    R.string.weather_time_value,
+                    ((systemCalendarHour + 2) % 24).toString()
+                )
                 weatherIconNext3Hour.setAnimation(weatherBlock.temperature3HoursLater.rawID)
-                weatherTemperatureNext3Hour.text = weatherBlock.temperature3HoursLater.value.toString()
+                weatherTemperatureNext3Hour.text = getStringResource(
+                    R.string.weather_temperature_value,
+                    weatherBlock.temperature3HoursLater.value.toString()
+                )
+                weatherTimeNext3Hour.text = getStringResource(
+                    R.string.weather_time_value,
+                    ((systemCalendarHour + 3) % 24).toString()
+                )
                 weatherIconNext4Hour.setAnimation(weatherBlock.temperature4HoursLater.rawID)
-                weatherTemperatureNext4Hour.text = weatherBlock.temperature4HoursLater.value.toString()
+                weatherTemperatureNext4Hour.text = getStringResource(
+                    R.string.weather_temperature_value,
+                    weatherBlock.temperature4HoursLater.value.toString()
+                )
+                weatherTimeNext4Hour.text = getStringResource(
+                    R.string.weather_time_value,
+                    ((systemCalendarHour + 4) % 24).toString()
+                )
                 weatherIconTomorrow.setAnimation(weatherBlock.temperatureTomorrow.rawID)
-                weatherTemperatureTomorrowLowest.text =
+                weatherTemperatureTomorrowLowest.text = getStringResource(
+                    R.string.weather_temperature_value,
                     weatherBlock.temperatureTomorrow.lowest.toString()
+                )
                 weatherTemperatureTomorrowHighest.text =
-                    weatherBlock.temperatureTomorrow.highest.toString()
+                    getStringResource(
+                        R.string.weather_temperature_value,
+                        weatherBlock.temperatureTomorrow.highest.toString()
+                    )
                 weatherIconTheDayAfterTomorrow.setAnimation(weatherBlock.temperatureTheDayAfterTomorrow.rawID)
-                weatherTemperatureTheDayAfterTomorrowLowest.text =
+                weatherTemperatureTheDayAfterTomorrowLowest.text = getStringResource(
+                    R.string.weather_temperature_value,
                     weatherBlock.temperatureTheDayAfterTomorrow.lowest.toString()
-                weatherTemperatureTheDayAfterTomorrowHighest.text =
+                )
+                weatherTemperatureTheDayAfterTomorrowHighest.text = getStringResource(
+                    R.string.weather_temperature_value,
                     weatherBlock.temperatureTheDayAfterTomorrow.highest.toString()
+                )
             }
         }
     }

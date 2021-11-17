@@ -1,15 +1,18 @@
 package com.ojhdtapp.action.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -81,7 +84,16 @@ class ExploreFragment : Fragment() {
             }
         }
         viewModel.weatherLive.observe(this) {
-            weatherAdapter.submitList(it)
+            Log.d("aaa", it.toString())
+            if (it.isSuccess) {
+                weatherAdapter.submitList(it.getOrNull())
+            } else {
+                Snackbar.make(
+                    binding.exploreCoordinatorLayout,
+                    resources.getString(R.string.network_error),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

@@ -51,8 +51,8 @@ class SharedViewModel : ViewModel() {
     }
 
     //Explore Fragment
-    private val _weather = MutableLiveData<List<Any?>>()
-    val weatherLive: LiveData<List<Any?>>
+    private val _weather = MutableLiveData<Any?>()
+    val weatherLive: LiveData<Result<List<Any?>>>
         get() = Transformations.switchMap(_weather) {
             Repository.getWeatherLive()
         }

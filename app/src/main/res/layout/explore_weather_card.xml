@@ -41,6 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/weather_sunny"
             app:lottie_repeatMode="restart" />
 
@@ -81,6 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNext4Hour"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/weather_sunny"
             app:lottie_repeatMode="restart" />
 
@@ -115,6 +117,7 @@
             app:layout_constraintEnd_toStartOf="@+id/weatherIconNext4Hour"
             app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNext3Hour"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/weather_sunny"
             app:lottie_repeatMode="restart" />
 
@@ -137,6 +140,7 @@
             app:layout_constraintEnd_toStartOf="@+id/weatherIconNext3Hour"
             app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNext2Hour"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/weather_sunny"
             app:lottie_repeatMode="restart" />
 
@@ -171,6 +175,7 @@
             app:layout_constraintEnd_toStartOf="@+id/weatherIconNext2Hour"
             app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNextHour"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/weather_sunny"
             app:lottie_repeatMode="restart" />
 
@@ -194,6 +199,7 @@
             app:layout_constraintEnd_toStartOf="@+id/weatherIconNext2Hour"
             app:layout_constraintTop_toBottomOf="@+id/weatherTemperatureNextHour"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/weather_sunny"
             app:lottie_repeatMode="restart" />
 
@@ -245,6 +251,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/weatherTemperatureTomorrowHighest"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
+                app:lottie_loop="true"
                 app:lottie_rawRes="@raw/weather_sunny"
                 app:lottie_repeatMode="restart" />
 
@@ -281,6 +288,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/weatherTemperatureTheDayAfterTomorrowHighest"
                 app:layout_constraintTop_toBottomOf="@+id/weatherIconTomorrow"
                 app:lottie_autoPlay="true"
+                app:lottie_loop="true"
                 app:lottie_rawRes="@raw/weather_sunny"
                 app:lottie_repeatMode="restart" />
 

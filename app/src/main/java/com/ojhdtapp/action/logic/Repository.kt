@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.logic
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.ojhdtapp.action.BaseApplication
@@ -9,6 +10,7 @@ import com.ojhdtapp.action.logic.network.Network
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import java.lang.RuntimeException
 import java.sql.Timestamp
 import java.util.*
 
@@ -123,11 +125,12 @@ object Repository {
         }
     }
 
-    fun getWeatherLive(): LiveData<List<Any?>> = liveData(Dispatchers.IO) {
+    fun getWeatherLive(): LiveData<Result<List<Any?>>> = liveData(Dispatchers.IO) {
         val lng = "116.310003"
         val lat = "39.991957"
         val result = try {
             coroutineScope {
+                Log.d("aaa", "Start")
                 val forecastResponseJob = async {
                     Network.getForecastResponse(lng, lat)
                 }
@@ -163,16 +166,16 @@ object Repository {
                                 hourly.temperature[systemCalendarHour + 2].value.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
-                                rawMap[daily.skycon[systemCalendarHour - 1].value]!!,
-                                daily.temperature[systemCalendarHour - 1].avg.toInt(),
-                                daily.temperature[systemCalendarHour - 1].min.toInt(),
-                                daily.temperature[systemCalendarHour - 1].max.toInt()
+                                rawMap[daily.skycon[0].value]!!,
+                                daily.temperature[0].avg.toInt(),
+                                daily.temperature[0].min.toInt(),
+                                daily.temperature[0].max.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
-                                rawMap[daily.skycon[systemCalendarHour].value]!!,
-                                daily.temperature[systemCalendarHour].avg.toInt(),
-                                daily.temperature[systemCalendarHour].min.toInt(),
-                                daily.temperature[systemCalendarHour].max.toInt()
+                                rawMap[daily.skycon[1].value]!!,
+                                daily.temperature[1].avg.toInt(),
+                                daily.temperature[1].min.toInt(),
+                                daily.temperature[1].max.toInt()
                             )
                         )
                         val air = WeatherMessageBlock(
@@ -187,11 +190,13 @@ object Repository {
                         )
                         Result.success(listOf<Any?>(weather, air, life))
                     }
+                } else {
+                    Result.failure(RuntimeException("Status:${forecastResponse.status},${locationResponse.status}"))
                 }
             }
         } catch (e: Exception) {
-            Result.failure<List<Any?>>(e)
+            Result.failure(e)
         }
-        emit(result as List<Any?>)
+        emit(result)
     }
 }

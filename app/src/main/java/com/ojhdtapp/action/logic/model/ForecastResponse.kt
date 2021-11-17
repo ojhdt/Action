@@ -317,13 +317,13 @@ data class ForecastResponse(
         ) {
             data class AirQuality(
                 val aqi: Aqi,
-                val co: Int,
+                val co: Double,
                 val description: Description,
-                val no2: Int,
-                val o3: Int,
-                val pm10: Int,
-                val pm25: Int,
-                val so2: Int
+                val no2: Double,
+                val o3: Double,
+                val pm10: Double,
+                val pm25: Double,
+                val so2: Double
             ) {
                 data class Aqi(
                     val chn: Int,
