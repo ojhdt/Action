@@ -78,6 +78,7 @@
     <string name="weather_type_sand">沙尘</string>
     <string name="weather_type_wind">大风</string>
 
+    <string name="network_success">刷新成功</string>
     <string name="network_error">网络错误，请重试</string>
 
     <!-- TODO: Remove or change this placeholder text -->

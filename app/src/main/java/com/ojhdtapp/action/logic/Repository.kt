@@ -130,7 +130,7 @@ object Repository {
         val lat = "39.991957"
         val result = try {
             coroutineScope {
-                Log.d("aaa", "Start")
+                Log.d("aaa", "GetDataFromNetwork")
                 val forecastResponseJob = async {
                     Network.getForecastResponse(lng, lat)
                 }
@@ -141,6 +141,7 @@ object Repository {
                 val locationResponse = locationResponseJob.await()
                 if (forecastResponse.status == "ok" && locationResponse.status == "1") {
                     val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                    Log.d("aaa", systemCalendarHour.toString())
                     forecastResponse.result.run {
                         val weather = WeatherBlock(
                             locationResponse.regeocode.formatted_address,
@@ -150,20 +151,20 @@ object Repository {
                                 realtime.temperature.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
-                                rawMap[hourly.skycon[systemCalendarHour - 1].value]!!,
-                                hourly.temperature[systemCalendarHour - 1].value.toInt()
-                            ),
-                            WeatherBlock.WeatherTemperature(
                                 rawMap[hourly.skycon[systemCalendarHour].value]!!,
                                 hourly.temperature[systemCalendarHour].value.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
-                                rawMap[hourly.skycon[systemCalendarHour + 1].value]!!,
-                                hourly.temperature[systemCalendarHour + 1].value.toInt()
+                                rawMap[hourly.skycon[systemCalendarHour+1].value]!!,
+                                hourly.temperature[systemCalendarHour+1].value.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
                                 rawMap[hourly.skycon[systemCalendarHour + 2].value]!!,
                                 hourly.temperature[systemCalendarHour + 2].value.toInt()
+                            ),
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[hourly.skycon[systemCalendarHour + 3].value]!!,
+                                hourly.temperature[systemCalendarHour + 3].value.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
                                 rawMap[daily.skycon[0].value]!!,
@@ -180,7 +181,7 @@ object Repository {
                         )
                         val air = WeatherMessageBlock(
                             R.drawable.ic_outline_air_24, getStringResource(R.string.air),
-                            realtime.air_quality.aqi.chn, realtime.air_quality.aqi.chn / 2
+                            realtime.air_quality.aqi.chn, realtime.air_quality.aqi.chn / 4
                         )
                         val life = LifeMessageBlock(
                             realtime.life_index.ultraviolet.index.toInt(),

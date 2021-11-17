@@ -21,6 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.ojhdtapp.action.ui.ProgressView
+                android:id="@+id/airProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:color="?attr/colorSecondaryContainer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:progress="30" />
+
             <ImageView
                 android:id="@+id/airIcon"
                 android:layout_width="40dp"
@@ -32,14 +43,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
-                app:srcCompat="@drawable/ic_baseline_star_outline_24" />
+                app:srcCompat="@drawable/ic_outline_air_24" />
 
             <TextView
                 android:id="@+id/airTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/air"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
                 app:layout_constraintBottom_toTopOf="@+id/airNum"
                 app:layout_constraintStart_toStartOf="@+id/airIcon"
                 app:layout_constraintTop_toBottomOf="@+id/airIcon" />
@@ -54,17 +66,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/airTitle"
                 app:layout_constraintTop_toBottomOf="@+id/airTitle" />
-
-            <com.ojhdtapp.action.ui.ProgressView
-                android:id="@+id/airProgressView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:color="?attr/colorSecondaryContainer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:progress="30" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

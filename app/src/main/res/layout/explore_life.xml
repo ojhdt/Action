@@ -54,12 +54,14 @@
                 app:layout_constraintBottom_toTopOf="@+id/lifeTltle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ultravioletProcessView"
-                app:srcCompat="@drawable/ic_baseline_star_outline_24" />
+                app:srcCompat="@drawable/ic_outline_luggage_24" />
 
             <TextView
                 android:id="@+id/lifeTltle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="60dp"
                 android:text="@string/life"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 app:layout_constraintBottom_toTopOf="@+id/ultravioletProcessView"

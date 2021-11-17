@@ -35,6 +35,7 @@ class ProgressView @JvmOverloads constructor(
     }
     public fun setProgress(value:Int){
         progress = value
+        invalidate()
     }
     public fun getProgress():Int{
         return progress

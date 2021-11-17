@@ -82,11 +82,17 @@ class ExploreFragment : Fragment() {
                     }
                 }
             }
+            addItemDecoration(ExploreAdapters.WeatherMessageBlockSpaceItemDecoration())
         }
         viewModel.weatherLive.observe(this) {
             Log.d("aaa", it.toString())
             if (it.isSuccess) {
                 weatherAdapter.submitList(it.getOrNull())
+                Snackbar.make(
+                    binding.exploreCoordinatorLayout,
+                    resources.getString(R.string.network_success),
+                    Snackbar.LENGTH_SHORT
+                ).show()
             } else {
                 Snackbar.make(
                     binding.exploreCoordinatorLayout,

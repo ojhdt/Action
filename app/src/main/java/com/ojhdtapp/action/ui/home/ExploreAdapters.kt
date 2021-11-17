@@ -2,12 +2,15 @@ package com.ojhdtapp.action.ui.home
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ExploreAirQualityBinding
 import com.ojhdtapp.action.databinding.ExploreAirQualityErrorBinding
@@ -37,14 +40,14 @@ object ExploreAdapters {
                     return WeatherViewHolder(binding)
                 }
                 1 -> {
-                    if ((getItem(1) as WeatherMessageBlock).progress > 80) {
+                    return if ((getItem(1) as WeatherMessageBlock).progress > 80) {
                         val binding =
                             ExploreAirQualityErrorBinding.inflate(layoutInflater, parent, false)
-                        return AirErrorViewHolder(binding)
+                        AirErrorViewHolder(binding)
                     } else {
                         val binding =
                             ExploreAirQualityBinding.inflate(layoutInflater, parent, false)
-                        return AirViewHolder(binding)
+                        AirViewHolder(binding)
                     }
                 }
                 else -> {
@@ -75,7 +78,7 @@ object ExploreAdapters {
         }
     }
 
-    class WeatherViewHolder(val binding: ExploreWeatherCardBinding) :
+    class WeatherViewHolder(private val binding: ExploreWeatherCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         private fun getStringResource(id: Int, arg: String): String {
@@ -91,6 +94,16 @@ object ExploreAdapters {
                     R.string.weather_temperature_value,
                     weatherBlock.temperatureNow.value.toString()
                 )
+                ValueAnimator.ofInt(0, weatherBlock.temperatureNow.value).apply {
+                    duration = 1000
+                    addUpdateListener {
+                        weatherTemperatureNow.text = getStringResource(
+                            R.string.weather_temperature_value,
+                            (it.animatedValue as Int).toString()
+                        )
+                    }
+                    start()
+                }
 //                weatherTemperatureHighest.text = weatherBlock.temperatureNow.highest.toString()
 //                weatherTemperatureLowest.text = weatherBlock.temperatureNow.lowest.toString()
                 weatherIconNextHour.setAnimation(weatherBlock.temperature1HourLater.rawID)
@@ -152,7 +165,7 @@ object ExploreAdapters {
         }
     }
 
-    class AirViewHolder(val binding: ExploreAirQualityBinding) :
+    class AirViewHolder(private val binding: ExploreAirQualityBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: WeatherMessageBlock) {
             binding.run {
@@ -160,13 +173,25 @@ object ExploreAdapters {
 //                    .load(data.drawableID)
 //                    .into(airIcon)
 //                airTitle.text = data.title
-                airNum.text = data.num.toString()
-                airProgressView.setProgress(data.progress)
+//                airNum.text = data.num.toString()
+//                airProgressView.setProgress(data.progress)
+                ValueAnimator.ofInt(0, data.num).apply {
+                    duration = 1000
+                    addUpdateListener {
+                        airNum.text = (it.animatedValue as Int).toString()
+                    }
+                    start()
+                }
+                ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
+                    .apply {
+                        duration = 1000
+                        start()
+                    }
             }
         }
     }
 
-    class AirErrorViewHolder(val binding: ExploreAirQualityErrorBinding) :
+    class AirErrorViewHolder(private val binding: ExploreAirQualityErrorBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: WeatherMessageBlock) {
             binding.run {
@@ -174,13 +199,26 @@ object ExploreAdapters {
 //                    .load(data.drawableID)
 //                    .into(airIcon)
 //                airTitle.text = data.title
-                airNum.text = data.num.toString()
-                airProgressView.setProgress(data.progress)
+//                airNum.text = data.num.toString()
+//                airProgressView.setProgress(data.progress)
+                ValueAnimator.ofInt(0, data.num).apply {
+                    duration = 1000
+                    addUpdateListener {
+                        airNum.text = (it.animatedValue as Int).toString()
+                    }
+                    start()
+                }
+                ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
+                    .apply {
+                        duration = 1000
+                        start()
+                    }
             }
         }
     }
 
-    class LifeViewHolder(val binding: ExploreLifeBinding) : RecyclerView.ViewHolder(binding.root) {
+    class LifeViewHolder(private val binding: ExploreLifeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: LifeMessageBlock) {
             binding.run {
                 ValueAnimator.ofInt(0, data.ultravioletValue).apply {
@@ -215,6 +253,28 @@ object ExploreAdapters {
 //                ultravioletProcessView.setProgress(ultravioletData.progress)
 //                comfortNum.text = comfortData.num.toString()
 //                comfortProcessView.setProgress(comfortData.progress)
+            }
+        }
+    }
+
+    class WeatherMessageBlockSpaceItemDecoration : RecyclerView.ItemDecoration() {
+        private val space = DensityUtil.dip2px(BaseApplication.context, 12f)
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            outRect.top = space
+            when (parent.getChildAdapterPosition(view)) {
+                1 -> {
+                    outRect.left = space * 2
+                    outRect.right = space / 2
+                }
+                2 -> {
+                    outRect.left = space / 2
+                    outRect.right = space * 2
+                }
             }
         }
     }
