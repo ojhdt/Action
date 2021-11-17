@@ -51,20 +51,12 @@ class SharedViewModel : ViewModel() {
     }
 
     //Explore Fragment
-    private val _weatherMessage = MutableLiveData<WeatherBlock>()
-    private val _airMessage = MutableLiveData<WeatherMessageBlock>()
-    private val _lifeMessage = MutableLiveData<LifeMessageBlock>()
-
-    val weatherMessageLive: LiveData<WeatherBlock>
-        get() = Transformations.switchMap(_weatherMessage) {
-            Repository.getWeatherMessageLive()
+    private val _weather = MutableLiveData<List<Any?>>()
+    val weatherLive: LiveData<List<Any?>>
+        get() = Transformations.switchMap(_weather) {
+            Repository.getWeatherLive()
         }
-    val airMessageLive: LiveData<WeatherMessageBlock>
-        get() = Transformations.switchMap(_airMessage) {
-            Repository.getAirMessageLive()
-        }
-    val lifeMessageLive: LiveData<LifeMessageBlock>
-        get() = Transformations.switchMap(_lifeMessage) {
-            Repository.getLifeMessageLive()
-        }
+    fun weatherRefresh(){
+        _weather.value = _weather.value
+    }
 }

@@ -54,6 +54,15 @@ class ExploreFragment : Fragment() {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(0, offset, 0, 0)
         }
+        binding.toolbar2.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.refresh -> {
+                    viewModel.weatherRefresh()
+                }
+                else -> {}
+            }
+            false
+        }
 
         // RecyclerView
         val weatherAdapter = ExploreAdapters.WeatherAdapter()
@@ -70,7 +79,9 @@ class ExploreFragment : Fragment() {
                     }
                 }
             }
-//            weatherAdapter.submitList()
+        }
+        viewModel.weatherLive.observe(this) {
+            weatherAdapter.submitList(it)
         }
     }
 

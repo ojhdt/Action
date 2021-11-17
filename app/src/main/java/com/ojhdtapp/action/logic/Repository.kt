@@ -5,9 +5,63 @@ import androidx.lifecycle.liveData
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.*
+import com.ojhdtapp.action.logic.network.Network
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import java.sql.Timestamp
+import java.util.*
 
 object Repository {
+    private fun getStringResource(id: Int): String {
+        return BaseApplication.context.resources.getString(id)
+    }
+
+    private val skyconMap = mapOf(
+        "CLEAR_DAY" to getStringResource(R.string.weather_type_clear),
+        "CLEAR_NIGHT" to getStringResource(R.string.weather_type_clear),
+        "PARTLY_CLOUDY_DAY" to getStringResource(R.string.weather_type_partly_cloudy),
+        "PARTLY_CLOUDY_NIGHT" to getStringResource(R.string.weather_type_partly_cloudy),
+        "CLOUDY" to getStringResource(R.string.weather_type_cloudy),
+        "LIGHT_HAZE" to getStringResource(R.string.weather_type_light_haze),
+        "MODERATE_HAZE" to getStringResource(R.string.weather_type_moderate_haze),
+        "HEAVY_HAZE" to getStringResource(R.string.weather_type_heavy_haze),
+        "LIGHT_RAIN" to getStringResource(R.string.weather_type_light_rain),
+        "MODERATE_RAIN" to getStringResource(R.string.weather_type_moderate_rain),
+        "HEAVY_RAIN" to getStringResource(R.string.weather_type_heavy_rain),
+        "STORM_RAIN" to getStringResource(R.string.weather_type_storm_rain),
+        "FOG" to getStringResource(R.string.weather_type_fog),
+        "LIGHT_SNOW" to getStringResource(R.string.weather_type_light_snow),
+        "MODERATE_SNOW" to getStringResource(R.string.weather_type_moderate_snow),
+        "HEAVY_SNOW" to getStringResource(R.string.weather_type_heavy_snow),
+        "STORM_SNOW" to getStringResource(R.string.weather_type_storm_snow),
+        "DUST" to getStringResource(R.string.weather_type_dust),
+        "SAND" to getStringResource(R.string.weather_type_sand),
+        "WIND" to getStringResource(R.string.weather_type_wind),
+    )
+    private val rawMap = mapOf(
+        "CLEAR_DAY" to R.raw.weather_sunny,
+        "CLEAR_NIGHT" to R.raw.weather_night,
+        "PARTLY_CLOUDY_DAY" to R.raw.weather_partly_cloudy,
+        "PARTLY_CLOUDY_NIGHT" to R.raw.weather_loudynight,
+        "CLOUDY" to R.raw.weather_partly_cloudy,
+        "LIGHT_HAZE" to R.raw.weather_mist,
+        "MODERATE_HAZE" to R.raw.weather_mist,
+        "HEAVY_HAZE" to R.raw.weather_mist,
+        "LIGHT_RAIN" to R.raw.weather_partly_shower,
+        "MODERATE_RAIN" to R.raw.weather_partly_shower,
+        "HEAVY_RAIN" to R.raw.weather_rainynight,
+        "STORM_RAIN" to R.raw.weather_storm,
+        "FOG" to R.raw.weather_foggy,
+        "LIGHT_SNOW" to R.raw.weather_snow,
+        "MODERATE_SNOW" to R.raw.weather_snow,
+        "HEAVY_SNOW" to R.raw.weather_snow,
+        "STORM_SNOW" to R.raw.weather_snow,
+        "DUST" to R.raw.weather_mist,
+        "SAND" to R.raw.weather_mist,
+        "WIND" to R.raw.weather_windy
+    )
+
     fun getActionNowLive() = liveData {
         val list = listOf(
             Action(
@@ -69,15 +123,75 @@ object Repository {
         }
     }
 
-    fun getWeatherMessageLive():LiveData<WeatherBlock>{
-
-    }
-
-    fun getAirMessageLive():LiveData<WeatherMessageBlock>{
-
-    }
-
-    fun getLifeMessageLive():LiveData<LifeMessageBlock>{
-
+    fun getWeatherLive(): LiveData<List<Any?>> = liveData(Dispatchers.IO) {
+        val lng = "116.310003"
+        val lat = "39.991957"
+        val result = try {
+            coroutineScope {
+                val forecastResponseJob = async {
+                    Network.getForecastResponse(lng, lat)
+                }
+                val locationResponseJob = async {
+                    Network.getLocationResponse(lng, lat)
+                }
+                val forecastResponse = forecastResponseJob.await()
+                val locationResponse = locationResponseJob.await()
+                if (forecastResponse.status == "ok" && locationResponse.status == "1") {
+                    val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                    forecastResponse.result.run {
+                        val weather = WeatherBlock(
+                            locationResponse.regeocode.formatted_address,
+                            skyconMap[realtime.skycon]!!,
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[realtime.skycon]!!,
+                                realtime.temperature.toInt()
+                            ),
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[hourly.skycon[systemCalendarHour - 1].value]!!,
+                                hourly.temperature[systemCalendarHour - 1].value.toInt()
+                            ),
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[hourly.skycon[systemCalendarHour].value]!!,
+                                hourly.temperature[systemCalendarHour].value.toInt()
+                            ),
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[hourly.skycon[systemCalendarHour + 1].value]!!,
+                                hourly.temperature[systemCalendarHour + 1].value.toInt()
+                            ),
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[hourly.skycon[systemCalendarHour + 2].value]!!,
+                                hourly.temperature[systemCalendarHour + 2].value.toInt()
+                            ),
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[daily.skycon[systemCalendarHour - 1].value]!!,
+                                daily.temperature[systemCalendarHour - 1].avg.toInt(),
+                                daily.temperature[systemCalendarHour - 1].min.toInt(),
+                                daily.temperature[systemCalendarHour - 1].max.toInt()
+                            ),
+                            WeatherBlock.WeatherTemperature(
+                                rawMap[daily.skycon[systemCalendarHour].value]!!,
+                                daily.temperature[systemCalendarHour].avg.toInt(),
+                                daily.temperature[systemCalendarHour].min.toInt(),
+                                daily.temperature[systemCalendarHour].max.toInt()
+                            )
+                        )
+                        val air = WeatherMessageBlock(
+                            R.drawable.ic_outline_air_24, getStringResource(R.string.air),
+                            realtime.air_quality.aqi.chn, realtime.air_quality.aqi.chn / 2
+                        )
+                        val life = LifeMessageBlock(
+                            realtime.life_index.ultraviolet.index.toInt(),
+                            realtime.life_index.ultraviolet.index.toInt() * 10,
+                            realtime.life_index.comfort.index,
+                            realtime.life_index.comfort.index * 10
+                        )
+                        Result.success(listOf<Any?>(weather, air, life))
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Result.failure<List<Any?>>(e)
+        }
+        emit(result as List<Any?>)
     }
 }

@@ -74,8 +74,8 @@ object ExploreAdapters {
                 weatherSkycon.text = weatherBlock.skycon
                 weatherIconNow.setAnimation(weatherBlock.temperatureNow.rawID)
                 weatherTemperatureNow.text = weatherBlock.temperatureNow.value.toString()
-                weatherTemperatureHighest.text = weatherBlock.temperatureNow.highest.toString()
-                weatherTemperatureLowest.text = weatherBlock.temperatureNow.lowest.toString()
+//                weatherTemperatureHighest.text = weatherBlock.temperatureNow.highest.toString()
+//                weatherTemperatureLowest.text = weatherBlock.temperatureNow.lowest.toString()
                 weatherIconNextHour.setAnimation(weatherBlock.temperature1HourLater.rawID)
                 weatherTemperatureNextHour.text = weatherBlock.temperature1HourLater.value.toString()
                 weatherIconNext2Hour.setAnimation(weatherBlock.temperature2HoursLater.rawID)
@@ -102,10 +102,10 @@ object ExploreAdapters {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: WeatherMessageBlock) {
             binding.run {
-                Glide.with(root)
-                    .load(data.drawableID)
-                    .into(airIcon)
-                airTitle.text = data.title
+//                Glide.with(root)
+//                    .load(data.drawableID)
+//                    .into(airIcon)
+//                airTitle.text = data.title
                 airNum.text = data.num.toString()
                 airProgressView.setProgress(data.progress)
             }
@@ -116,10 +116,10 @@ object ExploreAdapters {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: WeatherMessageBlock) {
             binding.run {
-                Glide.with(root)
-                    .load(data.drawableID)
-                    .into(airIcon)
-                airTitle.text = data.title
+//                Glide.with(root)
+//                    .load(data.drawableID)
+//                    .into(airIcon)
+//                airTitle.text = data.title
                 airNum.text = data.num.toString()
                 airProgressView.setProgress(data.progress)
             }
