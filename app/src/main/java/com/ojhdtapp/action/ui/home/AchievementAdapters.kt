@@ -1,6 +1,7 @@
 package com.ojhdtapp.action.ui.home
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
@@ -182,7 +183,14 @@ object AchievementAdapters {
         ) {
             binding.run {
                 totalA.text = titleA
-                totalB.text = num.toString()
+//                totalB.text = num.toString()
+                ValueAnimator.ofInt(0, num).apply {
+                    duration = 1000
+                    addUpdateListener {
+                        totalB.text = (it.animatedValue as Int).toString()
+                    }
+                    start()
+                }
                 totalC.text = titleC
             }
         }
