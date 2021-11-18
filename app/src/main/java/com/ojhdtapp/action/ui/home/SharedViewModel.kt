@@ -85,6 +85,14 @@ class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
             Pair(
                 R.drawable.ic_outline_settings_24,
                 BaseApplication.context.getString(R.string.setting)
+            ),
+            Pair(
+                R.drawable.ic_outline_settings_24,
+                BaseApplication.context.getString(R.string.setting)
+            ),
+            Pair(
+                R.drawable.ic_outline_settings_24,
+                BaseApplication.context.getString(R.string.setting)
             )
         )
     }

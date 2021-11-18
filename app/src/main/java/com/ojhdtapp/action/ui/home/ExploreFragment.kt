@@ -88,7 +88,30 @@ class ExploreFragment : Fragment() {
         viewModel.weatherLive.observe(this) {
             if (it.isSuccess) {
                 it.getOrNull()?.apply {
-                    weatherAdapter.submitList(listOf(this.weather, this.air, this.life))
+                    val list = listOf(
+                        this.weather, this.air, this.life,
+                        Pair(
+                            R.drawable.ic_outline_settings_24,
+                            BaseApplication.context.getString(R.string.setting)
+                        ),
+                        Pair(
+                            R.drawable.ic_outline_settings_24,
+                            BaseApplication.context.getString(R.string.setting)
+                        ),
+                        Pair(
+                            R.drawable.ic_outline_settings_24,
+                            BaseApplication.context.getString(R.string.setting)
+                        ),
+                        Pair(
+                            R.drawable.ic_outline_settings_24,
+                            BaseApplication.context.getString(R.string.setting)
+                        ),
+                        Pair(
+                            R.drawable.ic_outline_settings_24,
+                            BaseApplication.context.getString(R.string.setting)
+                        )
+                    )
+                    weatherAdapter.submitList(list)
                     if (this.isTemp) {
                         viewModel.weatherRefresh()
                     } else {
