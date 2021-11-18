@@ -70,7 +70,6 @@ class ExploreFragment : Fragment() {
 
         // RecyclerView
         val weatherAdapter = ExploreAdapters.WeatherAdapter()
-        val settingAdapter = ExploreAdapters.SettingAdapter()
         binding.recyclerView.run {
             adapter = ConcatAdapter(weatherAdapter)
             layoutManager = GridLayoutManager(context, 2).apply {
@@ -107,9 +106,6 @@ class ExploreFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
-        }
-        viewModel.settingLive.observe(this) {
-            settingAdapter.submitList(it)
         }
     }
 

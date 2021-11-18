@@ -50,9 +50,17 @@ object ExploreAdapters {
                         AirViewHolder(binding)
                     }
                 }
-                else -> {
+                2 -> {
                     val binding = ExploreLifeBinding.inflate(layoutInflater, parent, false)
                     return LifeViewHolder(binding)
+                }
+                else -> {
+                    val binding = ExploreSettingBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                    return SettingViewHolder(binding)
                 }
             }
         }
@@ -69,7 +77,8 @@ object ExploreAdapters {
                         (holder as AirViewHolder).bind(item)
                     }
                 }
-                else -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
+                2 -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
+                else -> (holder as SettingViewHolder).bind(item as Pair<Int, String>)
             }
         }
 
@@ -79,30 +88,32 @@ object ExploreAdapters {
         }
     }
 
-    class SettingAdapter : ListAdapter<Pair<Int,String>,SettingViewHolder>(object: DiffUtil.ItemCallback<Pair<Int,String>>(){
-        override fun areItemsTheSame(
-            oldItem: Pair<Int, String>,
-            newItem: Pair<Int, String>
-        ): Boolean {
-            return false
-        }
-
-        override fun areContentsTheSame(
-            oldItem: Pair<Int, String>,
-            newItem: Pair<Int, String>
-        ): Boolean {
-            return false
-        }
-    }) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingViewHolder {
-            val binding = ExploreSettingBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-            return SettingViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(holder: SettingViewHolder, position: Int) {
-            holder.bind(getItem(position))
-        }
-    }
+//    class SettingAdapter : ListAdapter<Pair<Int, String>, SettingViewHolder>(object :
+//        DiffUtil.ItemCallback<Pair<Int, String>>() {
+//        override fun areItemsTheSame(
+//            oldItem: Pair<Int, String>,
+//            newItem: Pair<Int, String>
+//        ): Boolean {
+//            return false
+//        }
+//
+//        override fun areContentsTheSame(
+//            oldItem: Pair<Int, String>,
+//            newItem: Pair<Int, String>
+//        ): Boolean {
+//            return false
+//        }
+//    }) {
+//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingViewHolder {
+//            val binding =
+//                ExploreSettingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+//            return SettingViewHolder(binding)
+//        }
+//
+//        override fun onBindViewHolder(holder: SettingViewHolder, position: Int) {
+//            holder.bind(getItem(position))
+//        }
+//    }
 
     class WeatherViewHolder(private val binding: ExploreWeatherCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
