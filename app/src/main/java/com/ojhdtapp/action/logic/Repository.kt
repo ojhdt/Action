@@ -208,7 +208,7 @@ object Repository {
                             realtime.life_index.ultraviolet.index.toInt(),
                             realtime.life_index.ultraviolet.index.toInt() * 10,
                             realtime.life_index.comfort.index,
-                            realtime.life_index.comfort.index * 10
+                            realtime.life_index.comfort.index * 8
                         )
                         Result.success(Weather(weather, air, life))
                     }

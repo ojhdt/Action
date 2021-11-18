@@ -115,11 +115,11 @@ class ExploreFragment : Fragment() {
                     if (this.isTemp) {
                         viewModel.weatherRefresh()
                     } else {
-                        Snackbar.make(
-                            binding.exploreCoordinatorLayout,
-                            resources.getString(R.string.network_success),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+//                        Snackbar.make(
+//                            binding.exploreCoordinatorLayout,
+//                            resources.getString(R.string.network_success),
+//                            Snackbar.LENGTH_SHORT
+//                        ).show()
                     }
                 }
             } else {

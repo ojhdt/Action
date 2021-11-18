@@ -312,13 +312,17 @@ object ExploreAdapters {
             parent: RecyclerView,
             state: RecyclerView.State
         ) {
-            outRect.top = space
             when (parent.getChildAdapterPosition(view)) {
+                0 -> {
+                    outRect.top = space
+                }
                 1 -> {
+                    outRect.top = space
                     outRect.left = space * 2
                     outRect.right = space / 2
                 }
                 2 -> {
+                    outRect.top = space
                     outRect.left = space / 2
                     outRect.right = space * 2
                 }
