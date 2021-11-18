@@ -125,6 +125,27 @@ object Repository {
         }
     }
 
+    fun createTempWeatherLive(): LiveData<Result<List<Any?>>> = liveData(Dispatchers.Main) {
+        val weather = WeatherBlock(
+            BaseApplication.context.getString(R.string.loading_location),
+            BaseApplication.context.getString(R.string.loading_data),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0)
+        )
+        val air = WeatherMessageBlock(
+            R.drawable.ic_outline_air_24, BaseApplication.context.getString(R.string.air),
+            0, 0
+        )
+        val life = LifeMessageBlock(0, 0, 0, 0)
+        val result = Result.success(listOf(weather, air, life))
+        emit(result)
+    }
+
     fun getWeatherLive(): LiveData<Result<List<Any?>>> = liveData(Dispatchers.IO) {
         val lng = "116.310003"
         val lat = "39.991957"

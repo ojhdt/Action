@@ -1,15 +1,13 @@
 package com.ojhdtapp.action.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.lifecycle.*
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.*
 
-class SharedViewModel : ViewModel() {
+class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
     // Action Fragment
     private val _actionNowLive = MutableLiveData<MutableList<Action>>()
     private val _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
@@ -53,35 +51,28 @@ class SharedViewModel : ViewModel() {
     }
 
     //Explore Fragment
-    private val _weather = MutableLiveData<Any?>()
+    private val _weather = MutableLiveData<Boolean>()
 
-    init {
-        val weather = WeatherBlock(
-            BaseApplication.context.getString(R.string.loading_location),
-            BaseApplication.context.getString(R.string.loading_data),
-            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
-            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
-            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
-            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
-            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
-            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
-            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0)
-        )
-        val air = WeatherMessageBlock(
-            R.drawable.ic_outline_air_24, BaseApplication.context.getString(R.string.air),
-            0, 0
-        )
-        val life = LifeMessageBlock(0,0,0,0)
-        _weather.value = Weather(weather, air, life)
+    val _weatherTrans: LiveData<Result<List<Any?>>> = Transformations.switchMap(_weather) {
+        Log.d("aaa", it.toString() + state.contains("WEATHERTEMP").toString())
+        Log.d("aaa", state.keys().toString())
+        if (it == true && state.contains("WEATHERTEMP")) {
+            Log.d("aaa", "From Temp")
+            state.getLiveData("WEATHERTEMP")
+        } else {
+            Log.d("aaa", "From Net")
+            val result = Repository.getWeatherLive()
+            state["WEATHERTEMP"] = result.value
+            Log.d("aaa", state.keys().toString())
+            result
+        }
     }
 
     val weatherLive: LiveData<Result<List<Any?>>>
-        get() = Transformations.switchMap(_weather) {
-            Repository.getWeatherLive()
-        }
+        get() = _weatherTrans
 
-    fun weatherRefresh() {
-        _weather.value = _weather.value
+    fun weatherRefresh(fromTemp: Boolean = false) {
+        _weather.value = fromTemp
     }
 
     private val _settingLive =

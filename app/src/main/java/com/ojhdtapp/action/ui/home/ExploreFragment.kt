@@ -61,11 +61,12 @@ class ExploreFragment : Fragment() {
         binding.toolbar2.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.refresh -> {
+                    Log.d("aaa", "Refresh Attached")
                     viewModel.weatherRefresh()
                 }
                 else -> {}
             }
-            true
+            false
         }
 
         // RecyclerView
@@ -87,7 +88,6 @@ class ExploreFragment : Fragment() {
             addItemDecoration(ExploreAdapters.WeatherMessageBlockSpaceItemDecoration())
         }
         viewModel.weatherLive.observe(this) {
-            Log.d("aaa", it.toString())
             if (it.isSuccess) {
                 weatherAdapter.submitList(it.getOrNull())
                 Snackbar.make(

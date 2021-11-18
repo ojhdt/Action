@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             getUserInfo()
             gainedAchievementRefresh()
             finishedActionRefresh()
+            weatherRefresh(true)
         }
 
         // Hide NavigationBar & StatusBAr
