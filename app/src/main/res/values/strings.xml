@@ -78,8 +78,13 @@
     <string name="weather_type_sand">沙尘</string>
     <string name="weather_type_wind">大风</string>
 
+    <string name="loading_location">定位中</string>
+    <string name="loading_data">数据获取中</string>
+
     <string name="network_success">刷新成功</string>
     <string name="network_error">网络错误，请重试</string>
+
+    <string name="setting">设置</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

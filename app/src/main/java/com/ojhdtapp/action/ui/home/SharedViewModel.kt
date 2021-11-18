@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.*
 
@@ -52,11 +54,55 @@ class SharedViewModel : ViewModel() {
 
     //Explore Fragment
     private val _weather = MutableLiveData<Any?>()
+
+    init {
+        val weather = WeatherBlock(
+            BaseApplication.context.getString(R.string.loading_location),
+            BaseApplication.context.getString(R.string.loading_data),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+            WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0)
+        )
+        val air = WeatherMessageBlock(
+            R.drawable.ic_outline_air_24, BaseApplication.context.getString(R.string.air),
+            0, 0
+        )
+        val life = LifeMessageBlock(0,0,0,0)
+        _weather.value = Weather(weather, air, life)
+    }
+
     val weatherLive: LiveData<Result<List<Any?>>>
         get() = Transformations.switchMap(_weather) {
             Repository.getWeatherLive()
         }
-    fun weatherRefresh(){
+
+    fun weatherRefresh() {
         _weather.value = _weather.value
     }
+
+    private val _settingLive =
+        MutableLiveData<List<Pair<Int, String>>>()
+
+    init {
+        _settingLive.value = listOf(
+            Pair(
+                R.drawable.ic_outline_settings_24,
+                BaseApplication.context.getString(R.string.setting)
+            ),
+            Pair(
+                R.drawable.ic_outline_settings_24,
+                BaseApplication.context.getString(R.string.setting)
+            ),
+            Pair(
+                R.drawable.ic_outline_settings_24,
+                BaseApplication.context.getString(R.string.setting)
+            )
+        )
+    }
+
+    val settingLive: LiveData<List<Pair<Int, String>>> get() = _settingLive
 }

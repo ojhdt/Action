@@ -155,8 +155,8 @@ object Repository {
                                 hourly.temperature[systemCalendarHour].value.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
-                                rawMap[hourly.skycon[systemCalendarHour+1].value]!!,
-                                hourly.temperature[systemCalendarHour+1].value.toInt()
+                                rawMap[hourly.skycon[systemCalendarHour + 1].value]!!,
+                                hourly.temperature[systemCalendarHour + 1].value.toInt()
                             ),
                             WeatherBlock.WeatherTemperature(
                                 rawMap[hourly.skycon[systemCalendarHour + 2].value]!!,

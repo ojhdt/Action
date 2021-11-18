@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.ojhdtapp.action.BaseApplication
@@ -64,13 +65,14 @@ class ExploreFragment : Fragment() {
                 }
                 else -> {}
             }
-            false
+            true
         }
 
         // RecyclerView
         val weatherAdapter = ExploreAdapters.WeatherAdapter()
+        val settingAdapter = ExploreAdapters.SettingAdapter()
         binding.recyclerView.run {
-            adapter = weatherAdapter
+            adapter = ConcatAdapter(weatherAdapter, settingAdapter)
             layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
@@ -101,6 +103,9 @@ class ExploreFragment : Fragment() {
                 ).show()
             }
         }
+//        viewModel.settingLive.observe(this) {
+//            settingAdapter.submitList(it)
+//        }
     }
 
     override fun onDestroyView() {

@@ -6,16 +6,15 @@ import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
-import com.ojhdtapp.action.databinding.ExploreAirQualityBinding
-import com.ojhdtapp.action.databinding.ExploreAirQualityErrorBinding
-import com.ojhdtapp.action.databinding.ExploreLifeBinding
-import com.ojhdtapp.action.databinding.ExploreWeatherCardBinding
+import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.LifeMessageBlock
 import com.ojhdtapp.action.logic.model.WeatherBlock
 import com.ojhdtapp.action.logic.model.WeatherMessageBlock
@@ -75,6 +74,31 @@ object ExploreAdapters {
 
         override fun getItemViewType(position: Int): Int {
             return position
+        }
+    }
+
+    class SettingAdapter : ListAdapter<Pair<Int,String>,SettingViewHolder>(object: DiffUtil.ItemCallback<Pair<Int,String>>(){
+        override fun areItemsTheSame(
+            oldItem: Pair<Int, String>,
+            newItem: Pair<Int, String>
+        ): Boolean {
+            return false
+        }
+
+        override fun areContentsTheSame(
+            oldItem: Pair<Int, String>,
+            newItem: Pair<Int, String>
+        ): Boolean {
+            return false
+        }
+    }) {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingViewHolder {
+            val binding = ExploreSettingBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            return SettingViewHolder(binding)
+        }
+
+        override fun onBindViewHolder(holder: SettingViewHolder, position: Int) {
+            holder.bind(getItem(position))
         }
     }
 
@@ -254,6 +278,16 @@ object ExploreAdapters {
 //                comfortNum.text = comfortData.num.toString()
 //                comfortProcessView.setProgress(comfortData.progress)
             }
+        }
+    }
+
+    class SettingViewHolder(private val binding: ExploreSettingBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Pair<Int, String>) {
+            Glide.with(binding.root)
+                .load(ContextCompat.getDrawable(binding.root.context, data.first))
+                .into(binding.settingIcon)
+            binding.settingText.text = data.second
         }
     }
 
