@@ -30,7 +30,7 @@ class ActionFragment : Fragment() {
     private var _binding: FragmentActionBinding? = null
     val viewModel: SharedViewModel by activityViewModels()
 
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +98,6 @@ class ActionFragment : Fragment() {
         viewModel.suggestMoreLive.observe(this) {
             suggestMoreAdapter.submitList(it)
         }
-//        viewModel.refresh()
 
         // Welcome Text & Avatar
         viewModel.userInfoLive.observe(this) {
@@ -108,7 +107,24 @@ class ActionFragment : Fragment() {
                 .load(ContextCompat.getDrawable(BaseApplication.context, it.avatarResID))
                 .into(binding.welcomeAvatarImageView)
         }
-//        viewModel.getUserInfo()
+
+        // FAB Show & Hide
+        binding.actionRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy >0) {
+                    // Scroll Down
+                    if (binding.floatingActionButton.isExtended) {
+                        binding.floatingActionButton.shrink();
+                    }
+                }
+                else if (dy <0) {
+                    // Scroll Up
+                    if (!binding.floatingActionButton.isExtended) {
+                        binding.floatingActionButton.extend();
+                    }
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {

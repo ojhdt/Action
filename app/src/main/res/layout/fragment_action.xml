@@ -16,8 +16,8 @@
         android:clickable="true"
         android:text="@string/get_suggestions"
         app:icon="@drawable/ic_outline_add_24"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />
-
+        />
+<!--    app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -54,6 +54,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +63,7 @@
                 app:layout_constraintStart_toEndOf="@+id/welcomeTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:roundPercent="1"
+                tools:ignore="TouchTargetSizeCheck"
                 tools:src="@drawable/anonymous" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

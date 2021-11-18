@@ -14,9 +14,15 @@ class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
     private val _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
     private val _userInfoLive = MutableLiveData<Any?>()
 
-    val actionNowLive: LiveData<List<Action>> get() = Transformations.switchMap(_actionNowLive) { Repository.getActionNowLive() }
-    val suggestMoreLive: LiveData<List<Suggest>> get() = Transformations.switchMap(_suggestMoreLive) { Repository.getSuggestMoreLive() }
-    val userInfoLive: LiveData<User> get() = Transformations.switchMap(_userInfoLive) { Repository.getUserInfoLive() }
+    val _actionNowTran: LiveData<List<Action>> =
+        Transformations.switchMap(_actionNowLive) { Repository.getActionNowLive() }
+    val _suggestMoreTran: LiveData<List<Suggest>> =
+        Transformations.switchMap(_suggestMoreLive) { Repository.getSuggestMoreLive() }
+    val _userInfoTran: LiveData<User> =
+        Transformations.switchMap(_userInfoLive) { Repository.getUserInfoLive() }
+    val actionNowLive: LiveData<List<Action>> get() = _actionNowTran
+    val suggestMoreLive: LiveData<List<Suggest>> get() = _suggestMoreTran
+    val userInfoLive: LiveData<User> get() = _userInfoTran
 
     fun actionRefresh() {
         _actionNowLive.value = _actionNowLive.value
@@ -34,14 +40,14 @@ class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
     private val _gainedAchievementLive = MutableLiveData<MutableList<Achievement>>()
     private val _finishedActionLive = MutableLiveData<MutableList<Action>>()
 
-    val gainedAchievementLive: LiveData<List<Achievement>>
-        get() = Transformations.switchMap(
-            _gainedAchievementLive
-        ) { Repository.getGainedAchievementLive() }
-    val finishedActionLive: LiveData<List<Action>>
-        get() = Transformations.switchMap(
-            _finishedActionLive
-        ) { Repository.getFinishedActionLive() }
+    val _gainedAchievementTran: LiveData<List<Achievement>> = Transformations.switchMap(
+        _gainedAchievementLive
+    ) { Repository.getGainedAchievementLive() }
+    val gainedAchievementLive: LiveData<List<Achievement>> get() = _gainedAchievementTran
+    val _finishedActionTran: LiveData<List<Action>> = Transformations.switchMap(
+        _finishedActionLive
+    ) { Repository.getFinishedActionLive() }
+    val finishedActionLive: LiveData<List<Action>> get() = _finishedActionTran
 
     fun gainedAchievementRefresh() {
         _gainedAchievementLive.value = _gainedAchievementLive.value
@@ -69,33 +75,33 @@ class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
         _weather.value = createTemp
     }
 
-    private val _settingLive =
-        MutableLiveData<List<Pair<Int, String>>>()
-
-    init {
-        _settingLive.value = listOf(
-            Pair(
-                R.drawable.ic_outline_settings_24,
-                BaseApplication.context.getString(R.string.setting)
-            ),
-            Pair(
-                R.drawable.ic_outline_settings_24,
-                BaseApplication.context.getString(R.string.setting)
-            ),
-            Pair(
-                R.drawable.ic_outline_settings_24,
-                BaseApplication.context.getString(R.string.setting)
-            ),
-            Pair(
-                R.drawable.ic_outline_settings_24,
-                BaseApplication.context.getString(R.string.setting)
-            ),
-            Pair(
-                R.drawable.ic_outline_settings_24,
-                BaseApplication.context.getString(R.string.setting)
-            )
-        )
-    }
-
-    val settingLive: LiveData<List<Pair<Int, String>>> get() = _settingLive
+//    private val _settingLive =
+//        MutableLiveData<List<Pair<Int, String>>>()
+//
+//    init {
+//        _settingLive.value = listOf(
+//            Pair(
+//                R.drawable.ic_outline_settings_24,
+//                BaseApplication.context.getString(R.string.setting)
+//            ),
+//            Pair(
+//                R.drawable.ic_outline_settings_24,
+//                BaseApplication.context.getString(R.string.setting)
+//            ),
+//            Pair(
+//                R.drawable.ic_outline_settings_24,
+//                BaseApplication.context.getString(R.string.setting)
+//            ),
+//            Pair(
+//                R.drawable.ic_outline_settings_24,
+//                BaseApplication.context.getString(R.string.setting)
+//            ),
+//            Pair(
+//                R.drawable.ic_outline_settings_24,
+//                BaseApplication.context.getString(R.string.setting)
+//            )
+//        )
+//    }
+//
+//    val settingLive: LiveData<List<Pair<Int, String>>> get() = _settingLive
 }
