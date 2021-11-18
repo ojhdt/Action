@@ -9,7 +9,11 @@
         android:id="@+id/actionFragment"
         android:name="com.ojhdtapp.action.ui.home.ActionFragment"
         android:label="@string/nav_action"
-        tools:layout="@layout/fragment_action" />
+        tools:layout="@layout/fragment_action">
+        <action
+            android:id="@+id/action_actionFragment_to_actionContentFragment"
+            app:destination="@id/actionContentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/achievementFragment"
         android:name="com.ojhdtapp.action.ui.home.AchievementFragment"
@@ -20,4 +24,8 @@
         android:name="com.ojhdtapp.action.ui.home.ExploreFragment"
         android:label="@string/nav_explore"
         tools:layout="@layout/fragment_explore" />
+    <fragment
+        android:id="@+id/actionContentFragment"
+        android:name="com.ojhdtapp.action.ui.content.ActionContentFragment"
+        android:label="@string/nav_action_content" />
 </navigation>

@@ -9,12 +9,13 @@
     android:paddingBottom="12dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        android:checkable="true"
         app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

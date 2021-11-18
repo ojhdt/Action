@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
+import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionActionNowCellBinding
 import com.ojhdtapp.action.databinding.ActionHeadlineBinding
 import com.ojhdtapp.action.databinding.ActionLabelBinding
@@ -74,14 +77,12 @@ object ActionAdapters {
 
         }) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActionNowViewHolder {
-            val holder = ActionNowViewHolder(
-                ActionActionNowCellBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+            val binding = ActionActionNowCellBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
-            return holder
+            return ActionNowViewHolder((binding))
         }
 
         override fun onBindViewHolder(holder: ActionNowViewHolder, position: Int) {
@@ -105,6 +106,12 @@ object ActionAdapters {
                             setChipIconResource(it)
                         }
                     })
+                }
+
+                cardView.setOnClickListener {
+                    val bundle = bundleOf("ACTION" to data)
+                    binding.root.findNavController()
+                        .navigate(R.id.action_actionFragment_to_actionContentFragment, bundle)
                 }
             }
         }
