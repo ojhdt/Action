@@ -6,6 +6,7 @@ import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.*
+import kotlinx.coroutines.*
 
 class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
     // Action Fragment
@@ -53,26 +54,19 @@ class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
     //Explore Fragment
     private val _weather = MutableLiveData<Boolean>()
 
-    val _weatherTrans: LiveData<Result<List<Any?>>> = Transformations.switchMap(_weather) {
-        Log.d("aaa", it.toString() + state.contains("WEATHERTEMP").toString())
-        Log.d("aaa", state.keys().toString())
-        if (it == true && state.contains("WEATHERTEMP")) {
-            Log.d("aaa", "From Temp")
-            state.getLiveData("WEATHERTEMP")
+    private val _weatherTrans: LiveData<Result<Weather>> = Transformations.switchMap(_weather) {
+        if (it) {
+            Repository.createTempWeatherLive()
         } else {
-            Log.d("aaa", "From Net")
-            val result = Repository.getWeatherLive()
-            state["WEATHERTEMP"] = result.value
-            Log.d("aaa", state.keys().toString())
-            result
+            Repository.getWeatherLive()
         }
     }
 
-    val weatherLive: LiveData<Result<List<Any?>>>
+    val weatherLive: LiveData<Result<Weather>>
         get() = _weatherTrans
 
-    fun weatherRefresh(fromTemp: Boolean = false) {
-        _weather.value = fromTemp
+    fun weatherRefresh(createTemp: Boolean = false) {
+        _weather.value = createTemp
     }
 
     private val _settingLive =

@@ -3,6 +3,7 @@ package com.ojhdtapp.action.ui.home
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.graphics.Rect
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,8 +58,9 @@ object ExploreAdapters {
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            val item = getItem(position)
-            when (holder.itemViewType) {
+            Log.d("aaa", holder.bindingAdapterPosition.toString())
+            val item = getItem(holder.bindingAdapterPosition)
+            when (holder.bindingAdapterPosition) {
                 0 -> (holder as WeatherViewHolder).bind(item as WeatherBlock)
                 1 -> {
                     if ((item as WeatherMessageBlock).progress > 80) {
@@ -67,12 +69,12 @@ object ExploreAdapters {
                         (holder as AirViewHolder).bind(item)
                     }
                 }
-
                 else -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
             }
         }
 
         override fun getItemViewType(position: Int): Int {
+            Log.d("aaa", position.toString())
             return position
         }
     }

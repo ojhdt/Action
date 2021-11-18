@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,7 +19,7 @@ import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentExploreBinding
 
 class ExploreFragment : Fragment() {
-    var _binding: FragmentExploreBinding? = null
+    private var _binding: FragmentExploreBinding? = null
 
     val binding get() = _binding!!
     val viewModel: SharedViewModel by activityViewModels()
@@ -33,7 +32,7 @@ class ExploreFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         return binding.root
@@ -73,7 +72,7 @@ class ExploreFragment : Fragment() {
         val weatherAdapter = ExploreAdapters.WeatherAdapter()
         val settingAdapter = ExploreAdapters.SettingAdapter()
         binding.recyclerView.run {
-            adapter = ConcatAdapter(weatherAdapter, settingAdapter)
+            adapter = ConcatAdapter(weatherAdapter)
             layoutManager = GridLayoutManager(context, 2).apply {
                 spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
@@ -89,12 +88,18 @@ class ExploreFragment : Fragment() {
         }
         viewModel.weatherLive.observe(this) {
             if (it.isSuccess) {
-                weatherAdapter.submitList(it.getOrNull())
-                Snackbar.make(
-                    binding.exploreCoordinatorLayout,
-                    resources.getString(R.string.network_success),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                it.getOrNull()?.apply {
+                    weatherAdapter.submitList(listOf(this.weather, this.air, this.life))
+                    if (this.isTemp) {
+                        viewModel.weatherRefresh()
+                    } else {
+                        Snackbar.make(
+                            binding.exploreCoordinatorLayout,
+                            resources.getString(R.string.network_success),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             } else {
                 Snackbar.make(
                     binding.exploreCoordinatorLayout,
@@ -103,9 +108,9 @@ class ExploreFragment : Fragment() {
                 ).show()
             }
         }
-//        viewModel.settingLive.observe(this) {
-//            settingAdapter.submitList(it)
-//        }
+        viewModel.settingLive.observe(this) {
+            settingAdapter.submitList(it)
+        }
     }
 
     override fun onDestroyView() {

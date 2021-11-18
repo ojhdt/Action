@@ -125,7 +125,7 @@ object Repository {
         }
     }
 
-    fun createTempWeatherLive(): LiveData<Result<List<Any?>>> = liveData(Dispatchers.Main) {
+    fun createTempWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.Main) {
         val weather = WeatherBlock(
             BaseApplication.context.getString(R.string.loading_location),
             BaseApplication.context.getString(R.string.loading_data),
@@ -142,11 +142,11 @@ object Repository {
             0, 0
         )
         val life = LifeMessageBlock(0, 0, 0, 0)
-        val result = Result.success(listOf(weather, air, life))
+        val result = Result.success(Weather(weather, air, life, true))
         emit(result)
     }
 
-    fun getWeatherLive(): LiveData<Result<List<Any?>>> = liveData(Dispatchers.IO) {
+    fun getWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.IO) {
         val lng = "116.310003"
         val lat = "39.991957"
         val result = try {
@@ -210,7 +210,7 @@ object Repository {
                             realtime.life_index.comfort.index,
                             realtime.life_index.comfort.index * 10
                         )
-                        Result.success(listOf<Any?>(weather, air, life))
+                        Result.success(Weather(weather, air, life))
                     }
                 } else {
                     Result.failure(RuntimeException("Status:${forecastResponse.status},${locationResponse.status}"))
