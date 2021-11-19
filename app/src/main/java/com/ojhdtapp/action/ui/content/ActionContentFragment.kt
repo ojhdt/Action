@@ -1,6 +1,7 @@
 package com.ojhdtapp.action.ui.content
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -48,7 +50,13 @@ class ActionContentFragment : Fragment() {
             viewmodel.switchFinishedStatus()
         }
         // Setup Appbar
-        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.actionFragment,
+                R.id.achievementFragment,
+                R.id.exploreFragment
+            )
+        )
         NavigationUI.setupWithNavController(
             binding.toolbar,
             findNavController(),
@@ -60,11 +68,22 @@ class ActionContentFragment : Fragment() {
         }
         // Load Data & Initialize ViewModel
         viewmodel.sumbitData(data)
-        viewmodel.dataLive.observe(this) {
+        viewmodel.dataLive.observe(this) { it ->
+            Log.d("aaa", it.toString())
             binding.toolbar.title = it.title
             Glide.with(this)
                 .load(it.imageID)
                 .into(binding.imageView2)
+            data.label.forEach {
+                binding.chips.addView(Chip(binding.root.context).apply {
+                    text = it.second
+                    it.first?.let {
+                        setChipIconResource(it)
+                    }
+                })
+            }
+            binding.content.text = it.content
+            binding.label.text = getString(R.string.pair_messages, it.source, it.timestamp)
             if (it.finished) {
                 binding.floatingActionButton.icon =
                     ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_outline_undo_24)

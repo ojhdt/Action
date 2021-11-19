@@ -10,7 +10,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,29 +32,28 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/suggestTitle"
+                    android:id="@+id/suggestSubhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title"
+                    android:text="@string/subhead"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/suggestSubhead"
+                    android:id="@+id/suggestTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/subhead"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?android:attr/textColorSecondary"
-                    app:layout_constraintStart_toStartOf="@+id/suggestTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/suggestTitle" />
+                    android:text="@string/title"
+                    android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                    app:layout_constraintStart_toStartOf="@+id/suggestSubhead"
+                    app:layout_constraintTop_toBottomOf="@+id/suggestSubhead" />
 
                 <TextView
                     android:id="@+id/suggestContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="64dp"
                     android:maxLines="2"
                     android:text="@string/lorem_ipsum"
@@ -62,10 +62,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/suggestSubhead" />
+                    app:layout_constraintTop_toBottomOf="@+id/suggestTitle" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/suggest_btn"
+                    android:id="@+id/suggestIgnoreBtn"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/ignore"
+                    app:layout_constraintEnd_toStartOf="@+id/suggestConfirmBtn"
+                    app:layout_constraintTop_toTopOf="@+id/suggestConfirmBtn" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/suggestConfirmBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"

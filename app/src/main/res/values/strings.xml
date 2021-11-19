@@ -5,6 +5,7 @@
     <string name="nav_explore">发现</string>
     <string name="nav_action_content">行动详情</string>
 
+    <string name="pair_messages">%1$s • %2$s</string>
 
     <string-array name="action_welcomes">
         <item>你好，</item>
@@ -31,6 +32,7 @@
     <string name="title">标题</string>
     <string name="subhead">副标题</string>
     <string name="go_further">前往</string>
+    <string name="ignore">忽略</string>
     <string name="get_suggestions">获取建议</string>
 
     <string name="achievement_total_a">哇噢！你已累计完成了不同类型的行动</string>
@@ -46,7 +48,7 @@
     <string name="achievement_gained">已解锁的成就</string>
     <string name="achievement_sort_by_alpha">按字母顺序排序</string>
     <string name="achievement_sort_by_time">按解锁时间排序</string>
-    <string name="achievement_cell_messages">%1$s • %2$sXP</string>
+    <string name="achievement_pair_messages">%1$s • %2$sXP</string>
 
     <string name="weather_location">地区</string>
     <string name="weather_skycon">晴朗</string>

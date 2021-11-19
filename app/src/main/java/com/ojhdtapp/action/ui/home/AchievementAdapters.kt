@@ -2,21 +2,11 @@ package com.ojhdtapp.action.ui.home
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Color
 import android.graphics.Rect
-import android.text.Spannable
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.DrawableUtils
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
@@ -25,7 +15,6 @@ import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.StatisticsBlock
-import java.sql.Timestamp
 
 object AchievementAdapters {
     class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -290,7 +279,7 @@ object AchievementAdapters {
                 achievementTitle.text = data.title
                 achievementDescription.text = data.description
                 achievementMessages.text = root.resources.getString(
-                    R.string.achievement_cell_messages,
+                    R.string.achievement_pair_messages,
                     data.type,
                     data.xp.toString()
                 )
