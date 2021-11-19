@@ -16,7 +16,7 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
-        app:cardElevation="2dp">
+        app:cardCornerRadius="24dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -54,13 +54,13 @@
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:id="@+id/action_image"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:background="?attr/colorPrimaryContainer"
                 app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:round="12dp" />
+                app:round="24dp" />
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
