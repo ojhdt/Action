@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             weatherRefresh(true)
         }
 
-        // Hide NavigationBar & StatusBAr
+        // Hide NavigationBar & StatusBar
         WindowCompat.setDecorFitsSystemWindows(window, false)
 //        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
 //            v.updatePadding(top = insets.systemWindowInsets.top)
@@ -66,7 +66,16 @@ class MainActivity : AppCompatActivity() {
 
         // Navigation
         NavigationUI.setupWithNavController(binding.homeNav, navController)
-//        navController.addOnDestinationChangedListener { controller, destination, arguments -> TODO("Not yet implemented") }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id){
+                R.id.actionContentFragment ->{
+                    binding.homeNav.visibility = View.GONE
+                }
+                else -> {
+                    binding.homeNav.visibility = View.VISIBLE
+                }
+            }
+        }
 
 
     }

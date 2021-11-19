@@ -22,7 +22,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/achievement_statistics.xml" value="0.159375" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/achievement_xp.xml" value="0.264" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/action_action_now.xml" value="0.536" />
-        <entry key="..\:/Project/Action/app/src/main/res/layout/action_action_now_cell.xml" value="0.1" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/action_action_now_cell.xml" value="0.264" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/action_headline.xml" value="0.264" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/action_label.xml" value="0.536" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/action_suggest_more.xml" value="0.264" />
@@ -37,9 +37,10 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/explore_weather_card.xml" value="0.4814070351758794" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_achievement.xml" value="0.2" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_action.xml" value="0.176" />
-        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_action_content.xml" value="0.12708333333333333" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_action_content.xml" value="0.152" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_explore.xml" value="0.16" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/achievement_toolbar.xml" value="0.159375" />
+        <entry key="..\:/Project/Action/app/src/main/res/menu/action_content_toolbar.xml" value="0.12916666666666668" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/explore_toolbar.xml" value="0.15520833333333334" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/nav_menu.xml" value="0.264" />
       </map>
