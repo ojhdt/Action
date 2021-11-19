@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_actionFragment_to_actionContentFragment"
             app:destination="@id/actionContentFragment" />
+        <action
+            android:id="@+id/action_actionFragment_to_suggestContentFragment"
+            app:destination="@id/suggestContentFragment" />
     </fragment>
     <fragment
         android:id="@+id/achievementFragment"
@@ -28,4 +31,8 @@
         android:id="@+id/actionContentFragment"
         android:name="com.ojhdtapp.action.ui.content.ActionContentFragment"
         android:label="@string/nav_action_content" />
+    <fragment
+        android:id="@+id/suggestContentFragment"
+        android:name="com.ojhdtapp.action.ui.content.SuggestContentFragment"
+        android:label="SuggestContentFragment" />
 </navigation>

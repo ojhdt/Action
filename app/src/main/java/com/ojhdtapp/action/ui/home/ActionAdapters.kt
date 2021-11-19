@@ -157,6 +157,9 @@ object ActionAdapters {
                     suggestImage.visibility = View.GONE
                 }
                 suggestContent.text = data.content
+                suggestConfirmBtn.setOnClickListener {
+                    binding.root.findNavController().navigate(R.id.action_actionFragment_to_suggestContentFragment)
+                }
             }
         }
     }

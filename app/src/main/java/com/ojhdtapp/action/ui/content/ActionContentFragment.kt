@@ -56,7 +56,7 @@ class ActionContentFragment : Fragment() {
             )
         )
         NavigationUI.setupWithNavController(
-            binding.actionContentToolbar,
+            binding.toolbar,
             findNavController(),
             appBarConfiguration
         )
@@ -64,10 +64,11 @@ class ActionContentFragment : Fragment() {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(0, offset, 0, 0)
         }
-        // Load Data & Initialize ViewModel
-        viewmodel.sumbitData(data)
+        // Load Data & Initialize ViewModel'n
+            viewmodel.sumbitData(data)
         viewmodel.dataLive.observe(this) { it ->
-            activity?.findViewById<MaterialToolbar>(R.id.actionContentToolbar)?.title = it.title
+//            activity?.findViewById<MaterialToolbar>(R.id.actionContentToolbar)?.title = it.title
+            binding.toolbar.title = it.title
             Glide.with(this)
                 .load(it.imageID)
                 .into(binding.imageView2)
