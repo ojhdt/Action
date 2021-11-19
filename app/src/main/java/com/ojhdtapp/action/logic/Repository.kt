@@ -67,12 +67,15 @@ object Repository {
     fun getActionNowLive() = liveData {
         val list = listOf(
             Action(
-                "勤关水龙头勤关水龙头勤关水龙头勤关水龙头勤关水龙头勤关水龙头勤关水龙头",
-                R.drawable.anonymous,
-                "一些内容",
+                "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
+                R.drawable.city,
+                getStringResource(R.string.lorem_ipsum),
                 "位置信息",
                 Timestamp(1636594566),
-                listOf(Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"))
+                listOf(
+                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                )
             ),
             Action(
                 "勤关水龙头",

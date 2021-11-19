@@ -28,6 +28,7 @@
     <string name="action_content_toolbar_switch">切换状态</string>
     <string name="action_content_fab_mark">标记完成</string>
     <string name="action_content_fab_unmark">撤销标记</string>
+    <string name="action_content_fab_ignore">暂时忽略</string>
 
     <string name="title">标题</string>
     <string name="subhead">副标题</string>
