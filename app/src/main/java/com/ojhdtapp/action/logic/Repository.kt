@@ -67,7 +67,7 @@ object Repository {
     fun getActionNowLive() = liveData {
         val list = listOf(
             Action(
-                "勤关水龙头",
+                "勤关水龙头勤关水龙头勤关水龙头勤关水龙头勤关水龙头勤关水龙头勤关水龙头",
                 R.drawable.anonymous,
                 "一些内容",
                 "位置信息",
