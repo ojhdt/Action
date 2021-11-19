@@ -56,7 +56,7 @@ class AchievementFragment : Fragment() {
             )
         )
         NavigationUI.setupWithNavController(
-            binding.toolbar,
+            binding.actionContentToolbar,
             findNavController(),
             appBarConfiguration
         )
