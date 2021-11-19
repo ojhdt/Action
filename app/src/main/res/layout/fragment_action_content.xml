@@ -28,18 +28,18 @@
             android:id="@+id/collapsingToolbar"
             style="?attr/collapsingToolbarLayoutMediumStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
-            app:toolbarId="@+id/toolbar">
+            android:layout_height="?attr/collapsingToolbarLayoutMediumSize">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/action_content_toolbar" />
+                app:menu="@menu/action_content_toolbar"
+                android:elevation="0dp" />
 <!--            <com.google.android.material.appbar.MaterialToolbar-->
-<!--                android:id="@+id/actionContentToolbar"-->
+<!--                android:id="@+id/toolbar"-->
 <!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="?attr/collapsingToolbarLayoutMediumSize"-->
+<!--                android:layout_height="match_parent"-->
 <!--                app:menu="@menu/action_content_toolbar" />-->
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

@@ -21,11 +21,14 @@
 
             app:contentScrim="?attr/colorPrimary">
 
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_width="match_parent" />
+                android:id="@+id/toolbar"/>
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/toolbar"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                android:layout_width="match_parent" />-->
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
