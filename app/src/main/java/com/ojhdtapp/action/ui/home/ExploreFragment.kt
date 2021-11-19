@@ -53,10 +53,10 @@ class ExploreFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
-        binding.appbar.apply {
-            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
-            setPadding(0, offset, 0, 0)
-        }
+//        binding.appbar.apply {
+//            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
+//            setPadding(0, offset, 0, 0)
+//        }
         binding.toolbar2.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.refresh -> {

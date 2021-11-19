@@ -60,10 +60,10 @@ class AchievementFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
-        binding.appbar.apply {
-            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
-            setPadding(0, offset, 0, 0)
-        }
+//        binding.appbar.apply {
+//            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
+//            setPadding(0, offset, 0, 0)
+//        }
 
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()

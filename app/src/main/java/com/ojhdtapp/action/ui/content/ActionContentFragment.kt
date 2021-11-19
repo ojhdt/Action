@@ -60,10 +60,10 @@ class ActionContentFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
-        binding.appbar.apply {
-            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
-            setPadding(0, offset, 0, 0)
-        }
+//        binding.appbar.apply {
+//            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
+//            setPadding(0, offset, 0, 0)
+//        }
         // Load Data & Initialize ViewModel'n
             viewmodel.sumbitData(data)
         viewmodel.dataLive.observe(this) { it ->
