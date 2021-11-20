@@ -22,6 +22,7 @@ import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionContentBinding
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.ui.home.ActionContentViewModel
+import java.util.concurrent.TimeUnit
 
 class ActionContentFragment : Fragment() {
     lateinit var data: Action
@@ -38,7 +39,7 @@ class ActionContentFragment : Fragment() {
         // Add Transition
         val transition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide)
         sharedElementEnterTransition = transition
-        sharedElementReturnTransition = transition
+//        sharedElementReturnTransition = transition
     }
 
     override fun onCreateView(
@@ -52,6 +53,10 @@ class ActionContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        // Share Element Transition
+        ViewCompat.setTransitionName(binding.imageFilterView, data.id.toString())
+
         // FAB Switch
 //        binding.floatingActionButton.setOnClickListener {
 //            viewmodel.switchFinishedStatus()
@@ -75,9 +80,10 @@ class ActionContentFragment : Fragment() {
 //        }
 
 
-        // Load Data & Initialize ViewModel'n
+        // Load Data & Initialize ViewModel
         viewmodel.sumbitData(data)
         viewmodel.dataLive.observe(this) { it ->
+            startPostponedEnterTransition()
 //            activity?.findViewById<MaterialToolbar>(R.id.actionContentToolbar)?.title = it.title
             binding.toolbar.title = it.title
             Glide.with(this)
@@ -130,9 +136,6 @@ class ActionContentFragment : Fragment() {
 //            }
         }
 
-
-        // Share Element Transition
-        ViewCompat.setTransitionName(binding.imageFilterView, "action_image")
     }
 
     override fun onDestroyView() {

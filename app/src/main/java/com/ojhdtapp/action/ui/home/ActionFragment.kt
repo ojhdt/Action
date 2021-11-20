@@ -1,16 +1,14 @@
 package com.ojhdtapp.action.ui.home
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.marginTop
-import androidx.core.view.updatePadding
+import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -25,6 +23,7 @@ import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
+import java.util.concurrent.TimeUnit
 
 class ActionFragment : Fragment() {
     private var _binding: FragmentActionBinding? = null
@@ -94,9 +93,13 @@ class ActionFragment : Fragment() {
         }
         viewModel.actionNowLive.observe(this) {
             actionNowAdapter.submitList(it)
+
         }
         viewModel.suggestMoreLive.observe(this) {
             suggestMoreAdapter.submitList(it)
+//            (view.parent as? ViewGroup)?.doOnPreDraw {
+//                startPostponedEnterTransition()
+//            }
         }
 
         // Welcome Text & Avatar

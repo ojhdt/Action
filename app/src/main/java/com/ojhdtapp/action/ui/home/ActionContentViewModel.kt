@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ class ActionContentViewModel : ViewModel() {
     val dataLive get() = _dataLive
 
     fun sumbitData(data: Action) {
+        Log.d("aaa", "data submit")
         _dataLive.value = data
     }
 
