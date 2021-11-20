@@ -1,10 +1,12 @@
 package com.ojhdtapp.action.ui.content
 
 import android.os.Bundle
+import android.util.AttributeSet
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -65,7 +67,7 @@ class ActionContentFragment : Fragment() {
 //            setPadding(0, offset, 0, 0)
 //        }
         // Load Data & Initialize ViewModel'n
-            viewmodel.sumbitData(data)
+        viewmodel.sumbitData(data)
         viewmodel.dataLive.observe(this) { it ->
 //            activity?.findViewById<MaterialToolbar>(R.id.actionContentToolbar)?.title = it.title
             binding.toolbar.title = it.title
@@ -80,6 +82,31 @@ class ActionContentFragment : Fragment() {
                         setChipIconResource(it)
                     }
                 })
+            }
+            binding.highlights.removeAllViews()
+            data.hightlight.run {
+                if (size == 0 || size > 6) {
+                    binding.highlight.visibility = View.GONE
+                } else {
+                    val numMap = mapOf(
+                        0 to R.drawable.ic_outline_looks_one_24,
+                        1 to R.drawable.ic_outline_looks_two_24,
+                        2 to R.drawable.ic_outline_looks_3_24,
+                        3 to R.drawable.ic_outline_looks_4_24,
+                        4 to R.drawable.ic_outline_looks_5_24,
+                        5 to R.drawable.ic_outline_looks_6_24
+                    )
+                    forEachIndexed { index, s ->
+                        val item = Chip(binding.root.context).apply {
+                            chipIcon =
+                                ContextCompat.getDrawable(binding.root.context, numMap[index]!!)
+                            text = s
+                            isClickable = false
+                            chipStrokeWidth = 0f
+                        }
+                        binding.highlights.addView(item)
+                    }
+                }
             }
             binding.content.text = it.content
             binding.label.text = getString(R.string.pair_messages, it.source, it.timestamp)

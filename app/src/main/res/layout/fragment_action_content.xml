@@ -143,45 +143,14 @@
                         app:layout_constraintTop_toTopOf="@+id/highlightIcon" />
 
                     <LinearLayout
+                        android:id="@+id/highlights"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/guideline5">
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:clickable="false"
-                            android:text="第一条注意事项"
-                            app:chipIcon="@drawable/ic_outline_looks_one_24"
-                            app:chipStrokeColor="@android:color/transparent" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:clickable="false"
-                            android:text="第二条注意事项"
-                            app:chipIcon="@drawable/ic_outline_looks_two_24"
-                            app:chipStrokeColor="@android:color/transparent" />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chip5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:clickable="false"
-                            android:text="第三条注意事项"
-                            app:chipIcon="@drawable/ic_outline_looks_3_24"
-                            app:chipStrokeColor="@android:color/transparent" />
-
-                    </LinearLayout>
+                        app:layout_constraintTop_toTopOf="@+id/guideline5"/>
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline5"

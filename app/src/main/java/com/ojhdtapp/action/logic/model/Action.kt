@@ -15,6 +15,7 @@ data class Action(
     val source: String = "Source",
     val timestamp: Timestamp = Timestamp(0),
     val label: List<Pair<Int?, String>> = listOf(),
+    val hightlight: List<String> = listOf(),
     var finished:Boolean = false
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)

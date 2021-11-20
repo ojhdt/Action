@@ -75,7 +75,8 @@ object Repository {
                 listOf(
                     Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
                     Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                )
+                ),
+                listOf("第一条","第二条","第三条")
             ),
             Action(
                 "勤关水龙头",
