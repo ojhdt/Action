@@ -1,12 +1,14 @@
 package com.ojhdtapp.action.ui.content
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.AttributeSet
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -32,6 +34,11 @@ class ActionContentFragment : Fragment() {
         arguments?.let {
             data = it.getParcelable<Action>("ACTION") ?: Action()
         }
+
+        // Add Transition
+        val transition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide)
+        sharedElementEnterTransition = transition
+        sharedElementReturnTransition = transition
     }
 
     override fun onCreateView(
@@ -66,6 +73,8 @@ class ActionContentFragment : Fragment() {
 //            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
 //            setPadding(0, offset, 0, 0)
 //        }
+
+
         // Load Data & Initialize ViewModel'n
         viewmodel.sumbitData(data)
         viewmodel.dataLive.observe(this) { it ->
@@ -73,7 +82,7 @@ class ActionContentFragment : Fragment() {
             binding.toolbar.title = it.title
             Glide.with(this)
                 .load(it.imageID)
-                .into(binding.imageView2)
+                .into(binding.imageFilterView)
             binding.chips.removeAllViews()
             data.label.forEach {
                 binding.chips.addView(Chip(binding.root.context).apply {
@@ -120,6 +129,10 @@ class ActionContentFragment : Fragment() {
 //                binding.floatingActionButton.text = getString(R.string.action_content_fab_mark)
 //            }
         }
+
+
+        // Share Element Transition
+        ViewCompat.setTransitionName(binding.imageFilterView, "action_image")
     }
 
     override fun onDestroyView() {

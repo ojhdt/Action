@@ -9,11 +9,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.marginBottom
-import androidx.core.view.marginLeft
-import androidx.core.view.marginRight
-import androidx.core.view.marginTop
+import androidx.core.view.*
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -108,10 +107,18 @@ object ActionAdapters {
                     })
                 }
 
+                // Share Element Transition
                 cardView.setOnClickListener {
                     val bundle = bundleOf("ACTION" to data)
+                    ViewCompat.setTransitionName(binding.actionImage, "action_image")
+                    val extras = FragmentNavigatorExtras(binding.actionImage to "action_image")
                     binding.root.findNavController()
-                        .navigate(R.id.action_actionFragment_to_actionContentFragment, bundle)
+                        .navigate(
+                            R.id.action_actionFragment_to_actionContentFragment,
+                            bundle,
+                            null,
+                            extras
+                        )
                 }
             }
         }
@@ -158,7 +165,8 @@ object ActionAdapters {
                 }
                 suggestContent.text = data.content
                 suggestConfirmBtn.setOnClickListener {
-                    binding.root.findNavController().navigate(R.id.action_actionFragment_to_suggestContentFragment)
+                    binding.root.findNavController()
+                        .navigate(R.id.action_actionFragment_to_suggestContentFragment)
                 }
             }
         }
