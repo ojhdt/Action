@@ -110,14 +110,14 @@ object ActionAdapters {
                 // Share Element Transition
                 cardView.setOnClickListener {
                     val bundle = bundleOf("ACTION" to data)
-                    ViewCompat.setTransitionName(binding.actionImage, data.id.toString())
-                    val extras = FragmentNavigatorExtras(binding.actionImage to data.id.toString())
+//                    ViewCompat.setTransitionName(binding.actionImage, data.id.toString())
+//                    val extras = FragmentNavigatorExtras(binding.actionImage to data.id.toString())
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionFragment_to_actionContentFragment,
                             bundle,
                             null,
-                            extras
+                            null
                         )
                 }
             }

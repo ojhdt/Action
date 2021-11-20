@@ -37,8 +37,8 @@ class ActionContentFragment : Fragment() {
         }
 
         // Add Transition
-        val transition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide)
-        sharedElementEnterTransition = transition
+//        val transition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide)
+//        sharedElementEnterTransition = transition
 //        sharedElementReturnTransition = transition
     }
 
@@ -53,9 +53,9 @@ class ActionContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
         // Share Element Transition
-        ViewCompat.setTransitionName(binding.imageFilterView, data.id.toString())
+//        postponeEnterTransition()
+//        ViewCompat.setTransitionName(binding.imageFilterView, data.id.toString())
 
         // FAB Switch
 //        binding.floatingActionButton.setOnClickListener {
@@ -83,7 +83,7 @@ class ActionContentFragment : Fragment() {
         // Load Data & Initialize ViewModel
         viewmodel.sumbitData(data)
         viewmodel.dataLive.observe(this) { it ->
-            startPostponedEnterTransition()
+//            startPostponedEnterTransition()
 //            activity?.findViewById<MaterialToolbar>(R.id.actionContentToolbar)?.title = it.title
             binding.toolbar.title = it.title
             Glide.with(this)

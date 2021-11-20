@@ -27,7 +27,6 @@ class ActionContentViewModel : ViewModel() {
     val dataLive get() = _dataLive
 
     fun sumbitData(data: Action) {
-        Log.d("aaa", "data submit")
         _dataLive.value = data
     }
 
