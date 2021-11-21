@@ -3,12 +3,14 @@ package com.ojhdtapp.action.ui.content
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.util.AttributeSet
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.ViewCompat.setTransitionName
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,6 +18,7 @@ import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
+import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -37,9 +40,10 @@ class ActionContentFragment : Fragment() {
         }
 
         // Add Transition
-//        val transition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.slide)
-//        sharedElementEnterTransition = transition
-//        sharedElementReturnTransition = transition
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host
+            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+        }
     }
 
     override fun onCreateView(
@@ -54,13 +58,17 @@ class ActionContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Share Element Transition
-//        postponeEnterTransition()
-//        ViewCompat.setTransitionName(binding.imageFilterView, data.id.toString())
+//        Log.d("aaa", getString(
+//            R.string.action_transition_name,
+//            data.id.toString()
+//        ))
+        setTransitionName(
+            binding.imageFilterView, getString(
+                R.string.action_transition_name,
+                data.id.toString()
+            )
+        )
 
-        // FAB Switch
-//        binding.floatingActionButton.setOnClickListener {
-//            viewmodel.switchFinishedStatus()
-//        }
         // Setup Appbar
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -74,11 +82,6 @@ class ActionContentFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
-//        binding.appbar.apply {
-//            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
-//            setPadding(0, offset, 0, 0)
-//        }
-
 
         // Load Data & Initialize ViewModel
         viewmodel.sumbitData(data)
@@ -124,16 +127,7 @@ class ActionContentFragment : Fragment() {
                 }
             }
             binding.content.text = it.content
-            binding.label.text = getString(R.string.pair_messages, it.source, it.timestamp)
-//            if (it.finished) {
-//                binding.floatingActionButton.icon =
-//                    ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_outline_undo_24)
-//                binding.floatingActionButton.text = getString(R.string.action_content_fab_unmark)
-//            } else {
-//                binding.floatingActionButton.icon =
-//                    ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_outline_done_24)
-//                binding.floatingActionButton.text = getString(R.string.action_content_fab_mark)
-//            }
+            binding.label.text = getString(R.string.pair_messages, it.source, it.time.time.toString())
         }
 
     }

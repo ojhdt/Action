@@ -15,6 +15,7 @@ import java.sql.Timestamp
 import java.util.*
 
 object Repository {
+    private val database = AppDataBase.getDataBase()
     private fun getStringResource(id: Int): String {
         return BaseApplication.context.resources.getString(id)
     }
@@ -64,31 +65,7 @@ object Repository {
         "WIND" to R.raw.weather_windy
     )
 
-    fun getActionNowLive() = liveData {
-        val list = listOf(
-            Action(
-                "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
-                R.drawable.city,
-                getStringResource(R.string.lorem_ipsum),
-                "位置信息",
-                Timestamp(1636594566),
-                listOf(
-                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                ),
-                listOf("第一条","第二条","第三条")
-            ),
-            Action(
-                "勤关水龙头",
-                R.drawable.anonymous,
-                "一些内容",
-                "位置信息",
-                Timestamp(1636594566),
-                listOf(Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"))
-            )
-        )
-        emit(list)
-    }
+    fun getActionNowLive() = database.actionDao().loadAllUnfinishedActionLive()
 
     fun getSuggestMoreLive() = liveData {
         val list = listOf(
@@ -155,7 +132,6 @@ object Repository {
         val lat = "39.991957"
         val result = try {
             coroutineScope {
-                Log.d("aaa", "GetDataFromNetwork")
                 val forecastResponseJob = async {
                     Network.getForecastResponse(lng, lat)
                 }
@@ -166,7 +142,6 @@ object Repository {
                 val locationResponse = locationResponseJob.await()
                 if (forecastResponse.status == "ok" && locationResponse.status == "1") {
                     val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-                    Log.d("aaa", systemCalendarHour.toString())
                     forecastResponse.result.run {
                         val weather = WeatherBlock(
                             locationResponse.regeocode.formatted_address,

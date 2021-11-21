@@ -96,6 +96,10 @@
 
     <string name="setting">设置</string>
 
+
+    <string name="action_transition_name">action_card_%1$s</string>
+    <string name="action_content_transition_name">action_card_detail</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_number">80</string>

@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.*
+import androidx.core.view.ViewCompat.setTransitionName
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -94,7 +95,7 @@ object ActionAdapters {
         fun bind(data: Action) {
             binding.run {
                 actionContent.text = data.title
-                actionSource.text = "${data.source}•${data.timestamp.time}"
+                actionSource.text = "${data.source}•${data.time.time.toString()}"
                 Glide.with(binding.root)
                     .load(data.imageID)
                     .into(binding.actionImage)
@@ -107,17 +108,26 @@ object ActionAdapters {
                     })
                 }
 
-                // Share Element Transition
                 cardView.setOnClickListener {
                     val bundle = bundleOf("ACTION" to data)
-//                    ViewCompat.setTransitionName(binding.actionImage, data.id.toString())
-//                    val extras = FragmentNavigatorExtras(binding.actionImage to data.id.toString())
+                    // Share Element Transition
+                    val transitionName = binding.root.resources.getString(
+                        R.string.action_transition_name,
+                        data.id.toString()
+                    )
+//                    Log.d("aaa",transitionName)
+                    setTransitionName(
+                        binding.actionImage,
+                        transitionName
+                    )
+                    val actionContentTransitionName = binding.root.resources.getString(R.string.action_content_transition_name)
+                    val extras = FragmentNavigatorExtras(binding.actionImage to actionContentTransitionName)
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionFragment_to_actionContentFragment,
                             bundle,
                             null,
-                            null
+                            extras
                         )
                 }
             }

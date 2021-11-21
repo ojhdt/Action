@@ -12,11 +12,7 @@
         tools:layout="@layout/fragment_action">
         <action
             android:id="@+id/action_actionFragment_to_actionContentFragment"
-            app:destination="@id/actionContentFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/actionContentFragment" />
         <action
             android:id="@+id/action_actionFragment_to_suggestContentFragment"
             app:destination="@id/suggestContentFragment" />

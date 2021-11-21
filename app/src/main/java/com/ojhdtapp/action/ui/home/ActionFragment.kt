@@ -21,8 +21,14 @@ import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
+import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.sql.Date
+import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
 
 class ActionFragment : Fragment() {
@@ -112,15 +118,14 @@ class ActionFragment : Fragment() {
         }
 
         // FAB Show & Hide
-        binding.actionRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        binding.actionRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy >0) {
+                if (dy > 0) {
                     // Scroll Down
                     if (binding.floatingActionButton.isExtended) {
                         binding.floatingActionButton.shrink();
                     }
-                }
-                else if (dy <0) {
+                } else if (dy < 0) {
                     // Scroll Up
                     if (!binding.floatingActionButton.isExtended) {
                         binding.floatingActionButton.extend();
@@ -128,6 +133,38 @@ class ActionFragment : Fragment() {
                 }
             }
         })
+
+        binding.floatingActionButton.setOnClickListener {
+            val database = AppDataBase.getDataBase().actionDao()
+            val list = listOf(
+                Action(
+                    "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
+                    R.drawable.city,
+                    getString(R.string.lorem_ipsum),
+                    "位置信息", Date(System.currentTimeMillis()),
+                    listOf(
+                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                    ),
+                    listOf("第一条", "第二条", "第三条")
+                ),
+                Action(
+                    "勤关水龙头",
+                    R.drawable.anonymous,
+                    "一些内容",
+                    "位置信息",
+                    Date(System.currentTimeMillis()),
+                )
+            )
+            val job = Job()
+            val scope = CoroutineScope(job)
+            scope.launch {
+                list.forEach {
+                    database.insertAction(it)
+                }
+            }
+            job.complete()
+        }
     }
 
     override fun onDestroyView() {
