@@ -43,10 +43,8 @@ class ActionContentFragment : Fragment() {
         // Add Transition
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host
-//            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
-            duration = 3000.toLong()
+            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
         }
-        postponeEnterTransition()
     }
 
     override fun onCreateView(
@@ -62,14 +60,10 @@ class ActionContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //         Share Element Transition
         setTransitionName(
-            binding.actionCardView, getString(
-                R.string.action_transition_name,
-                data.id.toString()
+            binding.materialCardView, getString(
+                R.string.action_content_transition_name
             )
         )
-        view.doOnPreDraw {
-            startPostponedEnterTransition()
-        }
 
         // Setup Appbar
         val appBarConfiguration = AppBarConfiguration(
