@@ -14,11 +14,11 @@ class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
     private val _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
     private val _userInfoLive = MutableLiveData<Any?>()
 
-    val _actionNowTran: LiveData<List<Action>> =
+    private val _actionNowTran: LiveData<List<Action>> =
         Transformations.switchMap(_actionNowLive) { Repository.getActionNowLive() }
-    val _suggestMoreTran: LiveData<List<Suggest>> =
+    private val _suggestMoreTran: LiveData<List<Suggest>> =
         Transformations.switchMap(_suggestMoreLive) { Repository.getSuggestMoreLive() }
-    val _userInfoTran: LiveData<User> =
+    private val _userInfoTran: LiveData<User> =
         Transformations.switchMap(_userInfoLive) { Repository.getUserInfoLive() }
     val actionNowLive: LiveData<List<Action>> get() = _actionNowTran
     val suggestMoreLive: LiveData<List<Suggest>> get() = _suggestMoreTran

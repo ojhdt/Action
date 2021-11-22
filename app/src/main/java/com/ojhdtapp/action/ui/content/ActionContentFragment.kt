@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewCompat.setTransitionName
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -42,8 +43,10 @@ class ActionContentFragment : Fragment() {
         // Add Transition
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host
-            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+//            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+            duration = 3000.toLong()
         }
+        postponeEnterTransition()
     }
 
     override fun onCreateView(
@@ -57,17 +60,16 @@ class ActionContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Share Element Transition
-//        Log.d("aaa", getString(
-//            R.string.action_transition_name,
-//            data.id.toString()
-//        ))
+//         Share Element Transition
         setTransitionName(
-            binding.imageFilterView, getString(
+            binding.actionCardView, getString(
                 R.string.action_transition_name,
                 data.id.toString()
             )
         )
+        view.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
 
         // Setup Appbar
         val appBarConfiguration = AppBarConfiguration(

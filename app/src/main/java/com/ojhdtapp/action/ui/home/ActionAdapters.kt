@@ -115,13 +115,12 @@ object ActionAdapters {
                         R.string.action_transition_name,
                         data.id.toString()
                     )
-//                    Log.d("aaa",transitionName)
                     setTransitionName(
-                        binding.actionImage,
+                        binding.cardView,
                         transitionName
                     )
                     val actionContentTransitionName = binding.root.resources.getString(R.string.action_content_transition_name)
-                    val extras = FragmentNavigatorExtras(binding.actionImage to actionContentTransitionName)
+                    val extras = FragmentNavigatorExtras(binding.cardView to actionContentTransitionName)
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionFragment_to_actionContentFragment,
