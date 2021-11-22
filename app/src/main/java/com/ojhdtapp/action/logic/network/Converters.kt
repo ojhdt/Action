@@ -19,28 +19,44 @@ class Converters {
     }
 
     @TypeConverter
-    fun storeLabelToString(list: List<Pair<Int, String>>): String {
-        var str = StringBuilder("")
-        list.forEach {
+    fun storeLabelToString(list: List<Pair<Int, String>?>): String {
+        val str = StringBuilder("")
+        list.forEachIndexed { index, pair ->
             str.run {
-                append(it.first.toString())
-                append("_")
-                append(it.second)
-                append(",")
+                pair?.let {
+                    append(it.first.toString())
+                    append("_")
+                    append(it.second)
+                    if (index != list.size - 1) {
+                        append(",")
+                    }
+                }
             }
         }
-        Log.d("aaa", str.toString())
+//        {
+//            str.run {
+//                it?.let{
+//                    append(it.first.toString())
+//                    append("_")
+//                    append(it.second)
+//                    append(",")
+//                }
+//            }
+//        }
         return str.toString()
     }
 
     @TypeConverter
-    fun getLabelFromString(str: String): List<Pair<Int, String>> {
+    fun getLabelFromString(str: String): List<Pair<Int, String>?> {
         var items = str.split(",")
-        val list = mutableListOf<Pair<Int, String>>()
+        val list = mutableListOf<Pair<Int, String>?>()
         items.forEach {
             val labelStr = it.split("_")
-            labelStr.run {
-                list.add(Pair(get(0).toInt(), get(1)))
+            Log.d("aaa", labelStr.size.toString())
+            if (labelStr.size == 2) {
+                labelStr.run {
+                    list.add(Pair(get(0).toInt(), get(1)))
+                }
             }
         }
         return list
@@ -49,12 +65,18 @@ class Converters {
     @TypeConverter
     fun storeHighlightToString(list: List<String>): String {
         var str = StringBuilder()
-        list.forEach {
-            str.run {
-                append(it)
-                append(",")
+        list.forEachIndexed { index, s ->
+            str.append(s)
+            if (index != list.size - 1) {
+                str.append(",")
             }
         }
+//        list.forEach {
+//            str.run {
+//                append(it)
+//                append(",")
+//            }
+//        }
         return str.toString()
     }
 
