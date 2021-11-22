@@ -71,8 +71,10 @@ object Repository {
         val list = listOf(
             Suggest(
                 imgUrl = "https://tva2.sinaimg.cn/large/0072Vf1pgy1fodqgiodg1j31gs1191im.jpg",
-                timestamp = Timestamp(1636594566),
-                content = BaseApplication.context.getString(R.string.lorem_ipsum)
+                label = listOf(
+                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                ),
             )
         )
         emit(list)

@@ -1,7 +1,5 @@
-package com.ojhdtapp.action.ui.home
+package com.ojhdtapp.action.ui.content
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ojhdtapp.action.logic.model.Action
@@ -30,9 +28,9 @@ class ActionContentViewModel : ViewModel() {
         _dataLive.value = data
     }
 
-    fun switchFinishedStatus() {
-        sumbitData(_dataLive.value!!.apply {
-            finished = !finished
-        })
-    }
+//    fun switchFinishedStatus() {
+//        sumbitData(_dataLive.value!!.apply {
+//            finished = !finished
+//        })
+//    }
 }

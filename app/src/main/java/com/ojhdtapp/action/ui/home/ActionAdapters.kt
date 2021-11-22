@@ -185,8 +185,12 @@ object ActionAdapters {
                 }
                 suggestContent.text = data.content
                 suggestConfirmBtn.setOnClickListener {
+                    val bundle = bundleOf("SUGGEST" to data)
                     binding.root.findNavController()
-                        .navigate(R.id.action_actionFragment_to_suggestContentFragment)
+                        .navigate(
+                            R.id.action_actionFragment_to_suggestContentFragment,
+                            bundle
+                        )
                 }
             }
         }

@@ -22,8 +22,10 @@
             app:toolbarId="@+id/toolbar">
 
             <ImageView
+                android:id="@+id/toolbarImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?attr/colorPrimaryContainer"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/city"
@@ -88,8 +90,8 @@
                 android:id="@+id/label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:text="@string/subhead"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
                 app:layout_constraintStart_toStartOf="@+id/suggestContentTitle"
                 app:layout_constraintTop_toBottomOf="@+id/suggestContentTitle" />
 
@@ -106,16 +108,46 @@
                     android:id="@+id/chips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     app:singleLine="true">
 
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/authorCardView"
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:cardCornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:id="@+id/authorImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/authorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/authorSource"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="12dp"
                 android:text="@string/lorem_ipsum"
@@ -143,19 +175,20 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
-                android:text="@string/action_content_fab_mark"
-                app:icon="@drawable/ic_outline_done_24"
+                android:text="@string/suggest_content_btn_up"
+                app:icon="@drawable/ic_outline_thumb_up_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/ignoreButton"
-                style="@style/Widget.Material3.Button.TextButton"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="@string/action_content_fab_ignore"
+                android:text="@string/suggest_content_btn_down"
+                app:icon="@drawable/ic_outline_thumb_down_24"
                 app:layout_constraintBottom_toBottomOf="@+id/confirnButton"
                 app:layout_constraintEnd_toStartOf="@+id/confirnButton"
                 app:layout_constraintTop_toTopOf="@+id/confirnButton" />

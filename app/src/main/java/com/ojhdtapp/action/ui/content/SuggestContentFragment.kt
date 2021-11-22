@@ -1,27 +1,36 @@
 package com.ojhdtapp.action.ui.content
 
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentSuggestContentBinding
+import com.ojhdtapp.action.logic.model.Suggest
 
 class SuggestContentFragment : Fragment() {
 
+    lateinit var data: Suggest
     private var _binding: FragmentSuggestContentBinding? = null
     private val binding get() = _binding!!
+    val viewModel by viewModels<SuggestContentViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            data = it.getParcelable<Suggest>("SUGGEST") ?: Suggest()
         }
     }
 
@@ -49,6 +58,41 @@ class SuggestContentFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
+
+        // Load Data & Initialize ViewModel
+        viewModel.sumbitData(data)
+        viewModel.dataLive.observe(this) { it ->
+            Glide.with(this)
+                .load(it.imgUrl)
+//                .placeholder()
+                .into(binding.toolbarImageView)
+            binding.suggestContentTitle.text = it.title
+            binding.label.text =
+                getString(R.string.pair_messages, it.author, it.time.time.toString())
+            binding.chips.removeAllViews()
+            data.label.forEach {
+                binding.chips.addView(
+                    Chip(
+                        ContextThemeWrapper(
+                            binding.root.context,
+                            R.style.Widget_Material3_Chip_Filter
+                        ), null, 0
+                    ).apply {
+                        text = it.second
+//                        setChipBackgroundColorResource(TypedValue().apply {
+//                            context.theme.resolveAttribute(
+//                                android.R.attr.colorPrimary,
+//                                this,
+//                                true
+//                            )
+//                        }.data)
+                        it.first?.let {
+                            setChipIconResource(it)
+                        }
+                    })
+            }
+            binding.content.text = it.content
+        }
     }
 
     override fun onDestroyView() {

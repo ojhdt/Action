@@ -1,35 +1,24 @@
 package com.ojhdtapp.action.ui.content
 
-import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
-import android.transition.TransitionInflater
-import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.ViewCompat.setTransitionName
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialContainerTransform
-import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionContentBinding
 import com.ojhdtapp.action.logic.model.Action
-import com.ojhdtapp.action.ui.home.ActionContentViewModel
-import java.util.concurrent.TimeUnit
 
 class ActionContentFragment : Fragment() {
     lateinit var data: Action
@@ -134,7 +123,8 @@ class ActionContentFragment : Fragment() {
                 }
             }
             binding.content.text = it.content
-            binding.label.text = getString(R.string.pair_messages, it.source, it.time.time.toString())
+            binding.label.text =
+                getString(R.string.pair_messages, it.source, it.time.time.toString())
         }
 
     }
