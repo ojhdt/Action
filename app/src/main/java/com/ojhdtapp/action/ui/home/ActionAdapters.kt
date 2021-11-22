@@ -65,7 +65,7 @@ object ActionAdapters {
 
 //Action now
 
-    class ActionNowAdapter :
+    class ActionNowAdapter(val listener: ActionNowListener) :
         ListAdapter<Action, ActionNowViewHolder>(object : DiffUtil.ItemCallback<Action>() {
             override fun areItemsTheSame(oldItem: Action, newItem: Action): Boolean {
                 return oldItem.id == newItem.id
@@ -82,7 +82,7 @@ object ActionAdapters {
                 parent,
                 false
             )
-            return ActionNowViewHolder((binding))
+            return ActionNowViewHolder(binding, listener)
         }
 
         override fun onBindViewHolder(holder: ActionNowViewHolder, position: Int) {
@@ -90,7 +90,10 @@ object ActionAdapters {
         }
     }
 
-    class ActionNowViewHolder(val binding: ActionActionNowCellBinding) :
+    class ActionNowViewHolder(
+        val binding: ActionActionNowCellBinding,
+        val listener: ActionNowListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Action) {
             binding.run {
@@ -99,28 +102,32 @@ object ActionAdapters {
                 Glide.with(binding.root)
                     .load(data.imageID)
                     .into(binding.actionImage)
+                actionChips.removeAllViews()
                 data.label.forEach {
                     actionChips.addView(Chip(binding.root.context).apply {
                         text = it.second
-                        it.first?.let {
+                        it.first.let {
                             setChipIconResource(it)
                         }
                     })
                 }
-
+                val transitionName = binding.root.resources.getString(
+                    R.string.action_transition_name,
+                    data.id.toString()
+                )
+                // Share Element Transition
+                setTransitionName(
+                    binding.cardView,
+                    transitionName
+                )
                 cardView.setOnClickListener {
                     val bundle = bundleOf("ACTION" to data)
-                    // Share Element Transition
-                    val transitionName = binding.root.resources.getString(
-                        R.string.action_transition_name,
-                        data.id.toString()
-                    )
-                    setTransitionName(
-                        binding.cardView,
-                        transitionName
-                    )
-                    val actionContentTransitionName = binding.root.resources.getString(R.string.action_content_transition_name)
-                    val extras = FragmentNavigatorExtras(binding.cardView to actionContentTransitionName)
+                    val actionContentTransitionName =
+                        binding.root.resources.getString(R.string.action_content_transition_name)
+                    val extras =
+                        FragmentNavigatorExtras(binding.cardView to actionContentTransitionName)
+                    // Call Listener Fun
+                    listener.onActionCLick()
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionFragment_to_actionContentFragment,
@@ -131,6 +138,10 @@ object ActionAdapters {
                 }
             }
         }
+    }
+
+    interface ActionNowListener {
+        fun onActionCLick()
     }
 
     class SuggestMoreAdapter :

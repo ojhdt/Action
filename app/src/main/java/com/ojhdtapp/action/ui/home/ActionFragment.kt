@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.transition.MaterialElevationScale
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
-import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.Repository
@@ -52,6 +52,9 @@ class ActionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Postpone Transition
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         // Set StatusBar Offset
         binding.welcomeTextContainer.run {
@@ -61,7 +64,19 @@ class ActionFragment : Fragment() {
 
         // Adapter for rv
         val headlineAdapter = ActionAdapters.HeadlineAdapter()
-        val actionNowAdapter = ActionAdapters.ActionNowAdapter()
+        val actionNowAdapter =
+            ActionAdapters.ActionNowAdapter(object : ActionAdapters.ActionNowListener {
+                override fun onActionCLick() {
+                    exitTransition = MaterialElevationScale(false).apply {
+                        duration =
+                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                    }
+                    reenterTransition = MaterialElevationScale(true).apply {
+                        duration =
+                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                    }
+                }
+            })
         val suggestMoreAdapter = ActionAdapters.SuggestMoreAdapter()
         val concatAdapter = ConcatAdapter(
             headlineAdapter,
@@ -99,7 +114,6 @@ class ActionFragment : Fragment() {
         }
         viewModel.actionNowLive.observe(this) {
             actionNowAdapter.submitList(it)
-
         }
         viewModel.suggestMoreLive.observe(this) {
             suggestMoreAdapter.submitList(it)

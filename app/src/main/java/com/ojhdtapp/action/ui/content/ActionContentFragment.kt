@@ -1,9 +1,12 @@
 package com.ojhdtapp.action.ui.content
 
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +47,14 @@ class ActionContentFragment : Fragment() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host
             duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+            scrimColor = Color.TRANSPARENT
+            setAllContainerColors(TypedValue().apply {
+                context?.theme?.resolveAttribute(
+                    android.R.attr.colorBackground,
+                    this,
+                    true
+                )
+            }.data)
         }
     }
 
@@ -60,7 +71,7 @@ class ActionContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //         Share Element Transition
         setTransitionName(
-            binding.materialCardView, getString(
+            binding.actionContentContainer, getString(
                 R.string.action_content_transition_name
             )
         )
