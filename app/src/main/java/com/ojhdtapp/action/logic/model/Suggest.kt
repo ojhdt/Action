@@ -18,7 +18,9 @@ data class Suggest @Ignore constructor(
     var subhead: String = "Subhead",
     var imgUrl: String? = null,
     var time: Date = Date(),
-    var author:String = "Author",
+    var authorAvatarUrl: String? = null,
+    var author: String = "Author",
+    var source: String = "Source",
 //    var type: Int = 0,
     var content: String = BaseApplication.context.getString(R.string.lorem_ipsum),
     var label: List<Pair<Int?, String>> = listOf()

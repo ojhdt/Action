@@ -87,7 +87,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/label"
+                android:id="@+id/suggestContentTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/subhead"
@@ -102,7 +102,7 @@
                 android:layout_marginHorizontal="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label">
+                app:layout_constraintTop_toBottomOf="@+id/suggestContentTime">
 
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/chips"
@@ -113,48 +113,74 @@
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/authorCardView"
                 style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                android:clickable="true"
                 app:cardCornerRadius="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/suggestContentScrollView">
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:id="@+id/authorImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/authorName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    <androidx.constraintlayout.utils.widget.ImageFilterView
+                        android:id="@+id/authorImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="?attr/colorPrimaryContainer"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:round="24dp"
+                        tools:srcCompat="@drawable/anonymous" />
 
-                <TextView
-                    android:id="@+id/authorSource"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/authorSource"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/title"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        app:layout_constraintBottom_toTopOf="@+id/authorName"
+                        app:layout_constraintStart_toEndOf="@+id/authorImage"
+                        app:layout_constraintTop_toTopOf="@+id/authorImage"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/authorName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subhead"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        app:layout_constraintBottom_toBottomOf="@+id/authorImage"
+                        app:layout_constraintStart_toStartOf="@+id/authorSource"
+                        app:layout_constraintTop_toBottomOf="@+id/authorSource" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="12dp"
                 android:text="@string/lorem_ipsum"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
                 android:textIsSelectable="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/suggestContentScrollView" />
+                app:layout_constraintTop_toBottomOf="@+id/authorCardView" />
 
             <View
                 android:id="@+id/divider"

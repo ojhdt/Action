@@ -62,13 +62,22 @@ class SuggestContentFragment : Fragment() {
         // Load Data & Initialize ViewModel
         viewModel.sumbitData(data)
         viewModel.dataLive.observe(this) { it ->
-            Glide.with(this)
-                .load(it.imgUrl)
+            it.imgUrl?.let {
+                Glide.with(this)
+                    .load(it)
 //                .placeholder()
-                .into(binding.toolbarImageView)
+                    .into(binding.toolbarImageView)
+            }
             binding.suggestContentTitle.text = it.title
-            binding.label.text =
-                getString(R.string.pair_messages, it.author, it.time.time.toString())
+            binding.suggestContentTime.text = it.time.time.toString()
+//                getString(R.string.pair_messages, it.author, it.time.time.toString())
+            it.authorAvatarUrl?.let {
+                Glide.with(this)
+                    .load(it)
+                    .into(binding.authorImage)
+            }
+            binding.authorName.text = it.author
+            binding.authorSource.text = it.source
             binding.chips.removeAllViews()
             data.label.forEach {
                 binding.chips.addView(
