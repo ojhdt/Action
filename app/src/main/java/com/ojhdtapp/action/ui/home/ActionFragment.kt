@@ -173,9 +173,7 @@ class ActionFragment : Fragment() {
             val job = Job()
             val scope = CoroutineScope(job)
             scope.launch {
-                list.forEach {
-                    database.insertAction(it)
-                }
+
             }
             job.complete()
         }

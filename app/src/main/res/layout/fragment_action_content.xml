@@ -30,10 +30,8 @@
             style="?attr/collapsingToolbarLayoutMediumStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:collapsedTitleTextAppearance="?attr/textAppearanceTitleLarge"
             app:expandedTitleMarginEnd="24dp"
             app:expandedTitleMarginStart="24dp"
-            app:expandedTitleTextAppearance="?attr/textAppearanceTitleLarge"
             app:extraMultilineHeightEnabled="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:maxLines="2"
@@ -100,7 +98,7 @@
             <!--            </com.google.android.material.card.MaterialCardView>-->
 
             <HorizontalScrollView
-                android:id="@+id/horizontalScrollView2"
+                android:id="@+id/actionContentScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="24dp"
@@ -132,7 +130,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2">
+                app:layout_constraintTop_toBottomOf="@+id/actionContentScrollView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"

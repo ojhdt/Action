@@ -34,5 +34,5 @@
     <fragment
         android:id="@+id/suggestContentFragment"
         android:name="com.ojhdtapp.action.ui.content.SuggestContentFragment"
-        android:label="SuggestContentFragment" />
+        android:label="@string/suggest_content_toolbar" />
 </navigation>

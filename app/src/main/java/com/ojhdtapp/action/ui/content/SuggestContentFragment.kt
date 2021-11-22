@@ -49,7 +49,6 @@ class SuggestContentFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
-        binding.toolbar.title = "AAAAAAAAAAAAA"
     }
 
     override fun onDestroyView() {

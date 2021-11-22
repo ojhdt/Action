@@ -71,6 +71,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.actionContentFragment ->{
                     binding.homeNav.visibility = View.GONE
                 }
+                R.id.suggestContentFragment -> {
+                    binding.homeNav.visibility = View.GONE
+                }
                 else -> {
                     binding.homeNav.visibility = View.VISIBLE
                 }
