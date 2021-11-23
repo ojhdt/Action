@@ -168,26 +168,26 @@
                         tools:srcCompat="@drawable/anonymous" />
 
                     <TextView
-                        android:id="@+id/authorSource"
+                        android:id="@+id/authorName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/title"
                         android:textAppearance="?attr/textAppearanceTitleMedium"
-                        app:layout_constraintBottom_toTopOf="@+id/authorName"
+                        app:layout_constraintBottom_toTopOf="@+id/authorSource"
                         app:layout_constraintStart_toEndOf="@+id/authorImage"
                         app:layout_constraintTop_toTopOf="@+id/authorImage"
                         app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
-                        android:id="@+id/authorName"
+                        android:id="@+id/authorSource"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/subhead"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         app:layout_constraintBottom_toBottomOf="@+id/authorImage"
-                        app:layout_constraintStart_toStartOf="@+id/authorSource"
-                        app:layout_constraintTop_toBottomOf="@+id/authorSource" />
+                        app:layout_constraintStart_toStartOf="@+id/authorName"
+                        app:layout_constraintTop_toBottomOf="@+id/authorName" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>

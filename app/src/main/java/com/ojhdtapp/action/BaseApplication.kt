@@ -1,19 +1,28 @@
 package com.ojhdtapp.action
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.graphics.Rect
-import android.view.View
-import android.view.Window
-import androidx.core.view.WindowCompat
+import cn.leancloud.LCObject
+import cn.leancloud.LeanCloud
+
 
 class BaseApplication : Application() {
     override fun onCreate() {
         context = applicationContext
         super.onCreate()
+
+        // LeanCloud Initialize
+        LeanCloud.initialize(
+            this,
+            "nRXp51Nf2KxuB3wzwcEFwgLf-gzGzoHsz",
+            "ynE9lHaem1e0htqO7rQqKQsa",
+            "https://api.ojhdt.com"
+        );
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
 
     }

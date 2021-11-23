@@ -168,7 +168,10 @@ object ActionAdapters {
         }
     }
 
-    class SuggestMoreViewHolder(val binding: ActionSuggestMoreCellBinding, val listener:SuggestMoreListener) :
+    class SuggestMoreViewHolder(
+        val binding: ActionSuggestMoreCellBinding,
+        val listener: SuggestMoreListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
             binding.run {
@@ -192,7 +195,7 @@ object ActionAdapters {
                     binding.cardView,
                     transitionName
                 )
-                suggestConfirmBtn.setOnClickListener {
+                val onClickListener = View.OnClickListener {
                     val bundle = bundleOf("SUGGEST" to data)
                     val suggestContentTransitionName =
                         binding.root.resources.getString(R.string.suggest_content_transition_name)
@@ -205,11 +208,13 @@ object ActionAdapters {
                             bundle, null, extras
                         )
                 }
+                cardView.setOnClickListener(onClickListener)
+                suggestConfirmBtn.setOnClickListener(onClickListener)
             }
         }
     }
 
-    interface SuggestMoreListener{
+    interface SuggestMoreListener {
         fun onSuggestClick()
     }
 
