@@ -11,8 +11,8 @@ import kotlinx.android.parcel.Parcelize
 import java.sql.Timestamp
 import java.util.*
 
-@Entity
 @Parcelize
+@Entity(tableName = "suggest_table")
 data class Suggest @Ignore constructor(
     var title: String = "Title",
     var subhead: String = "Subhead",
@@ -23,8 +23,22 @@ data class Suggest @Ignore constructor(
     var source: String = "Source",
 //    var type: Int = 0,
     var content: String = BaseApplication.context.getString(R.string.lorem_ipsum),
-    var label: List<Pair<Int?, String>> = listOf()
+    var label: List<Pair<Int, String>> = listOf(),
+    var archived: Boolean = false,
+    var read: Boolean = false
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
+
+    constructor() : this(
+        "Title",
+        "Sunhead",
+        null,
+        Date(),
+        null,
+        "Author",
+        "Source",
+        BaseApplication.context.getString(R.string.lorem_ipsum),
+        listOf(),
+    )
 }

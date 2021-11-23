@@ -157,8 +157,7 @@ object ActionAdapters {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestMoreViewHolder {
             val binding = ActionSuggestMoreCellBinding.inflate(
                 LayoutInflater.from(
-                    parent
-                        .context
+                    parent.context
                 ), parent, false
             )
             return SuggestMoreViewHolder(binding)

@@ -67,18 +67,7 @@ object Repository {
 
     fun getActionNowLive() = database.actionDao().loadAllUnfinishedActionLive()
 
-    fun getSuggestMoreLive() = liveData {
-        val list = listOf(
-            Suggest(
-                imgUrl = "https://tva2.sinaimg.cn/large/0072Vf1pgy1fodqgiodg1j31gs1191im.jpg",
-                label = listOf(
-                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                    Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                ),
-            )
-        )
-        emit(list)
-    }
+    fun getSuggestMoreLive() = database.suggestDao().loadAllDisplaySuggestLive()
 
     fun getUserInfoLive(): LiveData<User> {
         return liveData {

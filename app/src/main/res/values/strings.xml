@@ -100,8 +100,10 @@
     <string name="action_content_transition_name">action_card_detail</string>
 
     <string name="suggest_content_toolbar">详情</string>
-    <string name="suggest_content_btn_up">有用</string>
-    <string name="suggest_content_btn_down">没用</string>
+    <string name="suggest_content_up">有用</string>
+    <string name="suggest_content_down">没用</string>
+    <string name="suggest_content_archive">归档</string>
+    <string name="suggest_content_read">标记已读</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -6,13 +6,16 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.logic.dao.ActionDao
+import com.ojhdtapp.action.logic.dao.SuggestDao
 import com.ojhdtapp.action.logic.model.Action
+import com.ojhdtapp.action.logic.model.Suggest
 import com.ojhdtapp.action.logic.network.Converters
 
-@Database(version = 1, entities = [Action::class], exportSchema = false)
+@Database(version = 1, entities = [Action::class, Suggest::class], exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun actionDao(): ActionDao
+    abstract fun suggestDao(): SuggestDao
 
     companion object {
         private val instance by lazy {
@@ -20,7 +23,7 @@ abstract class AppDataBase : RoomDatabase() {
                 .build()
         }
 
-        fun getDataBase():AppDataBase{
+        fun getDataBase(): AppDataBase {
             return instance
         }
     }

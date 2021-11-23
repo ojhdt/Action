@@ -24,6 +24,7 @@ import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
+import com.ojhdtapp.action.logic.model.Suggest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -149,8 +150,8 @@ class ActionFragment : Fragment() {
         })
 
         binding.floatingActionButton.setOnClickListener {
-            val database = AppDataBase.getDataBase().actionDao()
-            val list = listOf(
+            val database = AppDataBase.getDataBase().suggestDao()
+            val listA = listOf(
                 Action(
                     "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
                     R.drawable.city,
@@ -170,10 +171,31 @@ class ActionFragment : Fragment() {
                     Date(System.currentTimeMillis()),
                 )
             )
+            val listB = listOf(
+                Suggest(
+                    title = "标题",
+                    author = "Ojhdt",
+                    authorAvatarUrl = "https://blog.ojhdt.com/images/avatar.png",
+                    imgUrl = "https://tva2.sinaimg.cn/large/0072Vf1pgy1fodqgiodg1j31gs1191im.jpg",
+                    label = listOf(
+                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                    ),
+                ),
+                Suggest(
+                    imgUrl = "https://tva3.sinaimg.cn/large/0072Vf1pgy1foxkjiky1hj31hc0u0nhq.jpg",
+                    label = listOf(
+                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                    ),
+                )
+            )
             val job = Job()
             val scope = CoroutineScope(job)
             scope.launch {
-
+                listB.forEach{
+                    database.insertSuggest(it)
+                }
             }
             job.complete()
         }

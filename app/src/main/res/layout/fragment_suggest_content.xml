@@ -95,6 +95,27 @@
                 app:layout_constraintStart_toStartOf="@+id/suggestContentTitle"
                 app:layout_constraintTop_toBottomOf="@+id/suggestContentTitle" />
 
+            <Button
+                android:id="@+id/suggestContentThumbUp"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_outline_thumb_up_24"
+                app:layout_constraintEnd_toStartOf="@+id/suggestContentThumbDown"
+                app:layout_constraintTop_toTopOf="@+id/suggestContentThumbDown" />
+
+            <Button
+                android:id="@+id/suggestContentThumbDown"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="9dp"
+                app:icon="@drawable/ic_outline_thumb_down_24"
+                app:layout_constraintBottom_toBottomOf="@+id/suggestContentTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/suggestContentTitle" />
+
             <HorizontalScrollView
                 android:id="@+id/suggestContentScrollView"
                 android:layout_width="match_parent"
@@ -201,20 +222,19 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
-                android:text="@string/suggest_content_btn_up"
-                app:icon="@drawable/ic_outline_thumb_up_24"
+                android:text="@string/suggest_content_archive"
+                app:icon="@drawable/ic_outline_archive_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/ignoreButton"
-                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="@string/suggest_content_btn_down"
-                app:icon="@drawable/ic_outline_thumb_down_24"
+                android:text="@string/suggest_content_read"
+                style="@style/Widget.Material3.Button.TextButton"
                 app:layout_constraintBottom_toBottomOf="@+id/confirnButton"
                 app:layout_constraintEnd_toStartOf="@+id/confirnButton"
                 app:layout_constraintTop_toTopOf="@+id/confirnButton" />
