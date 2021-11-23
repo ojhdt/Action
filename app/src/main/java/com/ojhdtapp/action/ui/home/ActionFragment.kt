@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.databinding.ActionBottomSheetDialogBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.Repository
@@ -35,9 +37,11 @@ import java.util.concurrent.TimeUnit
 
 class ActionFragment : Fragment() {
     private var _binding: FragmentActionBinding? = null
+    private var _bottomSheetDialogBinding: ActionBottomSheetDialogBinding? = null
     val viewModel: SharedViewModel by activityViewModels()
 
     private val binding get() = _binding!!
+    private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,7 @@ class ActionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentActionBinding.inflate(inflater, container, false)
+        _bottomSheetDialogBinding = ActionBottomSheetDialogBinding.inflate(inflater)
         return binding.root
     }
 
@@ -166,6 +171,14 @@ class ActionFragment : Fragment() {
         })
 
         binding.floatingActionButton.setOnClickListener {
+            val bottomSheetDialog = BottomSheetDialog(
+                requireContext(),
+                R.style.ThemeOverlay_Material3_BottomSheetDialog
+            ).apply {
+                setContentView(bottomSheetDialogBinding.root)
+                show()
+            }
+
             val database = AppDataBase.getDataBase().suggestDao()
             val listA = listOf(
                 Action(
@@ -209,9 +222,7 @@ class ActionFragment : Fragment() {
             val job = Job()
             val scope = CoroutineScope(job)
             scope.launch {
-                listB.forEach {
-                    database.insertSuggest(it)
-                }
+
             }
             job.complete()
         }
@@ -220,5 +231,6 @@ class ActionFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        _bottomSheetDialogBinding = null
     }
 }

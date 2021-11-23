@@ -108,6 +108,11 @@
     <string name="suggest_transition_name">suggest_card_%1$s</string>
     <string name="suggest_content_transition_name">suggest_card_detail</string>
 
+    <string name="action_bottom_sheet_dialog_heading">获取建议</string>
+    <string name="action_bottom_sheet_dialog_random">随机</string>
+    <string name="action_bottom_sheet_dialog_news">新闻</string>
+    <string name="action_bottom_sheet_dialog_tips">贴士</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_number">80</string>

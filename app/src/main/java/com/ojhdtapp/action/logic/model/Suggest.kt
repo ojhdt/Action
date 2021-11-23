@@ -21,7 +21,7 @@ data class Suggest @Ignore constructor(
     var authorAvatarUrl: String? = null,
     var author: String = "Author",
     var source: String = "Source",
-//    var type: Int = 0,
+    var type: Int = 0,
     var content: String = BaseApplication.context.getString(R.string.lorem_ipsum),
     var label: List<Pair<Int, String>> = listOf(),
     var archived: Boolean = false,
@@ -38,6 +38,7 @@ data class Suggest @Ignore constructor(
         null,
         "Author",
         "Source",
+        1,
         BaseApplication.context.getString(R.string.lorem_ipsum),
         listOf(),
     )
