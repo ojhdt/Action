@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
@@ -78,7 +79,22 @@ class ActionFragment : Fragment() {
                     }
                 }
             })
-        val suggestMoreAdapter = ActionAdapters.SuggestMoreAdapter()
+        val suggestMoreAdapter =
+            ActionAdapters.SuggestMoreAdapter(object : ActionAdapters.SuggestMoreListener {
+                override fun onSuggestClick() {
+                    exitTransition = Hold()
+                    reenterTransition = Hold()
+//                    exitTransition = MaterialElevationScale(false).apply {
+//                        duration =
+//                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+//                    }
+//                    reenterTransition = MaterialElevationScale(true).apply {
+//                        duration =
+//                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+//                    }
+                }
+
+            })
         val concatAdapter = ConcatAdapter(
             headlineAdapter,
             ActionAdapters.LabelAdapter(
@@ -193,7 +209,7 @@ class ActionFragment : Fragment() {
             val job = Job()
             val scope = CoroutineScope(job)
             scope.launch {
-                listB.forEach{
+                listB.forEach {
                     database.insertSuggest(it)
                 }
             }

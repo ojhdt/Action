@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
+    android:id="@+id/suggestContentContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -230,11 +231,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/ignoreButton"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@string/suggest_content_read"
-                style="@style/Widget.Material3.Button.TextButton"
                 app:layout_constraintBottom_toBottomOf="@+id/confirnButton"
                 app:layout_constraintEnd_toStartOf="@+id/confirnButton"
                 app:layout_constraintTop_toTopOf="@+id/confirnButton" />

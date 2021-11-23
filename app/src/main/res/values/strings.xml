@@ -105,6 +105,9 @@
     <string name="suggest_content_archive">归档</string>
     <string name="suggest_content_read">标记已读</string>
 
+    <string name="suggest_transition_name">suggest_card_%1$s</string>
+    <string name="suggest_content_transition_name">suggest_card_detail</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_number">80</string>

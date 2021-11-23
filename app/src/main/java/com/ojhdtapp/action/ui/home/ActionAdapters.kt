@@ -111,11 +111,11 @@ object ActionAdapters {
                         }
                     })
                 }
+                // Share Element Transition
                 val transitionName = binding.root.resources.getString(
                     R.string.action_transition_name,
                     data.id.toString()
                 )
-                // Share Element Transition
                 setTransitionName(
                     binding.cardView,
                     transitionName
@@ -144,7 +144,7 @@ object ActionAdapters {
         fun onActionCLick()
     }
 
-    class SuggestMoreAdapter :
+    class SuggestMoreAdapter(private val listener: SuggestMoreListener) :
         ListAdapter<Suggest, SuggestMoreViewHolder>(object : DiffUtil.ItemCallback<Suggest>() {
             override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
                 return oldItem.id == newItem.id
@@ -160,7 +160,7 @@ object ActionAdapters {
                     parent.context
                 ), parent, false
             )
-            return SuggestMoreViewHolder(binding)
+            return SuggestMoreViewHolder(binding, listener)
         }
 
         override fun onBindViewHolder(holder: SuggestMoreViewHolder, position: Int) {
@@ -168,7 +168,7 @@ object ActionAdapters {
         }
     }
 
-    class SuggestMoreViewHolder(val binding: ActionSuggestMoreCellBinding) :
+    class SuggestMoreViewHolder(val binding: ActionSuggestMoreCellBinding, val listener:SuggestMoreListener) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
             binding.run {
@@ -183,16 +183,34 @@ object ActionAdapters {
                     suggestImage.visibility = View.GONE
                 }
                 suggestContent.text = data.content
+                // Share Element Transition
+                val transitionName = binding.root.resources.getString(
+                    R.string.suggest_transition_name,
+                    data.id.toString()
+                )
+                setTransitionName(
+                    binding.cardView,
+                    transitionName
+                )
                 suggestConfirmBtn.setOnClickListener {
                     val bundle = bundleOf("SUGGEST" to data)
+                    val suggestContentTransitionName =
+                        binding.root.resources.getString(R.string.suggest_content_transition_name)
+                    val extras =
+                        FragmentNavigatorExtras(binding.cardView to suggestContentTransitionName)
+                    listener.onSuggestClick()
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionFragment_to_suggestContentFragment,
-                            bundle
+                            bundle, null, extras
                         )
                 }
             }
         }
+    }
+
+    interface SuggestMoreListener{
+        fun onSuggestClick()
     }
 
     class LabelAdapter(private val label: String = "标题", private val subLabel: String = "附标题") :

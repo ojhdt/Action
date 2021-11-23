@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.content
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.ContextThemeWrapper
@@ -8,12 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
+import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -32,6 +35,19 @@ class SuggestContentFragment : Fragment() {
         arguments?.let {
             data = it.getParcelable<Suggest>("SUGGEST") ?: Suggest()
         }
+        // Add Transition
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host
+            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+            scrimColor = Color.TRANSPARENT
+            setAllContainerColors(TypedValue().apply {
+                context?.theme?.resolveAttribute(
+                    android.R.attr.colorBackground,
+                    this,
+                    true
+                )
+            }.data)
+        }
     }
 
     override fun onCreateView(
@@ -45,6 +61,12 @@ class SuggestContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Share Element Transition
+        ViewCompat.setTransitionName(
+            binding.suggestContentContainer, getString(
+                R.string.suggest_content_transition_name
+            )
+        )
         // Setup Appbar
         val appBarConfiguration = AppBarConfiguration(
             setOf(
