@@ -1,14 +1,23 @@
 package com.ojhdtapp.action.ui.home
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.google.android.material.snackbar.Snackbar
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.AppDataBase
+import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.*
 import kotlinx.coroutines.*
 
-class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
+class SharedViewModel(private val state: SavedStateHandle, application: Application) :
+    AndroidViewModel(
+        application
+    ) {
+    private val dataBase = AppDataBase.getDataBase()
+
     // Action Fragment
     private val _actionNowLive = MutableLiveData<MutableList<Action>>()
     private val _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
@@ -34,6 +43,32 @@ class SharedViewModel(private val state: SavedStateHandle) : ViewModel() {
 
     fun getUserInfo() {
         _userInfoLive.value = _userInfoLive.value
+    }
+
+    suspend fun storeSuggestFromCloud(type: Int) = coroutineScope {
+        launch {
+            try {
+                val result = LeanCloudDataBase.getNewSuggest(type)
+                result.let {
+//                    dataBase.suggestDao().insertSuggest(
+//                        Suggest(
+//                            it.getString()
+//                        )
+//                    )
+                }
+                Snackbar.make(
+                    getApplication(),
+                    getApplication<Application>().getString(R.string.network_success),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            } catch (e: Exception) {
+                Snackbar.make(
+                    getApplication(),
+                    getApplication<Application>().getString(R.string.network_error),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 
     // Achievement Fragment

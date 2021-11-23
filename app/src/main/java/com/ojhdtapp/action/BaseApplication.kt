@@ -5,6 +5,8 @@ import android.app.Application
 import android.content.Context
 import cn.leancloud.LCObject
 import cn.leancloud.LeanCloud
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class BaseApplication : Application() {
@@ -25,6 +27,35 @@ class BaseApplication : Application() {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
 
+    }
+}
+object DateUtil{
+    fun formatDate(date: Date):String{
+        val format = SimpleDateFormat(BaseApplication.context.getString(R.string.date_format))
+        return format.format(date)
+    }
+
+    fun timeAgo(createdTime: Date?): String? {
+        val format = SimpleDateFormat("MM-dd HH:mm", Locale.CHINA)
+        return if (createdTime != null) {
+            val agoTimeInMin =
+                (Date(System.currentTimeMillis()).time - createdTime.time) / 1000 / 60
+            //如果在当前时间以前一分钟内
+            if (agoTimeInMin <= 1) {
+                "刚刚"
+            } else if (agoTimeInMin <= 60) {
+                //如果传入的参数时间在当前时间以前10分钟之内
+                agoTimeInMin.toString() + "分钟前"
+            } else if (agoTimeInMin <= 60 * 24) {
+                (agoTimeInMin / 60).toString() + "小时前"
+            } else if (agoTimeInMin <= 60 * 24 * 2) {
+                (agoTimeInMin / (60 * 24)).toString() + "天前"
+            } else {
+                format.format(createdTime)
+            }
+        } else {
+            format.format(Date(0))
+        }
     }
 }
 

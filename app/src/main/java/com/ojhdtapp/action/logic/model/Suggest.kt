@@ -25,11 +25,10 @@ data class Suggest @Ignore constructor(
     var content: String = BaseApplication.context.getString(R.string.lorem_ipsum),
     var label: List<Pair<Int, String>> = listOf(),
     var archived: Boolean = false,
-    var read: Boolean = false
+    var read: Boolean = false,
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
-
     constructor() : this(
         "Title",
         "Sunhead",
@@ -41,5 +40,7 @@ data class Suggest @Ignore constructor(
         1,
         BaseApplication.context.getString(R.string.lorem_ipsum),
         listOf(),
+        false,
+        false,
     )
 }

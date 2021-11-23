@@ -15,8 +15,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.leancloud.LCObject
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.ojhdtapp.action.BaseApplication
@@ -25,6 +27,7 @@ import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionBottomSheetDialogBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.AppDataBase
+import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
@@ -34,6 +37,11 @@ import kotlinx.coroutines.launch
 import java.sql.Date
 import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
+import kotlin.math.round
+import io.reactivex.disposables.Disposable
+
+
+
 
 class ActionFragment : Fragment() {
     private var _binding: FragmentActionBinding? = null
@@ -53,6 +61,7 @@ class ActionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentActionBinding.inflate(inflater, container, false)
+        // Inflate the layout for the BottomSheetDialog
         _bottomSheetDialogBinding = ActionBottomSheetDialogBinding.inflate(inflater, null, false)
         bottomSheetDialog = BottomSheetDialog(
             requireContext(),
@@ -73,6 +82,56 @@ class ActionFragment : Fragment() {
         binding.welcomeTextContainer.run {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(paddingLeft, paddingTop + offset, paddingRight, paddingBottom)
+        }
+
+        // Set OnClickListener for BottomSheetDialog Btns
+        bottomSheetDialogBinding.run {
+            val lcJob = Job()
+            var isSearching = false
+            cardViewShuffle.setOnClickListener {
+                if (!isSearching) {
+                    CoroutineScope(lcJob).launch {
+                        isSearching = true
+                        viewModel.storeSuggestFromCloud(0)
+                        isSearching = false
+                    }
+                }
+            }
+            cardViewNews.setOnClickListener {
+                val newSuggest = LCObject("Suggest").apply {
+                    put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
+                    put("subhead", "A series of restrictions, including a lockdown in Austria, is expected to put a brake on economic growth.")
+                    put("imgUrl", "https://static01.nyt.com/images/2021/11/22/business/00virus-euroecon-1/merlin_198253512_8d84ab6c-6288-441c-bf4d-6e784ca170e6-superJumbo.jpg?quality=75&auto=webp")
+                    put("time", Date(System.currentTimeMillis()))
+                    put("authorAvatarUrl","https://static01.nyt.com/images/2018/02/16/multimedia/author-patricia-cohen/author-patricia-cohen-thumbLarge.jpg")
+                    put("author", "Patricia Cohen")
+                    put("source", "NY Times")
+                    put("type", 0)
+                    put("content","Europe’s already fragile economic recovery is at risk of being undermined by a fourth wave of coronavirus infections now dousing the continent, as governments impose increasingly stringent health restrictions that could reduce foot traffic in shopping centers, discourage travel and thin crowds in restaurants, bars and ski resorts.\n" +
+                            "\n" +
+                            "Austria has imposed the strictest measures, mandating vaccinations and imposing a nationwide lockdown that began on Monday. But economic activity will also be dampened by other safety measures — from vaccine passports in France and Switzerland to a requirement to work from home four days a week in Belgium.\n" +
+                            "\n" +
+                            "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”")
+                    put("label", mapOf(R.drawable.ic_outline_emoji_events_24 to "WaterSave"))
+                }
+                newSuggest.saveInBackground().subscribe(object :io.reactivex.Observer<LCObject>{
+                    override fun onSubscribe(d: Disposable) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onNext(t: LCObject) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onError(e: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onComplete() {
+                        TODO("Not yet implemented")
+                    }
+                })
+            }
         }
 
         // Adapter for rv
@@ -219,12 +278,6 @@ class ActionFragment : Fragment() {
                     ),
                 )
             )
-            val job = Job()
-            val scope = CoroutineScope(job)
-            scope.launch {
-
-            }
-            job.complete()
         }
     }
 

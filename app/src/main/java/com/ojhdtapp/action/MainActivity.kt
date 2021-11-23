@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -27,8 +28,8 @@ import com.ojhdtapp.action.ui.home.SharedViewModel
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
-    val viewModel:SharedViewModel by viewModels()
-
+    val viewModel: SharedViewModel by viewModels()
+//    val viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))[SharedViewModel::class.java]
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +68,8 @@ class MainActivity : AppCompatActivity() {
         // Navigation
         NavigationUI.setupWithNavController(binding.homeNav, navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when(destination.id){
-                R.id.actionContentFragment ->{
+            when (destination.id) {
+                R.id.actionContentFragment -> {
                     binding.homeNav.visibility = View.GONE
                 }
                 R.id.suggestContentFragment -> {
