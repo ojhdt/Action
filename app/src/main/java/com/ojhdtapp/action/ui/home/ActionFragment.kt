@@ -39,7 +39,7 @@ class ActionFragment : Fragment() {
     private var _binding: FragmentActionBinding? = null
     private var _bottomSheetDialogBinding: ActionBottomSheetDialogBinding? = null
     val viewModel: SharedViewModel by activityViewModels()
-
+    private lateinit var bottomSheetDialog: BottomSheetDialog
     private val binding get() = _binding!!
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
 
@@ -53,7 +53,13 @@ class ActionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentActionBinding.inflate(inflater, container, false)
-        _bottomSheetDialogBinding = ActionBottomSheetDialogBinding.inflate(inflater)
+        _bottomSheetDialogBinding = ActionBottomSheetDialogBinding.inflate(inflater, null, false)
+        bottomSheetDialog = BottomSheetDialog(
+            requireContext(),
+            R.style.ThemeOverlay_Material3_BottomSheetDialog
+        ).apply {
+            setContentView(bottomSheetDialogBinding.root)
+        }
         return binding.root
     }
 
@@ -171,13 +177,7 @@ class ActionFragment : Fragment() {
         })
 
         binding.floatingActionButton.setOnClickListener {
-            val bottomSheetDialog = BottomSheetDialog(
-                requireContext(),
-                R.style.ThemeOverlay_Material3_BottomSheetDialog
-            ).apply {
-                setContentView(bottomSheetDialogBinding.root)
-                show()
-            }
+            bottomSheetDialog.show()
 
             val database = AppDataBase.getDataBase().suggestDao()
             val listA = listOf(
