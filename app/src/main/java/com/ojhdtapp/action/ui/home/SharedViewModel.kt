@@ -12,7 +12,7 @@ import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.*
 import kotlinx.coroutines.*
 
-class SharedViewModel(private val state: SavedStateHandle, application: Application) :
+class SharedViewModel(application: Application, private val state: SavedStateHandle ) :
     AndroidViewModel(
         application
     ) {

@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +30,8 @@ import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -38,9 +39,6 @@ import java.sql.Date
 import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
 import kotlin.math.round
-import io.reactivex.disposables.Disposable
-
-
 
 
 class ActionFragment : Fragment() {
@@ -100,35 +98,50 @@ class ActionFragment : Fragment() {
             cardViewNews.setOnClickListener {
                 val newSuggest = LCObject("Suggest").apply {
                     put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
-                    put("subhead", "A series of restrictions, including a lockdown in Austria, is expected to put a brake on economic growth.")
-                    put("imgUrl", "https://static01.nyt.com/images/2021/11/22/business/00virus-euroecon-1/merlin_198253512_8d84ab6c-6288-441c-bf4d-6e784ca170e6-superJumbo.jpg?quality=75&auto=webp")
+                    put(
+                        "subhead",
+                        "A series of restrictions, including a lockdown in Austria, is expected to put a brake on economic growth."
+                    )
+                    put(
+                        "imgUrl",
+                        "https://static01.nyt.com/images/2021/11/22/business/00virus-euroecon-1/merlin_198253512_8d84ab6c-6288-441c-bf4d-6e784ca170e6-superJumbo.jpg?quality=75&auto=webp"
+                    )
                     put("time", Date(System.currentTimeMillis()))
-                    put("authorAvatarUrl","https://static01.nyt.com/images/2018/02/16/multimedia/author-patricia-cohen/author-patricia-cohen-thumbLarge.jpg")
+                    put(
+                        "authorAvatarUrl",
+                        "https://static01.nyt.com/images/2018/02/16/multimedia/author-patricia-cohen/author-patricia-cohen-thumbLarge.jpg"
+                    )
                     put("author", "Patricia Cohen")
                     put("source", "NY Times")
                     put("type", 0)
-                    put("content","Europe’s already fragile economic recovery is at risk of being undermined by a fourth wave of coronavirus infections now dousing the continent, as governments impose increasingly stringent health restrictions that could reduce foot traffic in shopping centers, discourage travel and thin crowds in restaurants, bars and ski resorts.\n" +
-                            "\n" +
-                            "Austria has imposed the strictest measures, mandating vaccinations and imposing a nationwide lockdown that began on Monday. But economic activity will also be dampened by other safety measures — from vaccine passports in France and Switzerland to a requirement to work from home four days a week in Belgium.\n" +
-                            "\n" +
-                            "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”")
-                    put("label", mapOf(R.drawable.ic_outline_emoji_events_24 to "WaterSave"))
+                    put(
+                        "content",
+                        "Europe’s already fragile economic recovery is at risk of being undermined by a fourth wave of coronavirus infections now dousing the continent, as governments impose increasingly stringent health restrictions that could reduce foot traffic in shopping centers, discourage travel and thin crowds in restaurants, bars and ski resorts.\n" +
+                                "\n" +
+                                "Austria has imposed the strictest measures, mandating vaccinations and imposing a nationwide lockdown that began on Monday. But economic activity will also be dampened by other safety measures — from vaccine passports in France and Switzerland to a requirement to work from home four days a week in Belgium.\n" +
+                                "\n" +
+                                "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”"
+                    )
+                    put(
+                        "label", listOf(
+                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                        )
+                    )
                 }
-                newSuggest.saveInBackground().subscribe(object :io.reactivex.Observer<LCObject>{
+                newSuggest.saveInBackground().subscribe(object : Observer<LCObject> {
                     override fun onSubscribe(d: Disposable) {
-                        TODO("Not yet implemented")
                     }
 
                     override fun onNext(t: LCObject) {
-                        TODO("Not yet implemented")
+                        Log.d("aaa", "success,id=${t.objectId}")
                     }
 
                     override fun onError(e: Throwable) {
-                        TODO("Not yet implemented")
+                        Log.d("aaa", "err:${e.toString()}")
                     }
 
                     override fun onComplete() {
-                        TODO("Not yet implemented")
                     }
                 })
             }
