@@ -11,12 +11,18 @@ import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.*
 import kotlinx.coroutines.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-class SharedViewModel(application: Application, private val state: SavedStateHandle ) :
+class SharedViewModel(application: Application, private val state: SavedStateHandle) :
     AndroidViewModel(
         application
     ) {
     private val dataBase = AppDataBase.getDataBase()
+
+    // SnackBar Messages
+    private val _snackBarMessageLive = MutableLiveData<String>()
+    val snackBarMessageLive get() = _snackBarMessageLive
 
     // Action Fragment
     private val _actionNowLive = MutableLiveData<MutableList<Action>>()
@@ -45,31 +51,36 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
         _userInfoLive.value = _userInfoLive.value
     }
 
-    suspend fun storeSuggestFromCloud(type: Int) = coroutineScope {
-        launch {
-            try {
-                val result = LeanCloudDataBase.getNewSuggest(type)
-                result.let {
-//                    dataBase.suggestDao().insertSuggest(
-//                        Suggest(
-//                            it.getString()
-//                        )
-//                    )
-                }
-                Snackbar.make(
-                    getApplication(),
-                    getApplication<Application>().getString(R.string.network_success),
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            } catch (e: Exception) {
-                Snackbar.make(
-                    getApplication(),
-                    getApplication<Application>().getString(R.string.network_error),
-                    Snackbar.LENGTH_LONG
-                ).show()
+    suspend fun storeSuggestFromCloud(type: Int) {
+        try {
+            // suspend
+            val result = LeanCloudDataBase.getNewSuggest(type)
+            result.let {
+                dataBase.suggestDao().insertSuggest(
+                    Suggest(
+                        it.getString("title"),
+                        it.getString("subhead"),
+                        it.getString("imgUrl"),
+                        it.getDate("time"),
+                        it.getString("authorAvatarUrl"),
+                        it.getString("author"),
+                        it.getString("source"),
+                        it.getInt("type"),
+                        it.getString("content"),
+                        it.getList("label") as List<Pair<Int, String>>,
+                        false,
+                        false,
+                        it.objectId
+                    )
+                )
             }
+            _snackBarMessageLive.postValue(getApplication<Application>().getString(R.string.network_success))
+        } catch (e: Exception) {
+            Log.d("aaa", e.toString())
+            _snackBarMessageLive.postValue(getApplication<Application>().getString(R.string.network_error))
         }
     }
+
 
     // Achievement Fragment
     private val _gainedAchievementLive = MutableLiveData<MutableList<Achievement>>()

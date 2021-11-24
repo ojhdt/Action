@@ -26,9 +26,11 @@ data class Suggest @Ignore constructor(
     var label: List<Pair<Int, String>> = listOf(),
     var archived: Boolean = false,
     var read: Boolean = false,
+    var objectId: String? = null
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
+
     constructor() : this(
         "Title",
         "Sunhead",

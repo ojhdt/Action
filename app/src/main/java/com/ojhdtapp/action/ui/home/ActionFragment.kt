@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.home
 
+import android.app.Application
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.util.Log
@@ -33,6 +34,7 @@ import com.ojhdtapp.action.logic.model.Suggest
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.sql.Date
@@ -87,8 +89,9 @@ class ActionFragment : Fragment() {
             val lcJob = Job()
             var isSearching = false
             cardViewShuffle.setOnClickListener {
+                bottomSheetDialog.hide()
                 if (!isSearching) {
-                    CoroutineScope(lcJob).launch {
+                    CoroutineScope(lcJob).launch(Dispatchers.IO) {
                         isSearching = true
                         viewModel.storeSuggestFromCloud(0)
                         isSearching = false
@@ -96,6 +99,7 @@ class ActionFragment : Fragment() {
                 }
             }
             cardViewNews.setOnClickListener {
+                bottomSheetDialog.hide()
                 val newSuggest = LCObject("Suggest").apply {
                     put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
                     put(
@@ -222,6 +226,15 @@ class ActionFragment : Fragment() {
 //            }
         }
 
+        // SnackBar
+        viewModel.snackBarMessageLive.observe(this){
+            Snackbar.make(
+                binding.root,
+                it,
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+
         // Welcome Text & Avatar
         viewModel.userInfoLive.observe(this) {
             binding.welcomeTextView.text =
@@ -231,7 +244,7 @@ class ActionFragment : Fragment() {
                 .into(binding.welcomeAvatarImageView)
         }
 
-        // FAB Show & Hide
+        // FAB Show & Hide & onCLick Call
         binding.actionRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) {

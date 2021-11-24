@@ -19,7 +19,6 @@ object LeanCloudDataBase {
         }
         query.firstInBackground.subscribe(object : Observer<LCObject?> {
             override fun onSubscribe(d: Disposable) {
-                TODO("Not yet implemented")
             }
 
             override fun onNext(t: LCObject) {
@@ -31,7 +30,6 @@ object LeanCloudDataBase {
             }
 
             override fun onComplete() {
-                TODO("Not yet implemented")
             }
         })
     }
