@@ -67,7 +67,7 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
                         it.getString("source"),
                         it.getInt("type"),
                         it.getString("content"),
-                        it.getList("label") as List<Pair<Int, String>>,
+                        it.getList("label") as Map<Int, String>,
                         false,
                         false,
                         it.objectId

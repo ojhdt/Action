@@ -127,9 +127,9 @@ class ActionFragment : Fragment() {
                                 "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”"
                     )
                     put(
-                        "label", listOf(
-                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                        "label", mapOf(
+                            R.drawable.ic_outline_emoji_events_24 to "WaterSave",
+                            R.drawable.ic_outline_emoji_events_24 to "WaterSave"
                         )
                     )
                 }
@@ -227,7 +227,7 @@ class ActionFragment : Fragment() {
         }
 
         // SnackBar
-        viewModel.snackBarMessageLive.observe(this){
+        viewModel.snackBarMessageLive.observe(this) {
             Snackbar.make(
                 binding.root,
                 it,
@@ -291,14 +291,14 @@ class ActionFragment : Fragment() {
                     author = "Ojhdt",
                     authorAvatarUrl = "https://blog.ojhdt.com/images/avatar.png",
                     imgUrl = "https://tva2.sinaimg.cn/large/0072Vf1pgy1fodqgiodg1j31gs1191im.jpg",
-                    label = listOf(
+                    label = mapOf(
                         Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
                         Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
                     ),
                 ),
                 Suggest(
                     imgUrl = "https://tva3.sinaimg.cn/large/0072Vf1pgy1foxkjiky1hj31hc0u0nhq.jpg",
-                    label = listOf(
+                    label = mapOf(
                         Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
                         Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
                     ),

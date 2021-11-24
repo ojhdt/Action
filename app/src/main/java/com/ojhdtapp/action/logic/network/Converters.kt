@@ -19,43 +19,30 @@ class Converters {
     }
 
     @TypeConverter
-    fun storeLabelToString(list: List<Pair<Int, String>?>): String {
+    fun storeLabelToString(list: Map<Int, String>?): String {
         val str = StringBuilder("")
-        list.forEachIndexed { index, pair ->
+        list?.onEachIndexed { index, entry ->
             str.run {
-                pair?.let {
-                    append(it.first.toString())
-                    append("_")
-                    append(it.second)
-                    if (index != list.size - 1) {
-                        append(",")
-                    }
+                append(entry.key.toString())
+                append("_")
+                append(entry.value)
+                if (index != list.size - 1) {
+                    append(",")
                 }
             }
         }
-//        {
-//            str.run {
-//                it?.let{
-//                    append(it.first.toString())
-//                    append("_")
-//                    append(it.second)
-//                    append(",")
-//                }
-//            }
-//        }
         return str.toString()
     }
 
     @TypeConverter
-    fun getLabelFromString(str: String): List<Pair<Int, String>?> {
+    fun getLabelFromString(str: String): Map<Int, String> {
         var items = str.split(",")
-        val list = mutableListOf<Pair<Int, String>?>()
+        val list = mutableMapOf<Int, String>()
         items.forEach {
             val labelStr = it.split("_")
-            Log.d("aaa", labelStr.size.toString())
             if (labelStr.size == 2) {
                 labelStr.run {
-                    list.add(Pair(get(0).toInt(), get(1)))
+                    list.put(get(0).toInt(), get(1))
                 }
             }
         }

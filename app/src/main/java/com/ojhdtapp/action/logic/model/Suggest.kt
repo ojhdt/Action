@@ -23,7 +23,7 @@ data class Suggest @Ignore constructor(
     var source: String = "Source",
     var type: Int = 0,
     var content: String = BaseApplication.context.getString(R.string.lorem_ipsum),
-    var label: List<Pair<Int, String>> = listOf(),
+    var label: Map<Int,String>? = mapOf(),
     var archived: Boolean = false,
     var read: Boolean = false,
     var objectId: String? = null
@@ -41,7 +41,7 @@ data class Suggest @Ignore constructor(
         "Source",
         1,
         BaseApplication.context.getString(R.string.lorem_ipsum),
-        listOf(),
+        mapOf(),
         false,
         false,
     )

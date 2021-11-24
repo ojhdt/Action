@@ -101,7 +101,7 @@ class SuggestContentFragment : Fragment() {
             binding.authorName.text = it.author
             binding.authorSource.text = it.source
             binding.chips.removeAllViews()
-            data.label.forEach {
+            data.label?.forEach {
                 binding.chips.addView(
                     Chip(
                         ContextThemeWrapper(
@@ -109,7 +109,7 @@ class SuggestContentFragment : Fragment() {
                             R.style.Widget_Material3_Chip_Filter
                         ), null, 0
                     ).apply {
-                        text = it.second
+                        text = it.value
 //                        setChipBackgroundColorResource(TypedValue().apply {
 //                            context.theme.resolveAttribute(
 //                                android.R.attr.colorPrimary,
@@ -117,7 +117,7 @@ class SuggestContentFragment : Fragment() {
 //                                true
 //                            )
 //                        }.data)
-                        it.first?.let {
+                        it.key.let {
                             setChipIconResource(it)
                         }
                     })
