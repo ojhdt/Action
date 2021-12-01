@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.content
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ojhdtapp.action.logic.model.Action
@@ -16,6 +17,7 @@ class SuggestContentViewModel : ViewModel() {
     val dataLive get() = _dataLive
 
     fun sumbitData(data: Suggest) {
+//        Log.d("aaa", "Submit Data")
         _dataLive.value = data
     }
 }
