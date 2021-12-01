@@ -78,12 +78,13 @@
 
             <TextView
                 android:id="@+id/suggestContentTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/title"
                 android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,37 +92,18 @@
                 android:id="@+id/suggestContentTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/subhead"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 app:layout_constraintStart_toStartOf="@+id/suggestContentTitle"
                 app:layout_constraintTop_toBottomOf="@+id/suggestContentTitle" />
-
-            <Button
-                android:id="@+id/suggestContentThumbUp"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/ic_outline_thumb_up_24"
-                app:layout_constraintEnd_toStartOf="@+id/suggestContentThumbDown"
-                app:layout_constraintTop_toTopOf="@+id/suggestContentThumbDown" />
-
-            <Button
-                android:id="@+id/suggestContentThumbDown"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="9dp"
-                app:icon="@drawable/ic_outline_thumb_down_24"
-                app:layout_constraintBottom_toBottomOf="@+id/suggestContentTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/suggestContentTitle" />
 
             <HorizontalScrollView
                 android:id="@+id/suggestContentScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/suggestContentTime">
@@ -188,6 +170,55 @@
                         app:layout_constraintBottom_toBottomOf="@+id/authorImage"
                         app:layout_constraintStart_toStartOf="@+id/authorName"
                         app:layout_constraintTop_toBottomOf="@+id/authorName" />
+
+                    <Button
+                        android:id="@+id/suggestContentThumbUp"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:icon="@drawable/ic_outline_thumb_up_24"
+                        app:layout_constraintBottom_toTopOf="@+id/suggestContentThumbUpNum"
+                        app:layout_constraintEnd_toStartOf="@+id/suggestContentThumbDown"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/suggestContentThumbUpNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sample_number"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:textColor="?attr/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/suggestContentThumbUp"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/suggestContentThumbUp"
+                        app:layout_constraintTop_toBottomOf="@+id/suggestContentThumbUp" />
+
+                    <Button
+                        android:id="@+id/suggestContentThumbDown"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        app:icon="@drawable/ic_outline_thumb_down_24"
+                        app:layout_constraintBottom_toTopOf="@+id/suggestContentThumbDownNum"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/suggestContentThumbDownNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sample_number"
+                        android:textAppearance="?attr/textAppearanceLabelMedium"
+                        android:textColor="?attr/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/suggestContentThumbDown"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/suggestContentThumbUp"
+                        app:layout_constraintTop_toBottomOf="@+id/suggestContentThumbDown" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
