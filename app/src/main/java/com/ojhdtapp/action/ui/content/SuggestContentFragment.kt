@@ -17,11 +17,10 @@ import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialContainerTransform
-import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DeviceUtil
-import com.ojhdtapp.action.R
+import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentSuggestContentBinding
 import com.ojhdtapp.action.logic.model.Suggest
+import kotlin.math.round
 
 class SuggestContentFragment : Fragment() {
 
@@ -91,7 +90,7 @@ class SuggestContentFragment : Fragment() {
                     .into(binding.toolbarImageView)
             }
             binding.suggestContentTitle.text = it.title
-            binding.suggestContentTime.text = it.time.time.toString()
+            binding.suggestContentTime.text = getString(R.string.suggest_content_date, DateUtil.formatDate(it.time))
 //                getString(R.string.pair_messages, it.author, it.time.time.toString())
             it.authorAvatarUrl?.let {
                 Glide.with(this)
@@ -106,10 +105,11 @@ class SuggestContentFragment : Fragment() {
                     Chip(
                         ContextThemeWrapper(
                             binding.root.context,
-                            R.style.Widget_Material3_Chip_Filter
+                            R.style.Widget_Material3_Chip_Filter_Elevated
                         ), null, 0
                     ).apply {
                         text = it.value
+                        iconStartPadding = DensityUtil.dip2px(context, 2f).toFloat()
 //                        setChipBackgroundColorResource(TypedValue().apply {
 //                            context.theme.resolveAttribute(
 //                                android.R.attr.colorPrimary,

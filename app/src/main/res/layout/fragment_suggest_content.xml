@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/subhead"
-                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
                 app:layout_constraintStart_toStartOf="@+id/suggestContentTitle"
                 app:layout_constraintTop_toBottomOf="@+id/suggestContentTitle" />
 
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
+                android:fadeScrollbars="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/suggestContentTime">
@@ -177,23 +177,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:icon="@drawable/ic_outline_thumb_up_24"
-                        app:layout_constraintBottom_toTopOf="@+id/suggestContentThumbUpNum"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/suggestContentThumbDown"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_chainStyle="packed" />
+                        app:layout_constraintVertical_bias="0.32999998" />
 
                     <TextView
                         android:id="@+id/suggestContentThumbUpNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
                         android:text="@string/sample_number"
                         android:textAppearance="?attr/textAppearanceLabelMedium"
                         android:textColor="?attr/colorPrimary"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/suggestContentThumbUp"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/suggestContentThumbUp"
-                        app:layout_constraintTop_toBottomOf="@+id/suggestContentThumbUp" />
+                        app:layout_constraintTop_toTopOf="@+id/suggestContentThumbUp" />
 
                     <Button
                         android:id="@+id/suggestContentThumbDown"
@@ -202,23 +202,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         app:icon="@drawable/ic_outline_thumb_down_24"
-                        app:layout_constraintBottom_toTopOf="@+id/suggestContentThumbDownNum"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_chainStyle="packed" />
+                        app:layout_constraintVertical_bias="0.32" />
 
                     <TextView
                         android:id="@+id/suggestContentThumbDownNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
                         android:text="@string/sample_number"
                         android:textAppearance="?attr/textAppearanceLabelMedium"
                         android:textColor="?attr/colorPrimary"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/suggestContentThumbDown"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/suggestContentThumbUp"
-                        app:layout_constraintTop_toBottomOf="@+id/suggestContentThumbDown" />
+                        app:layout_constraintTop_toTopOf="@+id/suggestContentThumbDown" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
