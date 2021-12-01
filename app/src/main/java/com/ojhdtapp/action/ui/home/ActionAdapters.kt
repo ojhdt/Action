@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionActionNowCellBinding
@@ -98,17 +99,15 @@ object ActionAdapters {
         fun bind(data: Action) {
             binding.run {
                 actionContent.text = data.title
-                actionSource.text = "${data.source}•${data.time.time.toString()}"
+                actionSource.text = "${data.source}•${DateUtil.timeAgo(data.time)}"
                 Glide.with(binding.root)
                     .load(data.imageID)
                     .into(binding.actionImage)
                 actionChips.removeAllViews()
-                data.label.forEach {
+                data.label?.forEach {
                     actionChips.addView(Chip(binding.root.context).apply {
-                        text = it.second
-                        it.first.let {
-                            setChipIconResource(it)
-                        }
+                        setChipIconResource(it.key)
+                        text = it.value
                     })
                 }
                 // Share Element Transition

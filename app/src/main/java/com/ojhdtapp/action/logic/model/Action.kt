@@ -17,11 +17,11 @@ data class Action @Ignore constructor(
     var content: String = "Content",
     var source: String = "Source",
     var time: Date = Date(),
-    var label: List<Pair<Int, String>> = listOf(),
+    var label: Map<Int,String>? = mapOf(),
     var hightlight: List<String> = listOf(),
     var finished: Boolean = false
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
-    constructor() : this("Title", 0, "Content", "Source", Date(), listOf(), listOf(), false)
+    constructor() : this("Title", 0, "Content", "Source", Date(), mapOf(), listOf(), false)
 }

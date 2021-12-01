@@ -89,12 +89,10 @@ class ActionContentFragment : Fragment() {
                 .load(it.imageID)
                 .into(binding.imageFilterView)
             binding.chips.removeAllViews()
-            data.label.forEach {
+            data.label?.forEach {
                 binding.chips.addView(Chip(binding.root.context).apply {
-                    text = it.second
-                    it.first?.let {
-                        setChipIconResource(it)
-                    }
+                    setChipIconResource(it.key)
+                    text = it.value
                 })
             }
             binding.highlights.removeAllViews()

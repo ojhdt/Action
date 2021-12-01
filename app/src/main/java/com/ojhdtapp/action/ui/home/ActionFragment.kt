@@ -89,6 +89,7 @@ class ActionFragment : Fragment() {
             val lcJob = Job()
             var isSearching = false
             cardViewShuffle.setOnClickListener {
+                Log.d("aaa","Clicked")
                 bottomSheetDialog.hide()
                 if (!isSearching) {
                     CoroutineScope(lcJob).launch(Dispatchers.IO) {
@@ -99,7 +100,10 @@ class ActionFragment : Fragment() {
                 }
             }
             cardViewNews.setOnClickListener {
+                Log.d("aaa","clicked")
                 bottomSheetDialog.hide()
+                val map = HashMap<String,String>()
+                map.put(R.drawable.ic_outline_emoji_events_24.toString(),"Watersave")
                 val newSuggest = LCObject("Suggest").apply {
                     put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
                     put(
@@ -126,12 +130,7 @@ class ActionFragment : Fragment() {
                                 "\n" +
                                 "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”"
                     )
-                    put(
-                        "label", mapOf(
-                            R.drawable.ic_outline_emoji_events_24 to "WaterSave",
-                            R.drawable.ic_outline_emoji_events_24 to "WaterSave"
-                        )
-                    )
+
                 }
                 newSuggest.saveInBackground().subscribe(object : Observer<LCObject> {
                     override fun onSubscribe(d: Disposable) {
@@ -271,7 +270,7 @@ class ActionFragment : Fragment() {
                     R.drawable.city,
                     getString(R.string.lorem_ipsum),
                     "位置信息", Date(System.currentTimeMillis()),
-                    listOf(
+                    mapOf(
                         Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
                         Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
                     ),
