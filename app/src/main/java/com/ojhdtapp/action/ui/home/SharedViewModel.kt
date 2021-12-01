@@ -55,22 +55,27 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
         try {
             // suspend
             val result = LeanCloudDataBase.getNewSuggest(type)
-            result.let {
+            result.let { obj ->
+                val list = obj.getList("label") as List<HashMap<String,Any>>
+                val map = mutableMapOf<Int,String>()
+                list.forEach {
+                    map[it.get("first") as Int] = it.get("second") as String
+                }
                 dataBase.suggestDao().insertSuggest(
                     Suggest(
-                        it.getString("title"),
-                        it.getString("subhead"),
-                        it.getString("imgUrl"),
-                        it.getDate("time"),
-                        it.getString("authorAvatarUrl"),
-                        it.getString("author"),
-                        it.getString("source"),
-                        it.getInt("type"),
-                        it.getString("content"),
-                        it.getList("label") as Map<Int, String>,
+                        obj.getString("title"),
+                        obj.getString("subhead"),
+                        obj.getString("imgUrl"),
+                        obj.getDate("time"),
+                        obj.getString("authorAvatarUrl"),
+                        obj.getString("author"),
+                        obj.getString("source"),
+                        obj.getInt("type"),
+                        obj.getString("content"),
+                        map,
                         false,
                         false,
-                        it.objectId
+                        obj.objectId
                     )
                 )
             }

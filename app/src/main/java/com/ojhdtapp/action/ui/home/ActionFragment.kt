@@ -102,8 +102,10 @@ class ActionFragment : Fragment() {
             cardViewNews.setOnClickListener {
                 Log.d("aaa","clicked")
                 bottomSheetDialog.hide()
-                val map = HashMap<String,String>()
-                map.put(R.drawable.ic_outline_emoji_events_24.toString(),"Watersave")
+                val list = mutableListOf<Pair<Int,String>>()
+                list.add(Pair(R.drawable.ic_outline_emoji_events_24,"Watersave"))
+                list.add(Pair(R.drawable.ic_outline_emoji_events_24,"Watersave"))
+//                map.put(R.drawable.ic_outline_emoji_events_24.toString(),"Watersave")
                 val newSuggest = LCObject("Suggest").apply {
                     put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
                     put(
@@ -130,7 +132,7 @@ class ActionFragment : Fragment() {
                                 "\n" +
                                 "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”"
                     )
-
+                    put("label", list)
                 }
                 newSuggest.saveInBackground().subscribe(object : Observer<LCObject> {
                     override fun onSubscribe(d: Disposable) {
