@@ -103,7 +103,9 @@
     <string name="suggest_content_up">有用</string>
     <string name="suggest_content_down">没用</string>
     <string name="suggest_content_archive">归档</string>
+    <string name="suggest_content_vote">点赞内容·</string>
     <string name="suggest_content_read">标记已读</string>
+    <string name="suggest_content_source">访问来源</string>
     <string name="suggest_content_date">发布于 %1$s</string>
 
     <string name="suggest_transition_name">suggest_card_%1$s</string>
@@ -111,7 +113,7 @@
 
     <string name="action_bottom_sheet_dialog_heading">获取建议</string>
     <string name="action_bottom_sheet_dialog_random">随机</string>
-    <string name="action_bottom_sheet_dialog_news">新闻</string>
+    <string name="action_bottom_sheet_dialog_news">资讯</string>
     <string name="action_bottom_sheet_dialog_tips">贴士</string>
 
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>

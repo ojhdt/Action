@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/vote"
+        android:title="@string/suggest_content_vote"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ignore"
+        android:title="@string/ignore"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/read"
+        android:title="@string/suggest_content_read"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/archive"
+        android:title="@string/suggest_content_archive"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_outline_share_24"
+        android:title="@string/action_content_toolbar_share"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/source"
+        android:title="@string/suggest_content_source"
+        app:showAsAction="never" />
+</menu>

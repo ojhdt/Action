@@ -286,25 +286,6 @@ class ActionFragment : Fragment() {
                     Date(System.currentTimeMillis()),
                 )
             )
-            val listB = listOf(
-                Suggest(
-                    title = "标题",
-                    author = "Ojhdt",
-                    authorAvatarUrl = "https://blog.ojhdt.com/images/avatar.png",
-                    imgUrl = "https://tva2.sinaimg.cn/large/0072Vf1pgy1fodqgiodg1j31gs1191im.jpg",
-                    label = mapOf(
-                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                    ),
-                ),
-                Suggest(
-                    imgUrl = "https://tva3.sinaimg.cn/large/0072Vf1pgy1foxkjiky1hj31hc0u0nhq.jpg",
-                    label = mapOf(
-                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                    ),
-                )
-            )
         }
     }
 

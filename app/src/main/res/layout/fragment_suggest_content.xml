@@ -39,6 +39,7 @@
                 android:background="@android:color/transparent"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
+                app:menu="@menu/suggest_content_toolbar"
                 app:title="@string/suggest_content_toolbar" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
