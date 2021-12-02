@@ -174,7 +174,7 @@ class SuggestContentFragment : Fragment() {
             }
         }
 
-        // Btns Onclock
+        // Btns OnClick
         binding.confirnButton.setOnClickListener {
             switchArchiveState()
         }
@@ -250,14 +250,55 @@ class SuggestContentFragment : Fragment() {
         if (!processing) {
             processing = true
             val oldLikeNum = data.like
-            val newLikeNum = data.like + 1
+            val newLikeNumAdd = data.like + 1
+            val newLikeNumSubtract = data.like - 1
             val oldDislikeNum = data.dislike
             val newDislikeNum = data.dislike - 1
             when (data.votingStatus) {
-                1 -> {}
+                1 -> {
+                    val newData = data.apply {
+                        like = newLikeNumSubtract
+                        votingStatus = 0
+                    }
+                    arguments?.putParcelable("SUGGEST", newData)
+                    viewModel.sumbitData(newData)
+                    val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+                        increment("like", -1)
+                    }
+                    lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+                        override fun onSubscribe(d: Disposable) {
+                        }
+
+                        override fun onNext(t: LCObject) {
+                            val job = Job()
+                            CoroutineScope(job).launch {
+                                database.updateSuggest(newData)
+                            }
+                            job.complete()
+                        }
+
+                        override fun onError(e: Throwable) {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.network_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            val oldData = data.apply {
+                                like = oldLikeNum
+                                votingStatus = 1
+                            }
+                            arguments?.putParcelable("SUGGEST", oldData)
+                            viewModel.sumbitData(oldData)
+                        }
+
+                        override fun onComplete() {
+                            processing = false
+                        }
+                    })
+                }
                 2 -> {
                     val newData = data.apply {
-                        like = newLikeNum
+                        like = newLikeNumAdd
                         dislike = newDislikeNum
                         votingStatus = 1
                     }
@@ -301,7 +342,7 @@ class SuggestContentFragment : Fragment() {
                 }
                 else -> {
                     val newData = data.apply {
-                        like = newLikeNum
+                        like = newLikeNumAdd
                         votingStatus = 1
                     }
                     arguments?.putParcelable("SUGGEST", newData)
@@ -350,14 +391,15 @@ class SuggestContentFragment : Fragment() {
         if (!processing) {
             processing = true
             val oldDislikeNum = data.dislike
-            val newDislikeNum = data.dislike + 1
+            val newDislikeNumAdd = data.dislike + 1
+            val newDislikeNumSubtract = data.dislike - 1
             val oldLikeNum = data.like
             val newLikeNum = data.like - 1
             when (data.votingStatus) {
                 1 -> {
                     val newData = data.apply {
                         like = newLikeNum
-                        dislike = newDislikeNum
+                        dislike = newDislikeNumAdd
                         votingStatus = 2
                     }
                     arguments?.putParcelable("SUGGEST", newData)
@@ -398,10 +440,50 @@ class SuggestContentFragment : Fragment() {
                         }
                     })
                 }
-                2 -> {}
+                2 -> {
+                    val newData = data.apply {
+                        dislike = newDislikeNumSubtract
+                        votingStatus = 0
+                    }
+                    arguments?.putParcelable("SUGGEST", newData)
+                    viewModel.sumbitData(newData)
+                    val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+                        increment("dislike")
+                    }
+                    lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+                        override fun onSubscribe(d: Disposable) {
+                        }
+
+                        override fun onNext(t: LCObject) {
+                            val job = Job()
+                            CoroutineScope(job).launch {
+                                database.updateSuggest(newData)
+                            }
+                            job.complete()
+                        }
+
+                        override fun onError(e: Throwable) {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.network_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            val oldData = data.apply {
+                                dislike = oldDislikeNum
+                                votingStatus = 2
+                            }
+                            arguments?.putParcelable("SUGGEST", oldData)
+                            viewModel.sumbitData(oldData)
+                        }
+
+                        override fun onComplete() {
+                            processing = false
+                        }
+                    })
+                }
                 else -> {
                     val newData = data.apply {
-                        dislike = newDislikeNum
+                        dislike = newDislikeNumAdd
                         votingStatus = 2
                     }
                     arguments?.putParcelable("SUGGEST", newData)
