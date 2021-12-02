@@ -27,6 +27,7 @@ data class Suggest @Ignore constructor(
     var sourceUrl:String? = null,
     var like:Int = 0,
     var dislike:Int = 0,
+    var votingStatus: Int = 0,
     var archived: Boolean = false,
     var read: Boolean = false,
     var objectId: String? = null
@@ -46,6 +47,7 @@ data class Suggest @Ignore constructor(
         BaseApplication.context.getString(R.string.lorem_ipsum),
         mapOf(),
         null,
+        0,
         0,
         0,
         false,

@@ -76,6 +76,7 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
                         obj.getString("sourceUrl"),
                         obj.getInt("like"),
                         obj.getInt("dislike"),
+                        0,
                         false,
                         false,
                         obj.objectId

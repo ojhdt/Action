@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
@@ -42,6 +44,8 @@ class SuggestContentFragment : Fragment() {
     private var _binding: FragmentSuggestContentBinding? = null
     private val binding get() = _binding!!
     val viewModel by viewModels<SuggestContentViewModel>()
+
+    private var processing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +103,7 @@ class SuggestContentFragment : Fragment() {
         // Appbar Onclick
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.vote -> {}
+                R.id.vote -> voteLike()
                 R.id.ignore -> {}
                 R.id.read -> switchReadState()
                 R.id.archive -> switchArchiveState()
@@ -153,6 +157,8 @@ class SuggestContentFragment : Fragment() {
                         }
                     })
             }
+            binding.suggestContentThumbUpNum.text = it.like.toString()
+            binding.suggestContentThumbDownNum.text = it.dislike.toString()
             binding.content.text = it.content
             binding.confirnButton.text =
                 if (!it.archived) getString(R.string.suggest_content_archive) else getString(R.string.suggest_content_archived)
@@ -174,6 +180,12 @@ class SuggestContentFragment : Fragment() {
         }
         binding.ignoreButton.setOnClickListener {
             switchReadState()
+        }
+        binding.suggestContentThumbUp.setOnClickListener {
+            voteLike()
+        }
+        binding.suggestContentThumbDown.setOnClickListener {
+            voteDislike()
         }
     }
 
@@ -235,59 +247,203 @@ class SuggestContentFragment : Fragment() {
     }
 
     private fun voteLike() {
-        val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
-            increment("like")
-        }
-        lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
-            override fun onSubscribe(d: Disposable) {
-            }
+        if (!processing) {
+            processing = true
+            val oldLikeNum = data.like
+            val newLikeNum = data.like + 1
+            val oldDislikeNum = data.dislike
+            val newDislikeNum = data.dislike - 1
+            when (data.votingStatus) {
+                1 -> {}
+                2 -> {
+                    val newData = data.apply {
+                        like = newLikeNum
+                        dislike = newDislikeNum
+                        votingStatus = 1
+                    }
+                    arguments?.putParcelable("SUGGEST", newData)
+                    viewModel.sumbitData(newData)
+                    val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+                        increment("like")
+                        increment("dislike", -1)
+                    }
+                    lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+                        override fun onSubscribe(d: Disposable) {
+                        }
 
-            override fun onNext(t: LCObject) {
-                val newData = data.apply {
-                    like += 1
+                        override fun onNext(t: LCObject) {
+                            val job = Job()
+                            CoroutineScope(job).launch {
+                                database.updateSuggest(newData)
+                            }
+                            job.complete()
+                        }
+
+                        override fun onError(e: Throwable) {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.network_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            val oldData = data.apply {
+                                like = oldLikeNum
+                                dislike = oldDislikeNum
+                                votingStatus = 0
+                            }
+                            arguments?.putParcelable("SUGGEST", oldData)
+                            viewModel.sumbitData(oldData)
+                        }
+
+                        override fun onComplete() {
+                            processing = false
+                        }
+                    })
                 }
-                updateData(newData)
-            }
+                else -> {
+                    val newData = data.apply {
+                        like = newLikeNum
+                        votingStatus = 1
+                    }
+                    arguments?.putParcelable("SUGGEST", newData)
+                    viewModel.sumbitData(newData)
+                    val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+                        increment("like")
+                    }
+                    lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+                        override fun onSubscribe(d: Disposable) {
+                        }
 
-            override fun onError(e: Throwable) {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.network_error),
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
+                        override fun onNext(t: LCObject) {
+                            val job = Job()
+                            CoroutineScope(job).launch {
+                                database.updateSuggest(newData)
+                            }
+                            job.complete()
+                        }
 
-            override fun onComplete() {
+                        override fun onError(e: Throwable) {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.network_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            val oldData = data.apply {
+                                like = oldLikeNum
+                                votingStatus = 0
+                            }
+                            arguments?.putParcelable("SUGGEST", oldData)
+                            viewModel.sumbitData(oldData)
+                        }
+
+                        override fun onComplete() {
+                            processing = false
+                        }
+                    })
+                }
             }
-        })
+        } else {
+            Toast.makeText(context, getString(R.string.processing), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun voteDislike() {
-        val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
-            increment("dislike", -1)
-        }
-        lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
-            override fun onSubscribe(d: Disposable) {
-            }
+        if (!processing) {
+            processing = true
+            val oldDislikeNum = data.dislike
+            val newDislikeNum = data.dislike + 1
+            val oldLikeNum = data.like
+            val newLikeNum = data.like - 1
+            when (data.votingStatus) {
+                1 -> {
+                    val newData = data.apply {
+                        like = newLikeNum
+                        dislike = newDislikeNum
+                        votingStatus = 2
+                    }
+                    arguments?.putParcelable("SUGGEST", newData)
+                    viewModel.sumbitData(newData)
+                    val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+                        increment("like", -1)
+                        increment("dislike")
+                    }
+                    lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+                        override fun onSubscribe(d: Disposable) {
+                        }
 
-            override fun onNext(t: LCObject) {
-                val newData = data.apply {
-                    like -= 1
+                        override fun onNext(t: LCObject) {
+                            val job = Job()
+                            CoroutineScope(job).launch {
+                                database.updateSuggest(newData)
+                            }
+                            job.complete()
+                        }
+
+                        override fun onError(e: Throwable) {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.network_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            val oldData = data.apply {
+                                like = oldLikeNum
+                                dislike = oldDislikeNum
+                                votingStatus = 0
+                            }
+                            arguments?.putParcelable("SUGGEST", oldData)
+                            viewModel.sumbitData(oldData)
+                        }
+
+                        override fun onComplete() {
+                            processing = false
+                        }
+                    })
                 }
-                updateData(newData)
-            }
+                2 -> {}
+                else -> {
+                    val newData = data.apply {
+                        dislike = newDislikeNum
+                        votingStatus = 2
+                    }
+                    arguments?.putParcelable("SUGGEST", newData)
+                    viewModel.sumbitData(newData)
+                    val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+                        increment("dislike")
+                    }
+                    lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+                        override fun onSubscribe(d: Disposable) {
+                        }
 
-            override fun onError(e: Throwable) {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.network_error),
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
+                        override fun onNext(t: LCObject) {
+                            val job = Job()
+                            CoroutineScope(job).launch {
+                                database.updateSuggest(newData)
+                            }
+                            job.complete()
+                        }
 
-            override fun onComplete() {
+                        override fun onError(e: Throwable) {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.network_error),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            val oldData = data.apply {
+                                dislike = oldDislikeNum
+                                votingStatus = 0
+                            }
+                            arguments?.putParcelable("SUGGEST", oldData)
+                            viewModel.sumbitData(oldData)
+                        }
+
+                        override fun onComplete() {
+                            processing = false
+                        }
+                    })
+                }
             }
-        })
+        } else {
+            Toast.makeText(context, getString(R.string.processing), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun redictToSourceUrl() {

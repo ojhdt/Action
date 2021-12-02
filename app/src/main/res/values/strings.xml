@@ -38,6 +38,8 @@
     <string name="get_suggestions">获取建议</string>
     <string name="revoke">撤销</string>
 
+    <string name="processing">请勿重复点击</string>
+
     <string name="achievement_total_a">哇噢！你已累计完成了不同类型的行动</string>
     <string name="achievement_total_c">次</string>
 
