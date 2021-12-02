@@ -172,7 +172,7 @@
                         app:layout_constraintStart_toStartOf="@+id/authorName"
                         app:layout_constraintTop_toBottomOf="@+id/authorName" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/suggestContentThumbUp"
                         style="@style/Widget.Material3.Button.IconButton"
                         android:layout_width="wrap_content"
@@ -198,12 +198,13 @@
                         app:layout_constraintStart_toStartOf="@+id/suggestContentThumbUp"
                         app:layout_constraintTop_toTopOf="@+id/suggestContentThumbUp" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/suggestContentThumbDown"
                         style="@style/Widget.Material3.Button.IconButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:checkable="true"
                         app:icon="@drawable/thumb_down"
                         app:iconTint="?attr/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -157,6 +157,20 @@ class SuggestContentFragment : Fragment() {
                         }
                     })
             }
+            when(it.votingStatus){
+                1 -> {
+                    binding.suggestContentThumbUp.isChecked = true
+                    binding.suggestContentThumbDown.isChecked = false
+                }
+                2 -> {
+                    binding.suggestContentThumbUp.isChecked = false
+                    binding.suggestContentThumbDown.isChecked = true
+                }
+                else -> {
+                    binding.suggestContentThumbUp.isChecked = false
+                    binding.suggestContentThumbDown.isChecked = false
+                }
+            }
             binding.suggestContentThumbUpNum.text = it.like.toString()
             binding.suggestContentThumbDownNum.text = it.dislike.toString()
             binding.content.text = it.content
@@ -165,12 +179,13 @@ class SuggestContentFragment : Fragment() {
             binding.ignoreButton.run {
                 text =
                     if (!it.read) getString(R.string.suggest_content_read) else getString(R.string.suggest_content_read_marked)
-                setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.m3_default_color_secondary_text
-                    )
-                )
+                isEnabled = !it.read
+//                setTextColor(
+//                    ContextCompat.getColor(
+//                        context,
+//                        R.color.m3_default_color_secondary_text
+//                    )
+//                )
             }
         }
 
