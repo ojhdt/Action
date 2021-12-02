@@ -26,6 +26,7 @@ data class Suggest @Ignore constructor(
     var label: Map<Int,String>? = mapOf(),
     var archived: Boolean = false,
     var read: Boolean = false,
+    var sourceUrl:String? = null,
     var objectId: String? = null
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -44,5 +45,6 @@ data class Suggest @Ignore constructor(
         mapOf(),
         false,
         false,
+        null
     )
 }

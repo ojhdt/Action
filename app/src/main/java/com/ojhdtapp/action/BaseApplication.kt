@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import cn.leancloud.LCObject
 import cn.leancloud.LeanCloud
+import com.google.android.material.color.DynamicColors
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +21,10 @@ class BaseApplication : Application() {
             "nRXp51Nf2KxuB3wzwcEFwgLf-gzGzoHsz",
             "ynE9lHaem1e0htqO7rQqKQsa",
             "https://api.ojhdt.com"
-        );
+        )
+
+        // Apply Dynamic Colors
+        DynamicColors.applyToActivitiesIfAvailable(this)
     }
 
     companion object {

@@ -91,6 +91,20 @@ class SuggestContentFragment : Fragment() {
             appBarConfiguration
         )
 
+        // Appbar Onclick
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.vote -> {}
+                R.id.ignore -> {}
+                R.id.read -> switchReadState()
+                R.id.archive -> switchArchiveState()
+                R.id.share -> {}
+                R.id.source -> {}
+                else -> {}
+            }
+            false
+        }
+
         // Load Data & Initialize ViewModel
         viewModel.sumbitData(data)
         viewModel.dataLive.observe(this) { it ->
@@ -137,11 +151,19 @@ class SuggestContentFragment : Fragment() {
             binding.content.text = it.content
             binding.confirnButton.text =
                 if (!it.archived) getString(R.string.suggest_content_archive) else getString(R.string.suggest_content_archived)
+            binding.ignoreButton.run {
+                text =
+                    if (!it.read) getString(R.string.suggest_content_read) else getString(R.string.suggest_content_read_marked)
+                setTextColor(ContextCompat.getColor(context,R.color.m3_default_color_secondary_text))
+            }
         }
 
         // Btns Onclock
         binding.confirnButton.setOnClickListener {
             switchArchiveState()
+        }
+        binding.ignoreButton.setOnClickListener {
+            switchReadState()
         }
     }
 
@@ -151,8 +173,7 @@ class SuggestContentFragment : Fragment() {
     }
 
     // Functions
-    private fun updateData(newData:Suggest){
-        Log.d("aaa", newData.archived.toString())
+    private fun updateData(newData: Suggest) {
         arguments?.putParcelable("SUGGEST", newData)
         viewModel.sumbitData(newData)
         val job = Job()
@@ -162,7 +183,7 @@ class SuggestContentFragment : Fragment() {
         job.complete()
     }
 
-    private fun switchArchiveState(){
+    private fun switchArchiveState() {
         if (data.archived == false) {
             val newData = data.apply {
                 archived = true
@@ -173,7 +194,8 @@ class SuggestContentFragment : Fragment() {
                 getString(R.string.suggest_content_archive_message),
                 Snackbar.LENGTH_SHORT
             )
-                .setAction(getString(R.string.revoke)
+                .setAction(
+                    getString(R.string.revoke)
                 ) {
                     val oldData = data.apply {
                         archived = false
@@ -190,6 +212,15 @@ class SuggestContentFragment : Fragment() {
                 getString(R.string.suggest_content_archive_revoke_message),
                 Snackbar.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    private fun switchReadState() {
+        if (data.read == false) {
+            val newData = data.apply {
+                read = true
+            }
+            updateData(newData)
         }
     }
 }
