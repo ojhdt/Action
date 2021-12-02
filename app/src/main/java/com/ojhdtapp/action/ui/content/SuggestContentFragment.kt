@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import cn.leancloud.LCObject
+import cn.leancloud.LCQuery
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
@@ -52,6 +53,7 @@ class SuggestContentFragment : Fragment() {
         arguments?.let {
             data = it.getParcelable<Suggest>("SUGGEST") ?: Suggest()
         }
+        Log.d("aaa", data.votingStatus.toString())
         // Add Transition
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host
@@ -65,8 +67,11 @@ class SuggestContentFragment : Fragment() {
                 )
             }.data)
         }
-        //  Initialize Dao
+        // Initialize Dao
         database = AppDataBase.getDataBase().suggestDao()
+
+        // Fetch VotingNum
+        updateVotingNum()
     }
 
     override fun onCreateView(
@@ -103,6 +108,7 @@ class SuggestContentFragment : Fragment() {
         // Appbar Onclick
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
+                R.id.refresh -> {}
                 R.id.vote -> voteLike()
                 R.id.ignore -> {}
                 R.id.read -> switchReadState()
@@ -205,6 +211,30 @@ class SuggestContentFragment : Fragment() {
             database.updateSuggest(newData)
         }
         job.complete()
+    }
+
+    private fun updateVotingNum() {
+        val query = LCQuery<LCObject>("Suggest")
+        query.getInBackground(data.objectId).subscribe(object : Observer<LCObject> {
+            override fun onSubscribe(d: Disposable) {
+            }
+
+            override fun onNext(t: LCObject) {
+                val newData = data.apply {
+                    like = t.getInt("like")
+                    dislike = t.getInt("dislike")
+                }
+                viewModel.sumbitData(newData)
+            }
+
+            override fun onError(e: Throwable) {
+                Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            override fun onComplete() {
+            }
+        })
     }
 
     private fun switchArchiveState() {
@@ -332,7 +362,7 @@ class SuggestContentFragment : Fragment() {
                             val oldData = data.apply {
                                 like = oldLikeNum
                                 dislike = oldDislikeNum
-                                votingStatus = 0
+                                votingStatus = 2
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
@@ -435,7 +465,7 @@ class SuggestContentFragment : Fragment() {
                             val oldData = data.apply {
                                 like = oldLikeNum
                                 dislike = oldDislikeNum
-                                votingStatus = 0
+                                votingStatus = 1
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
@@ -538,7 +568,7 @@ class SuggestContentFragment : Fragment() {
         }
     }
 
-    private fun resetVotingStatus(){
+    private fun resetVotingStatus() {
         when (data.votingStatus) {
             1 -> {
                 binding.suggestContentThumbUp.isChecked = true
