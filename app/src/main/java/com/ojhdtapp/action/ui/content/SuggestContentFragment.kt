@@ -289,6 +289,7 @@ class SuggestContentFragment : Fragment() {
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
+                            processing = false
                         }
 
                         override fun onComplete() {
@@ -333,6 +334,7 @@ class SuggestContentFragment : Fragment() {
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
+                            processing = false
                         }
 
                         override fun onComplete() {
@@ -374,6 +376,7 @@ class SuggestContentFragment : Fragment() {
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
+                            processing = false
                         }
 
                         override fun onComplete() {
@@ -433,6 +436,7 @@ class SuggestContentFragment : Fragment() {
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
+                            processing = false
                         }
 
                         override fun onComplete() {
@@ -448,7 +452,7 @@ class SuggestContentFragment : Fragment() {
                     arguments?.putParcelable("SUGGEST", newData)
                     viewModel.sumbitData(newData)
                     val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
-                        increment("dislike")
+                        increment("dislike", -1)
                     }
                     lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
                         override fun onSubscribe(d: Disposable) {
@@ -474,6 +478,7 @@ class SuggestContentFragment : Fragment() {
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
+                            processing = false
                         }
 
                         override fun onComplete() {
@@ -515,6 +520,7 @@ class SuggestContentFragment : Fragment() {
                             }
                             arguments?.putParcelable("SUGGEST", oldData)
                             viewModel.sumbitData(oldData)
+                            processing = false
                         }
 
                         override fun onComplete() {
