@@ -157,20 +157,7 @@ class SuggestContentFragment : Fragment() {
                         }
                     })
             }
-            when(it.votingStatus){
-                1 -> {
-                    binding.suggestContentThumbUp.isChecked = true
-                    binding.suggestContentThumbDown.isChecked = false
-                }
-                2 -> {
-                    binding.suggestContentThumbUp.isChecked = false
-                    binding.suggestContentThumbDown.isChecked = true
-                }
-                else -> {
-                    binding.suggestContentThumbUp.isChecked = false
-                    binding.suggestContentThumbDown.isChecked = false
-                }
-            }
+            resetVotingStatus()
             binding.suggestContentThumbUpNum.text = it.like.toString()
             binding.suggestContentThumbDownNum.text = it.dislike.toString()
             binding.content.text = it.content
@@ -402,6 +389,7 @@ class SuggestContentFragment : Fragment() {
             }
         } else {
             Toast.makeText(context, getString(R.string.processing), Toast.LENGTH_SHORT).show()
+            resetVotingStatus()
         }
     }
 
@@ -546,6 +534,24 @@ class SuggestContentFragment : Fragment() {
             }
         } else {
             Toast.makeText(context, getString(R.string.processing), Toast.LENGTH_SHORT).show()
+            resetVotingStatus()
+        }
+    }
+
+    private fun resetVotingStatus(){
+        when (data.votingStatus) {
+            1 -> {
+                binding.suggestContentThumbUp.isChecked = true
+                binding.suggestContentThumbDown.isChecked = false
+            }
+            2 -> {
+                binding.suggestContentThumbUp.isChecked = false
+                binding.suggestContentThumbDown.isChecked = true
+            }
+            else -> {
+                binding.suggestContentThumbUp.isChecked = false
+                binding.suggestContentThumbDown.isChecked = false
+            }
         }
     }
 
