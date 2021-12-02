@@ -24,9 +24,11 @@ data class Suggest @Ignore constructor(
     var type: Int = 0,
     var content: String = BaseApplication.context.getString(R.string.lorem_ipsum),
     var label: Map<Int,String>? = mapOf(),
+    var sourceUrl:String? = null,
+    var like:Int = 0,
+    var dislike:Int = 0,
     var archived: Boolean = false,
     var read: Boolean = false,
-    var sourceUrl:String? = null,
     var objectId: String? = null
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -43,8 +45,10 @@ data class Suggest @Ignore constructor(
         1,
         BaseApplication.context.getString(R.string.lorem_ipsum),
         mapOf(),
+        null,
+        0,
+        0,
         false,
         false,
-        null
     )
 }

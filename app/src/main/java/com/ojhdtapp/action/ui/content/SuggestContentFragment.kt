@@ -1,6 +1,8 @@
 package com.ojhdtapp.action.ui.content
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -15,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import cn.leancloud.LCObject
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
@@ -24,6 +27,8 @@ import com.ojhdtapp.action.databinding.FragmentSuggestContentBinding
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.dao.SuggestDao
 import com.ojhdtapp.action.logic.model.Suggest
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
@@ -93,13 +98,13 @@ class SuggestContentFragment : Fragment() {
 
         // Appbar Onclick
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.vote -> {}
                 R.id.ignore -> {}
                 R.id.read -> switchReadState()
                 R.id.archive -> switchArchiveState()
                 R.id.share -> {}
-                R.id.source -> {}
+                R.id.source -> redictToSourceUrl()
                 else -> {}
             }
             false
@@ -154,7 +159,12 @@ class SuggestContentFragment : Fragment() {
             binding.ignoreButton.run {
                 text =
                     if (!it.read) getString(R.string.suggest_content_read) else getString(R.string.suggest_content_read_marked)
-                setTextColor(ContextCompat.getColor(context,R.color.m3_default_color_secondary_text))
+                setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.m3_default_color_secondary_text
+                    )
+                )
             }
         }
 
@@ -222,5 +232,68 @@ class SuggestContentFragment : Fragment() {
             }
             updateData(newData)
         }
+    }
+
+    private fun voteLike() {
+        val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+            increment("like")
+        }
+        lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+            override fun onSubscribe(d: Disposable) {
+            }
+
+            override fun onNext(t: LCObject) {
+                val newData = data.apply {
+                    like += 1
+                }
+                updateData(newData)
+            }
+
+            override fun onError(e: Throwable) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.network_error),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onComplete() {
+            }
+        })
+    }
+
+    private fun voteDislike() {
+        val lcObject = LCObject.createWithoutData("Suggest", data.objectId).apply {
+            increment("dislike", -1)
+        }
+        lcObject.saveInBackground().subscribe(object : Observer<LCObject> {
+            override fun onSubscribe(d: Disposable) {
+            }
+
+            override fun onNext(t: LCObject) {
+                val newData = data.apply {
+                    like -= 1
+                }
+                updateData(newData)
+            }
+
+            override fun onError(e: Throwable) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.network_error),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onComplete() {
+            }
+        })
+    }
+
+    private fun redictToSourceUrl() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(this@SuggestContentFragment.data.sourceUrl)
+        }
+        startActivity(intent)
     }
 }

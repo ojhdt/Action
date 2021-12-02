@@ -133,6 +133,9 @@ class ActionFragment : Fragment() {
                                 "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”"
                     )
                     put("label", list)
+                    put("sourceUrl", "https://www.baidu.com/")
+                    put("like", 0)
+                    put("dislike", 0)
                 }
                 newSuggest.saveInBackground().subscribe(object : Observer<LCObject> {
                     override fun onSubscribe(d: Disposable) {
