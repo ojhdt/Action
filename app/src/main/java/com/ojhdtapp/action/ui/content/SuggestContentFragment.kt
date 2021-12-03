@@ -53,7 +53,6 @@ class SuggestContentFragment : Fragment() {
         arguments?.let {
             data = it.getParcelable<Suggest>("SUGGEST") ?: Suggest()
         }
-        Log.d("aaa", data.votingStatus.toString())
         // Add Transition
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host

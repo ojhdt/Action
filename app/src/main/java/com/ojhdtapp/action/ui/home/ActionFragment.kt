@@ -104,7 +104,7 @@ class ActionFragment : Fragment() {
                 bottomSheetDialog.hide()
                 val list = mutableListOf<Pair<Int,String>>()
                 list.add(Pair(R.drawable.ic_outline_emoji_events_24,"Watersave"))
-                list.add(Pair(R.drawable.ic_outline_emoji_events_24,"Watersave"))
+                list.add(Pair(R.drawable.ic_outline_settings_24,"Elecsave"))
 //                map.put(R.drawable.ic_outline_emoji_events_24.toString(),"Watersave")
                 val newSuggest = LCObject("Suggest").apply {
                     put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
