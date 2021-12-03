@@ -20,4 +20,8 @@ class SuggestContentViewModel : ViewModel() {
 //        Log.d("aaa", "Submit Data")
         _dataLive.value = data
     }
+
+    fun sumbitDataThroughPost(data:Suggest){
+        _dataLive.postValue(data)
+    }
 }

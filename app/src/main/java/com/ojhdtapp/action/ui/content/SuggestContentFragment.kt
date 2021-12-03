@@ -28,14 +28,12 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentSuggestContentBinding
 import com.ojhdtapp.action.logic.AppDataBase
+import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.dao.SuggestDao
 import com.ojhdtapp.action.logic.model.Suggest
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.math.round
 
 class SuggestContentFragment : Fragment() {
@@ -107,7 +105,7 @@ class SuggestContentFragment : Fragment() {
         // Appbar Onclick
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.refresh -> {}
+                R.id.refresh -> syncSuggest()
                 R.id.vote -> voteLike()
                 R.id.ignore -> {}
                 R.id.read -> switchReadState()
@@ -564,6 +562,35 @@ class SuggestContentFragment : Fragment() {
         } else {
             Toast.makeText(context, getString(R.string.processing), Toast.LENGTH_SHORT).show()
             resetVotingStatus()
+        }
+    }
+
+    private fun syncSuggest() {
+        data.objectId?.let {
+            val job = Job()
+            CoroutineScope(job).launch {
+                try {
+                    val result = withContext(Dispatchers.IO) {
+                        LeanCloudDataBase.syncSuggest(it)
+                    }
+                    arguments?.putParcelable("SUGGEST", result)
+                    viewModel.sumbitDataThroughPost(result)
+                    database.updateSuggest(result)
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.network_success),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+
+                } catch (e: Exception) {
+                    Log.d("aaa",e.toString())
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.network_error),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 

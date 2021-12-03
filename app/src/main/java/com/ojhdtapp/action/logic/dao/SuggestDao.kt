@@ -39,6 +39,9 @@ interface SuggestDao {
     @Query("SELECT * FROM suggest_table WHERE read = 1")
     fun loadAllReadSuggestLive(): LiveData<List<Suggest>>
 
+    @Query("SELECT * FROM suggest_table WHERE objectId = :objId LIMIT 1")
+    fun querySuggestByObjId(objId:String): Suggest
+
     @Query("DELETE FROM action_table WHERE id = :id")
     fun deleteSuggestById(id: Long): Int
 

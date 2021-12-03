@@ -55,34 +55,7 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
         try {
             // suspend
             val result = LeanCloudDataBase.getNewSuggest(type)
-            result.let { obj ->
-                val list = obj.getList("label") as List<HashMap<String,Any>>
-                val map = mutableMapOf<Int,String>()
-                list.forEach {
-                    map[it.get("first") as Int] = it.get("second") as String
-                }
-                dataBase.suggestDao().insertSuggest(
-                    Suggest(
-                        obj.getString("title"),
-                        obj.getString("subhead"),
-                        obj.getString("imgUrl"),
-                        obj.getDate("time"),
-                        obj.getString("authorAvatarUrl"),
-                        obj.getString("author"),
-                        obj.getString("source"),
-                        obj.getInt("type"),
-                        obj.getString("content"),
-                        map,
-                        obj.getString("sourceUrl"),
-                        obj.getInt("like"),
-                        obj.getInt("dislike"),
-                        0,
-                        false,
-                        false,
-                        obj.objectId
-                    )
-                )
-            }
+            dataBase.suggestDao().insertSuggest(result)
             _snackBarMessageLive.postValue(getApplication<Application>().getString(R.string.network_success))
         } catch (e: Exception) {
             Log.d("aaa", e.toString())
