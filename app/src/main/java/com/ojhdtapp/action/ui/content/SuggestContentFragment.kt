@@ -574,8 +574,11 @@ class SuggestContentFragment : Fragment() {
                         LeanCloudDataBase.syncSuggest(it)
                     }
                     arguments?.putParcelable("SUGGEST", result)
+                    data.apply {
+                        like = result.like
+                        dislike = result.dislike
+                    }
                     viewModel.sumbitDataThroughPost(result)
-                    database.updateSuggest(result)
                     Snackbar.make(
                         binding.root,
                         getString(R.string.network_success),

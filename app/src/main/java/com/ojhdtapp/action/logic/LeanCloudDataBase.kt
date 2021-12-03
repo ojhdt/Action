@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.logic
 
+import android.util.Log
 import cn.leancloud.LCObject
 import io.reactivex.disposables.Disposable
 import cn.leancloud.LCQuery
@@ -18,34 +19,36 @@ object LeanCloudDataBase {
 
     fun lcObject2Suggest(
         obj: LCObject,
-        votingStatus: Int = 0,
-        archived: Boolean = false,
-        read: Boolean = false
+        suggest: Suggest? = null,
+        vtStatus: Int = 0,
+        acd: Boolean = false,
+        rd: Boolean = false
     ): Suggest {
+        val storedSuggest = suggest ?: Suggest()
         val list = obj.getList("label") as List<HashMap<String, Any>>
         val map = mutableMapOf<Int, String>()
         list.forEach {
             map[it["first"] as Int] = it["second"] as String
         }
-        return Suggest(
-            obj.getString("title"),
-            obj.getString("subhead"),
-            obj.getString("imgUrl"),
-            obj.getDate("time"),
-            obj.getString("authorAvatarUrl"),
-            obj.getString("author"),
-            obj.getString("source"),
-            obj.getInt("type"),
-            obj.getString("content"),
-            map,
-            obj.getString("sourceUrl"),
-            obj.getInt("like"),
-            obj.getInt("dislike"),
-            votingStatus,
-            archived,
-            read,
-            obj.objectId
-        )
+        return storedSuggest.apply {
+            title = obj.getString("title")
+            subhead = obj.getString("subhead")
+            imgUrl = obj.getString("imgUrl")
+            time = obj.getDate("time")
+            authorAvatarUrl = obj.getString("authorAvatarUrl")
+            author = obj.getString("author")
+            source = obj.getString("source")
+            type = obj.getInt("type")
+            content = obj.getString("content")
+            label = map
+            sourceUrl = obj.getString("sourceUrl")
+            like = obj.getInt("like")
+            dislike = obj.getInt("dislike")
+            votingStatus = vtStatus
+            archived = acd
+            read = rd
+            objectId = obj.objectId
+        }
     }
 
     suspend fun getNewSuggest(type: Int) = suspendCoroutine<Suggest> {
@@ -72,22 +75,22 @@ object LeanCloudDataBase {
         })
     }
 
-    suspend fun syncSuggest(objectId: String): Suggest{
+    suspend fun syncSuggest(objectId: String): Suggest {
         val result = suspendCoroutine<Suggest> {
             val storedSuggest = dataBase.suggestDao().querySuggestByObjId(objectId)
+            Log.d("aaa", storedSuggest.toString())
             val query = LCQuery<LCObject>("Suggest")
             query.getInBackground(objectId).subscribe(object : Observer<LCObject> {
                 override fun onSubscribe(d: Disposable) {
                 }
 
                 override fun onNext(t: LCObject) {
-                    it.resume(
-                        lcObject2Suggest(
-                            t, storedSuggest.votingStatus,
-                            storedSuggest.archived,
-                            storedSuggest.read
-                        )
+                    val result = lcObject2Suggest(
+                        t, storedSuggest, storedSuggest.votingStatus,
+                        storedSuggest.archived,
+                        storedSuggest.read
                     )
+                    it.resume(result)
                 }
 
                 override fun onError(e: Throwable) {
