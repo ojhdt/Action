@@ -30,6 +30,7 @@ data class Suggest @Ignore constructor(
     var votingStatus: Int = 0,
     var archived: Boolean = false,
     var read: Boolean = false,
+    var deleted: Boolean = false,
     var objectId: String? = null
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -50,6 +51,7 @@ data class Suggest @Ignore constructor(
         0,
         0,
         0,
+        false,
         false,
         false,
     )

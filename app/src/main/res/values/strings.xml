@@ -37,6 +37,8 @@
     <string name="ignore">忽略</string>
     <string name="get_suggestions">获取建议</string>
     <string name="revoke">撤销</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
 
     <string name="processing">请勿重复点击</string>
 
@@ -122,6 +124,9 @@
     <string name="action_bottom_sheet_dialog_random">随机</string>
     <string name="action_bottom_sheet_dialog_news">资讯</string>
     <string name="action_bottom_sheet_dialog_tips">贴士</string>
+
+    <string name="suggest_dialog_delete_title">删除该建议</string>
+    <string name="suggest_dialog_delete_content">该建议将不被再获取，且将同时从你的浏览记录和归档中移除。\n是否继续？</string>
 
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>
 

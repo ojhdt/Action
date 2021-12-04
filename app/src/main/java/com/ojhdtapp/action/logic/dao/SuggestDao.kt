@@ -30,13 +30,13 @@ interface SuggestDao {
     @Query("SELECT * FROM suggest_table")
     fun loadAllSuggestLive(): LiveData<List<Suggest>>
 
-    @Query("SELECT * FROM suggest_table WHERE archived = 0 AND read = 0")
+    @Query("SELECT * FROM suggest_table WHERE archived = 0 AND read = 0 AND deleted = 0")
     fun loadAllDisplaySuggestLive(): LiveData<List<Suggest>>
 
-    @Query("SELECT * FROM suggest_table WHERE archived = 1")
+    @Query("SELECT * FROM suggest_table WHERE archived = 1 AND deleted = 0")
     fun loadAllArchivedSuggestLive(): LiveData<List<Suggest>>
 
-    @Query("SELECT * FROM suggest_table WHERE read = 1")
+    @Query("SELECT * FROM suggest_table WHERE read = 1 AND deleted = 0")
     fun loadAllReadSuggestLive(): LiveData<List<Suggest>>
 
     @Query("SELECT * FROM suggest_table WHERE objectId = :objId LIMIT 1")

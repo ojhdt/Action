@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.content
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -23,6 +24,7 @@ import cn.leancloud.LCObject
 import cn.leancloud.LCQuery
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.*
@@ -107,7 +109,7 @@ class SuggestContentFragment : Fragment() {
             when (it.itemId) {
                 R.id.refresh -> syncSuggest()
                 R.id.vote -> voteLike()
-                R.id.ignore -> {}
+                R.id.ignore -> deleteSuggest()
                 R.id.read -> switchReadState()
                 R.id.archive -> switchArchiveState()
                 R.id.share -> {}
@@ -594,6 +596,22 @@ class SuggestContentFragment : Fragment() {
                     ).show()
                 }
             }
+        }
+    }
+
+    private fun deleteSuggest(){
+        context?.let{
+            MaterialAlertDialogBuilder(it)
+                .setTitle(R.string.suggest_dialog_delete_title)
+                .setMessage(R.string.suggest_dialog_delete_content)
+                .setNegativeButton(R.string.cancel){ dialogInterface: DialogInterface, i: Int -> }
+                .setPositiveButton(R.string.confirm){ dialogInterface: DialogInterface, i: Int ->
+                    findNavController().navigateUp()
+                    updateData(data.apply {
+                        deleted = true
+                    })
+                }
+                .show()
         }
     }
 

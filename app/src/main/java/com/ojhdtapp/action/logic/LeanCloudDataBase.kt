@@ -22,7 +22,8 @@ object LeanCloudDataBase {
         suggest: Suggest? = null,
         vtStatus: Int = 0,
         acd: Boolean = false,
-        rd: Boolean = false
+        rd: Boolean = false,
+        ded: Boolean = false,
     ): Suggest {
         val storedSuggest = suggest ?: Suggest()
         val list = obj.getList("label") as List<HashMap<String, Any>>
@@ -47,6 +48,7 @@ object LeanCloudDataBase {
             votingStatus = vtStatus
             archived = acd
             read = rd
+            deleted = ded
             objectId = obj.objectId
         }
     }
@@ -88,7 +90,8 @@ object LeanCloudDataBase {
                     val result = lcObject2Suggest(
                         t, storedSuggest, storedSuggest.votingStatus,
                         storedSuggest.archived,
-                        storedSuggest.read
+                        storedSuggest.read,
+                        storedSuggest.deleted
                     )
                     it.resume(result)
                 }
