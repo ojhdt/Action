@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_actionFragment_to_suggestContentFragment"
             app:destination="@id/suggestContentFragment" />
+        <action
+            android:id="@+id/action_actionFragment_to_actionArchiveFragment"
+            app:destination="@id/actionArchiveFragment" />
+        <action
+            android:id="@+id/action_actionFragment_to_suggestArchiveFragment"
+            app:destination="@id/suggestArchiveFragment" />
     </fragment>
     <fragment
         android:id="@+id/achievementFragment"
@@ -35,4 +41,22 @@
         android:id="@+id/suggestContentFragment"
         android:name="com.ojhdtapp.action.ui.content.SuggestContentFragment"
         android:label="@string/suggest_content_toolbar" />
+    <fragment
+        android:id="@+id/actionArchiveFragment"
+        android:name="com.ojhdtapp.action.ui.archive.ActionArchiveFragment"
+        android:label="fragment_action_archive"
+        tools:layout="@layout/fragment_action_archive" >
+        <action
+            android:id="@+id/action_actionArchiveFragment_to_actionContentFragment"
+            app:destination="@id/actionContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/suggestArchiveFragment"
+        android:name="com.ojhdtapp.action.ui.archive.SuggestArchiveFragment"
+        android:label="fragment_suggest_archive"
+        tools:layout="@layout/fragment_suggest_archive" >
+        <action
+            android:id="@+id/action_suggestArchiveFragment_to_suggestContentFragment"
+            app:destination="@id/suggestContentFragment" />
+    </fragment>
 </navigation>
