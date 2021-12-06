@@ -93,7 +93,9 @@ object ActionAdapters {
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            if (getItemViewType(position) != 0) {
+            if (getItemViewType(position) == 0) {
+                (holder as ActionNowEmptyViewHolder).bind()
+            }else{
                 (holder as ActionNowViewHolder).bind(getItem(position))
             }
         }
@@ -151,8 +153,18 @@ object ActionAdapters {
         }
     }
 
-    class ActionNowEmptyViewHolder(binding: ActionActionNowEmptyBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class ActionNowEmptyViewHolder(val binding: ActionActionNowEmptyBinding) :
+        RecyclerView.ViewHolder(binding.root){
+            fun bind(){
+                binding.actionEmptyAnimationView.run{
+                    setOnClickListener {
+                        if(!isAnimating){
+                            playAnimation()
+                        }
+                    }
+                }
+            }
+        }
 
     interface ActionNowListener {
         fun onActionCLick()
