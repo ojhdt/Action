@@ -23,10 +23,7 @@ import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
-import com.ojhdtapp.action.databinding.ActionActionNowCellBinding
-import com.ojhdtapp.action.databinding.ActionHeadlineBinding
-import com.ojhdtapp.action.databinding.ActionLabelBinding
-import com.ojhdtapp.action.databinding.ActionSuggestMoreCellBinding
+import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 
@@ -67,7 +64,7 @@ object ActionAdapters {
 //Action now
 
     class ActionNowAdapter(val listener: ActionNowListener) :
-        ListAdapter<Action, ActionNowViewHolder>(object : DiffUtil.ItemCallback<Action>() {
+        ListAdapter<Action, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<Action>() {
             override fun areItemsTheSame(oldItem: Action, newItem: Action): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -77,17 +74,32 @@ object ActionAdapters {
             }
 
         }) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActionNowViewHolder {
-            val binding = ActionActionNowCellBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-            return ActionNowViewHolder(binding, listener)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return if (viewType == 0) {
+                val binding = ActionActionNowEmptyBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ActionNowEmptyViewHolder(binding)
+            } else {
+                val binding = ActionActionNowCellBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                ActionNowViewHolder(binding, listener)
+            }
         }
 
-        override fun onBindViewHolder(holder: ActionNowViewHolder, position: Int) {
-            holder.bind(getItem(position))
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            if (getItemViewType(position) != 0) {
+                (holder as ActionNowViewHolder).bind(getItem(position))
+            }
+        }
+
+        override fun getItemViewType(position: Int): Int {
+            return if (currentList.size == 1 && currentList[position] == null) 0 else 1
         }
     }
 
@@ -138,6 +150,9 @@ object ActionAdapters {
             }
         }
     }
+
+    class ActionNowEmptyViewHolder(binding: ActionActionNowEmptyBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     interface ActionNowListener {
         fun onActionCLick()

@@ -89,7 +89,7 @@ class ActionFragment : Fragment() {
             val lcJob = Job()
             var isSearching = false
             cardViewShuffle.setOnClickListener {
-                Log.d("aaa","Clicked")
+                Log.d("aaa", "Clicked")
                 bottomSheetDialog.hide()
                 if (!isSearching) {
                     CoroutineScope(lcJob).launch(Dispatchers.IO) {
@@ -100,11 +100,11 @@ class ActionFragment : Fragment() {
                 }
             }
             cardViewNews.setOnClickListener {
-                Log.d("aaa","clicked")
+                Log.d("aaa", "clicked")
                 bottomSheetDialog.hide()
-                val list = mutableListOf<Pair<Int,String>>()
-                list.add(Pair(R.drawable.ic_outline_emoji_events_24,"Watersave"))
-                list.add(Pair(R.drawable.ic_outline_settings_24,"Elecsave"))
+                val list = mutableListOf<Pair<Int, String>>()
+                list.add(Pair(R.drawable.ic_outline_emoji_events_24, "Watersave"))
+                list.add(Pair(R.drawable.ic_outline_settings_24, "Elecsave"))
 //                map.put(R.drawable.ic_outline_emoji_events_24.toString(),"Watersave")
                 val newSuggest = LCObject("Suggest").apply {
                     put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
@@ -221,7 +221,12 @@ class ActionFragment : Fragment() {
             )
         }
         viewModel.actionNowLive.observe(this) {
-            actionNowAdapter.submitList(it)
+            val emptyList = listOf(null)
+            if (it.isEmpty()) {
+                actionNowAdapter.submitList(emptyList)
+            } else {
+                actionNowAdapter.submitList(it)
+            }
         }
         viewModel.suggestMoreLive.observe(this) {
             suggestMoreAdapter.submitList(it)
