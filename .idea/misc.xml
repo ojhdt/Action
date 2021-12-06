@@ -45,7 +45,9 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_explore.xml" value="0.16" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_scrolling.xml" value="0.176" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive.xml" value="0.153125" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive_tab.xml" value="0.15364583333333334" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_content.xml" value="0.5926573426573427" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_history_tab.xml" value="0.1390625" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/achievement_toolbar.xml" value="0.159375" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/action_content_toolbar.xml" value="0.12916666666666668" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/explore_toolbar.xml" value="0.15520833333333334" />

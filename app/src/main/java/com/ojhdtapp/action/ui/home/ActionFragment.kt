@@ -89,7 +89,6 @@ class ActionFragment : Fragment() {
             val lcJob = Job()
             var isSearching = false
             cardViewShuffle.setOnClickListener {
-                Log.d("aaa", "Clicked")
                 bottomSheetDialog.hide()
                 if (!isSearching) {
                     CoroutineScope(lcJob).launch(Dispatchers.IO) {
@@ -100,7 +99,6 @@ class ActionFragment : Fragment() {
                 }
             }
             cardViewNews.setOnClickListener {
-                Log.d("aaa", "clicked")
                 bottomSheetDialog.hide()
                 val list = mutableListOf<Pair<Int, String>>()
                 list.add(Pair(R.drawable.ic_outline_emoji_events_24, "Watersave"))
@@ -153,6 +151,36 @@ class ActionFragment : Fragment() {
                     }
                 })
             }
+            cardViewTips.setOnClickListener {
+                bottomSheetDialog.hide()
+                val database = AppDataBase.getDataBase().actionDao()
+                val listA = listOf(
+                    Action(
+                        "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
+                        R.drawable.city,
+                        getString(R.string.lorem_ipsum),
+                        "位置信息", Date(System.currentTimeMillis()),
+                        mapOf(
+                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                        ),
+                        listOf("第一条", "第二条", "第三条")
+                    ),
+                    Action(
+                        "勤关水龙头",
+                        R.drawable.anonymous,
+                        "一些内容",
+                        "位置信息",
+                        Date(System.currentTimeMillis()),
+                    )
+                )
+                val job = Job()
+                CoroutineScope(job).launch {
+                    listA.forEach {
+                        database.insertAction(it)
+                    }
+                }
+            }
         }
 
         // Adapter for rv
@@ -190,12 +218,14 @@ class ActionFragment : Fragment() {
             headlineAdapter,
             ActionAdapters.LabelAdapter(
                 resources.getString(R.string.action_now_label),
-                resources.getString(R.string.action_now_label_description)
+                resources.getString(R.string.action_now_label_description),
+                R.id.action_actionFragment_to_actionArchiveFragment
             ),
             actionNowAdapter,
             ActionAdapters.LabelAdapter(
                 resources.getString(R.string.action_suggest_more),
-                resources.getString(R.string.action_suggest_more_description)
+                resources.getString(R.string.action_suggest_more_description),
+                R.id.action_actionFragment_to_suggestArchiveFragment
             ),
             suggestMoreAdapter
         )
@@ -272,28 +302,6 @@ class ActionFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             bottomSheetDialog.show()
-
-            val database = AppDataBase.getDataBase().suggestDao()
-            val listA = listOf(
-                Action(
-                    "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
-                    R.drawable.city,
-                    getString(R.string.lorem_ipsum),
-                    "位置信息", Date(System.currentTimeMillis()),
-                    mapOf(
-                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                        Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                    ),
-                    listOf("第一条", "第二条", "第三条")
-                ),
-                Action(
-                    "勤关水龙头",
-                    R.drawable.anonymous,
-                    "一些内容",
-                    "位置信息",
-                    Date(System.currentTimeMillis()),
-                )
-            )
         }
     }
 

@@ -53,8 +53,8 @@
     <fragment
         android:id="@+id/suggestArchiveFragment"
         android:name="com.ojhdtapp.action.ui.archive.SuggestArchiveFragment"
-        android:label="fragment_suggest_archive"
-        tools:layout="@layout/fragment_suggest_archive" >
+        android:label="@string/suggest_archive_head"
+        tools:layout="@layout/fragment_suggest_archive">
         <action
             android:id="@+id/action_suggestArchiveFragment_to_suggestContentFragment"
             app:destination="@id/suggestContentFragment" />

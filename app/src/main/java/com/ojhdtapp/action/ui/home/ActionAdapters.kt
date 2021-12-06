@@ -244,11 +244,14 @@ object ActionAdapters {
         fun onSuggestClick()
     }
 
-    class LabelAdapter(private val label: String = "标题", private val subLabel: String = "附标题") :
+    class LabelAdapter(private val label: String = "标题", private val subLabel: String = "附标题", private val navigationId: Int) :
         RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
         inner class LabelViewHolder(private val binding: ActionLabelBinding) :
             RecyclerView.ViewHolder(binding.root) {
             fun bind(label: String, subLabel: String) {
+                binding.root.setOnClickListener {
+                    binding.root.findNavController().navigate(navigationId)
+                }
                 binding.labelText.text = label
                 binding.subLabelText.text = subLabel
             }

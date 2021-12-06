@@ -71,14 +71,17 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.homeNav, navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
-                R.id.actionContentFragment -> {
-                    binding.homeNav.visibility = View.GONE
+                R.id.actionFragment -> {
+                    binding.homeNav.visibility = View.VISIBLE
                 }
-                R.id.suggestContentFragment -> {
-                    binding.homeNav.visibility = View.GONE
+                R.id.achievementFragment -> {
+                    binding.homeNav.visibility = View.VISIBLE
+                }
+                R.id.exploreFragment -> {
+                    binding.homeNav.visibility = View.VISIBLE
                 }
                 else -> {
-                    binding.homeNav.visibility = View.VISIBLE
+                    binding.homeNav.visibility = View.GONE
                 }
             }
         }
