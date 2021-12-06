@@ -26,17 +26,10 @@
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin"
+                app:menu="@menu/suggest_archive_toolbar"
                 app:title="@string/suggest_archive_head" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <!--        <com.google.android.material.appbar.MaterialToolbar-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="?attr/actionBarSize"-->
-        <!--            app:layout_collapseMode="pin"-->
-        <!--            -->
-        <!--            android:id="@+id/toolbar"-->
-        <!--            app:layout_scrollFlags="scroll|enterAlways" />-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -56,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/suggest_archive_tab_archive" />
         </com.google.android.material.tabs.TabLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView

@@ -75,23 +75,27 @@ object Repository {
         }
     }
 
-    fun getGainedAchievementLive(): LiveData<List<Achievement>> {
-        return liveData {
-            val list = listOf(
-                Achievement(),
-                Achievement(),
-                Achievement(),
-            )
-            emit(list)
-        }
-    }
-
     fun getFinishedActionLive(): LiveData<List<Action>> {
         return liveData {
             val list = listOf<Action>(
                 Action(finished = true),
                 Action(finished = true),
                 Action(finished = true)
+            )
+            emit(list)
+        }
+    }
+
+    fun getReadSuggestLive(): LiveData<List<Suggest>> = database.suggestDao().loadAllReadSuggestLive()
+
+    fun getArchivedSuggestLive(): LiveData<List<Suggest>> = database.suggestDao().loadAllArchivedSuggestLive()
+
+    fun getGainedAchievementLive(): LiveData<List<Achievement>> {
+        return liveData {
+            val list = listOf(
+                Achievement(),
+                Achievement(),
+                Achievement(),
             )
             emit(list)
         }
