@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionSuggestMoreCellBinding
+import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabEmptyBinding
 import com.ojhdtapp.action.logic.model.Suggest
-import com.ojhdtapp.action.ui.home.ActionAdapters
 
-class SuggestArchiveAdapter(private val listener: SuggestArchiveListener? = null) :
-    ListAdapter<Suggest, SuggestArchiveAdapter.SuggestArchiveViewHolder>(object :
+class SuggestHistoryAdapter(
+    private val listener: SuggestHistoryListener? = null,
+    private val emptyBtnListener: SuggestHistoryListener? = null
+) :
+    ListAdapter<Suggest, RecyclerView.ViewHolder>(object :
         DiffUtil.ItemCallback<Suggest>() {
         override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
             return oldItem.id == newItem.id
@@ -27,22 +30,39 @@ class SuggestArchiveAdapter(private val listener: SuggestArchiveListener? = null
             return oldItem.title == newItem.title
         }
     }) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestArchiveViewHolder {
-        val binding = ActionSuggestMoreCellBinding.inflate(
-            LayoutInflater.from(
-                parent.context
-            ), parent, false
-        )
-        return SuggestArchiveViewHolder(binding, listener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == 0) {
+            val binding = FragmentSuggestHistoryTabEmptyBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+            SuggestHistoryEmptyViewHolder(binding, emptyBtnListener)
+        } else {
+            val binding = ActionSuggestMoreCellBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
+            SuggestHistoryViewHolder(binding, listener)
+        }
+
     }
 
-    override fun onBindViewHolder(holder: SuggestArchiveViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == 0) {
+            (holder as SuggestHistoryEmptyViewHolder).bind()
+        } else {
+            (holder as SuggestHistoryViewHolder).bind(getItem(position))
+        }
     }
 
-    inner class SuggestArchiveViewHolder(
+    override fun getItemViewType(position: Int): Int {
+        return if (currentList.size == 1 && currentList[position] == null) 0 else 1
+    }
+
+    inner class SuggestHistoryViewHolder(
         val binding: ActionSuggestMoreCellBinding,
-        val listener: SuggestArchiveListener?
+        val listener: SuggestHistoryListener?
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
@@ -85,7 +105,18 @@ class SuggestArchiveAdapter(private val listener: SuggestArchiveListener? = null
         }
     }
 
-    interface SuggestArchiveListener {
+    inner class SuggestHistoryEmptyViewHolder(
+        val binding: FragmentSuggestHistoryTabEmptyBinding,
+        private val listener: SuggestHistoryListener?
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind() {
+            binding.materialButton.setOnClickListener {
+                listener?.onSuggestClick()
+            }
+        }
+    }
+
+    interface SuggestHistoryListener {
         fun onSuggestClick()
     }
 }

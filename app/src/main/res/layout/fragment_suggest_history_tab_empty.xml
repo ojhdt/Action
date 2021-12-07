@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/suggestHistoryEmptyAnimationView"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
         app:lottie_autoPlay="true"
+        app:lottie_repeatMode="restart"
+        app:lottie_loop="true"
         app:lottie_rawRes="@raw/astronaut_light" />
 
     <TextView
@@ -25,9 +25,8 @@
         android:gravity="center_horizontal"
         android:text="@string/suggest_archive_history_tab_empty"
         android:textAppearance="?attr/textAppearanceTitleLarge"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/suggestHistoryEmptyAnimationView" />
 
@@ -35,6 +34,8 @@
         android:id="@+id/materialButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="64dp"
         android:text="@string/get_suggestions"
         app:icon="@drawable/ic_outline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
