@@ -6,22 +6,23 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/suggestArchiveEmptyAnimationView"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="208dp"
+        android:layout_height="208dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_repeatMode="restart"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/empty_box" />
+        app:lottie_rawRes="@raw/empty_box"
+        app:lottie_repeatMode="restart" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:text="@string/suggest_archive_archive_tab_empty"
         android:textAppearance="?attr/textAppearanceTitleLarge"

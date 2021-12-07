@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabBinding
@@ -36,7 +38,12 @@ class SuggestArchiveTabFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Adapter for rv
-        val myAdapter = SuggestArchiveAdapter()
+        val myAdapter = SuggestArchiveAdapter(emptyBtnListener = object :SuggestArchiveAdapter.SuggestArchiveListener{
+            override fun onSuggestClick() {
+                val bundle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
+                findNavController().navigate(R.id.action_suggestArchiveFragment_to_actionFragment,bundle)
+            }
+        })
         binding.recyclerView.run{
             layoutManager = LinearLayoutManager(context)
             adapter = myAdapter

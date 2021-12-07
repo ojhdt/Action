@@ -58,5 +58,10 @@
         <action
             android:id="@+id/action_suggestArchiveFragment_to_suggestContentFragment"
             app:destination="@id/suggestContentFragment" />
+        <action
+            android:id="@+id/action_suggestArchiveFragment_to_actionFragment"
+            app:destination="@id/actionFragment"
+            app:popUpTo="@id/actionFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

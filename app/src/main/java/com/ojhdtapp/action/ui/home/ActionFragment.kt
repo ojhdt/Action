@@ -42,6 +42,7 @@ import java.sql.Date
 import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
 import kotlin.math.round
+import kotlin.properties.Delegates
 
 
 class ActionFragment : Fragment() {
@@ -52,8 +53,13 @@ class ActionFragment : Fragment() {
     private val binding get() = _binding!!
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
 
+    var isShowingBottomSHeetDialog: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            isShowingBottomSHeetDialog = it.getBoolean("IS_SHOWING_BOTTOMSHEETDIALOG")
+        }
     }
 
     override fun onCreateView(
@@ -182,6 +188,13 @@ class ActionFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        // Show BottomSheetDialog or Not By IS_SHOWING_BOTTOMSHEETDIALOG
+        if (isShowingBottomSHeetDialog) {
+            bottomSheetDialog.show()
+            isShowingBottomSHeetDialog = false
+            arguments?.putBoolean("IS_SHOWING_BOTTOMSHEETDIALOG", false)
         }
 
         // Adapter for rv
