@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Project/Action/app/src/main/res/drawable/action_headline_bg.xml" value="0.1890625" />
+        <entry key="..\:/Project/Action/app/src/main/res/drawable/astronaut.xml" value="0.17025641025641025" />
         <entry key="..\:/Project/Action/app/src/main/res/drawable/circle_color_primary.xml" value="0.265625" />
         <entry key="..\:/Project/Action/app/src/main/res/drawable/circle_color_primary_error.xml" value="0.15364583333333334" />
         <entry key="..\:/Project/Action/app/src/main/res/drawable/color_primary_container_bg.xml" value="0.265625" />
@@ -49,6 +50,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive_tab.xml" value="0.15364583333333334" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_content.xml" value="0.5926573426573427" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_history_tab.xml" value="0.1390625" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_history_tab_empty.xml" value="0.15677083333333333" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/achievement_toolbar.xml" value="0.159375" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/action_content_toolbar.xml" value="0.12916666666666668" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/explore_toolbar.xml" value="0.15520833333333334" />

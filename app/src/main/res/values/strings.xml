@@ -134,6 +134,7 @@
     <string name="suggest_archive_tab_history">历史</string>
     <string name="suggest_archive_tab_archive">归档</string>
     <string name="suggest_archive_transition_name">suggest_archive_card_%1$s</string>
+    <string name="suggest_archive_history_tab_empty">Oops！没有找到您阅读过的建议！</string>
 
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>
 
