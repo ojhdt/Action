@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -224,13 +225,33 @@ class ActionFragment : Fragment() {
             ActionAdapters.LabelAdapter(
                 resources.getString(R.string.action_now_label),
                 resources.getString(R.string.action_now_label_description),
-                R.id.action_actionFragment_to_actionArchiveFragment
+                R.id.action_actionFragment_to_actionArchiveFragment,
+                object: ActionAdapters.LabelListener{
+                    override fun onNavigate() {
+                        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                        }
+                        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                        }
+                    }
+                }
             ),
             actionNowAdapter,
             ActionAdapters.LabelAdapter(
                 resources.getString(R.string.action_suggest_more),
                 resources.getString(R.string.action_suggest_more_description),
-                R.id.action_actionFragment_to_suggestArchiveFragment
+                R.id.action_actionFragment_to_suggestArchiveFragment,
+                object: ActionAdapters.LabelListener{
+                    override fun onNavigate() {
+                        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                        }
+                        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                        }
+                    }
+                }
             ),
             suggestMoreAdapter
         )

@@ -13,6 +13,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentSuggestArchiveBinding
 import com.ojhdtapp.action.ui.home.AchievementFragment
@@ -25,6 +26,13 @@ class SuggestArchiveFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
+        }
+        // Setup Transition
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+        }
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
         }
     }
 

@@ -273,13 +273,15 @@ object ActionAdapters {
     class LabelAdapter(
         private val label: String = "标题",
         private val subLabel: String = "附标题",
-        private val navigationId: Int
+        private val navigationId: Int,
+        private val listener: LabelListener,
     ) :
         RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
         inner class LabelViewHolder(private val binding: ActionLabelBinding) :
             RecyclerView.ViewHolder(binding.root) {
             fun bind(label: String, subLabel: String) {
                 binding.root.setOnClickListener {
+                    listener.onNavigate()
                     binding.root.findNavController().navigate(navigationId)
                 }
                 binding.labelText.text = label
@@ -304,6 +306,10 @@ object ActionAdapters {
         override fun getItemCount(): Int {
             return 1
         }
+    }
+
+    interface LabelListener{
+        fun onNavigate()
     }
 
 
