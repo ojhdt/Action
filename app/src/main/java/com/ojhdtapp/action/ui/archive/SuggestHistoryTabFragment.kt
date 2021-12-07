@@ -14,7 +14,7 @@ class SuggestHistoryTabFragment : Fragment() {
 
     private var _binding: FragmentSuggestHistoryTabBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<SuggestHistoryTabViewModel>()
+    private val viewModel by viewModels<SuggestArchiveViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,6 @@ class SuggestHistoryTabFragment : Fragment() {
                 myAdapter.submitList(it)
             }
         }
-
         viewModel.readSuggestRefresh()
 
     }

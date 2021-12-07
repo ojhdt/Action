@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Suggest
 
-class SuggestHistoryTabViewModel : ViewModel() {
+class SuggestArchiveViewModel : ViewModel() {
     private val _suggestReadLive = MutableLiveData<MutableList<Suggest>>()
     private val _suggestReadTran: LiveData<List<Suggest>> =
         Transformations.switchMap(_suggestReadLive) { Repository.getReadSuggestLive() }
@@ -15,5 +15,14 @@ class SuggestHistoryTabViewModel : ViewModel() {
 
     fun readSuggestRefresh(){
         _suggestReadLive.value = _suggestReadLive.value
+    }
+
+    private val _suggestArchivedLive = MutableLiveData<MutableList<Suggest>>()
+    private val _suggestArchivedTran: LiveData<List<Suggest>> =
+        Transformations.switchMap(_suggestArchivedLive) { Repository.getArchivedSuggestLive() }
+    val suggestArchivedLive: LiveData<List<Suggest>> get() = _suggestArchivedTran
+
+    fun archivedSuggestRefresh(){
+        _suggestArchivedLive.value = _suggestArchivedLive.value
     }
 }

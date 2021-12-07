@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
@@ -21,6 +23,7 @@ import com.ojhdtapp.action.ui.home.AchievementFragment
 class SuggestArchiveFragment : Fragment() {
     private var _binding: FragmentSuggestArchiveBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<SuggestArchiveViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,30 @@ class SuggestArchiveFragment : Fragment() {
             navController,
             appBarConfiguration
         )
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.refresh -> {
+                    try {
+                        viewModel.readSuggestRefresh()
+                        viewModel.archivedSuggestRefresh()
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.network_success),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.network_error),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+
+                }
+                else -> {}
+            }
+            false
+        }
 
         // Setup ViewPager
         binding.viewPager.adapter = object : FragmentStateAdapter(this) {

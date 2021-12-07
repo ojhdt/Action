@@ -11,48 +11,49 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionSuggestMoreCellBinding
+import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabCellBinding
+import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabEmptyBinding
 import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabEmptyBinding
 import com.ojhdtapp.action.logic.model.Suggest
 
-class SuggestHistoryAdapter(
-    private val listener: SuggestHistoryListener? = null,
-    private val emptyBtnListener: SuggestHistoryListener? = null
-) :
-    ListAdapter<Suggest, RecyclerView.ViewHolder>(object :
-        DiffUtil.ItemCallback<Suggest>() {
-        override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
-            return oldItem.id == newItem.id
-        }
+class SuggestArchiveAdapter(
+    private val listener: SuggestArchiveListener? = null,
+    private val emptyBtnListener: SuggestArchiveListener? = null
+) : ListAdapter<Suggest, RecyclerView.ViewHolder>(object :
+    DiffUtil.ItemCallback<Suggest>() {
+    override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
+        return oldItem.id == newItem.id
+    }
 
-        override fun areContentsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
-            return oldItem.title == newItem.title
-        }
-    }) {
+    override fun areContentsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
+        return oldItem.title == newItem.title
+    }
+}) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0) {
-            val binding = FragmentSuggestHistoryTabEmptyBinding.inflate(
+            val binding = FragmentSuggestArchiveTabEmptyBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent, false
             )
-            SuggestHistoryEmptyViewHolder(binding, emptyBtnListener)
+            SuggestArchiveEmptyViewHolder(binding, emptyBtnListener)
         } else {
-            val binding = ActionSuggestMoreCellBinding.inflate(
+            val binding = FragmentSuggestArchiveTabCellBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 ), parent, false
             )
-            SuggestHistoryViewHolder(binding, listener)
+            SuggestArchiveViewHolder(binding, listener)
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == 0) {
-            (holder as SuggestHistoryEmptyViewHolder).bind()
+            (holder as SuggestArchiveAdapter.SuggestArchiveEmptyViewHolder).bind()
         } else {
-            (holder as SuggestHistoryViewHolder).bind(getItem(position))
+            (holder as SuggestArchiveAdapter.SuggestArchiveViewHolder).bind(getItem(position))
         }
     }
 
@@ -60,26 +61,25 @@ class SuggestHistoryAdapter(
         return if (currentList.size == 1 && currentList[position] == null) 0 else 1
     }
 
-    inner class SuggestHistoryViewHolder(
-        val binding: ActionSuggestMoreCellBinding,
-        private val listener: SuggestHistoryListener?
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class SuggestArchiveViewHolder(
+        val binding: FragmentSuggestArchiveTabCellBinding,
+        private val listener: SuggestArchiveListener?
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
             binding.run {
-                suggestTitle.text = data.title
-                suggestSubhead.text = data.subhead
+                suggestArchiveTitle.text = data.title
+                suggestArchiveSource.text = data.source
                 if (data.imgUrl != null) {
                     Glide.with(binding.root.context)
                         .load(data.imgUrl)
-                        .into(suggestImage)
+                        .into(suggestArchiveImage)
                 } else {
-                    suggestImage.visibility = View.GONE
+                    suggestArchiveImage.visibility = View.GONE
                 }
-                suggestContent.text = data.content
+                suggestArchiveTime.text = DateUtil.formatDate(data.time)
                 // Share Element Transition
                 val transitionName = binding.root.resources.getString(
-                    R.string.suggest_history_transition_name,
+                    R.string.suggest_archive_transition_name,
                     data.id.toString()
                 )
                 setTransitionName(
@@ -100,23 +100,23 @@ class SuggestHistoryAdapter(
                         )
                 }
                 cardView.setOnClickListener(onClickListener)
-                suggestConfirmBtn.setOnClickListener(onClickListener)
             }
         }
+
     }
 
-    inner class SuggestHistoryEmptyViewHolder(
-        val binding: FragmentSuggestHistoryTabEmptyBinding,
-        private val listener: SuggestHistoryListener?
+    inner class SuggestArchiveEmptyViewHolder(
+        var binding: FragmentSuggestArchiveTabEmptyBinding,
+        private val listener: SuggestArchiveListener?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.suggestHistoryEmptyBtn.setOnClickListener {
+            binding.suggestArchiveEmptyBtn.setOnClickListener {
                 listener?.onSuggestClick()
             }
         }
     }
 
-    interface SuggestHistoryListener {
+    interface SuggestArchiveListener {
         fun onSuggestClick()
     }
 }

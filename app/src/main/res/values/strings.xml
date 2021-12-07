@@ -133,6 +133,7 @@
     <string name="suggest_archive_head">所有建议</string>
     <string name="suggest_archive_tab_history">历史</string>
     <string name="suggest_archive_tab_archive">归档</string>
+    <string name="suggest_history_transition_name">suggest_history_card_%1$s</string>
     <string name="suggest_archive_transition_name">suggest_archive_card_%1$s</string>
     <string name="suggest_archive_history_tab_empty">Oops！没有找到您阅读过的建议！</string>
 
