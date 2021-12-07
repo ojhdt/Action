@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.Hold
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentSuggestArchiveBinding
+import com.ojhdtapp.action.ui.home.AchievementFragment
 
 class SuggestArchiveFragment : Fragment() {
     private var _binding: FragmentSuggestArchiveBinding? = null
@@ -36,6 +39,11 @@ class SuggestArchiveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Postpone Transition
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+        exitTransition = Hold()
+        reenterTransition = Hold()
 
         // Setup Appbar
         val navController = findNavController()

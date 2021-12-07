@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.Hold
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabBinding
 import com.ojhdtapp.action.ui.home.ActionAdapters
@@ -39,11 +40,7 @@ class SuggestHistoryTabFragment : Fragment() {
 
         // Adapter for rv
         val myAdapter =
-            ActionAdapters.SuggestMoreAdapter(object : ActionAdapters.SuggestMoreListener {
-                override fun onSuggestClick() {
-                    TODO("Not yet implemented")
-                }
-            })
+            SuggestArchiveAdapter()
         binding.recyclerView.run {
             adapter = myAdapter
             layoutManager = LinearLayoutManager(context)
@@ -51,6 +48,8 @@ class SuggestHistoryTabFragment : Fragment() {
         viewModel.suggestReadLive.observe(this) {
             myAdapter.submitList(it)
         }
+
+        viewModel.readSuggestRefresh()
 
     }
 
