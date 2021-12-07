@@ -213,6 +213,11 @@ class ActionFragment : Fragment() {
 //                    }
                 }
 
+            }, object : ActionAdapters.SuggestMoreListener {
+                override fun onSuggestClick() {
+                    bottomSheetDialog.show()
+                }
+
             })
         val concatAdapter = ConcatAdapter(
             headlineAdapter,
@@ -259,7 +264,12 @@ class ActionFragment : Fragment() {
             }
         }
         viewModel.suggestMoreLive.observe(this) {
-            suggestMoreAdapter.submitList(it)
+            val emptyList = listOf(null)
+            if (it.isEmpty()) {
+                suggestMoreAdapter.submitList(emptyList)
+            } else {
+                suggestMoreAdapter.submitList(it)
+            }
 //            (view.parent as? ViewGroup)?.doOnPreDraw {
 //                startPostponedEnterTransition()
 //            }

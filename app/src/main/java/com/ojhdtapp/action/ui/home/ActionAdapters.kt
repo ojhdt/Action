@@ -63,7 +63,7 @@ object ActionAdapters {
 
 //Action now
 
-    class ActionNowAdapter(val listener: ActionNowListener) :
+    class ActionNowAdapter(private val listener: ActionNowListener) :
         ListAdapter<Action, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<Action>() {
             override fun areItemsTheSame(oldItem: Action, newItem: Action): Boolean {
                 return oldItem.id == newItem.id
@@ -95,7 +95,7 @@ object ActionAdapters {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             if (getItemViewType(position) == 0) {
                 (holder as ActionNowEmptyViewHolder).bind()
-            }else{
+            } else {
                 (holder as ActionNowViewHolder).bind(getItem(position))
             }
         }
@@ -154,24 +154,24 @@ object ActionAdapters {
     }
 
     class ActionNowEmptyViewHolder(val binding: ActionActionNowEmptyBinding) :
-        RecyclerView.ViewHolder(binding.root){
-            fun bind(){
-                binding.actionEmptyAnimationView.run{
-                    setOnClickListener {
-                        if(!isAnimating){
-                            playAnimation()
-                        }
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind() {
+            binding.actionEmptyAnimationView.run {
+                setOnClickListener {
+                    if (!isAnimating) {
+                        playAnimation()
                     }
                 }
             }
         }
+    }
 
     interface ActionNowListener {
         fun onActionCLick()
     }
 
-    class SuggestMoreAdapter(private val listener: SuggestMoreListener) :
-        ListAdapter<Suggest, SuggestMoreViewHolder>(object : DiffUtil.ItemCallback<Suggest>() {
+    class SuggestMoreAdapter(private val listener: SuggestMoreListener, private val emptyBtnListener: SuggestMoreListener? = null) :
+        ListAdapter<Suggest, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<Suggest>() {
             override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -180,17 +180,34 @@ object ActionAdapters {
                 return oldItem.title == newItem.title
             }
         }) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestMoreViewHolder {
-            val binding = ActionSuggestMoreCellBinding.inflate(
-                LayoutInflater.from(
-                    parent.context
-                ), parent, false
-            )
-            return SuggestMoreViewHolder(binding, listener)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return if (viewType == 0) {
+                val binding = ActionSuggestMoreEmptyBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent, false
+                )
+                SuggestMoreEmptyViewHolder(binding, emptyBtnListener)
+            } else {
+                val binding = ActionSuggestMoreCellBinding.inflate(
+                    LayoutInflater.from(
+                        parent.context
+                    ), parent, false
+                )
+                SuggestMoreViewHolder(binding, listener)
+            }
+
         }
 
-        override fun onBindViewHolder(holder: SuggestMoreViewHolder, position: Int) {
-            holder.bind(getItem(position))
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            if (getItemViewType(position) == 0) {
+                (holder as SuggestMoreEmptyViewHolder).bind()
+            } else {
+                (holder as SuggestMoreViewHolder).bind(getItem(position))
+            }
+        }
+
+        override fun getItemViewType(position: Int): Int {
+            return if (currentList.size == 1 && currentList[position] == null) 0 else 1
         }
     }
 
@@ -240,11 +257,24 @@ object ActionAdapters {
         }
     }
 
+    class SuggestMoreEmptyViewHolder(val binding: ActionSuggestMoreEmptyBinding, val listener: SuggestMoreListener?) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind() {
+            binding.getSuggestBtn.setOnClickListener {
+                listener?.onSuggestClick()
+            }
+        }
+    }
+
     interface SuggestMoreListener {
         fun onSuggestClick()
     }
 
-    class LabelAdapter(private val label: String = "标题", private val subLabel: String = "附标题", private val navigationId: Int) :
+    class LabelAdapter(
+        private val label: String = "标题",
+        private val subLabel: String = "附标题",
+        private val navigationId: Int
+    ) :
         RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
         inner class LabelViewHolder(private val binding: ActionLabelBinding) :
             RecyclerView.ViewHolder(binding.root) {

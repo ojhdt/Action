@@ -21,6 +21,7 @@
     <string name="action_suggest_more">建议</string>
     <string name="action_suggest_more_description">更多有助于保护环境的建议</string>
     <string name="action_now_empty">您还没有获取到任何行动哦</string>
+    <string name="suggest_more_empty">您获取的建议会显示在此处</string>
 
     <string name="achievement_toolbar_history">历史</string>
     <string name="refresh">刷新</string>
