@@ -23,7 +23,7 @@
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="@string/suggest_archive_history_tab_empty"
+        android:text="@string/suggest_archive_archive_tab_empty"
         android:textAppearance="?attr/textAppearanceTitleLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
