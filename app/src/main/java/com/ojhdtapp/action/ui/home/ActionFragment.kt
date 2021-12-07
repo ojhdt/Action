@@ -226,13 +226,17 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_now_label),
                 resources.getString(R.string.action_now_label_description),
                 R.id.action_actionFragment_to_actionArchiveFragment,
-                object: ActionAdapters.LabelListener{
+                object : ActionAdapters.LabelListener {
                     override fun onNavigate() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                            duration =
+                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                    .toLong()
                         }
                         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                            duration =
+                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                    .toLong()
                         }
                     }
                 }
@@ -242,13 +246,17 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_suggest_more),
                 resources.getString(R.string.action_suggest_more_description),
                 R.id.action_actionFragment_to_suggestArchiveFragment,
-                object: ActionAdapters.LabelListener{
+                object : ActionAdapters.LabelListener {
                     override fun onNavigate() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                            duration =
+                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                    .toLong()
                         }
                         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                            duration = resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                            duration =
+                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                    .toLong()
                         }
                     }
                 }

@@ -38,6 +38,10 @@ class SuggestHistoryTabFragment : Fragment() {
         // Adapter for rv
         val myAdapter =
             SuggestHistoryAdapter()
+//        val myLayoutManager =
+//            object : LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) {
+//                override fun canScrollVertically(): Boolean = false
+//            }
         binding.recyclerView.run {
             adapter = myAdapter
             layoutManager = LinearLayoutManager(context)
