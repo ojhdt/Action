@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
@@ -11,23 +11,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
         android:clickable="true"
         app:cardCornerRadius="24dp"
-        tools:layout_editor_absoluteX="24dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:paddingVertical="16dp">
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:id="@+id/imageFilterView2"
+                android:id="@+id/actionArchiveImage"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:background="?attr/colorPrimaryContainer"
                 android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:round="24dp"
-                tools:layout_editor_absoluteX="255dp"
-                tools:layout_editor_absoluteY="95dp"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/actionArchiveStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/actionArchiveTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/lorem_ipsum"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                app:layout_constraintEnd_toStartOf="@+id/actionArchiveImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/actionArchiveStatus" />
+
+            <TextView
+                android:id="@+id/actionArchiveTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subhead"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
