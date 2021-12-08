@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialContainerTransform
+import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionContentBinding
 import com.ojhdtapp.action.logic.model.Action
@@ -122,7 +123,11 @@ class ActionContentFragment : Fragment() {
             }
             binding.content.text = it.content
             binding.label.text =
-                getString(R.string.pair_messages, it.source, it.time.time.toString())
+                binding.root.resources.getString(
+                    R.string.pair_messages,
+                    data.source,
+                    DateUtil.timeAgo(data.time)
+                )
         }
 
     }
