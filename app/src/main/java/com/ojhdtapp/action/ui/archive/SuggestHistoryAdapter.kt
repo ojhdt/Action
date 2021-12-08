@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionSuggestMoreCellBinding
+import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabCellBinding
 import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabEmptyBinding
 import com.ojhdtapp.action.logic.model.Suggest
 
@@ -38,7 +39,7 @@ class SuggestHistoryAdapter(
             )
             SuggestHistoryEmptyViewHolder(binding, emptyBtnListener)
         } else {
-            val binding = ActionSuggestMoreCellBinding.inflate(
+            val binding = FragmentSuggestHistoryTabCellBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 ), parent, false
@@ -61,22 +62,21 @@ class SuggestHistoryAdapter(
     }
 
     inner class SuggestHistoryViewHolder(
-        val binding: ActionSuggestMoreCellBinding,
+        val binding: FragmentSuggestHistoryTabCellBinding,
         private val listener: SuggestHistoryListener?
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
             binding.run {
-                suggestTitle.text = data.title
-                suggestSubhead.text = data.subhead
+                suggestArchiveTitle.text = data.title
+                suggestArchiveSubhead.text = data.subhead
                 if (data.imgUrl != null) {
                     Glide.with(binding.root.context)
                         .load(data.imgUrl)
-                        .into(suggestImage)
+                        .into(suggestArchiveImage)
                 } else {
-                    suggestImage.visibility = View.GONE
+                    suggestArchiveImage.visibility = View.GONE
                 }
-                suggestContent.text = data.content
                 // Share Element Transition
                 val transitionName = binding.root.resources.getString(
                     R.string.suggest_history_transition_name,
@@ -100,7 +100,7 @@ class SuggestHistoryAdapter(
                         )
                 }
                 cardView.setOnClickListener(onClickListener)
-                suggestConfirmBtn.setOnClickListener(onClickListener)
+                suggestArchiveConfirmBtn.setOnClickListener(onClickListener)
             }
         }
     }
