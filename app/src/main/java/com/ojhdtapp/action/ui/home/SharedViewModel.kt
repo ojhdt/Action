@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.google.android.material.snackbar.Snackbar
 import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.Event
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.LeanCloudDataBase
@@ -21,7 +22,7 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     private val dataBase = AppDataBase.getDataBase()
 
     // SnackBar Messages
-    private val _snackBarMessageLive = MutableLiveData<String>()
+    private val _snackBarMessageLive = MutableLiveData<Event<String>>()
     val snackBarMessageLive get() = _snackBarMessageLive
 
     // Action Fragment
@@ -56,10 +57,10 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
             // suspend
             val result = LeanCloudDataBase.getNewSuggest(type)
             dataBase.suggestDao().insertSuggest(result)
-            _snackBarMessageLive.postValue(getApplication<Application>().getString(R.string.network_success))
+            _snackBarMessageLive.postValue(Event(getApplication<Application>().getString(R.string.network_success)))
         } catch (e: Exception) {
             Log.d("aaa", e.toString())
-            _snackBarMessageLive.postValue(getApplication<Application>().getString(R.string.network_error))
+            _snackBarMessageLive.postValue(Event(getApplication<Application>().getString(R.string.network_error)))
         }
     }
 
@@ -68,11 +69,11 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     private val _gainedAchievementLive = MutableLiveData<MutableList<Achievement>>()
     private val _finishedActionLive = MutableLiveData<MutableList<Action>>()
 
-    val _gainedAchievementTran: LiveData<List<Achievement>> = Transformations.switchMap(
+    private val _gainedAchievementTran: LiveData<List<Achievement>> = Transformations.switchMap(
         _gainedAchievementLive
     ) { Repository.getGainedAchievementLive() }
     val gainedAchievementLive: LiveData<List<Achievement>> get() = _gainedAchievementTran
-    val _finishedActionTran: LiveData<List<Action>> = Transformations.switchMap(
+    private val _finishedActionTran: LiveData<List<Action>> = Transformations.switchMap(
         _finishedActionLive
     ) { Repository.getFinishedActionLive() }
     val finishedActionLive: LiveData<List<Action>> get() = _finishedActionTran

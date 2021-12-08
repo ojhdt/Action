@@ -33,8 +33,32 @@ class BaseApplication : Application() {
 
     }
 }
-object DateUtil{
-    fun formatDate(date: Date):String{
+
+open class Event<out T>(private val content: T) {
+
+    var hasBeenHandled = false
+        private set // Allow external read but not write
+
+    /**
+     * Returns the content and prevents its use again.
+     */
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
+
+    /**
+     * Returns the content, even if it's already been handled.
+     */
+    fun peekContent(): T = content
+}
+
+object DateUtil {
+    fun formatDate(date: Date): String {
         val format = SimpleDateFormat(BaseApplication.context.getString(R.string.date_format))
         return format.format(date)
     }

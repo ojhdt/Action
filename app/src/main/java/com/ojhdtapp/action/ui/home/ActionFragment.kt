@@ -319,11 +319,13 @@ class ActionFragment : Fragment() {
 
         // SnackBar
         viewModel.snackBarMessageLive.observe(this) {
-            Snackbar.make(
-                binding.root,
-                it,
-                Snackbar.LENGTH_SHORT
-            ).show()
+            it.getContentIfNotHandled()?.let {
+                Snackbar.make(
+                    binding.root,
+                    it,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
 
         // Welcome Text & Avatar
