@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/colorSurface"
     android:paddingHorizontal="24dp"
-    android:paddingBottom="12dp">
+    android:paddingTop="12dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
