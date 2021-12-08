@@ -20,62 +20,70 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp">
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/action_source"
+                android:id="@+id/actionSource"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:text="TextView"
                 android:textAppearance="?attr/textAppearanceBodySmall"
-                app:layout_constraintBottom_toTopOf="@+id/action_content"
-                app:layout_constraintEnd_toStartOf="@+id/action_image"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/actionImage"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/action_image" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/action_content"
+                android:id="@+id/actionContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="48dp"
+                android:layout_marginTop="8dp"
                 android:maxLines="2"
                 android:text="@string/lorem_ipsum"
                 android:textAppearance="?attr/textAppearanceTitleSmall"
-                app:layout_constraintBottom_toBottomOf="@+id/action_image"
-                app:layout_constraintEnd_toStartOf="@+id/action_image"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/action_source"
-                app:layout_constraintTop_toBottomOf="@+id/action_source" />
+                app:layout_constraintEnd_toEndOf="@+id/actionSource"
+                app:layout_constraintStart_toStartOf="@+id/actionSource"
+                app:layout_constraintTop_toBottomOf="@+id/actionSource" />
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
-                android:id="@+id/action_image"
+                android:id="@+id/actionImage"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="?attr/colorPrimaryContainer"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:round="24dp" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/actionMoreBtn"
+                style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:icon="@drawable/ic_outline_more_vert_24"
+                app:iconTint="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/action_image">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/actionImage" />
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/actionMoreBtn"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/action_chips"
+                    android:id="@+id/actionChips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:singleLine="true" />
+                    app:singleLine="true"/>
             </HorizontalScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

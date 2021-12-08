@@ -107,13 +107,17 @@ object ActionAdapters {
 
     class ActionNowViewHolder(
         val binding: ActionActionNowCellBinding,
-        val listener: ActionNowListener
+        private val listener: ActionNowListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Action) {
             binding.run {
                 actionContent.text = data.title
-                actionSource.text = "${data.source}•${DateUtil.timeAgo(data.time)}"
+                actionSource.text = binding.root.resources.getString(
+                    R.string.pair_messages,
+                    data.source,
+                    DateUtil.timeAgo(data.time)
+                )
                 Glide.with(binding.root)
                     .load(data.imageID)
                     .into(binding.actionImage)
@@ -170,7 +174,10 @@ object ActionAdapters {
         fun onActionCLick()
     }
 
-    class SuggestMoreAdapter(private val listener: SuggestMoreListener, private val emptyBtnListener: SuggestMoreListener? = null) :
+    class SuggestMoreAdapter(
+        private val listener: SuggestMoreListener,
+        private val emptyBtnListener: SuggestMoreListener? = null
+    ) :
         ListAdapter<Suggest, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<Suggest>() {
             override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
                 return oldItem.id == newItem.id
@@ -213,7 +220,7 @@ object ActionAdapters {
 
     class SuggestMoreViewHolder(
         val binding: ActionSuggestMoreCellBinding,
-        val listener: SuggestMoreListener
+        private val listener: SuggestMoreListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
@@ -257,7 +264,10 @@ object ActionAdapters {
         }
     }
 
-    class SuggestMoreEmptyViewHolder(val binding: ActionSuggestMoreEmptyBinding, val listener: SuggestMoreListener?) :
+    class SuggestMoreEmptyViewHolder(
+        val binding: ActionSuggestMoreEmptyBinding,
+        val listener: SuggestMoreListener?
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.getSuggestBtn.setOnClickListener {
@@ -308,7 +318,7 @@ object ActionAdapters {
         }
     }
 
-    interface LabelListener{
+    interface LabelListener {
         fun onNavigate()
     }
 
