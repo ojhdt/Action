@@ -5,14 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionArchiveBinding
 
 class ActionArchiveFragment : Fragment() {
 
-    private var _binding:FragmentActionArchiveBinding? = null
+    private var _binding: FragmentActionArchiveBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<ActionArchiveViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,25 @@ class ActionArchiveFragment : Fragment() {
             inflater, container, false
         )
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Setup Appbar
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        NavigationUI.setupWithNavController(
+            binding.toolbar,
+            navController,
+            appBarConfiguration
+        )
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.refresh -> {}
+                else -> {}
+            }
+            false
+        }
     }
 
     override fun onDestroyView() {

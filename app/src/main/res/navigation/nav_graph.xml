@@ -44,8 +44,8 @@
     <fragment
         android:id="@+id/actionArchiveFragment"
         android:name="com.ojhdtapp.action.ui.archive.ActionArchiveFragment"
-        android:label="fragment_action_archive"
-        tools:layout="@layout/fragment_action_archive" >
+        android:label="@string/action_archive_head"
+        tools:layout="@layout/fragment_action_archive">
         <action
             android:id="@+id/action_actionArchiveFragment_to_actionContentFragment"
             app:destination="@id/actionContentFragment" />
