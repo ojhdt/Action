@@ -32,7 +32,11 @@
         android:id="@+id/exploreFragment"
         android:name="com.ojhdtapp.action.ui.home.ExploreFragment"
         android:label="@string/nav_explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/actionContentFragment"
         android:name="com.ojhdtapp.action.ui.content.ActionContentFragment"
@@ -69,4 +73,8 @@
         android:name="com.ojhdtapp.action.ui.archive.ActionArchiveHistoryFragment"
         android:label="fragment_action_archive_history"
         tools:layout="@layout/fragment_action_archive_history" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ojhdtapp.action.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>
