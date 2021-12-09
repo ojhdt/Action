@@ -80,8 +80,14 @@ class AchievementFragment : Fragment() {
             adapter = concatAdapter
             layoutManager = mylayoutManager
         }
-        viewModel.finishedActionLive.observe(this) {
-            statisticsAdapter.setTotalNum(it.size)
+        viewModel.allActionLive.observe(this) {
+            var finishedTotalNum = 0
+            it.forEach {
+                it.history.forEach {
+                    if(it.finished) finishedTotalNum++
+                }
+            }
+            statisticsAdapter.setTotalNum(finishedTotalNum)
             //分类逻辑
             //分好类的StatisticsBlock列表
             val sortedStatisticsBlockList = listOf(

@@ -47,8 +47,8 @@
         android:label="@string/action_archive_head"
         tools:layout="@layout/fragment_action_archive">
         <action
-            android:id="@+id/action_actionArchiveFragment_to_actionContentFragment"
-            app:destination="@id/actionContentFragment" />
+            android:id="@+id/action_actionArchiveFragment_to_actionArchiveHistoryFragment"
+            app:destination="@id/actionArchiveHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/suggestArchiveFragment"
@@ -64,4 +64,9 @@
             app:popUpTo="@id/actionFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/actionArchiveHistoryFragment"
+        android:name="com.ojhdtapp.action.ui.archive.ActionArchiveHistoryFragment"
+        android:label="fragment_action_archive_history"
+        tools:layout="@layout/fragment_action_archive_history" />
 </navigation>

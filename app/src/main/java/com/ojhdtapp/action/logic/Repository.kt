@@ -65,7 +65,7 @@ object Repository {
         "WIND" to R.raw.weather_windy
     )
 
-    fun getActionNowLive() = database.actionDao().loadAllUnfinishedActionLive()
+    fun getActionNowLive() = database.actionDao().loadAllActivatingActionLive()
 
     fun getSuggestMoreLive() = database.suggestDao().loadAllDisplaySuggestLive()
 
@@ -75,12 +75,12 @@ object Repository {
         }
     }
 
-    fun getFinishedActionLive(): LiveData<List<Action>> {
+    fun getAllActionLive(): LiveData<List<Action>> {
         return liveData {
             val list = listOf<Action>(
-                Action(finished = true),
-                Action(finished = true),
-                Action(finished = true)
+                Action(isActivating = true),
+                Action(isActivating = true),
+                Action(isActivating = true)
             )
             emit(list)
         }

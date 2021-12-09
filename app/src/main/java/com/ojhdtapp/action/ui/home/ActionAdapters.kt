@@ -115,8 +115,8 @@ object ActionAdapters {
                 actionContent.text = data.title
                 actionSource.text = binding.root.resources.getString(
                     R.string.pair_messages,
-                    data.source,
-                    DateUtil.timeAgo(data.time)
+                    data.history.last().source,
+                    DateUtil.timeAgo(data.history.last().time)
                 )
                 Glide.with(binding.root)
                     .load(data.imageID)

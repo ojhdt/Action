@@ -2,6 +2,7 @@ package com.ojhdtapp.action.logic.network
 
 import android.util.Log
 import androidx.room.TypeConverter
+import com.ojhdtapp.action.logic.model.ActionHistory
 import java.lang.StringBuilder
 import java.util.*
 
@@ -70,5 +71,41 @@ class Converters {
     @TypeConverter
     fun getHighlightFromString(str: String): List<String> {
         return str.split(",")
+    }
+
+    @TypeConverter
+    fun storeHistoryToString(list: List<ActionHistory>): String {
+        var str = StringBuilder()
+        var historyStr = StringBuilder()
+        list.forEachIndexed { index, actionHistory ->
+            historyStr.run {
+                append(storeDateToLong(actionHistory.time).toString())
+                append(";")
+                append(actionHistory.source)
+                append(";")
+                append(actionHistory.finished.toString())
+            }
+            str.append(historyStr.toString())
+            if (index != list.size - 1) {
+                str.append(",")
+            }
+        }
+        return str.toString()
+    }
+
+    @TypeConverter
+    fun getHistoryFromString(str:String):List<ActionHistory>{
+        val tempList = str.split(",")
+        var resList = mutableListOf<ActionHistory>()
+        tempList.forEach {
+            val tempHistoryList = it.split(";")
+            val history = if(tempHistoryList.size == 3){
+                ActionHistory(getDateFromLong(tempHistoryList[0].toLong())!!,
+                tempHistoryList[1],
+                tempHistoryList[2].toBooleanStrict())
+            } else ActionHistory()
+            resList.add(history)
+        }
+        return resList
     }
 }

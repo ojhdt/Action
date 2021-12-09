@@ -67,23 +67,23 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
 
     // Achievement Fragment
     private val _gainedAchievementLive = MutableLiveData<MutableList<Achievement>>()
-    private val _finishedActionLive = MutableLiveData<MutableList<Action>>()
+    private val _allActionLive = MutableLiveData<MutableList<Action>>()
 
     private val _gainedAchievementTran: LiveData<List<Achievement>> = Transformations.switchMap(
         _gainedAchievementLive
     ) { Repository.getGainedAchievementLive() }
     val gainedAchievementLive: LiveData<List<Achievement>> get() = _gainedAchievementTran
-    private val _finishedActionTran: LiveData<List<Action>> = Transformations.switchMap(
-        _finishedActionLive
-    ) { Repository.getFinishedActionLive() }
-    val finishedActionLive: LiveData<List<Action>> get() = _finishedActionTran
+    private val _allActionTran: LiveData<List<Action>> = Transformations.switchMap(
+        _allActionLive
+    ) { Repository.getAllActionLive() }
+    val allActionLive: LiveData<List<Action>> get() = _allActionTran
 
     fun gainedAchievementRefresh() {
         _gainedAchievementLive.value = _gainedAchievementLive.value
     }
 
     fun finishedActionRefresh() {
-        _finishedActionLive.value = _finishedActionLive.value
+        _allActionLive.value = _allActionLive.value
     }
 
     //Explore Fragment

@@ -125,8 +125,8 @@ class ActionContentFragment : Fragment() {
             binding.label.text =
                 binding.root.resources.getString(
                     R.string.pair_messages,
-                    data.source,
-                    DateUtil.timeAgo(data.time)
+                    data.history.last().source,
+                    DateUtil.timeAgo(data.history.last().time)
                 )
         }
 

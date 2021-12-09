@@ -31,6 +31,7 @@ import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
+import com.ojhdtapp.action.logic.model.ActionHistory
 import com.ojhdtapp.action.logic.model.Suggest
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -166,20 +167,14 @@ class ActionFragment : Fragment() {
                         "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
                         R.drawable.city,
                         getString(R.string.lorem_ipsum),
-                        "位置信息", Date(System.currentTimeMillis()),
                         mapOf(
                             Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
                             Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
                         ),
-                        listOf("第一条", "第二条", "第三条")
+                        listOf("第一条", "第二条", "第三条"),
+                        listOf(ActionHistory(Date(System.currentTimeMillis()), "位置信息", true)),
+                        true
                     ),
-                    Action(
-                        "勤关水龙头",
-                        R.drawable.anonymous,
-                        "一些内容",
-                        "位置信息",
-                        Date(System.currentTimeMillis()),
-                    )
                 )
                 val job = Job()
                 CoroutineScope(job).launch {

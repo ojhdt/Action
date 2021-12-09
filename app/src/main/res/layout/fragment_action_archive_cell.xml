@@ -38,7 +38,7 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/actionArchiveStatus"
+                android:id="@+id/actionArchiveLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title"
@@ -57,7 +57,7 @@
                 android:textAppearance="?attr/textAppearanceTitleSmall"
                 app:layout_constraintEnd_toStartOf="@+id/actionArchiveImage"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/actionArchiveStatus" />
+                app:layout_constraintTop_toBottomOf="@+id/actionArchiveLabel" />
 
             <TextView
                 android:id="@+id/actionArchiveTime"

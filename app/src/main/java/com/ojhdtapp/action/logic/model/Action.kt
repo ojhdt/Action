@@ -15,13 +15,20 @@ data class Action @Ignore constructor(
     var title: String = "Title",
     var imageID: Int = 0,
     var content: String = "Content",
-    var source: String = "Source",//
-    var time: Date = Date(),//
-    var label: Map<Int,String>? = mapOf(),
+    var label: Map<Int, String>? = mapOf(),
     var hightlight: List<String> = listOf(),
-    var finished: Boolean = false//
+    var history: List<ActionHistory> = listOf(),
+    var isActivating: Boolean = false
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
-    constructor() : this("Title", 0, "Content", "Source", Date(), mapOf(), listOf(), false)
+
+    constructor() : this("Title", 0, "Content", mapOf(), listOf(), listOf(), false)
 }
+
+@Parcelize
+data class ActionHistory(
+    var time: Date = Date(),
+    var source: String = "Source",
+    var finished: Boolean = false
+) : Parcelable

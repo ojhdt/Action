@@ -135,7 +135,9 @@
     <string name="action_archive_empty">准备就绪！应用将根据您的状态为您推荐行动！\n开放权限以帮助应用监测状态。</string>
     <string name="action_archive_empty_note">您的个人隐私将受到保护</string>
     <string name="action_archive_permission">权限管理</string>
+    <string name="action_archive_transition_name">action_archive_card_%1$s</string>
 
+    <string name="action_history_transition_name">action_history_%1$s</string>
 
 
     <string name="suggest_archive_head">所有建议</string>
