@@ -108,56 +108,77 @@ class ActionFragment : Fragment() {
             }
             cardViewNews.setOnClickListener {
                 bottomSheetDialog.hide()
-                val list = mutableListOf<Pair<Int, String>>()
-                list.add(Pair(R.drawable.ic_outline_emoji_events_24, "Watersave"))
-                list.add(Pair(R.drawable.ic_outline_settings_24, "Elecsave"))
-//                map.put(R.drawable.ic_outline_emoji_events_24.toString(),"Watersave")
-                val newSuggest = LCObject("Suggest").apply {
-                    put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
-                    put(
-                        "subhead",
-                        "A series of restrictions, including a lockdown in Austria, is expected to put a brake on economic growth."
-                    )
-                    put(
-                        "imgUrl",
-                        "https://static01.nyt.com/images/2021/11/22/business/00virus-euroecon-1/merlin_198253512_8d84ab6c-6288-441c-bf4d-6e784ca170e6-superJumbo.jpg?quality=75&auto=webp"
-                    )
-                    put("time", Date(System.currentTimeMillis()))
-                    put(
-                        "authorAvatarUrl",
-                        "https://static01.nyt.com/images/2018/02/16/multimedia/author-patricia-cohen/author-patricia-cohen-thumbLarge.jpg"
-                    )
-                    put("author", "Patricia Cohen")
-                    put("source", "NY Times")
-                    put("type", 0)
-                    put(
-                        "content",
-                        "Europe’s already fragile economic recovery is at risk of being undermined by a fourth wave of coronavirus infections now dousing the continent, as governments impose increasingly stringent health restrictions that could reduce foot traffic in shopping centers, discourage travel and thin crowds in restaurants, bars and ski resorts.\n" +
-                                "\n" +
-                                "Austria has imposed the strictest measures, mandating vaccinations and imposing a nationwide lockdown that began on Monday. But economic activity will also be dampened by other safety measures — from vaccine passports in France and Switzerland to a requirement to work from home four days a week in Belgium.\n" +
-                                "\n" +
-                                "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”"
-                    )
-                    put("label", list)
-                    put("sourceUrl", "https://www.baidu.com/")
-                    put("like", 0)
-                    put("dislike", 0)
+                val database = AppDataBase.getDataBase().actionDao()
+                val listA = listOf(
+                    Action(
+                        "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
+                        R.drawable.city,
+                        getString(R.string.lorem_ipsum),
+                        mapOf(
+                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+                        ),
+                        listOf("第一条", "第二条", "第三条"),
+                        listOf(ActionHistory(Date(System.currentTimeMillis()), "位置信息", true)),
+                        false
+                    ),
+                )
+                val job = Job()
+                CoroutineScope(job).launch {
+                    listA.forEach {
+                        database.insertAction(it)
+                    }
                 }
-                newSuggest.saveInBackground().subscribe(object : Observer<LCObject> {
-                    override fun onSubscribe(d: Disposable) {
-                    }
-
-                    override fun onNext(t: LCObject) {
-                        Log.d("aaa", "success,id=${t.objectId}")
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d("aaa", "err:${e.toString()}")
-                    }
-
-                    override fun onComplete() {
-                    }
-                })
+//                val list = mutableListOf<Pair<Int, String>>()
+//                list.add(Pair(R.drawable.ic_outline_emoji_events_24, "Watersave"))
+//                list.add(Pair(R.drawable.ic_outline_settings_24, "Elecsave"))
+////                map.put(R.drawable.ic_outline_emoji_events_24.toString(),"Watersave")
+//                val newSuggest = LCObject("Suggest").apply {
+//                    put("title", "As Virus Cases Rise in Europe, an Economic Toll Returns")
+//                    put(
+//                        "subhead",
+//                        "A series of restrictions, including a lockdown in Austria, is expected to put a brake on economic growth."
+//                    )
+//                    put(
+//                        "imgUrl",
+//                        "https://static01.nyt.com/images/2021/11/22/business/00virus-euroecon-1/merlin_198253512_8d84ab6c-6288-441c-bf4d-6e784ca170e6-superJumbo.jpg?quality=75&auto=webp"
+//                    )
+//                    put("time", Date(System.currentTimeMillis()))
+//                    put(
+//                        "authorAvatarUrl",
+//                        "https://static01.nyt.com/images/2018/02/16/multimedia/author-patricia-cohen/author-patricia-cohen-thumbLarge.jpg"
+//                    )
+//                    put("author", "Patricia Cohen")
+//                    put("source", "NY Times")
+//                    put("type", 0)
+//                    put(
+//                        "content",
+//                        "Europe’s already fragile economic recovery is at risk of being undermined by a fourth wave of coronavirus infections now dousing the continent, as governments impose increasingly stringent health restrictions that could reduce foot traffic in shopping centers, discourage travel and thin crowds in restaurants, bars and ski resorts.\n" +
+//                                "\n" +
+//                                "Austria has imposed the strictest measures, mandating vaccinations and imposing a nationwide lockdown that began on Monday. But economic activity will also be dampened by other safety measures — from vaccine passports in France and Switzerland to a requirement to work from home four days a week in Belgium.\n" +
+//                                "\n" +
+//                                "“We are expecting a bumpy winter season,” said Stefan Kooths, a research director of the Kiel Institute for the World Economy in Germany. “The pandemic now seems to be affecting the economy more negatively than we originally thought.”"
+//                    )
+//                    put("label", list)
+//                    put("sourceUrl", "https://www.baidu.com/")
+//                    put("like", 0)
+//                    put("dislike", 0)
+//                }
+//                newSuggest.saveInBackground().subscribe(object : Observer<LCObject> {
+//                    override fun onSubscribe(d: Disposable) {
+//                    }
+//
+//                    override fun onNext(t: LCObject) {
+//                        Log.d("aaa", "success,id=${t.objectId}")
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        Log.d("aaa", "err:${e.toString()}")
+//                    }
+//
+//                    override fun onComplete() {
+//                    }
+//                })
             }
             cardViewTips.setOnClickListener {
                 bottomSheetDialog.hide()

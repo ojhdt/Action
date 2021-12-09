@@ -75,20 +75,14 @@ object Repository {
         }
     }
 
-    fun getAllActionLive(): LiveData<List<Action>> {
-        return liveData {
-            val list = listOf<Action>(
-                Action(isActivating = true),
-                Action(isActivating = true),
-                Action(isActivating = true)
-            )
-            emit(list)
-        }
-    }
+    fun getAllActionLive(): LiveData<List<Action>> =
+        database.actionDao().loadAllActionLive()
 
-    fun getReadSuggestLive(): LiveData<List<Suggest>> = database.suggestDao().loadAllReadSuggestLive()
+    fun getReadSuggestLive(): LiveData<List<Suggest>> =
+        database.suggestDao().loadAllReadSuggestLive()
 
-    fun getArchivedSuggestLive(): LiveData<List<Suggest>> = database.suggestDao().loadAllArchivedSuggestLive()
+    fun getArchivedSuggestLive(): LiveData<List<Suggest>> =
+        database.suggestDao().loadAllArchivedSuggestLive()
 
     fun getGainedAchievementLive(): LiveData<List<Achievement>> {
         return liveData {

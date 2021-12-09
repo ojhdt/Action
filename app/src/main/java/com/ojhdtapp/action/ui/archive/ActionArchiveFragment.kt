@@ -1,6 +1,7 @@
 package com.ojhdtapp.action.ui.archive
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
@@ -57,11 +59,41 @@ class ActionArchiveFragment : Fragment() {
         )
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.refresh -> {}
+                R.id.refresh -> {
+                    try {
+                        viewModel.actionRefresh()
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.network_success),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.network_error),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
                 else -> {}
             }
             false
         }
+        // Adapter for rv
+        val myAdapter = ActionArchiveAdapter()
+        binding.recyclerView.run {
+            adapter = myAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+        viewModel.actionLive.observe(this) {
+            val emptyList = listOf(null)
+            if (it.isEmpty()) {
+                myAdapter.submitList(emptyList)
+            } else {
+                myAdapter.submitList(it)
+            }
+        }
+        viewModel.actionRefresh()
     }
 
     override fun onDestroyView() {
