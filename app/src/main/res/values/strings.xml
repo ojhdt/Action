@@ -136,8 +136,10 @@
     <string name="action_archive_empty_note">您的个人隐私将受到保护</string>
     <string name="action_archive_permission">权限管理</string>
     <string name="action_archive_transition_name">action_archive_card_%1$s</string>
-
     <string name="action_history_transition_name">action_history_%1$s</string>
+
+    <string name="action_history">历史</string>
+    <string name="action_history_fab">前往内容</string>
 
 
     <string name="suggest_archive_head">所有建议</string>

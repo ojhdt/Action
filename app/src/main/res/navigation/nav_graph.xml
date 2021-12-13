@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/actionArchiveHistoryFragment"
         android:name="com.ojhdtapp.action.ui.archive.ActionArchiveHistoryFragment"
-        android:label="fragment_action_archive_history"
+        android:label="@string/action_history"
         tools:layout="@layout/fragment_action_archive_history" />
     <fragment
         android:id="@+id/settingsFragment"

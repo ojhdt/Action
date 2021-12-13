@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -13,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionArchiveBinding
@@ -50,6 +52,9 @@ class ActionArchiveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Postpone Transition
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         // Setup Appbar
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -81,7 +86,12 @@ class ActionArchiveFragment : Fragment() {
             false
         }
         // Adapter for rv
-        val myAdapter = ActionArchiveAdapter()
+        val myAdapter = ActionArchiveAdapter(object: ActionArchiveAdapter.ActionArchiveListener{
+            override fun onActionClick() {
+                exitTransition = Hold()
+                reenterTransition = Hold()
+            }
+        })
         binding.recyclerView.run {
             adapter = myAdapter
             layoutManager = GridLayoutManager(context,2)
