@@ -140,6 +140,15 @@
 
     <string name="action_history">历史</string>
     <string name="action_history_fab">前往内容</string>
+    <string name="action_history_summary">总览</string>
+    <string name="action_history_trigger">触发次数</string>
+    <string name="action_history_finished">完成次数</string>
+    <string name="action_history_last_time">上一次触发：%1$s</string>
+    <string name="action_history_contribution">作出的贡献</string>
+    <string name="action_history_contribution_message">感谢您的每一次行动对环境保护作出的贡献。\n您的贡献量化后相当于：</string>
+    <string name="action_history_contribution_button">查看全部贡献</string>
+    <string name="action_history_history">该行动的触发历史</string>
+    <string name="action_history_history_trigger">触发条件</string>
 
 
     <string name="suggest_archive_head">所有建议</string>
@@ -155,6 +164,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_number">80</string>
+    <string name="sample_month">12月</string>
+    <string name="sample_day">14</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

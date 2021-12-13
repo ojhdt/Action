@@ -92,16 +92,23 @@ class ActionArchiveFragment : Fragment() {
                 reenterTransition = Hold()
             }
         })
+        val myLayoutManager = GridLayoutManager(context,2)
         binding.recyclerView.run {
             adapter = myAdapter
-            layoutManager = GridLayoutManager(context,2)
+            layoutManager = myLayoutManager
             addItemDecoration(myAdapter.ActionArchiveSpaceItemDecoration())
         }
         viewModel.actionLive.observe(this) {
             val emptyList = listOf(null)
             if (it.isEmpty()) {
+                myLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int = 2
+                }
                 myAdapter.submitList(emptyList)
             } else {
+                myLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int = 1
+                }
                 myAdapter.submitList(it)
             }
         }

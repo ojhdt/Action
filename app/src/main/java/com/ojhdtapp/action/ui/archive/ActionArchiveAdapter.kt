@@ -154,7 +154,6 @@ class ActionArchiveAdapter(
                 outRect.left = space / 2
                 outRect.right = space
             }
-
         }
     }
 }
