@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.archive
 
+import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DateUtil
+import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionArchiveCellBinding
 import com.ojhdtapp.action.databinding.FragmentActionArchiveEmptyBinding
@@ -131,5 +134,27 @@ class ActionArchiveAdapter(
 
     interface ActionArchiveListener {
         fun onActionClick()
+    }
+
+    inner class ActionArchiveSpaceItemDecoration : RecyclerView.ItemDecoration() {
+        private val space = DensityUtil.dip2px(BaseApplication.context, 16f)
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            outRect.top = space
+            val position = parent.getChildAdapterPosition(view)
+            // Right
+            if (position % 2 == 0) {
+                outRect.left = space
+                outRect.right = space / 2
+            } else {
+                outRect.left = space / 2
+                outRect.right = space
+            }
+
+        }
     }
 }

@@ -85,6 +85,7 @@ class ActionArchiveFragment : Fragment() {
         binding.recyclerView.run {
             adapter = myAdapter
             layoutManager = GridLayoutManager(context,2)
+            addItemDecoration(myAdapter.ActionArchiveSpaceItemDecoration())
         }
         viewModel.actionLive.observe(this) {
             val emptyList = listOf(null)
