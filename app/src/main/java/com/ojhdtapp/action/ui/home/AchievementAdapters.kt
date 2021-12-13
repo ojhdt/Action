@@ -3,6 +3,7 @@ package com.ojhdtapp.action.ui.home
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.graphics.Rect
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -198,7 +199,7 @@ object AchievementAdapters {
         }
     }
 
-    class StatisticsBlockSpaceItemDecoration(val listLength: Int) : RecyclerView.ItemDecoration() {
+    class StatisticsBlockSpaceItemDecoration(private val listLength: Int) : RecyclerView.ItemDecoration() {
         private val space = DensityUtil.dip2px(BaseApplication.context, 12f)
         override fun getItemOffsets(
             outRect: Rect,

@@ -60,7 +60,6 @@ class ExploreFragment : Fragment() {
         binding.toolbar2.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.refresh -> {
-                    Log.d("aaa", "Refresh Attached")
                     viewModel.weatherRefresh()
                 }
                 else -> {}

@@ -80,7 +80,6 @@ object LeanCloudDataBase {
     suspend fun syncSuggest(objectId: String): Suggest {
         val result = suspendCoroutine<Suggest> {
             val storedSuggest = dataBase.suggestDao().querySuggestByObjId(objectId)
-            Log.d("aaa", storedSuggest.toString())
             val query = LCQuery<LCObject>("Suggest")
             query.getInBackground(objectId).subscribe(object : Observer<LCObject> {
                 override fun onSubscribe(d: Disposable) {

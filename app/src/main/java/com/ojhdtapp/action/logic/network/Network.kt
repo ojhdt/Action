@@ -42,7 +42,7 @@ private suspend fun <T> Call<T>.await(): T {
 
             override fun onFailure(call: Call<T>, t: Throwable) {
                 continuation.resumeWithException(RuntimeException("AwaitFailure"))
-                Log.d("aaa",t.localizedMessage)
+//                Log.d("aaa",t.localizedMessage)
             }
         })
     }

@@ -59,7 +59,7 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
             dataBase.suggestDao().insertSuggest(result)
             _snackBarMessageLive.postValue(Event(getApplication<Application>().getString(R.string.network_success)))
         } catch (e: Exception) {
-            Log.d("aaa", e.toString())
+//            Log.d("aaa", e.toString())
             _snackBarMessageLive.postValue(Event(getApplication<Application>().getString(R.string.network_error)))
         }
     }

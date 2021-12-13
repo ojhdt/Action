@@ -66,7 +66,7 @@ object ExploreAdapters {
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            Log.d("aaa", holder.bindingAdapterPosition.toString())
+//            Log.d("aaa", holder.bindingAdapterPosition.toString())
             val item = getItem(holder.bindingAdapterPosition)
             when (holder.bindingAdapterPosition) {
                 0 -> (holder as WeatherViewHolder).bind(item as WeatherBlock)
@@ -83,7 +83,7 @@ object ExploreAdapters {
         }
 
         override fun getItemViewType(position: Int): Int {
-            Log.d("aaa", position.toString())
+//            Log.d("aaa", position.toString())
             return position
         }
     }

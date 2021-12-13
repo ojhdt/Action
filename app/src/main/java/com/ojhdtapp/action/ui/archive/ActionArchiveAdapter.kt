@@ -23,7 +23,8 @@ import java.lang.StringBuilder
 
 class ActionArchiveAdapter(
     private val listener: ActionArchiveListener? = null,
-    private val emptyBtnListener: ActionArchiveListener? = null) : ListAdapter<Action, RecyclerView.ViewHolder>(object :
+    private val emptyBtnListener: ActionArchiveListener? = null
+) : ListAdapter<Action, RecyclerView.ViewHolder>(object :
     DiffUtil.ItemCallback<Action>() {
     override fun areItemsTheSame(oldItem: Action, newItem: Action): Boolean {
         return oldItem.id == newItem.id
@@ -78,7 +79,10 @@ class ActionArchiveAdapter(
                         }
                     }
                 }
-                actionArchiveLabel.text = labelStr.toString()
+                actionArchiveLabel.text = binding.root.resources.getString(
+                    R.string.action_archive_time,
+                    DateUtil.timeAgo(data.history.last().time)
+                )
                 if (data.imageID != null) {
                     Glide.with(binding.root.context)
                         .load(data.imageID)
@@ -86,10 +90,6 @@ class ActionArchiveAdapter(
                 } else {
 //                    actionArchiveImage.visibility = View.GONE
                 }
-                actionArchiveTime.text = binding.root.resources.getString(
-                    R.string.action_archive_time,
-                    DateUtil.timeAgo(data.history.last().time)
-                )
                 // Share Element Transition
                 val transitionName = binding.root.resources.getString(
                     R.string.action_archive_transition_name,

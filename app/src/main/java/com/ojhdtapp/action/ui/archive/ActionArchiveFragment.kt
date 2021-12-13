@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
@@ -83,7 +84,7 @@ class ActionArchiveFragment : Fragment() {
         val myAdapter = ActionArchiveAdapter()
         binding.recyclerView.run {
             adapter = myAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context,2)
         }
         viewModel.actionLive.observe(this) {
             val emptyList = listOf(null)

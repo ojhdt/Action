@@ -588,7 +588,7 @@ class SuggestContentFragment : Fragment() {
                     ).show()
 
                 } catch (e: Exception) {
-                    Log.d("aaa",e.toString())
+//                    Log.d("aaa",e.toString())
                     Snackbar.make(
                         binding.root,
                         getString(R.string.network_error),

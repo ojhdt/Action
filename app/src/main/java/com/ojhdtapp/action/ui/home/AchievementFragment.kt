@@ -27,7 +27,6 @@ import com.ojhdtapp.action.logic.model.StatisticsBlock
 class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
     val binding get() = _binding!!
-
     val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +68,7 @@ class AchievementFragment : Fragment() {
         val xpAdapter = AchievementAdapters.XPAdapter()
         val achievementListAdapter = AchievementAdapters.AchievementListAdapter()
         val mylayoutManager = GridLayoutManager(context, 2).apply {
-            spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return 2
                 }
@@ -84,7 +83,7 @@ class AchievementFragment : Fragment() {
             var finishedTotalNum = 0
             it.forEach {
                 it.history.forEach {
-                    if(it.finished) finishedTotalNum++
+                    if (it.finished) finishedTotalNum++
                 }
             }
             statisticsAdapter.setTotalNum(finishedTotalNum)
@@ -102,11 +101,12 @@ class AchievementFragment : Fragment() {
                     else 2
                 }
             }
-            binding.recyclerView.addItemDecoration(
-                AchievementAdapters.StatisticsBlockSpaceItemDecoration(
-                    sortedStatisticsBlockList.size
-                )
+            val itemDecoration = AchievementAdapters.StatisticsBlockSpaceItemDecoration(
+                sortedStatisticsBlockList.size
             )
+            Log.d("aaa", "Run 1 time")
+            binding.recyclerView.addItemDecoration(itemDecoration)
+
         }
         viewModel.gainedAchievementLive.observe(this) {
             achievementListAdapter.submitList(it)
