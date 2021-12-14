@@ -2,6 +2,7 @@ package com.ojhdtapp.action.ui.archive
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionArchiveHistoryBinding
 import com.ojhdtapp.action.logic.model.Action
+import okhttp3.internal.filterList
 
 class ActionArchiveHistoryFragment : Fragment() {
     lateinit var data: Action
@@ -95,6 +97,14 @@ class ActionArchiveHistoryFragment : Fragment() {
                     )
                 )
             }
+            binding.triggerdTime.text = it.history.size.toString()
+            binding.finishedTime.text = it.history.filterList {
+                this.finished
+            }.size.toString()
+            binding.lastTriggered.text = getString(
+                R.string.action_history_last_time,
+                DateUtil.timeAgo(it.history.last().time)
+            )
             binding.contributionRecyclerView.run {
                 val myAdapter = ActionArchiveHistoryAdapters.ContributionAdapter()
                 val list = mutableListOf<Pair<Int, String>>()
@@ -103,8 +113,10 @@ class ActionArchiveHistoryFragment : Fragment() {
                 myAdapter.submitList(list)
             }
             binding.triggerRecyclerView.run {
+                val myAdapter = ActionArchiveHistoryAdapters.HistoryAdapter()
                 layoutManager = LinearLayoutManager(context)
-                adapter = ActionArchiveHistoryAdapters.HistoryAdapter()
+                adapter = myAdapter
+                myAdapter.submitList(historyTriggerList)
             }
         }
     }
