@@ -149,6 +149,7 @@
     <string name="action_history_contribution_button">查看全部贡献</string>
     <string name="action_history_history">该行动的触发历史</string>
     <string name="action_history_history_trigger">触发条件</string>
+    <string name="action_history_history_trigger_month">%1$s月</string>
 
 
     <string name="suggest_archive_head">所有建议</string>
@@ -160,6 +161,10 @@
     <string name="suggest_archive_archive_tab_empty">Oops！您的建议存档库中空空如也！</string>
 
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>
+    <string name="year_format">yyyy</string>
+    <string name="month_format">mm</string>
+    <string name="day_format">dd</string>
+    <string name="time_format">HH:mm</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

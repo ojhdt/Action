@@ -63,6 +63,19 @@ object DateUtil {
         return format.format(date)
     }
 
+    fun formatDateForDetail(date: Date): List<String> {
+        val yearFormat = SimpleDateFormat(BaseApplication.context.getString(R.string.year_format))
+        val monthFormat = SimpleDateFormat(BaseApplication.context.getString(R.string.month_format))
+        val dayFormat = SimpleDateFormat(BaseApplication.context.getString(R.string.day_format))
+        val timeFormat = SimpleDateFormat(BaseApplication.context.getString(R.string.time_format))
+        return listOf(
+            yearFormat.format(date),
+            monthFormat.format(date),
+            dayFormat.format(date),
+            timeFormat.format(date)
+        )
+    }
+
     fun timeAgo(createdTime: Date?): String? {
         val format = SimpleDateFormat("MM-dd HH:mm", Locale.CHINA)
         return if (createdTime != null) {

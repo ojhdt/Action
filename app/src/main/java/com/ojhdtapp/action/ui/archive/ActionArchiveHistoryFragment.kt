@@ -8,23 +8,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
+import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionArchiveHistoryBinding
+import com.ojhdtapp.action.logic.model.Action
 
 class ActionArchiveHistoryFragment : Fragment() {
-
+    lateinit var data: Action
     private var _binding: FragmentActionArchiveHistoryBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<ActionArchiveHistoryViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            data = it.getParcelable<Action>("ACTION") ?: Action()
         }
         // Add Transition
         sharedElementEnterTransition = MaterialContainerTransform().apply {
@@ -46,7 +51,7 @@ class ActionArchiveHistoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentActionArchiveHistoryBinding.inflate(inflater,container,false)
+        _binding = FragmentActionArchiveHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -73,6 +78,34 @@ class ActionArchiveHistoryFragment : Fragment() {
                 else -> {}
             }
             false
+        }
+
+        // Setup Adapter for rv
+        viewModel.submit(data)
+        viewModel.actionArchiveLive.observe(this) {
+            val contributionList = mutableListOf<Pair<Int, String>>()
+            val historyTriggerList = mutableListOf<ActionArchiveHistoryAdapters.HistoryData>()
+            it.history.forEach {
+                val times = DateUtil.formatDateForDetail(it.time)
+                historyTriggerList.add(
+                    ActionArchiveHistoryAdapters.HistoryData(
+                        getString(R.string.action_history_history_trigger_month, times[1]),
+                        times[2],
+                        it.source
+                    )
+                )
+            }
+            binding.contributionRecyclerView.run {
+                val myAdapter = ActionArchiveHistoryAdapters.ContributionAdapter()
+                val list = mutableListOf<Pair<Int, String>>()
+                layoutManager = LinearLayoutManager(context)
+                adapter = myAdapter
+                myAdapter.submitList(list)
+            }
+            binding.triggerRecyclerView.run {
+                layoutManager = LinearLayoutManager(context)
+                adapter = ActionArchiveHistoryAdapters.HistoryAdapter()
+            }
         }
     }
 
