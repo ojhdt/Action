@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.core.view.marginTop
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Fade
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -63,6 +66,16 @@ class AchievementFragment : Fragment() {
 //            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
 //            setPadding(0, offset, 0, 0)
 //        }
+
+        // Restore the Default Transition when Navigating Home Fragments
+        findNavController().addOnDestinationChangedListener{ navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
+            bundle?.getBoolean("isHomeFragment", false)?.let {
+                if(it){
+                    exitTransition = Fade()
+                    reenterTransition = Fade()
+                }
+            }
+        }
 
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()

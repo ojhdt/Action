@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.transition.Fade
 import com.google.android.material.snackbar.Snackbar
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
@@ -65,6 +68,16 @@ class ExploreFragment : Fragment() {
                 else -> {}
             }
             false
+        }
+
+        // Restore the Default Transition when Navigating Home Fragments
+        findNavController().addOnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
+            bundle?.getBoolean("isHomeFragment", false)?.let {
+                if (it) {
+                    exitTransition = Fade()
+                    reenterTransition = Fade()
+                }
+            }
         }
 
         // RecyclerView
