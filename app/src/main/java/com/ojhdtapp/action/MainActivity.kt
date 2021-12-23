@@ -72,16 +72,28 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.actionFragment -> {
-                    binding.homeNav.visibility = View.VISIBLE
+//                    binding.homeNav.visibility = View.VISIBLE
+                    binding.navMotionLayout.run{
+                        if(currentState == R.id.end) transitionToStart()
+                    }
                 }
                 R.id.achievementFragment -> {
-                    binding.homeNav.visibility = View.VISIBLE
+//                    binding.homeNav.visibility = View.VISIBLE
+                    binding.navMotionLayout.run{
+                        if(currentState == R.id.end) transitionToStart()
+                    }
                 }
                 R.id.exploreFragment -> {
-                    binding.homeNav.visibility = View.VISIBLE
+//                    binding.homeNav.visibility = View.VISIBLE
+                    binding.navMotionLayout.run{
+                        if(currentState == R.id.end) transitionToStart()
+                    }
                 }
                 else -> {
-                    binding.homeNav.visibility = View.GONE
+//                    binding.homeNav.visibility = View.GONE
+                    binding.navMotionLayout.run{
+                        if(currentState == R.id.start) transitionToEnd()
+                    }
                 }
             }
         }
