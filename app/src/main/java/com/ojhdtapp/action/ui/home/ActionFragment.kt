@@ -12,9 +12,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Fade
+import androidx.transition.Slide
 import cn.leancloud.LCObject
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -90,6 +95,16 @@ class ActionFragment : Fragment() {
         binding.welcomeTextContainer.run {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(paddingLeft, paddingTop + offset, paddingRight, paddingBottom)
+        }
+
+        // Restore the Default Transition when Navigating Home Fragments
+        findNavController().addOnDestinationChangedListener{ navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
+            bundle?.getBoolean("isHomeFragment", false)?.let {
+                if(it){
+                    exitTransition = Fade()
+                    reenterTransition = Fade()
+                }
+            }
         }
 
         // Set OnClickListener for BottomSheetDialog Btns

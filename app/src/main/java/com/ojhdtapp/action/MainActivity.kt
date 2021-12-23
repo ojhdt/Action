@@ -70,32 +70,39 @@ class MainActivity : AppCompatActivity() {
         // Navigation
         NavigationUI.setupWithNavController(binding.homeNav, navController)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when (destination.id) {
-                R.id.actionFragment -> {
-//                    binding.homeNav.visibility = View.VISIBLE
-                    binding.navMotionLayout.run{
-                        if(currentState == R.id.end) transitionToStart()
-                    }
-                }
-                R.id.achievementFragment -> {
-//                    binding.homeNav.visibility = View.VISIBLE
-                    binding.navMotionLayout.run{
-                        if(currentState == R.id.end) transitionToStart()
-                    }
-                }
-                R.id.exploreFragment -> {
-//                    binding.homeNav.visibility = View.VISIBLE
-                    binding.navMotionLayout.run{
-                        if(currentState == R.id.end) transitionToStart()
-                    }
-                }
-                else -> {
-//                    binding.homeNav.visibility = View.GONE
-                    binding.navMotionLayout.run{
-                        if(currentState == R.id.start) transitionToEnd()
-                    }
+            arguments?.getBoolean("isHomeFragment", false)?.let {
+                binding.navMotionLayout.run{
+                    Log.d("aaa", it.toString() + (currentState == R.id.start).toString())
+                    if(it && currentState == R.id.end) transitionToStart()
+                    else if(!it && currentState == R.id.start) transitionToEnd()
                 }
             }
+//            when (destination.id) {
+//                R.id.actionFragment -> {
+////                    binding.homeNav.visibility = View.VISIBLE
+//                    binding.navMotionLayout.run{
+//                        if(currentState == R.id.end) transitionToStart()
+//                    }
+//                }
+//                R.id.achievementFragment -> {
+////                    binding.homeNav.visibility = View.VISIBLE
+//                    binding.navMotionLayout.run{
+//                        if(currentState == R.id.end) transitionToStart()
+//                    }
+//                }
+//                R.id.exploreFragment -> {
+////                    binding.homeNav.visibility = View.VISIBLE
+//                    binding.navMotionLayout.run{
+//                        if(currentState == R.id.end) transitionToStart()
+//                    }
+//                }
+//                else -> {
+////                    binding.homeNav.visibility = View.GONE
+//                    binding.navMotionLayout.run{
+//                        if(currentState == R.id.start) transitionToEnd()
+//                    }
+//                }
+//            }
         }
     }
 }

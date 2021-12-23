@@ -22,12 +22,22 @@
         <action
             android:id="@+id/action_actionFragment_to_suggestArchiveFragment"
             app:destination="@id/suggestArchiveFragment" />
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="true" />
     </fragment>
     <fragment
         android:id="@+id/achievementFragment"
         android:name="com.ojhdtapp.action.ui.home.AchievementFragment"
         android:label="@string/nav_achievement"
-        tools:layout="@layout/fragment_achievement" />
+        tools:layout="@layout/fragment_achievement">
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </fragment>
+
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.ojhdtapp.action.ui.home.ExploreFragment"
@@ -36,6 +46,10 @@
         <action
             android:id="@+id/action_exploreFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="true" />
     </fragment>
     <fragment
         android:id="@+id/actionContentFragment"
@@ -53,6 +67,10 @@
         <action
             android:id="@+id/action_actionArchiveFragment_to_actionArchiveHistoryFragment"
             app:destination="@id/actionArchiveHistoryFragment" />
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/suggestArchiveFragment"
@@ -67,6 +85,10 @@
             app:destination="@id/actionFragment"
             app:popUpTo="@id/actionFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/actionArchiveHistoryFragment"

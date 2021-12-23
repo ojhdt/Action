@@ -10,7 +10,6 @@
         motion:motionInterpolator="easeOut">
        <KeyFrameSet>
        </KeyFrameSet>
-        <OnClick motion:targetId="@id/home_nav" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
