@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             arguments?.getBoolean("isHomeFragment", false)?.let {
                 binding.navMotionLayout.run{
-                    Log.d("aaa", it.toString() + (currentState == R.id.start).toString())
                     if(it && currentState == R.id.end) transitionToStart()
                     else if(!it && currentState == R.id.start) transitionToEnd()
                 }
