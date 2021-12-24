@@ -88,7 +88,7 @@ class ActionFragment : Fragment() {
         _navDestinationChangedListener =
             NavController.OnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
                 Log.d("aaa", "One trigger")
-//            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
+            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
                 bundle?.getBoolean("isHomeFragment", false)?.let {
                     if (it) {
                         exitTransition = Fade()
@@ -238,14 +238,16 @@ class ActionFragment : Fragment() {
         val actionNowAdapter =
             ActionAdapters.ActionNowAdapter(object : ActionAdapters.ActionNowListener {
                 override fun onActionCLick() {
-                    exitTransition = MaterialElevationScale(false).apply {
-                        duration =
-                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
-                    }
-                    reenterTransition = MaterialElevationScale(true).apply {
-                        duration =
-                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
-                    }
+                    exitTransition = Hold()
+                    reenterTransition = Hold()
+//                    exitTransition = MaterialElevationScale(false).apply {
+//                        duration =
+//                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+//                    }
+//                    reenterTransition = MaterialElevationScale(true).apply {
+//                        duration =
+//                            resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+//                    }
                 }
             })
         val suggestMoreAdapter =
