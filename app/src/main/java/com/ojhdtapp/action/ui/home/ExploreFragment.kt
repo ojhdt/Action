@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
+import com.ojhdtapp.action.AnimType
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -30,13 +31,13 @@ class ExploreFragment : Fragment() {
     val binding get() = _binding!!
     val viewModel: SharedViewModel by activityViewModels()
 
-    private var animType: Int = 0
+    private var animType: Int = AnimType.NULL
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            animType = it.getInt("ANIM_TYPE", 0)
+//            animType = it.getInt("ANIM_TYPE", 4)
         }
 
     }
@@ -47,6 +48,10 @@ class ExploreFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
+        // Set default Transition
+        viewModel.shouldSetTransitionLive.observe(this) {
+            animType = if (it) AnimType.FADE else AnimType.NULL
+        }
         return binding.root
     }
 
@@ -82,7 +87,7 @@ class ExploreFragment : Fragment() {
 
         // Set AnimType if Necessary
         when (animType) {
-            0 -> {
+            AnimType.FADE -> {
                 Log.d("aaa", "aaaa")
                 exitTransition = Fade().apply {
                     duration =
@@ -93,11 +98,11 @@ class ExploreFragment : Fragment() {
                         resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
                 }
             }
-            1 -> {
+            AnimType.HOLD -> {
                 exitTransition = Hold()
                 reenterTransition = Hold()
             }
-            2 -> {
+            AnimType.SHARED_AXIS_Z -> {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
                     duration =
                         resources.getInteger(R.integer.material_motion_duration_long_1)
@@ -109,7 +114,7 @@ class ExploreFragment : Fragment() {
                             .toLong()
                 }
             }
-            3 -> {
+            AnimType.ELEVATIONSCALE -> {
                 exitTransition = MaterialElevationScale(false).apply {
                     duration =
                         resources.getInteger(R.integer.material_motion_duration_long_1).toLong()

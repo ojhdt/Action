@@ -62,6 +62,7 @@ object AnimType{
     val HOLD = 1
     val SHARED_AXIS_Z = 2
     val ELEVATIONSCALE = 3
+    val NULL = 4
 }
 
 object DateUtil {

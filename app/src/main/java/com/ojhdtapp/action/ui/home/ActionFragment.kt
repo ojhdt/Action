@@ -24,6 +24,7 @@ import androidx.transition.Fade
 import androidx.transition.Slide
 import cn.leancloud.LCObject
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
@@ -63,13 +64,13 @@ class ActionFragment : Fragment() {
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
 
     private var isShowingBottomSHeetDialog: Boolean = false
-    private var animType: Int = 0
+    private var animType: Int = AnimType.NULL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             isShowingBottomSHeetDialog = it.getBoolean("IS_SHOWING_BOTTOMSHEETDIALOG")
-            animType = it.getInt("ANIM_TYPE", 0)
+//            animType = it.getInt("ANIM_TYPE", 4)
         }
     }
 
@@ -86,6 +87,10 @@ class ActionFragment : Fragment() {
             R.style.ThemeOverlay_Material3_BottomSheetDialog
         ).apply {
             setContentView(bottomSheetDialogBinding.root)
+        }
+        // Set default Transition
+        viewModel.shouldSetTransitionLive.observe(this) {
+            animType = if (it) AnimType.FADE else AnimType.NULL
         }
         return binding.root
     }
@@ -105,7 +110,6 @@ class ActionFragment : Fragment() {
         // Set AnimType if Necessary
         when (animType) {
             AnimType.FADE -> {
-                Log.d("aaa", "aaaa")
                 exitTransition = Fade().apply {
                     duration =
                         resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
@@ -141,6 +145,7 @@ class ActionFragment : Fragment() {
                         resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
                 }
             }
+            else -> {}
         }
 
         // Set OnClickListener for BottomSheetDialog Btns

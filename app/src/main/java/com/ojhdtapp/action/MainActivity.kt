@@ -15,13 +15,12 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
+import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.transition.Fade
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
 import com.ojhdtapp.action.ui.home.SharedViewModel
@@ -69,11 +68,21 @@ class MainActivity : AppCompatActivity() {
 
         // Navigation
         NavigationUI.setupWithNavController(binding.homeNav, navController)
+        var isFromHomeFragment = false
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            arguments?.getBoolean("isHomeFragment", false)?.let {
-                binding.navMotionLayout.run{
-                    if(it && currentState == R.id.end) transitionToStart()
-                    else if(!it && currentState == R.id.start) transitionToEnd()
+            arguments?.getBoolean("isHomeFragment", false)?.let { isHomeFragment ->
+                if (isHomeFragment && isFromHomeFragment) {
+//                    val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host)
+//                    val currentFragment =
+//                        navHostFragment!!.childFragmentManager.fragments.firstOrNull { it.isVisible }
+                    viewModel.setShouldSetTransitionLive(true)
+                }else{
+                    viewModel.setShouldSetTransitionLive(false)
+                }
+                isFromHomeFragment = isHomeFragment
+                binding.navMotionLayout.run {
+                    if (isHomeFragment && currentState == R.id.end) transitionToStart()
+                    else if (!isHomeFragment && currentState == R.id.start) transitionToEnd()
                 }
             }
         }

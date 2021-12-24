@@ -25,6 +25,14 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     private val _snackBarMessageLive = MutableLiveData<Event<String>>()
     val snackBarMessageLive get() = _snackBarMessageLive
 
+    // Transition Type
+    private val _shouldSetTransitionLive = MutableLiveData<Boolean>()
+    val shouldSetTransitionLive get() = _shouldSetTransitionLive
+
+    fun setShouldSetTransitionLive(value: Boolean) {
+        _shouldSetTransitionLive.value = value
+    }
+
     // Action Fragment
     private val _actionNowLive = MutableLiveData<MutableList<Action>>()
     private val _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
