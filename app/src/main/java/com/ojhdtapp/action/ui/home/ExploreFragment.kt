@@ -19,10 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
-import com.ojhdtapp.action.AnimType
-import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DeviceUtil
-import com.ojhdtapp.action.R
+import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentExploreBinding
 
 class ExploreFragment : Fragment() {
@@ -49,7 +46,8 @@ class ExploreFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         // Set default Transition
-        viewModel.shouldSetTransitionLive.observe(this) {
+        viewModel.shouldSetTransitionLive.observeOnce(this) {
+            Log.d("aaa", "C"+it.toString())
             animType = if (it) AnimType.FADE else AnimType.NULL
         }
         return binding.root

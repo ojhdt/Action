@@ -22,10 +22,7 @@ import androidx.transition.Fade
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
-import com.ojhdtapp.action.AnimType
-import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DeviceUtil
-import com.ojhdtapp.action.R
+import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.model.Achievement
@@ -53,7 +50,9 @@ class AchievementFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
         // Set default Transition
-        viewModel.shouldSetTransitionLive.observe(this) {
+        viewModel.shouldSetTransitionLive.observeOnce(this) {
+            Log.d("aaa", "B"+it.toString())
+
             animType = if (it) AnimType.FADE else AnimType.NULL
         }
         return binding.root

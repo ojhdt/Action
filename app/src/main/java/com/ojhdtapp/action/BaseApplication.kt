@@ -3,6 +3,9 @@ package com.ojhdtapp.action
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import cn.leancloud.LCObject
 import cn.leancloud.LeanCloud
 import com.google.android.material.color.DynamicColors
@@ -57,7 +60,16 @@ open class Event<out T>(private val content: T) {
     fun peekContent(): T = content
 }
 
-object AnimType{
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(lifecycleOwner, object : Observer<T> {
+        override fun onChanged(t: T) {
+            observer.onChanged(t)
+            removeObserver(this)
+        }
+    })
+}
+
+object AnimType {
     val FADE = 0
     val HOLD = 1
     val SHARED_AXIS_Z = 2
