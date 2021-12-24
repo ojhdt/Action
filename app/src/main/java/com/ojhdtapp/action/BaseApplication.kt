@@ -57,6 +57,13 @@ open class Event<out T>(private val content: T) {
     fun peekContent(): T = content
 }
 
+object AnimType{
+    val FADE = 0
+    val HOLD = 1
+    val SHARED_AXIS_Z = 2
+    val ELEVATIONSCALE = 3
+}
+
 object DateUtil {
     fun formatDate(date: Date): String {
         val format = SimpleDateFormat(BaseApplication.context.getString(R.string.date_format))

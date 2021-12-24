@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Fade
+import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -31,11 +34,15 @@ class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
     val binding get() = _binding!!
     val viewModel: SharedViewModel by activityViewModels()
-    private lateinit var _navDestinationChangedListener:NavController.OnDestinationChangedListener
+
+    private var animType: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        arguments?.let{
+            animType = it.getInt("ANIM_TYPE", 0)
+        }
     }
 
     override fun onCreateView(
@@ -44,19 +51,6 @@ class AchievementFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
-        // Restore the Default Transition when Navigating Home Fragment
-        _navDestinationChangedListener =
-            NavController.OnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
-                Log.d("aaa", "One trigger")
-//            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
-                bundle?.getBoolean("isHomeFragment", false)?.let {
-                    if (it) {
-                        exitTransition = Fade()
-                        reenterTransition = Fade()
-                    }
-                }
-            }
-        findNavController().addOnDestinationChangedListener(_navDestinationChangedListener)
         return binding.root
     }
 
@@ -80,6 +74,46 @@ class AchievementFragment : Fragment() {
 //            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
 //            setPadding(0, offset, 0, 0)
 //        }
+        // Set AnimType if Necessary
+        when (animType) {
+            0 -> {
+                Log.d("aaa", "aaaa")
+                exitTransition = Fade().apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+                reenterTransition = Fade().apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+            }
+            1 -> {
+                exitTransition = Hold()
+                reenterTransition = Hold()
+            }
+            2 -> {
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                            .toLong()
+                }
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                            .toLong()
+                }
+            }
+            3 -> {
+                exitTransition = MaterialElevationScale(false).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+                reenterTransition = MaterialElevationScale(true).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+            }
+        }
 
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()
@@ -132,7 +166,6 @@ class AchievementFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        findNavController().removeOnDestinationChangedListener(_navDestinationChangedListener)
         _binding = null
     }
 

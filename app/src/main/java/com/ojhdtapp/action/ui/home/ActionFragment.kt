@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.*
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
@@ -28,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
+import com.ojhdtapp.action.AnimType
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DeviceUtil
 import com.ojhdtapp.action.R
@@ -59,14 +61,15 @@ class ActionFragment : Fragment() {
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private val binding get() = _binding!!
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
-    private lateinit var _navDestinationChangedListener: NavController.OnDestinationChangedListener
 
     private var isShowingBottomSHeetDialog: Boolean = false
+    private var animType: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             isShowingBottomSHeetDialog = it.getBoolean("IS_SHOWING_BOTTOMSHEETDIALOG")
+            animType = it.getInt("ANIM_TYPE", 0)
         }
     }
 
@@ -84,19 +87,6 @@ class ActionFragment : Fragment() {
         ).apply {
             setContentView(bottomSheetDialogBinding.root)
         }
-        // Restore the Default Transition when Navigating Home Fragment
-        _navDestinationChangedListener =
-            NavController.OnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
-                Log.d("aaa", "One trigger")
-            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
-                bundle?.getBoolean("isHomeFragment", false)?.let {
-                    if (it) {
-                        exitTransition = Fade()
-                        reenterTransition = Fade()
-                    }
-                }
-            }
-        findNavController().addOnDestinationChangedListener(_navDestinationChangedListener)
         return binding.root
     }
 
@@ -110,6 +100,47 @@ class ActionFragment : Fragment() {
         binding.welcomeTextContainer.run {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(paddingLeft, paddingTop + offset, paddingRight, paddingBottom)
+        }
+
+        // Set AnimType if Necessary
+        when (animType) {
+            AnimType.FADE -> {
+                Log.d("aaa", "aaaa")
+                exitTransition = Fade().apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+                reenterTransition = Fade().apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+            }
+            AnimType.HOLD -> {
+                exitTransition = Hold()
+                reenterTransition = Hold()
+            }
+            AnimType.ELEVATIONSCALE -> {
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                            .toLong()
+                }
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                            .toLong()
+                }
+            }
+            AnimType.SHARED_AXIS_Z -> {
+                exitTransition = MaterialElevationScale(false).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+                reenterTransition = MaterialElevationScale(true).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
+                }
+            }
         }
 
         // Set OnClickListener for BottomSheetDialog Btns
@@ -277,6 +308,7 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_now_label),
                 resources.getString(R.string.action_now_label_description),
                 R.id.action_actionFragment_to_actionArchiveFragment,
+                bundleOf("ANIM_TYPE" to AnimType.SHARED_AXIS_Z),
                 object : ActionAdapters.LabelListener {
                     override fun onNavigate() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
@@ -297,6 +329,7 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_suggest_more),
                 resources.getString(R.string.action_suggest_more_description),
                 R.id.action_actionFragment_to_suggestArchiveFragment,
+                bundleOf("ANIM_TYPE" to AnimType.SHARED_AXIS_Z),
                 object : ActionAdapters.LabelListener {
                     override fun onNavigate() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
@@ -399,8 +432,6 @@ class ActionFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        findNavController().removeOnDestinationChangedListener(_navDestinationChangedListener)
-        _bottomSheetDialogBinding = null
         _binding = null
         _bottomSheetDialogBinding = null
     }

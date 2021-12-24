@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.home
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.core.view.ViewCompat.setTransitionName
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -284,6 +286,7 @@ object ActionAdapters {
         private val label: String = "标题",
         private val subLabel: String = "附标题",
         private val navigationId: Int,
+        private val bundle: Bundle?,
         private val listener: LabelListener,
     ) :
         RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
@@ -292,7 +295,11 @@ object ActionAdapters {
             fun bind(label: String, subLabel: String) {
                 binding.root.setOnClickListener {
                     listener.onNavigate()
-                    binding.root.findNavController().navigate(navigationId)
+                    val bdle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
+                    bundle?.let{
+                        bdle.putAll(it)
+                    }
+                    binding.root.findNavController().navigate(navigationId, bdle)
                 }
                 binding.labelText.text = label
                 binding.subLabelText.text = subLabel
