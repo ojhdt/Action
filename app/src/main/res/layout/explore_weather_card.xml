@@ -257,9 +257,10 @@
 
             <TextView
                 android:id="@+id/weatherTemperatureTomorrowHighest"
-                android:layout_width="30dp"
+                android:layout_width="34dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:maxLines="1"
                 android:text="@string/weather_temperature_template"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?attr/colorPrimary"
@@ -270,8 +271,9 @@
 
             <TextView
                 android:id="@+id/weatherTemperatureTomorrowLowest"
-                android:layout_width="30dp"
+                android:layout_width="34dp"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:text="@string/weather_temperature_template"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?attr/colorPrimary"
@@ -294,9 +296,10 @@
 
             <TextView
                 android:id="@+id/weatherTemperatureTheDayAfterTomorrowHighest"
-                android:layout_width="30dp"
+                android:layout_width="34dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:maxLines="1"
                 android:text="@string/weather_temperature_template"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?attr/colorPrimary"
@@ -307,8 +310,9 @@
 
             <TextView
                 android:id="@+id/weatherTemperatureTheDayAfterTomorrowLowest"
-                android:layout_width="30dp"
+                android:layout_width="34dp"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:text="@string/weather_temperature_template"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?attr/colorPrimary"
