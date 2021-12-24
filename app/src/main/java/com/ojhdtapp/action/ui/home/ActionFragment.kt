@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -58,8 +59,9 @@ class ActionFragment : Fragment() {
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private val binding get() = _binding!!
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
+    private lateinit var _navDestinationChangedListener: NavController.OnDestinationChangedListener
 
-    var isShowingBottomSHeetDialog: Boolean = false
+    private var isShowingBottomSHeetDialog: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,17 +98,19 @@ class ActionFragment : Fragment() {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(paddingLeft, paddingTop + offset, paddingRight, paddingBottom)
         }
-
-        // Restore the Default Transition when Navigating Home Fragments
-        findNavController().addOnDestinationChangedListener{ navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
-            bundle?.getBoolean("isHomeFragment", false)?.let {
-                if(it){
-                    exitTransition = Fade()
-                    reenterTransition = Fade()
+        // Restore the Default Transition when Navigating Home Fragment
+        _navDestinationChangedListener =
+            NavController.OnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
+                Log.d("aaa", "One trigger")
+//            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
+                bundle?.getBoolean("isHomeFragment", false)?.let {
+                    if (it) {
+                        exitTransition = Fade()
+                        reenterTransition = Fade()
+                    }
                 }
             }
-        }
-
+        findNavController().addOnDestinationChangedListener(_navDestinationChangedListener)
         // Set OnClickListener for BottomSheetDialog Btns
         bottomSheetDialogBinding.run {
             val lcJob = Job()
@@ -392,6 +396,8 @@ class ActionFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        findNavController().removeOnDestinationChangedListener(_navDestinationChangedListener)
+        _bottomSheetDialogBinding = null
         _binding = null
         _bottomSheetDialogBinding = null
     }
