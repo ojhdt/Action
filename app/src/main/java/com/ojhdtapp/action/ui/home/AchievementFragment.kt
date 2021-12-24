@@ -31,6 +31,7 @@ class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
     val binding get() = _binding!!
     val viewModel: SharedViewModel by activityViewModels()
+    private lateinit var _navDestinationChangedListener:NavController.OnDestinationChangedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,19 @@ class AchievementFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
+        // Restore the Default Transition when Navigating Home Fragment
+        _navDestinationChangedListener =
+            NavController.OnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
+                Log.d("aaa", "One trigger")
+//            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
+                bundle?.getBoolean("isHomeFragment", false)?.let {
+                    if (it) {
+                        exitTransition = Fade()
+                        reenterTransition = Fade()
+                    }
+                }
+            }
+        findNavController().addOnDestinationChangedListener(_navDestinationChangedListener)
         return binding.root
     }
 
@@ -66,16 +80,6 @@ class AchievementFragment : Fragment() {
 //            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
 //            setPadding(0, offset, 0, 0)
 //        }
-
-        // Restore the Default Transition when Navigating Home Fragments
-        findNavController().addOnDestinationChangedListener{ navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
-            bundle?.getBoolean("isHomeFragment", false)?.let {
-                if(it){
-                    exitTransition = Fade()
-                    reenterTransition = Fade()
-                }
-            }
-        }
 
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()
@@ -128,6 +132,7 @@ class AchievementFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        findNavController().removeOnDestinationChangedListener(_navDestinationChangedListener)
         _binding = null
     }
 

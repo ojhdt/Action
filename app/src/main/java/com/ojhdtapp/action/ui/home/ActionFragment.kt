@@ -84,6 +84,19 @@ class ActionFragment : Fragment() {
         ).apply {
             setContentView(bottomSheetDialogBinding.root)
         }
+        // Restore the Default Transition when Navigating Home Fragment
+        _navDestinationChangedListener =
+            NavController.OnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
+                Log.d("aaa", "One trigger")
+//            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
+                bundle?.getBoolean("isHomeFragment", false)?.let {
+                    if (it) {
+                        exitTransition = Fade()
+                        reenterTransition = Fade()
+                    }
+                }
+            }
+        findNavController().addOnDestinationChangedListener(_navDestinationChangedListener)
         return binding.root
     }
 
@@ -98,19 +111,7 @@ class ActionFragment : Fragment() {
             val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
             setPadding(paddingLeft, paddingTop + offset, paddingRight, paddingBottom)
         }
-        // Restore the Default Transition when Navigating Home Fragment
-        _navDestinationChangedListener =
-            NavController.OnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
-                Log.d("aaa", "One trigger")
-//            Log.d("aaa",navController.previousBackStackEntry?.destination?.displayName.toString())
-                bundle?.getBoolean("isHomeFragment", false)?.let {
-                    if (it) {
-                        exitTransition = Fade()
-                        reenterTransition = Fade()
-                    }
-                }
-            }
-        findNavController().addOnDestinationChangedListener(_navDestinationChangedListener)
+
         // Set OnClickListener for BottomSheetDialog Btns
         bottomSheetDialogBinding.run {
             val lcJob = Job()
