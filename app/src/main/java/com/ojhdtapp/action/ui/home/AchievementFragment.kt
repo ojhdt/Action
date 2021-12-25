@@ -38,7 +38,7 @@ class AchievementFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let{
+        arguments?.let {
 //            animType = it.getInt("ANIM_TYPE", 4)
         }
     }
@@ -51,7 +51,7 @@ class AchievementFragment : Fragment() {
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
         // Set default Transition
         viewModel.shouldSetTransitionLive.observeOnce(this) {
-            Log.d("aaa", "B"+it.toString())
+            Log.d("aaa", "B" + it.toString())
 
             animType = if (it) AnimType.FADE else AnimType.NULL
         }
@@ -121,7 +121,12 @@ class AchievementFragment : Fragment() {
 
         val statisticsAdapter = AchievementAdapters.StatisticsAdapter()
         val xpAdapter = AchievementAdapters.XPAdapter()
-        val achievementListAdapter = AchievementAdapters.AchievementListAdapter()
+        val achievementListAdapter = AchievementAdapters.AchievementListAdapter(object :
+            AchievementAdapters.SwitchSortByListener {
+            override fun onClick() {
+                viewModel.switchSortByTimeValue()
+            }
+        })
         val mylayoutManager = GridLayoutManager(context, 2).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -149,7 +154,9 @@ class AchievementFragment : Fragment() {
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
                 StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
             )
-            statisticsAdapter.submitList(sortedStatisticsBlockList)
+            statisticsAdapter.submitList(mutableListOf(StatisticsBlock()).apply {
+                addAll(sortedStatisticsBlockList)
+            })
             mylayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return if (position != 0 && position < sortedStatisticsBlockList.size + 1) 1
@@ -163,9 +170,24 @@ class AchievementFragment : Fragment() {
             binding.recyclerView.addItemDecoration(itemDecoration)
 
         }
-        viewModel.gainedAchievementLive.observe(this) {
-            achievementListAdapter.submitList(it)
+
+        fun updateAchievement(data: List<Achievement>, isSortByTime: Boolean) {
+            val list =
+                mutableListOf<Achievement>(if (isSortByTime) Achievement(drawableID = 0, title = System.currentTimeMillis().toString()) else Achievement())
+            list.apply {
+                addAll(if (isSortByTime) data.sortedBy { it.timestamp } else data.sortedBy { it.title })
+            }
+            achievementListAdapter.submitList(list)
         }
+        viewModel.gainedAchievementLive.observe(this) {
+            updateAchievement(it, viewModel.isSortByTimeLive.value!!)
+        }
+
+        viewModel.isSortByTimeLive.observe(this) {
+            updateAchievement(viewModel.gainedAchievementLive.value!!, it)
+        }
+
+
     }
 
     override fun onDestroyView() {

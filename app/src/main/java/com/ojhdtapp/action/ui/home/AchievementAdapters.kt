@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
@@ -18,13 +20,25 @@ import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.StatisticsBlock
 
 object AchievementAdapters {
-    class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    class StatisticsAdapter : ListAdapter<StatisticsBlock, RecyclerView.ViewHolder>(object :
+        DiffUtil.ItemCallback<StatisticsBlock>() {
+
+        override fun areItemsTheSame(oldItem: StatisticsBlock, newItem: StatisticsBlock): Boolean {
+            return oldItem.drawableID == newItem.drawableID
+        }
+
+        override fun areContentsTheSame(
+            oldItem: StatisticsBlock,
+            newItem: StatisticsBlock
+        ): Boolean {
+            return oldItem.num == newItem.num
+        }
+    }) {
         private var totalTitleA: String =
             BaseApplication.context.getString(R.string.achievement_total_a)
         private var totalNum: Int = 0
         private var totalTitleC: String =
             BaseApplication.context.getString(R.string.achievement_total_c)
-        private var list: MutableList<StatisticsBlock> = mutableListOf()
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             when (viewType) {
                 0 -> {
@@ -45,7 +59,6 @@ object AchievementAdapters {
                     return StatisticsViewHolder(binding)
                 }
             }
-
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -54,14 +67,9 @@ object AchievementAdapters {
                     (holder as TotalViewHolder).bind(totalTitleA, totalNum, totalTitleC)
                 }
                 else -> {
-                    val item = list[position - 1]
-                    (holder as StatisticsViewHolder).bind(item)
+                    (holder as StatisticsViewHolder).bind(getItem(position))
                 }
             }
-        }
-
-        override fun getItemCount(): Int {
-            return list.size + 1
         }
 
         override fun getItemViewType(position: Int): Int {
@@ -70,22 +78,83 @@ object AchievementAdapters {
                 else -> 1
             }
         }
-
         fun setTotalNum(num: Int) {
             totalNum = num
             notifyItemChanged(0)
         }
-
-        fun submitList(nlist: List<StatisticsBlock>) {
-            list.run {
-                clear()
-                addAll(nlist)
-                notifyDataSetChanged()
-            }
-        }
     }
 
+//    class StatisticsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+//        private var totalTitleA: String =
+//            BaseApplication.context.getString(R.string.achievement_total_a)
+//        private var totalNum: Int = 0
+//        private var totalTitleC: String =
+//            BaseApplication.context.getString(R.string.achievement_total_c)
+//        private var list: MutableList<StatisticsBlock> = mutableListOf()
+//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+//            when (viewType) {
+//                0 -> {
+//                    val binding =
+//                        AchievementMediumCardBinding.inflate(
+//                            LayoutInflater.from(parent.context),
+//                            parent,
+//                            false
+//                        )
+//                    return TotalViewHolder(binding)
+//                }
+//                else -> {
+//                    val binding = AchievementSmallCardBinding.inflate(
+//                        LayoutInflater.from(parent.context),
+//                        parent,
+//                        false
+//                    )
+//                    return StatisticsViewHolder(binding)
+//                }
+//            }
+//
+//        }
+//
+//        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+//            when (getItemViewType(position)) {
+//                0 -> {
+//                    (holder as TotalViewHolder).bind(totalTitleA, totalNum, totalTitleC)
+//                }
+//                else -> {
+//                    val item = list[position - 1]
+//                    (holder as StatisticsViewHolder).bind(item)
+//                }
+//            }
+//        }
+//
+//        override fun getItemCount(): Int {
+//            return list.size + 1
+//        }
+//
+//        override fun getItemViewType(position: Int): Int {
+//            return when (position) {
+//                0 -> 0
+//                else -> 1
+//            }
+//        }
+//
+//        fun setTotalNum(num: Int) {
+//            totalNum = num
+//            notifyItemChanged(0)
+//        }
+//
+//        fun submitList(nlist: List<StatisticsBlock>) {
+//            list.run {
+//                clear()
+//                addAll(nlist)
+//                notifyDataSetChanged()
+//            }
+//        }
+//    }
+
     class XPAdapter : RecyclerView.Adapter<XPViewHolder>() {
+        private var levelNow:Int = 0
+        private var neededXP:Int = 0
+        private var progress:Int = 60
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): XPViewHolder {
             val binding =
                 AchievementXpBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -98,31 +167,30 @@ object AchievementAdapters {
         }
 
         override fun onBindViewHolder(holder: XPViewHolder, position: Int) {
-            holder.bind(28, 200, 60)
+            holder.bind(levelNow, neededXP, progress)
         }
 
         override fun getItemCount(): Int {
             return 1
         }
+        fun submitValue(levelNow:Int, neededXP:Int, progress:Int){
+            this.levelNow = levelNow
+            this.neededXP = neededXP
+            this.progress = progress
+            notifyItemChanged(0)
+        }
     }
 
-    class AchievementListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        private var isSortByTime = true
-        private var list: MutableList<Achievement> = mutableListOf()
-
-        fun rearrange() {
-            if (isSortByTime)
-                list.sortBy { it.timestamp }
-            else list.sortBy { it.title }
+    class AchievementListAdapter(private val listener:SwitchSortByListener):ListAdapter<Achievement,RecyclerView.ViewHolder>(object:DiffUtil.ItemCallback<Achievement>(){
+        override fun areItemsTheSame(oldItem: Achievement, newItem: Achievement): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        fun submitList(nlist: List<Achievement>) {
-            list.clear()
-            list.addAll(nlist)
-            rearrange()
-            notifyDataSetChanged()
+        override fun areContentsTheSame(oldItem: Achievement, newItem: Achievement): Boolean {
+            return oldItem.title == newItem.title
         }
 
+    }) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             when (viewType) {
                 0 -> {
@@ -130,9 +198,7 @@ object AchievementAdapters {
                         LayoutInflater.from(parent.context), parent, false
                     )
                     binding.root.setOnClickListener {
-                        isSortByTime = !isSortByTime
-                        rearrange()
-                        notifyDataSetChanged()
+                        listener.onClick()
                     }
                     return ContainerViewHolder(binding)
                 }
@@ -149,20 +215,77 @@ object AchievementAdapters {
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (getItemViewType(position)) {
-                0 -> (holder as ContainerViewHolder).bind(isSortByTime)
-                else -> (holder as CellViewHolder).bind(list[position - 1])
+                0 -> (holder as ContainerViewHolder).bind(getItem(0).drawableID == 0)
+                else -> (holder as CellViewHolder).bind(getItem(position))
             }
-        }
-
-        override fun getItemCount(): Int {
-            return list.size + 1
         }
 
         override fun getItemViewType(position: Int): Int {
             return if (position == 0) 0 else 1
         }
-
     }
+
+    interface SwitchSortByListener{
+        fun onClick()
+    }
+
+//    class AchievementListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+//        private var isSortByTime = true
+//        private var list: MutableList<Achievement> = mutableListOf()
+//
+//        fun rearrange() {
+//            if (isSortByTime)
+//                list.sortBy { it.timestamp }
+//            else list.sortBy { it.title }
+//        }
+//
+//        fun submitList(nlist: List<Achievement>) {
+//            list.clear()
+//            list.addAll(nlist)
+//            rearrange()
+//            notifyDataSetChanged()
+//        }
+//
+//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+//            when (viewType) {
+//                0 -> {
+//                    val binding = AchievementListBinding.inflate(
+//                        LayoutInflater.from(parent.context), parent, false
+//                    )
+//                    binding.root.setOnClickListener {
+//                        isSortByTime = !isSortByTime
+//                        rearrange()
+//                        notifyDataSetChanged()
+//                    }
+//                    return ContainerViewHolder(binding)
+//                }
+//                else -> {
+//                    val binding = AchievementListCellBinding.inflate(
+//                        LayoutInflater.from(parent.context),
+//                        parent,
+//                        false
+//                    )
+//                    return CellViewHolder(binding)
+//                }
+//            }
+//        }
+//
+//        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+//            when (getItemViewType(position)) {
+//                0 -> (holder as ContainerViewHolder).bind(isSortByTime)
+//                else -> (holder as CellViewHolder).bind(list[position - 1])
+//            }
+//        }
+//
+//        override fun getItemCount(): Int {
+//            return list.size + 1
+//        }
+//
+//        override fun getItemViewType(position: Int): Int {
+//            return if (position == 0) 0 else 1
+//        }
+//
+//    }
 
     class TotalViewHolder(val binding: AchievementMediumCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -199,7 +322,8 @@ object AchievementAdapters {
         }
     }
 
-    class StatisticsBlockSpaceItemDecoration(private val listLength: Int) : RecyclerView.ItemDecoration() {
+    class StatisticsBlockSpaceItemDecoration(private val listLength: Int) :
+        RecyclerView.ItemDecoration() {
         private val space = DensityUtil.dip2px(BaseApplication.context, 12f)
         override fun getItemOffsets(
             outRect: Rect,
@@ -253,6 +377,7 @@ object AchievementAdapters {
     class ContainerViewHolder(val binding: AchievementListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(isSortByTime: Boolean) {
+            Log.d("aaa", "aa"+isSortByTime.toString())
             binding.run {
                 sortBy.text =
                     if (isSortByTime) binding.root.resources.getText(R.string.achievement_sort_by_time) else binding.root.resources.getText(

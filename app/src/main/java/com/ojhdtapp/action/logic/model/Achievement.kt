@@ -3,6 +3,7 @@ package com.ojhdtapp.action.logic.model
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.ojhdtapp.action.R
 import kotlinx.android.parcel.Parcelize
 import java.sql.Timestamp
@@ -17,4 +18,7 @@ data class Achievement(
     val xp: Int = 0,
     val gained: Boolean = false,
     val timestamp: Timestamp = Timestamp(0)
-): Parcelable
+): Parcelable{
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+}

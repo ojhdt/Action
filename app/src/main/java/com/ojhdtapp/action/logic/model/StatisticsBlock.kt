@@ -1,3 +1,5 @@
 package com.ojhdtapp.action.logic.model
 
-data class StatisticsBlock(val drawableID: Int, val title: String = "Title", val num: Int = 0)
+import com.ojhdtapp.action.R
+
+data class StatisticsBlock(val drawableID: Int = R.drawable.ic_outline_emoji_events_24, val title: String = "Title", val num: Int = 0)

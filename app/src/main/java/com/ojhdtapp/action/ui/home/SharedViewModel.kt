@@ -76,6 +76,11 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     // Achievement Fragment
     private val _gainedAchievementLive = MutableLiveData<MutableList<Achievement>>()
     private val _allActionLive = MutableLiveData<MutableList<Action>>()
+    private val _isSortByTimeLive = MutableLiveData<Boolean>()
+
+    init {
+        _isSortByTimeLive.value = true
+    }
 
     private val _gainedAchievementTran: LiveData<List<Achievement>> = Transformations.switchMap(
         _gainedAchievementLive
@@ -85,6 +90,7 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
         _allActionLive
     ) { Repository.getAllActionLive() }
     val allActionLive: LiveData<List<Action>> get() = _allActionTran
+    val isSortByTimeLive: LiveData<Boolean> get() = _isSortByTimeLive
 
     fun gainedAchievementRefresh() {
         _gainedAchievementLive.value = _gainedAchievementLive.value
@@ -92,6 +98,10 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
 
     fun finishedActionRefresh() {
         _allActionLive.value = _allActionLive.value
+    }
+
+    fun switchSortByTimeValue() {
+        _isSortByTimeLive.value = !_isSortByTimeLive.value!!
     }
 
     //Explore Fragment
