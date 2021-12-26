@@ -16,22 +16,9 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/navMotionLayout"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/home_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layoutDescription="@xml/activity_main_xml_nav_motion_layout_scene">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/home_nav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/nav_menu">
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
-    </androidx.constraintlayout.motion.widget.MotionLayout>
-
+        app:menu="@menu/nav_menu" />
 </LinearLayout>

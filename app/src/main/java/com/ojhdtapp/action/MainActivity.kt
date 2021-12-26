@@ -1,5 +1,6 @@
 package com.ojhdtapp.action
 
+import android.animation.ObjectAnimator
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
@@ -10,6 +11,8 @@ import android.view.View
 import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.core.animation.addListener
+import androidx.core.animation.doOnEnd
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -69,6 +72,32 @@ class MainActivity : AppCompatActivity() {
         // Navigation
         NavigationUI.setupWithNavController(binding.homeNav, navController)
         var isFromHomeFragment = false
+        var isNavigationViewShowing = true
+        fun showNavigationView() {
+            ObjectAnimator.ofFloat(
+                binding.homeNav, "translationY",
+                0f
+            ).apply {
+                duration = 300
+                addListener(
+                    doOnEnd { isNavigationViewShowing = true }
+                )
+                start()
+            }
+        }
+
+        fun hideNavigationView() {
+            ObjectAnimator.ofFloat(
+                binding.homeNav, "translationY",
+                DeviceUtil.getNavigationBarHeight(this).toFloat() + DensityUtil.dip2px(this, 80f)
+            ).apply {
+                duration = 300
+                addListener(
+                    doOnEnd { isNavigationViewShowing = false }
+                )
+                start()
+            }
+        }
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             arguments?.getBoolean("isHomeFragment", false)?.let { isHomeFragment ->
                 if (isHomeFragment && isFromHomeFragment) {
@@ -76,14 +105,14 @@ class MainActivity : AppCompatActivity() {
 //                    val currentFragment =
 //                        navHostFragment!!.childFragmentManager.fragments.firstOrNull { it.isVisible }
                     viewModel.setShouldSetTransitionLive(true)
-                }else{
+                } else {
                     viewModel.setShouldSetTransitionLive(false)
                 }
                 isFromHomeFragment = isHomeFragment
-                binding.navMotionLayout.run {
+                binding.homeNav.run {
                     Log.d("aaa", "motivate")
-                    if (isHomeFragment && currentState == R.id.end) transitionToStart()
-                    else if (!isHomeFragment && currentState == R.id.start) transitionToEnd()
+                    if (isHomeFragment && !isNavigationViewShowing) showNavigationView()
+                    else if (!isHomeFragment && isNavigationViewShowing) hideNavigationView()
                 }
             }
         }
