@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionSuggestMoreCellBinding
 import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabCellBinding
@@ -18,8 +19,8 @@ import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabEmptyBinding
 import com.ojhdtapp.action.logic.model.Suggest
 
 class SuggestHistoryAdapter(
-    private val listener: SuggestHistoryListener? = null,
-    private val emptyBtnListener: SuggestHistoryListener? = null
+    private val listener: MyOnClickListener? = null,
+    private val emptyBtnListener: MyOnClickListener? = null
 ) :
     ListAdapter<Suggest, RecyclerView.ViewHolder>(object :
         DiffUtil.ItemCallback<Suggest>() {
@@ -63,7 +64,7 @@ class SuggestHistoryAdapter(
 
     inner class SuggestHistoryViewHolder(
         val binding: FragmentSuggestHistoryTabCellBinding,
-        private val listener: SuggestHistoryListener?
+        private val listener: MyOnClickListener?
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
@@ -92,7 +93,7 @@ class SuggestHistoryAdapter(
                         binding.root.resources.getString(R.string.suggest_content_transition_name)
                     val extras =
                         FragmentNavigatorExtras(binding.cardView to suggestContentTransitionName)
-                    listener?.onSuggestClick()
+                    listener?.onClick()
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_suggestArchiveFragment_to_suggestContentFragment,
@@ -107,16 +108,13 @@ class SuggestHistoryAdapter(
 
     inner class SuggestHistoryEmptyViewHolder(
         val binding: FragmentSuggestHistoryTabEmptyBinding,
-        private val listener: SuggestHistoryListener?
+        private val listener: MyOnClickListener?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.suggestHistoryEmptyBtn.setOnClickListener {
-                listener?.onSuggestClick()
+                listener?.onClick()
             }
         }
     }
 
-    interface SuggestHistoryListener {
-        fun onSuggestClick()
-    }
 }

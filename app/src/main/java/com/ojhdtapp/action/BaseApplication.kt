@@ -37,6 +37,10 @@ class BaseApplication : Application() {
     }
 }
 
+interface MyOnClickListener{
+    fun onClick()
+}
+
 open class Event<out T>(private val content: T) {
 
     var hasBeenHandled = false

@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabBinding
 
@@ -40,8 +41,8 @@ class SuggestHistoryTabFragment : Fragment() {
 
         // Adapter for rv
         val myAdapter =
-            SuggestHistoryAdapter(emptyBtnListener = object :SuggestHistoryAdapter.SuggestHistoryListener{
-                override fun onSuggestClick() {
+            SuggestHistoryAdapter(emptyBtnListener = object :MyOnClickListener{
+                override fun onClick() {
                     val bundle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
                     findNavController().navigate(R.id.action_suggestArchiveFragment_to_actionFragment,bundle)
                 }

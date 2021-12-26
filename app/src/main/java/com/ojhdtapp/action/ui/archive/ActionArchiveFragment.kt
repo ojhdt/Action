@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialSharedAxis
+import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionArchiveBinding
 
@@ -86,8 +87,8 @@ class ActionArchiveFragment : Fragment() {
             false
         }
         // Adapter for rv
-        val myAdapter = ActionArchiveAdapter(object: ActionArchiveAdapter.ActionArchiveListener{
-            override fun onActionClick() {
+        val myAdapter = ActionArchiveAdapter(object: MyOnClickListener{
+            override fun onClick() {
                 exitTransition = Hold()
                 reenterTransition = Hold()
             }

@@ -21,10 +21,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
-import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DateUtil
-import com.ojhdtapp.action.DeviceUtil
-import com.ojhdtapp.action.R
+import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
@@ -65,7 +62,7 @@ object ActionAdapters {
 
 //Action now
 
-    class ActionNowAdapter(private val listener: ActionNowListener) :
+    class ActionNowAdapter(private val listener: MyOnClickListener) :
         ListAdapter<Action, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<Action>() {
             override fun areItemsTheSame(oldItem: Action, newItem: Action): Boolean {
                 return oldItem.id == newItem.id
@@ -109,7 +106,7 @@ object ActionAdapters {
 
     class ActionNowViewHolder(
         val binding: ActionActionNowCellBinding,
-        private val listener: ActionNowListener
+        private val listener: MyOnClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Action) {
@@ -146,7 +143,7 @@ object ActionAdapters {
                     val extras =
                         FragmentNavigatorExtras(binding.cardView to actionContentTransitionName)
                     // Call Listener Fun
-                    listener.onActionCLick()
+                    listener.onClick()
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionFragment_to_actionContentFragment,
@@ -172,13 +169,9 @@ object ActionAdapters {
         }
     }
 
-    interface ActionNowListener {
-        fun onActionCLick()
-    }
-
     class SuggestMoreAdapter(
-        private val listener: SuggestMoreListener,
-        private val emptyBtnListener: SuggestMoreListener? = null
+        private val listener: MyOnClickListener,
+        private val emptyBtnListener: MyOnClickListener? = null
     ) :
         ListAdapter<Suggest, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<Suggest>() {
             override fun areItemsTheSame(oldItem: Suggest, newItem: Suggest): Boolean {
@@ -222,7 +215,7 @@ object ActionAdapters {
 
     class SuggestMoreViewHolder(
         val binding: ActionSuggestMoreCellBinding,
-        private val listener: SuggestMoreListener
+        private val listener: MyOnClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
@@ -253,7 +246,7 @@ object ActionAdapters {
                         binding.root.resources.getString(R.string.suggest_content_transition_name)
                     val extras =
                         FragmentNavigatorExtras(binding.cardView to suggestContentTransitionName)
-                    listener.onSuggestClick()
+                    listener.onClick()
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionFragment_to_suggestContentFragment,
@@ -268,18 +261,14 @@ object ActionAdapters {
 
     class SuggestMoreEmptyViewHolder(
         val binding: ActionSuggestMoreEmptyBinding,
-        val listener: SuggestMoreListener?
+        val listener: MyOnClickListener?
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.getSuggestBtn.setOnClickListener {
-                listener?.onSuggestClick()
+                listener?.onClick()
             }
         }
-    }
-
-    interface SuggestMoreListener {
-        fun onSuggestClick()
     }
 
     class LabelAdapter(
@@ -287,14 +276,14 @@ object ActionAdapters {
         private val subLabel: String = "附标题",
         private val navigationId: Int,
         private val bundle: Bundle?,
-        private val listener: LabelListener,
+        private val listener: MyOnClickListener,
     ) :
         RecyclerView.Adapter<LabelAdapter.LabelViewHolder>() {
         inner class LabelViewHolder(private val binding: ActionLabelBinding) :
             RecyclerView.ViewHolder(binding.root) {
             fun bind(label: String, subLabel: String) {
                 binding.root.setOnClickListener {
-                    listener.onNavigate()
+                    listener.onClick()
 //                    val bdle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
 //                    bundle?.let{
 //                        bdle.putAll(it)

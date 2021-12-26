@@ -249,8 +249,8 @@ class ActionFragment : Fragment() {
         // Adapter for rv
         val headlineAdapter = ActionAdapters.HeadlineAdapter()
         val actionNowAdapter =
-            ActionAdapters.ActionNowAdapter(object : ActionAdapters.ActionNowListener {
-                override fun onActionCLick() {
+            ActionAdapters.ActionNowAdapter(object : MyOnClickListener {
+                override fun onClick() {
                     exitTransition = Hold()
                     reenterTransition = Hold()
 //                    exitTransition = MaterialElevationScale(false).apply {
@@ -264,8 +264,8 @@ class ActionFragment : Fragment() {
                 }
             })
         val suggestMoreAdapter =
-            ActionAdapters.SuggestMoreAdapter(object : ActionAdapters.SuggestMoreListener {
-                override fun onSuggestClick() {
+            ActionAdapters.SuggestMoreAdapter(object : MyOnClickListener {
+                override fun onClick() {
                     exitTransition = Hold()
                     reenterTransition = Hold()
 //                    exitTransition = MaterialElevationScale(false).apply {
@@ -278,8 +278,8 @@ class ActionFragment : Fragment() {
 //                    }
                 }
 
-            }, object : ActionAdapters.SuggestMoreListener {
-                override fun onSuggestClick() {
+            }, object : MyOnClickListener {
+                override fun onClick() {
                     bottomSheetDialog.show()
                 }
 
@@ -291,8 +291,8 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_now_label_description),
                 R.id.action_actionFragment_to_actionArchiveFragment,
                 null,
-                object : ActionAdapters.LabelListener {
-                    override fun onNavigate() {
+                object : MyOnClickListener {
+                    override fun onClick() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
                             duration =
                                 resources.getInteger(R.integer.material_motion_duration_long_1)
@@ -312,8 +312,8 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_suggest_more_description),
                 R.id.action_actionFragment_to_suggestArchiveFragment,
                 null,
-                object : ActionAdapters.LabelListener {
-                    override fun onNavigate() {
+                object : MyOnClickListener {
+                    override fun onClick() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
                             duration =
                                 resources.getInteger(R.integer.material_motion_duration_long_1)

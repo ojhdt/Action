@@ -12,10 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DateUtil
-import com.ojhdtapp.action.DensityUtil
-import com.ojhdtapp.action.R
+import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentActionArchiveCellBinding
 import com.ojhdtapp.action.databinding.FragmentActionArchiveEmptyBinding
 import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabCellBinding
@@ -25,8 +22,8 @@ import com.ojhdtapp.action.logic.model.Suggest
 import java.lang.StringBuilder
 
 class ActionArchiveAdapter(
-    private val listener: ActionArchiveListener? = null,
-    private val emptyBtnListener: ActionArchiveListener? = null
+    private val listener: MyOnClickListener? = null,
+    private val emptyBtnListener: MyOnClickListener? = null
 ) : ListAdapter<Action, RecyclerView.ViewHolder>(object :
     DiffUtil.ItemCallback<Action>() {
     override fun areItemsTheSame(oldItem: Action, newItem: Action): Boolean {
@@ -68,7 +65,7 @@ class ActionArchiveAdapter(
 
     inner class ActionArchiveViewHolder(
         val binding: FragmentActionArchiveCellBinding,
-        private val listener: ActionArchiveListener?
+        private val listener: MyOnClickListener?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Action) {
             binding.run {
@@ -108,7 +105,7 @@ class ActionArchiveAdapter(
                         binding.root.resources.getString(R.string.action_history_transition_name)
                     val extras =
                         FragmentNavigatorExtras(binding.cardView to actionHistoryTransitionName)
-                    listener?.onActionClick()
+                    listener?.onClick()
                     binding.root.findNavController()
                         .navigate(
                             R.id.action_actionArchiveFragment_to_actionArchiveHistoryFragment,
@@ -123,17 +120,13 @@ class ActionArchiveAdapter(
 
     inner class ActionArchiveEmptyViewHolder(
         var binding: FragmentActionArchiveEmptyBinding,
-        private val listener: ActionArchiveListener?
+        private val listener: MyOnClickListener?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.actionArchiveEmptyBtn.setOnClickListener {
-                listener?.onActionClick()
+                listener?.onClick()
             }
         }
-    }
-
-    interface ActionArchiveListener {
-        fun onActionClick()
     }
 
     inner class ActionArchiveSpaceItemDecoration : RecyclerView.ItemDecoration() {
