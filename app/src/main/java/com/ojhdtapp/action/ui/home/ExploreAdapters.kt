@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.DensityUtil
+import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.LifeMessageBlock
@@ -88,7 +89,7 @@ object ExploreAdapters {
                 2 -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
                 3 -> (holder as SettingAccentViewHolder).bind(item as SettingAccentData)
                 4 -> (holder as SettingAccentViewHolder).bind(item as SettingAccentData)
-                else -> (holder as SettingViewHolder).bind(item as Pair<Int, String>)
+                else -> (holder as SettingViewHolder).bind(item as SettingData)
             }
         }
 
@@ -312,20 +313,28 @@ object ExploreAdapters {
                 .into(binding.settingAccentIcon)
             binding.settingAccentTitle.text = data.title
             binding.settingAccentDescription.text = data.description
+            binding.root.setOnClickListener {
+                data.listener.onClick()
+            }
         }
     }
 
-    data class SettingAccentData(val iconID:Int, val title:String, val description:String)
+    data class SettingAccentData(val iconID:Int, val title:String, val description:String, val listener:MyOnClickListener)
 
     class SettingViewHolder(private val binding: ExploreSettingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Pair<Int, String>) {
+        fun bind(data: SettingData) {
             Glide.with(binding.root)
-                .load(ContextCompat.getDrawable(binding.root.context, data.first))
+                .load(ContextCompat.getDrawable(binding.root.context, data.iconID))
                 .into(binding.settingIcon)
-            binding.settingText.text = data.second
+            binding.settingText.text = data.title
+            binding.root.setOnClickListener {
+                data.listener.onClick()
+            }
         }
     }
+
+    data class SettingData(val iconID:Int, val title:String, val listener:MyOnClickListener)
 
     class WeatherMessageBlockSpaceItemDecoration : RecyclerView.ItemDecoration() {
         private val space = DensityUtil.dip2px(BaseApplication.context, 12f)

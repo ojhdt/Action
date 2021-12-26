@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 isFromHomeFragment = isHomeFragment
                 binding.navMotionLayout.run {
+                    Log.d("aaa", "motivate")
                     if (isHomeFragment && currentState == R.id.end) transitionToStart()
                     else if (!isHomeFragment && currentState == R.id.start) transitionToEnd()
                 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -41,6 +42,7 @@ class ExploreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         // Inflate the layout for this fragment
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         // Set default Transition
@@ -52,6 +54,9 @@ class ExploreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Postpone Transition
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         // Setup Appbar
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -83,7 +88,6 @@ class ExploreFragment : Fragment() {
         // Set AnimType if Necessary
         when (animType) {
             AnimType.FADE -> {
-                Log.d("aaa", "aaaa")
                 exitTransition = Fade().apply {
                     duration =
                         resources.getInteger(R.integer.material_motion_duration_long_1).toLong()
@@ -146,28 +150,68 @@ class ExploreFragment : Fragment() {
                         ExploreAdapters.SettingAccentData(
                             R.drawable.ic_outline_directions_run_24,
                             getString(R.string.explore_action),
-                            getString(R.string.explore_action_description)
-                        ),ExploreAdapters.SettingAccentData(
+                            getString(R.string.explore_action_description),
+                            object : MyOnClickListener {
+                                override fun onClick() {
+                                    exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                                        duration =
+                                            resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                .toLong()
+                                    }
+                                    reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                                        duration =
+                                            resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                .toLong()
+                                    }
+                                    findNavController().navigate(R.id.action_exploreFragment_to_actionArchiveFragment)
+                                }
+                            }
+                        ),
+                        ExploreAdapters.SettingAccentData(
                             R.drawable.ic_outline_article_24,
                             getString(R.string.explore_suggest),
-                            getString(R.string.explore_suggest_description)
+                            getString(R.string.explore_suggest_description),
+                            object : MyOnClickListener {
+                                override fun onClick() {
+                                    exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                                        duration =
+                                            resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                .toLong()
+                                    }
+                                    reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                                        duration =
+                                            resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                .toLong()
+                                    }
+                                    findNavController().navigate(R.id.action_exploreFragment_to_suggestArchiveFragment)
+                                }
+                            }
                         ),
-                        Pair(
-                            R.drawable.ic_outline_settings_24,
-                            BaseApplication.context.getString(R.string.setting)
-                        ),
-                        Pair(
-                            R.drawable.ic_outline_help_outline_24,
-                            BaseApplication.context.getString(R.string.help_and_support)
-                        ),
-                        Pair(
-                            R.drawable.ic_outline_thumb_up_24,
-                            BaseApplication.context.getString(R.string.vote)
-                        ),
-                        Pair(
-                            R.drawable.ic_outline_info_24,
-                            BaseApplication.context.getString(R.string.about)
-                        ),
+                        ExploreAdapters.SettingData(R.drawable.ic_outline_settings_24,
+                            BaseApplication.context.getString(R.string.setting),
+                            object : MyOnClickListener {
+                                override fun onClick() {
+                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                                }
+                            }),ExploreAdapters.SettingData(R.drawable.ic_outline_help_outline_24,
+                            BaseApplication.context.getString(R.string.help_and_support),
+                            object : MyOnClickListener {
+                                override fun onClick() {
+                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                                }
+                            }),ExploreAdapters.SettingData(R.drawable.ic_outline_thumb_up_24,
+                            BaseApplication.context.getString(R.string.vote),
+                            object : MyOnClickListener {
+                                override fun onClick() {
+                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                                }
+                            }),ExploreAdapters.SettingData(R.drawable.ic_outline_info_24,
+                            BaseApplication.context.getString(R.string.about),
+                            object : MyOnClickListener {
+                                override fun onClick() {
+                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                                }
+                            }),
                     )
                     weatherAdapter.submitList(list)
                     if (this.isTemp) {
