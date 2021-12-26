@@ -157,21 +157,17 @@ class ExploreFragment : Fragment() {
                             BaseApplication.context.getString(R.string.setting)
                         ),
                         Pair(
-                            R.drawable.ic_outline_settings_24,
-                            BaseApplication.context.getString(R.string.setting)
+                            R.drawable.ic_outline_help_outline_24,
+                            BaseApplication.context.getString(R.string.help_and_support)
                         ),
                         Pair(
-                            R.drawable.ic_outline_settings_24,
-                            BaseApplication.context.getString(R.string.setting)
+                            R.drawable.ic_outline_thumb_up_24,
+                            BaseApplication.context.getString(R.string.vote)
                         ),
                         Pair(
-                            R.drawable.ic_outline_settings_24,
-                            BaseApplication.context.getString(R.string.setting)
+                            R.drawable.ic_outline_info_24,
+                            BaseApplication.context.getString(R.string.about)
                         ),
-                        Pair(
-                            R.drawable.ic_outline_settings_24,
-                            BaseApplication.context.getString(R.string.setting)
-                        )
                     )
                     weatherAdapter.submitList(list)
                     if (this.isTemp) {

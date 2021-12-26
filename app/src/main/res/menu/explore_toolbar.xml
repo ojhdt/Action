@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_outline_refresh_24"
         android:title="@string/refresh"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/version"
+        android:icon="@drawable/ic_outline_info_24"
+        android:title="@string/version"
+        app:showAsAction="never" />
 </menu>
