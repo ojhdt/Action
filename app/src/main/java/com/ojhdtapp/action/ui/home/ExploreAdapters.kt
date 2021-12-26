@@ -142,14 +142,18 @@ object ExploreAdapters {
                     R.string.weather_temperature_value,
                     weatherBlock.temperatureNow.value.toString()
                 )
-                ValueAnimator.ofInt(0, weatherBlock.temperatureNow.value).apply {
+//                ValueAnimator.ofInt(0, weatherBlock.temperatureNow.value).apply {
+//                    duration = 1000
+//                    addUpdateListener {
+//                        weatherTemperatureNow.text = getStringResource(
+//                            R.string.weather_temperature_value,
+//                            (it.animatedValue as Int).toString()
+//                        )
+//                    }
+//                    start()
+//                }
+                ObjectAnimator.ofInt(binding.weatherTemperatureNow,"intValue",0,weatherBlock.temperatureNow.value).apply {
                     duration = 1000
-                    addUpdateListener {
-                        weatherTemperatureNow.text = getStringResource(
-                            R.string.weather_temperature_value,
-                            (it.animatedValue as Int).toString()
-                        )
-                    }
                     start()
                 }
 //                weatherTemperatureHighest.text = weatherBlock.temperatureNow.highest.toString()

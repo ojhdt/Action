@@ -16,22 +16,26 @@ class ProgressTextView @JvmOverloads constructor(
             0, 0
         ).apply {
             try {
-                progress = getInteger(R.styleable.ProgressTextView_progress, 0)
+                intValue = getInteger(R.styleable.ProgressTextView_intValue, 0)
+                getString(R.styleable.ProgressTextView_suffix)?.let{
+                    suffix = it
+                }
             } finally {
                 recycle()
             }
         }
     }
 
-    private var progress: Int = 0
-    public fun setProgress(value: Int) {
-        progress = value
-        text = progress.toString()
+    private var intValue: Int = 0
+    private var suffix:String? = null
+    public fun setIntValue(value: Int) {
+        intValue = value
+        text = if(suffix.isNullOrEmpty()) intValue.toString() else intValue.toString().plus(suffix)
         invalidate()
     }
 
-    public fun getProgress(): Int {
-        return progress
+    public fun getIntValue(): Int {
+        return intValue
     }
 
 }

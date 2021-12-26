@@ -5,6 +5,7 @@
         <attr name="color" format="color"/>
     </declare-styleable>
     <declare-styleable name="ProgressTextView">
-        <attr name="progress" format="integer"/>
+        <attr name="intValue" format="integer"/>
+        <attr name="suffix" format="string"/>
     </declare-styleable>
 </resources>
