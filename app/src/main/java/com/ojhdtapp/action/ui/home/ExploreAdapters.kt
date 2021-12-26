@@ -1,7 +1,6 @@
 package com.ojhdtapp.action.ui.home
 
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.graphics.Rect
 import android.util.Log
 import android.view.LayoutInflater
@@ -142,16 +141,6 @@ object ExploreAdapters {
                     R.string.weather_temperature_value,
                     weatherBlock.temperatureNow.value.toString()
                 )
-//                ValueAnimator.ofInt(0, weatherBlock.temperatureNow.value).apply {
-//                    duration = 1000
-//                    addUpdateListener {
-//                        weatherTemperatureNow.text = getStringResource(
-//                            R.string.weather_temperature_value,
-//                            (it.animatedValue as Int).toString()
-//                        )
-//                    }
-//                    start()
-//                }
                 ObjectAnimator.ofInt(binding.weatherTemperatureNow,"intValue",0,weatherBlock.temperatureNow.value).apply {
                     duration = 1000
                     start()
@@ -227,11 +216,8 @@ object ExploreAdapters {
 //                airTitle.text = data.title
 //                airNum.text = data.num.toString()
 //                airProgressView.setProgress(data.progress)
-                ValueAnimator.ofInt(0, data.num).apply {
+                ObjectAnimator.ofInt(binding.airNum,"intValue",0,data.num).apply {
                     duration = 1000
-                    addUpdateListener {
-                        airNum.text = (it.animatedValue as Int).toString()
-                    }
                     start()
                 }
                 ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
@@ -253,11 +239,8 @@ object ExploreAdapters {
 //                airTitle.text = data.title
 //                airNum.text = data.num.toString()
 //                airProgressView.setProgress(data.progress)
-                ValueAnimator.ofInt(0, data.num).apply {
+                ObjectAnimator.ofInt(binding.airNum,"intValue",0,data.num).apply {
                     duration = 1000
-                    addUpdateListener {
-                        airNum.text = (it.animatedValue as Int).toString()
-                    }
                     start()
                 }
                 ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
@@ -273,11 +256,8 @@ object ExploreAdapters {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: LifeMessageBlock) {
             binding.run {
-                ValueAnimator.ofInt(0, data.ultravioletValue).apply {
+                ObjectAnimator.ofInt(binding.ultravioletNum,"intValue",0, data.ultravioletValue).apply {
                     duration = 1000
-                    addUpdateListener {
-                        ultravioletNum.text = (it.animatedValue as Int).toString()
-                    }
                     start()
                 }
                 ObjectAnimator.ofInt(
@@ -289,11 +269,8 @@ object ExploreAdapters {
                     duration = 1000
                     start()
                 }
-                ValueAnimator.ofInt(0, data.ComfortValue).apply {
+                ObjectAnimator.ofInt(binding.comfortNum,"intValue",0,data.ComfortValue).apply {
                     duration = 1000
-                    addUpdateListener {
-                        comfortNum.text = (it.animatedValue as Int).toString()
-                    }
                     start()
                 }
                 ObjectAnimator.ofInt(comfortProcessView, "progress", 0, data.ComfortProgress)

@@ -78,13 +78,12 @@
                 app:layout_constraintBottom_toTopOf="@+id/ultravioletNum"
                 app:layout_constraintStart_toStartOf="@+id/ultravioletNum" />
 
-            <TextView
+            <com.ojhdtapp.action.ui.ProgressTextView
                 android:id="@+id/ultravioletNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="12dp"
-                android:text="@string/sample_number"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -100,13 +99,12 @@
                 app:layout_constraintBottom_toTopOf="@+id/comfortNum"
                 app:layout_constraintStart_toStartOf="@+id/comfortNum" />
 
-            <TextView
+            <com.ojhdtapp.action.ui.ProgressTextView
                 android:id="@+id/comfortNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="12dp"
-                android:text="@string/sample_number"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:textColor="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"

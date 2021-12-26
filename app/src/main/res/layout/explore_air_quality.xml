@@ -56,11 +56,10 @@
                 app:layout_constraintStart_toStartOf="@+id/airIcon"
                 app:layout_constraintTop_toBottomOf="@+id/airIcon" />
 
-            <TextView
+            <com.ojhdtapp.action.ui.ProgressTextView
                 android:id="@+id/airNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sample_number"
                 android:textAppearance="?attr/textAppearanceDisplayMedium"
                 android:textColor="?attr/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
