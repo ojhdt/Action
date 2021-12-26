@@ -295,11 +295,11 @@ object ActionAdapters {
             fun bind(label: String, subLabel: String) {
                 binding.root.setOnClickListener {
                     listener.onNavigate()
-                    val bdle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
-                    bundle?.let{
-                        bdle.putAll(it)
-                    }
-                    binding.root.findNavController().navigate(navigationId, bdle)
+//                    val bdle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
+//                    bundle?.let{
+//                        bdle.putAll(it)
+//                    }
+                    binding.root.findNavController().navigate(navigationId, bundle)
                 }
                 binding.labelText.text = label
                 binding.subLabelText.text = subLabel

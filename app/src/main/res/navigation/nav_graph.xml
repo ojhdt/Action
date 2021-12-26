@@ -50,6 +50,12 @@
             android:name="isHomeFragment"
             app:argType="boolean"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_exploreFragment_to_actionArchiveFragment"
+            app:destination="@id/actionArchiveFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_suggestArchiveFragment"
+            app:destination="@id/suggestArchiveFragment" />
     </fragment>
     <fragment
         android:id="@+id/actionContentFragment"

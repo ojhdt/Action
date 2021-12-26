@@ -1,30 +1,18 @@
 package com.ojhdtapp.action.ui.home
 
-import android.app.Application
 import android.os.Bundle
-import android.transition.TransitionInflater
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.*
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Fade
-import androidx.transition.Slide
-import cn.leancloud.LCObject
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
@@ -34,21 +22,13 @@ import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.ActionBottomSheetDialogBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.AppDataBase
-import com.ojhdtapp.action.logic.LeanCloudDataBase
-import com.ojhdtapp.action.logic.Repository
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.ActionHistory
-import com.ojhdtapp.action.logic.model.Suggest
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.sql.Date
-import java.sql.Timestamp
-import java.util.concurrent.TimeUnit
-import kotlin.math.round
 import kotlin.properties.Delegates
 
 
@@ -60,13 +40,13 @@ class ActionFragment : Fragment() {
     private val binding get() = _binding!!
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
 
-    private var isShowingBottomSHeetDialog: Boolean = false
+    private var isShowingBottomSheetDialog: Boolean = false
     private var animType: Int = AnimType.NULL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            isShowingBottomSHeetDialog = it.getBoolean("IS_SHOWING_BOTTOMSHEETDIALOG")
+            isShowingBottomSheetDialog = it.getBoolean("IS_SHOWING_BOTTOMSHEETDIALOG")
 //            animType = it.getInt("ANIM_TYPE", 4)
         }
     }
@@ -260,9 +240,9 @@ class ActionFragment : Fragment() {
         }
 
         // Show BottomSheetDialog or Not By IS_SHOWING_BOTTOMSHEETDIALOG
-        if (isShowingBottomSHeetDialog) {
+        if (isShowingBottomSheetDialog) {
             bottomSheetDialog.show()
-            isShowingBottomSHeetDialog = false
+            isShowingBottomSheetDialog = false
             arguments?.putBoolean("IS_SHOWING_BOTTOMSHEETDIALOG", false)
         }
 
@@ -310,7 +290,7 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_now_label),
                 resources.getString(R.string.action_now_label_description),
                 R.id.action_actionFragment_to_actionArchiveFragment,
-                bundleOf("ANIM_TYPE" to AnimType.SHARED_AXIS_Z),
+                null,
                 object : ActionAdapters.LabelListener {
                     override fun onNavigate() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
@@ -331,7 +311,7 @@ class ActionFragment : Fragment() {
                 resources.getString(R.string.action_suggest_more),
                 resources.getString(R.string.action_suggest_more_description),
                 R.id.action_actionFragment_to_suggestArchiveFragment,
-                bundleOf("ANIM_TYPE" to AnimType.SHARED_AXIS_Z),
+                null,
                 object : ActionAdapters.LabelListener {
                     override fun onNavigate() {
                         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {

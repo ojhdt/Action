@@ -38,18 +38,22 @@ class SuggestArchiveTabFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Adapter for rv
-        val myAdapter = SuggestArchiveAdapter(emptyBtnListener = object :SuggestArchiveAdapter.SuggestArchiveListener{
+        val myAdapter = SuggestArchiveAdapter(emptyBtnListener = object :
+            SuggestArchiveAdapter.SuggestArchiveListener {
             override fun onSuggestClick() {
                 val bundle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
-                findNavController().navigate(R.id.action_suggestArchiveFragment_to_actionFragment,bundle)
+                findNavController().navigate(
+                    R.id.action_suggestArchiveFragment_to_actionFragment,
+                    bundle
+                )
             }
         })
-        binding.recyclerView.run{
+        binding.recyclerView.run {
             layoutManager = LinearLayoutManager(context)
             adapter = myAdapter
         }
 
-        viewModel.suggestArchivedLive.observe(this){
+        viewModel.suggestArchivedLive.observe(this) {
             val emptyList = listOf(null)
             if (it.isEmpty()) {
                 myAdapter.submitList(emptyList)
