@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 import com.ojhdtapp.action.R
 import kotlinx.android.parcel.Parcelize
 import java.sql.Timestamp
+import java.util.*
 
 @Entity
 @Parcelize
@@ -17,7 +18,7 @@ data class Achievement(
     val drawableID:Int = R.drawable.ic_outline_emoji_events_24,
     val xp: Int = 0,
     val gained: Boolean = false,
-    val timestamp: Timestamp = Timestamp(0)
+    val time: Date = Date()
 ): Parcelable{
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0

@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:clickable="true">
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="12dp">
 
     <TextView
         android:id="@+id/gainedAchievement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
         android:text="@string/achievement_gained"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/sortBy"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/sortBy"
@@ -24,14 +26,14 @@
         android:layout_height="wrap_content"
         android:text="@string/achievement_sort_by_time"
         android:textAppearance="?attr/textAppearanceLabelMedium"
-        app:layout_constraintStart_toStartOf="@+id/gainedAchievement"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gainedAchievement" />
 
     <ImageView
         android:id="@+id/sortByIcon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

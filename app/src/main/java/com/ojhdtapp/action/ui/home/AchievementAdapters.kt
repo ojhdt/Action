@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.*
@@ -39,6 +40,7 @@ object AchievementAdapters {
         private var totalNum: Int = 0
         private var totalTitleC: String =
             BaseApplication.context.getString(R.string.achievement_total_c)
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             when (viewType) {
                 0 -> {
@@ -78,6 +80,7 @@ object AchievementAdapters {
                 else -> 1
             }
         }
+
         fun setTotalNum(num: Int) {
             totalNum = num
             notifyItemChanged(0)
@@ -152,9 +155,9 @@ object AchievementAdapters {
 //    }
 
     class XPAdapter : RecyclerView.Adapter<XPViewHolder>() {
-        private var levelNow:Int = 0
-        private var neededXP:Int = 0
-        private var progress:Int = 60
+        private var levelNow: Int = 0
+        private var neededXP: Int = 0
+        private var progress: Int = 60
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): XPViewHolder {
             val binding =
                 AchievementXpBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -173,7 +176,8 @@ object AchievementAdapters {
         override fun getItemCount(): Int {
             return 1
         }
-        fun submitValue(levelNow:Int, neededXP:Int, progress:Int){
+
+        fun submitValue(levelNow: Int, neededXP: Int, progress: Int) {
             this.levelNow = levelNow
             this.neededXP = neededXP
             this.progress = progress
@@ -181,16 +185,18 @@ object AchievementAdapters {
         }
     }
 
-    class AchievementListAdapter(private val listener:SwitchSortByListener):ListAdapter<Achievement,RecyclerView.ViewHolder>(object:DiffUtil.ItemCallback<Achievement>(){
-        override fun areItemsTheSame(oldItem: Achievement, newItem: Achievement): Boolean {
-            return oldItem.id == newItem.id
-        }
+    class AchievementListAdapter(private val listener: SwitchSortByListener) :
+        ListAdapter<Achievement, RecyclerView.ViewHolder>(object :
+            DiffUtil.ItemCallback<Achievement>() {
+            override fun areItemsTheSame(oldItem: Achievement, newItem: Achievement): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Achievement, newItem: Achievement): Boolean {
-            return oldItem.title == newItem.title
-        }
+            override fun areContentsTheSame(oldItem: Achievement, newItem: Achievement): Boolean {
+                return oldItem.title == newItem.title
+            }
 
-    }) {
+        }) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             when (viewType) {
                 0 -> {
@@ -225,7 +231,7 @@ object AchievementAdapters {
         }
     }
 
-    interface SwitchSortByListener{
+    interface SwitchSortByListener {
         fun onClick()
     }
 
@@ -331,8 +337,11 @@ object AchievementAdapters {
             parent: RecyclerView,
             state: RecyclerView.State
         ) {
-            outRect.top = space
             val position = parent.getChildAdapterPosition(view)
+            if (position < listLength + 1){
+                // Top
+                outRect.top = space
+            }
             if (position != 0 && position < listLength + 1) {
                 // Right
                 if (position % 2 == 0) {
@@ -408,7 +417,7 @@ object AchievementAdapters {
                     data.type,
                     data.xp.toString()
                 )
-                achievementTime.text = data.timestamp.toString()
+                achievementTime.text = DateUtil.formatDateWithoutHM(data.time)
             }
         }
     }

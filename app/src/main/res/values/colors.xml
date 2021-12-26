@@ -8,6 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="red_light">#EF9A9A</color>
+    <color name="red_dark">#B71C1C</color>
+
+
     //m3
     <color name="md_theme_light_primary">#3A6A1D</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>

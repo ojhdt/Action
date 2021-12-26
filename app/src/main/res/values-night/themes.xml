@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <color name="red">@color/red_dark</color>
 
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>

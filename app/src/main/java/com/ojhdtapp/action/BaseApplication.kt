@@ -83,6 +83,11 @@ object DateUtil {
         return format.format(date)
     }
 
+    fun formatDateWithoutHM(date: Date): String {
+        val format = SimpleDateFormat(BaseApplication.context.getString(R.string.date_format_without_h_m))
+        return format.format(date)
+    }
+
     fun formatDateForDetail(date: Date): List<String> {
         val yearFormat = SimpleDateFormat(BaseApplication.context.getString(R.string.year_format))
         val monthFormat = SimpleDateFormat(BaseApplication.context.getString(R.string.month_format))

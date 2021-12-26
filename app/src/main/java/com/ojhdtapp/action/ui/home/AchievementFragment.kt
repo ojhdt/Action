@@ -142,7 +142,6 @@ class AchievementFragment : Fragment() {
             }
         }
         viewModel.allActionLive.observeOnce(this) {
-            Log.d("aaa", "Once")
             var finishedTotalNum = 0
             it.forEach {
                 it.history.forEach {
@@ -182,7 +181,7 @@ class AchievementFragment : Fragment() {
                     ) else Achievement()
                 )
             list.apply {
-                addAll(if (isSortByTime) data.sortedBy { it.timestamp } else data.sortedBy { it.title })
+                addAll(if (isSortByTime) data.sortedBy { it.time.time } else data.sortedBy { it.title })
             }
             achievementListAdapter.submitList(list)
         }
