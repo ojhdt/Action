@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="32dp"
+        android:layout_marginVertical="128dp"
         android:clickable="true"
         android:text="@string/get_suggestions"
         app:icon="@drawable/ic_outline_add_24" />
@@ -71,6 +71,7 @@
             android:id="@+id/actionRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="none"
             android:transitionGroup="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
