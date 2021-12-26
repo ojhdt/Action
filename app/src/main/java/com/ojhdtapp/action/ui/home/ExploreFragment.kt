@@ -47,7 +47,6 @@ class ExploreFragment : Fragment() {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         // Set default Transition
         viewModel.shouldSetTransitionLive.observeOnce(this) {
-            Log.d("aaa", "C"+it.toString())
             animType = if (it) AnimType.FADE else AnimType.NULL
         }
         return binding.root

@@ -51,7 +51,6 @@ class AchievementFragment : Fragment() {
         _binding = FragmentAchievementBinding.inflate(inflater, container, false)
         // Set default Transition
         viewModel.shouldSetTransitionLive.observeOnce(this) {
-            Log.d("aaa", "B" + it.toString())
 
             animType = if (it) AnimType.FADE else AnimType.NULL
         }
@@ -138,8 +137,12 @@ class AchievementFragment : Fragment() {
             val concatAdapter = ConcatAdapter(statisticsAdapter, xpAdapter, achievementListAdapter)
             adapter = concatAdapter
             layoutManager = mylayoutManager
+            while (itemDecorationCount != 0) {
+                removeItemDecorationAt(0)
+            }
         }
-        viewModel.allActionLive.observe(this) {
+        viewModel.allActionLive.observeOnce(this) {
+            Log.d("aaa", "Once")
             var finishedTotalNum = 0
             it.forEach {
                 it.history.forEach {
@@ -166,14 +169,18 @@ class AchievementFragment : Fragment() {
             val itemDecoration = AchievementAdapters.StatisticsBlockSpaceItemDecoration(
                 sortedStatisticsBlockList.size
             )
-            Log.d("aaa", "Run 1 time")
             binding.recyclerView.addItemDecoration(itemDecoration)
 
         }
 
         fun updateAchievement(data: List<Achievement>, isSortByTime: Boolean) {
             val list =
-                mutableListOf<Achievement>(if (isSortByTime) Achievement(drawableID = 0, title = System.currentTimeMillis().toString()) else Achievement())
+                mutableListOf<Achievement>(
+                    if (isSortByTime) Achievement(
+                        drawableID = 0,
+                        title = System.currentTimeMillis().toString()
+                    ) else Achievement()
+                )
             list.apply {
                 addAll(if (isSortByTime) data.sortedBy { it.timestamp } else data.sortedBy { it.title })
             }

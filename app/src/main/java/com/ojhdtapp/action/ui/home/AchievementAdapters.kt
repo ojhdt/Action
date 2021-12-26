@@ -377,7 +377,6 @@ object AchievementAdapters {
     class ContainerViewHolder(val binding: AchievementListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(isSortByTime: Boolean) {
-            Log.d("aaa", "aa"+isSortByTime.toString())
             binding.run {
                 sortBy.text =
                     if (isSortByTime) binding.root.resources.getText(R.string.achievement_sort_by_time) else binding.root.resources.getText(

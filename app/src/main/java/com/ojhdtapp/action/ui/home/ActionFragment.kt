@@ -87,7 +87,6 @@ class ActionFragment : Fragment() {
         }
         // Set default Transition
         viewModel.shouldSetTransitionLive.observeOnce(this) {
-            Log.d("aaa", "A" + it.toString())
             animType = if (it) AnimType.FADE else AnimType.NULL
         }
         return binding.root
