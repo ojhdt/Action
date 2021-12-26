@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -145,6 +143,15 @@ class ExploreFragment : Fragment() {
                 it.getOrNull()?.apply {
                     val list = listOf(
                         this.weather, this.air, this.life,
+                        ExploreAdapters.SettingAccentData(
+                            R.drawable.ic_outline_directions_run_24,
+                            getString(R.string.explore_action),
+                            getString(R.string.explore_action_description)
+                        ),ExploreAdapters.SettingAccentData(
+                            R.drawable.ic_outline_article_24,
+                            getString(R.string.explore_suggest),
+                            getString(R.string.explore_suggest_description)
+                        ),
                         Pair(
                             R.drawable.ic_outline_settings_24,
                             BaseApplication.context.getString(R.string.setting)

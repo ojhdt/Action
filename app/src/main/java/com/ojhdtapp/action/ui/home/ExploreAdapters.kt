@@ -54,6 +54,14 @@ object ExploreAdapters {
                     val binding = ExploreLifeBinding.inflate(layoutInflater, parent, false)
                     return LifeViewHolder(binding)
                 }
+                3 -> {
+                    val binding = ExploreSettingAccentBinding.inflate(layoutInflater, parent, false)
+                    return SettingAccentViewHolder(binding)
+                }
+                4 -> {
+                    val binding = ExploreSettingAccentBinding.inflate(layoutInflater, parent, false)
+                    return SettingAccentViewHolder(binding)
+                }
                 else -> {
                     val binding = ExploreSettingBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -78,6 +86,8 @@ object ExploreAdapters {
                     }
                 }
                 2 -> (holder as LifeViewHolder).bind(item as LifeMessageBlock)
+                3 -> (holder as SettingAccentViewHolder).bind(item as SettingAccentData)
+                4 -> (holder as SettingAccentViewHolder).bind(item as SettingAccentData)
                 else -> (holder as SettingViewHolder).bind(item as Pair<Int, String>)
             }
         }
@@ -293,6 +303,19 @@ object ExploreAdapters {
             }
         }
     }
+
+    class SettingAccentViewHolder(private val binding: ExploreSettingAccentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: SettingAccentData) {
+            Glide.with(binding.root)
+                .load(ContextCompat.getDrawable(binding.root.context, data.iconID))
+                .into(binding.settingAccentIcon)
+            binding.settingAccentTitle.text = data.title
+            binding.settingAccentDescription.text = data.description
+        }
+    }
+
+    data class SettingAccentData(val iconID:Int, val title:String, val description:String)
 
     class SettingViewHolder(private val binding: ExploreSettingBinding) :
         RecyclerView.ViewHolder(binding.root) {

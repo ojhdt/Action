@@ -101,7 +101,14 @@
     <string name="network_success">刷新成功</string>
     <string name="network_error">网络错误，请重试</string>
 
+    <string name="explore_action">所有行动</string>
+    <string name="explore_action_description">查看曾触发的所有%1$s条行动</string>
+    <string name="explore_suggest">历史建议及归档</string>
+    <string name="explore_suggest_description">查看所有%1$s条已阅读建议</string>
+
     <string name="setting">设置</string>
+    <string name="help_and_support">帮助与支持</string>
+    <string name="about">关于此应用</string>
 
     <string name="action_transition_name">action_card_%1$s</string>
     <string name="action_content_transition_name">action_card_detail</string>
