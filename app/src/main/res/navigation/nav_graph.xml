@@ -106,5 +106,10 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.ojhdtapp.action.ui.settings.SettingsFragment"
-        android:label="@string/setting" />
+        android:label="@string/setting" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>

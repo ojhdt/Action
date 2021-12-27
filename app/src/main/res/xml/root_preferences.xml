@@ -1,34 +1,98 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/behavior_header">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:key="permission"
+            app:summary="@string/permission_summary"
+            app:title="@string/permission_title" />
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:key="account"
+            app:summary="@string/account_summary"
+            app:title="@string/account_title" />
+
+        <Preference
+            app:key="action_expired_time"
+            app:title="@string/action_expired_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="suggest_auto_mark"
+            app:summary="@string/suggest_auto_mark_summary"
+            app:title="@string/suggest_auto_mark_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="suggest_auto_get"
+            app:summaryOff="@string/suggest_auto_get_summary_off"
+            app:summaryOn="@string/suggest_auto_get_summary_on"
+            app:title="@string/suggest_auto_get_title" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="@string/language_header">
+
+        <Preference
+            app:key="language"
+            app:title="@string/language_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/appearance_header">
+
+        <Preference
+            app:key="dark_node"
+            app:title="@string/dark_mode_title" />
 
         <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+            app:key="dynamic_color"
+            app:title="@string/dynamic_color_title"
+            app:summary="@string/dynamic_color_summary" />
+
+        <Preference
+            app:dependency="dynamic_color"
+            app:key="color"
+            app:title="@string/color_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/weather_header">
 
         <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+            app:key="locate"
+            app:summary="@string/locate_summary"
+            app:title="@string/locate_title" />
+
+        <Preference
+            app:dependency="locate"
+            app:key="set_locate"
+            app:summary="@string/set_location_summary"
+            app:title="@string/set_location_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/notification_header">
+
+        <MultiSelectListPreference
+            app:entries="@array/notification_type_entries"
+            app:entryValues="@array/notification_type_entries"
+            app:key="notification_type"
+            app:title="@string/notification_type_title" />
+
+        <Preference
+            app:key="notification_action"
+            app:title="@string/notification_action_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/other_header">
+
+        <Preference
+            app:key="notification_action"
+            app:summary="@string/guide_summary"
+            app:title="@string/guide_title" />
 
     </PreferenceCategory>
 

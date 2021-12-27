@@ -111,6 +111,7 @@
     <string name="vote">为此应用评分</string>
     <string name="about">关于此应用</string>
     <string name="version">版本信息</string>
+    <string name="reset_all_settings">重设为默认</string>
 
     <string name="action_transition_name">action_card_%1$s</string>
     <string name="action_content_transition_name">action_card_detail</string>
@@ -183,18 +184,58 @@
     <string name="sample_day">14</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <!-- Preference Header -->
+    <string name="behavior_header">行为</string>
+    <string name="language_header">语言</string>
+    <string name="appearance_header">用户界面</string>
+    <string name="weather_header">天气</string>
+    <string name="notification_header">通知</string>
+    <string name="other_header">杂项</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <!-- Behavior Preferences -->
+    <string name="permission_title">授予权限</string>
+    <string name="account_title">账户</string>
+    <string name="action_expired_title">行动自动过期时间</string>
+    <string name="suggest_auto_mark_title">自动标记已阅</string>
+    <string name="suggest_auto_get_title">定期获取新建议</string>
+    <string name="permission_summary">开放权限以帮助应用监测状态</string>
+    <string name="account_summary">更改本地账户信息</string>
+    <string name="action_expired_summary">行动自动过期时间</string>
+    <string name="suggest_auto_mark_summary">查看新建议时自动标记阅读\n仅已阅读建议于历史记录可见</string>
+    <string name="suggest_auto_get_summary_on">从数据库自动获取新建议</string>
+    <string name="suggest_auto_get_summary_off">如有必要，您仍可手动获取</string>
+    <string name="action_expired_time_5">5分钟</string>
+    <string name="action_expired_time_10">10分钟</string>
+    <string name="action_expired_time_15">15分钟</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- Language Preferences -->
+    <string name="language_title">语言</string>
+
+    <!-- Appearance Preferences -->
+    <string name="color_title">主题颜色</string>
+    <string name="dark_mode_title">深色模式</string>
+    <string name="dynamic_color_title">动态颜色主题</string>
+    <string name="dynamic_color_summary">根据壁纸自动选择应用主题色\n仅 Android 12（API 31）可用</string>
+    <string name="dark_mode_always_on">始终开启</string>
+    <string name="dark_mode_always_off">始终关闭</string>
+    <string name="dark_mode_follow_system">跟随系统</string>
+
+    <!-- Weather Preferences -->
+    <string name="locate_title">始终重新定位</string>
+    <string name="set_location_title">常用地址</string>
+    <string name="locate_summary">启动应用时自动定位并获取天气信息</string>
+    <string name="set_location_summary">设置常用地址以避免反复刷新</string>
+
+    <!-- Notification Preferences -->
+    <string name="notification_type_title">接收通知类型</string>
+    <string name="notification_type_action">行动</string>
+    <string name="notification_type_suggest">建议</string>
+    <string name="notification_action_title">触发行动时的通知优先级</string>
+    <string name="notification_action_standard">默认</string>
+    <string name="notification_action_silence">静音</string>
+
+    <!-- Other Preferences -->
+    <string name="guide_title">运行启动向导</string>
+    <string name="guide_summary">重新运行初次启动向导</string>
+
 </resources>

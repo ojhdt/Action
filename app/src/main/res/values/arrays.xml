@@ -1,12 +1,27 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <!-- ExpiredTime Preference -->
+    <string-array name="expired_time_entries">
+        <item>@string/action_expired_time_5</item>
+        <item>@string/action_expired_time_10</item>
+        <item>@string/action_expired_time_15</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <!-- DarkMode Preference -->
+    <string-array name="dark_mode_entries">
+        <item>@string/dark_mode_always_on</item>
+        <item>@string/dark_mode_always_off</item>
+        <item>@string/dark_mode_follow_system</item>
+    </string-array>
+
+    <!-- NotificationType Preference -->
+    <string-array name="notification_type_entries">
+        <item>@string/notification_type_action</item>
+        <item>@string/notification_type_suggest</item>
+    </string-array>
+
+    <!-- Notification Preference -->
+    <string-array name="notification_entries">
+        <item>@string/notification_action_standard</item>
+        <item>@string/notification_action_silence</item>
     </string-array>
 </resources>

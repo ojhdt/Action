@@ -18,7 +18,6 @@
             style="?attr/collapsingToolbarLayoutMediumStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
-            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="?attr/textAppearanceHeadlineMedium"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
 
@@ -30,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
-                app:layout_collapseMode="pin"></com.google.android.material.appbar.MaterialToolbar>
+                app:layout_collapseMode="pin"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
