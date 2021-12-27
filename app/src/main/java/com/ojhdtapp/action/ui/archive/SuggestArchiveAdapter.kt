@@ -64,7 +64,7 @@ class SuggestArchiveAdapter(
 
     inner class SuggestArchiveViewHolder(
         val binding: FragmentSuggestArchiveTabCellBinding,
-        private val listener: MyOnClickListener?
+        private val listener: MyOnClickListener?,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Suggest) {
             binding.run {

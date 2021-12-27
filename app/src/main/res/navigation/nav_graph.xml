@@ -89,6 +89,8 @@
         <action
             android:id="@+id/action_suggestArchiveFragment_to_actionFragment"
             app:destination="@id/actionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/actionFragment"
             app:popUpToInclusive="true" />
         <argument
