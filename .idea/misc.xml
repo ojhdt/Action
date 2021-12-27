@@ -55,6 +55,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_action_content.xml" value="0.264" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_explore.xml" value="0.16" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_scrolling.xml" value="0.176" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_settings_container.xml" value="0.17291666666666666" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive.xml" value="0.1" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive_tab.xml" value="0.15364583333333334" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive_tab_cell.xml" value="0.264" />
@@ -73,7 +74,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/menu/suggest_archive_toolbar.xml" value="0.14895833333333333" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/suggest_content_toolbar.xml" value="0.1328125" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/suggest_history_toolbar.xml" value="0.14895833333333333" />
-        <entry key="..\:/Project/Action/app/src/main/res/xml/root_preferences.xml" value="0.14895833333333333" />
+        <entry key="..\:/Project/Action/app/src/main/res/xml/root_preferences.xml" value="0.2" />
       </map>
     </option>
   </component>

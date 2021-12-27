@@ -43,9 +43,6 @@
         android:name="com.ojhdtapp.action.ui.home.ExploreFragment"
         android:label="@string/nav_explore"
         tools:layout="@layout/fragment_explore" >
-        <action
-            android:id="@+id/action_exploreFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
         <argument
             android:name="isHomeFragment"
             app:argType="boolean"
@@ -56,6 +53,9 @@
         <action
             android:id="@+id/action_exploreFragment_to_suggestArchiveFragment"
             app:destination="@id/suggestArchiveFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/actionContentFragment"
