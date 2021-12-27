@@ -9,4 +9,8 @@
         <!--进度条的最大高度-->
         <item name="android:maxHeight">20dp</item>
     </style>
+
+    <style name="AppTheme.PreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
+        <item name="android:layout">@layout/pref_template</item>
+    </style>
 </resources>

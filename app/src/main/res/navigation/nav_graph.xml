@@ -106,5 +106,5 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.ojhdtapp.action.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/setting" />
 </navigation>

@@ -52,5 +52,7 @@
             @android:color/transparent
         </item>
         <item name="android:windowLightStatusBar">false</item>
+
+        <item name="preferenceTheme">@style/AppTheme.PreferenceThemeOverlay</item>
     </style>
 </resources>
