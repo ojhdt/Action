@@ -332,6 +332,8 @@ class ActionFragment : Fragment() {
         binding.actionRecyclerView.run {
             adapter = concatAdapter
             layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            isNestedScrollingEnabled = false
         }
 
         resources.run {

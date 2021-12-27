@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
     android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:paddingHorizontal="24dp"
-    android:paddingVertical="12dp"
-    android:foreground="?attr/selectableItemBackground">
+    android:paddingVertical="12dp">
 
     <TextView
         android:id="@+id/labelText"
