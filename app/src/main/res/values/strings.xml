@@ -191,6 +191,9 @@
     <string name="weather_header">天气</string>
     <string name="notification_header">通知</string>
     <string name="other_header">杂项</string>
+    <string name="problem_header">常见问题</string>
+    <string name="contact_header">联系开发者</string>
+    <string name="log_header">日志</string>
 
     <!-- Behavior Preferences -->
     <string name="permission_title">授予权限</string>
@@ -224,7 +227,7 @@
     <string name="locate_title">始终重新定位</string>
     <string name="set_location_title">常用地址</string>
     <string name="locate_summary">启动应用时自动定位并获取天气信息</string>
-    <string name="set_location_summary">设置常用地址以避免反复刷新</string>
+    <string name="set_location_summary">设置常用地址以避免反复定位</string>
 
     <!-- Notification Preferences -->
     <string name="notification_type_title">接收通知类型</string>
@@ -244,19 +247,12 @@
     <string name="clear_account_title">清空个人进度</string>
     <string name="avatar_summary">头像将于首页展示</string>
     <string name="clear_account_summary">清除所有行动记录，经验值与成就</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-
+    <!-- Problem Preferences -->
+    <string name="manual_title">帮助手册</string>
+    <!-- Contact Preferences -->
+    <string name="email_title">发送邮件</string>
+    <string name="tg_title">加入讨论群组</string>
+    <!-- Log Preferences -->
+    <string name="log_title">查看日志</string>
 </resources>
