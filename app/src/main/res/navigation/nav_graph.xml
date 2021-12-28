@@ -132,5 +132,10 @@
     <fragment
         android:id="@+id/helpAndSupportFragment"
         android:name="com.ojhdtapp.action.ui.settings.HelpAndSupportFragment"
-        android:label="HelpAndSupportFragment" />
+        android:label="@string/help_and_support" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>
