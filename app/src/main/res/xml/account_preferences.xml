@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        android:defaultValue="Username"
+        android:key="username"
+        android:singleLine="true"
+        android:title="@string/username_title"
+        app:useSimpleSummaryProvider="true" />
+
+    <Preference
+        app:key="avatar"
+        app:summary="@string/avatar_summary"
+        app:title="@string/avatar_title" />
+
+    <Preference
+        app:key="clear_account"
+        app:summary="@string/clear_account_summary"
+        app:title="@string/clear_account_title" />
+
+</PreferenceScreen>

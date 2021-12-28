@@ -238,4 +238,25 @@
     <string name="guide_title">运行启动向导</string>
     <string name="guide_summary">重新运行初次启动向导</string>
 
+    <!-- Account Preferences -->
+    <string name="username_title">如何称呼您</string>
+    <string name="avatar_title">用户头像</string>
+    <string name="clear_account_title">清空个人进度</string>
+    <string name="avatar_summary">头像将于首页展示</string>
+    <string name="clear_account_summary">清除所有行动记录，经验值与成就</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
 </resources>

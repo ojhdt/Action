@@ -5,24 +5,15 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class PermissionsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.root_preferences, rootKey)
-
-        findPreference<Preference>("action_expired_time")?.apply {
-            setOnPreferenceClickListener {
-
-                false
-            }
-        }
+        setPreferencesFromResource(R.xml.permissions_preferences, rootKey)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar?.let{
-            it.inflateMenu(R.menu.settings_toolbar)
+//            it.inflateMenu()
             NavigationUI.setupWithNavController(
                 it,
                 navController,
@@ -57,7 +48,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
             it.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.reset -> {}
                     else -> {}
                 }
                 false

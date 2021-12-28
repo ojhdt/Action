@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_exploreFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_helpAndSupportFragment"
+            app:destination="@id/helpAndSupportFragment" />
     </fragment>
     <fragment
         android:id="@+id/actionContentFragment"
@@ -111,5 +114,23 @@
             android:name="isHomeFragment"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_settingsFragment_to_permissionsFragment"
+            app:destination="@id/permissionsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/permissionsFragment"
+        android:name="com.ojhdtapp.action.ui.settings.PermissionsFragment"
+        android:label="@string/permission_title" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.ojhdtapp.action.ui.settings.AccountFragment"
+        android:label="@string/account_title" />
+    <fragment
+        android:id="@+id/helpAndSupportFragment"
+        android:name="com.ojhdtapp.action.ui.settings.HelpAndSupportFragment"
+        android:label="HelpAndSupportFragment" />
 </navigation>

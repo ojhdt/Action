@@ -23,12 +23,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import androidx.transition.Fade
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
 import com.ojhdtapp.action.ui.home.SharedViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
     val viewModel: SharedViewModel by viewModels()
@@ -116,5 +119,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onPreferenceStartFragment(
+        caller: PreferenceFragmentCompat?,
+        pref: Preference?
+    ): Boolean {
+        pref?.let {
+            when (it.key) {
+                "permission" -> navController.navigate(R.id.action_settingsFragment_to_permissionsFragment)
+                "account" -> navController.navigate(R.id.action_settingsFragment_to_accountFragment)
+                else -> {}
+            }
+        }
+        return true
     }
 }

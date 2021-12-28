@@ -197,7 +197,7 @@ class ExploreFragment : Fragment() {
                             BaseApplication.context.getString(R.string.help_and_support),
                             object : MyOnClickListener {
                                 override fun onClick() {
-                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                                    findNavController().navigate(R.id.action_exploreFragment_to_helpAndSupportFragment)
                                 }
                             }),ExploreAdapters.SettingData(R.drawable.ic_outline_thumb_up_24,
                             BaseApplication.context.getString(R.string.vote),

@@ -4,11 +4,13 @@
     <PreferenceCategory app:title="@string/behavior_header">
 
         <Preference
+            app:fragment="com.ojhdtapp.action.ui.settings.PermissionsFragment"
             app:key="permission"
             app:summary="@string/permission_summary"
             app:title="@string/permission_title" />
 
         <Preference
+            app:fragment="com.ojhdtapp.action.ui.settings.AccountFragment"
             app:key="account"
             app:summary="@string/account_summary"
             app:title="@string/account_title" />
@@ -48,8 +50,8 @@
 
         <SwitchPreferenceCompat
             app:key="dynamic_color"
-            app:title="@string/dynamic_color_title"
-            app:summary="@string/dynamic_color_summary" />
+            app:summary="@string/dynamic_color_summary"
+            app:title="@string/dynamic_color_title" />
 
         <Preference
             app:dependency="dynamic_color"
@@ -93,6 +95,36 @@
             app:key="notification_action"
             app:summary="@string/guide_summary"
             app:title="@string/guide_title" />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/reply_entries"
+            app:entryValues="@array/reply_values"
+            app:key="reply"
+            app:title="@string/reply_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
 
     </PreferenceCategory>
 
