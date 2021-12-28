@@ -1,12 +1,14 @@
 package com.ojhdtapp.action.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -394,23 +396,29 @@ class ActionFragment : Fragment() {
 
         // FAB Show & Hide & onCLick Call
         binding.actionScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-
-        }
-        binding.actionRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0) {
-                    // Scroll Down
-                    if (binding.floatingActionButton.isExtended) {
-                        binding.floatingActionButton.shrink();
-                    }
-                } else if (dy < 0) {
-                    // Scroll Up
-                    if (!binding.floatingActionButton.isExtended) {
-                        binding.floatingActionButton.extend();
-                    }
-                }
+            if (scrollY - oldScrollY > 0) {
+                if (binding.floatingActionButton.isExtended)
+                    binding.floatingActionButton.shrink();
+            } else {
+                if (!binding.floatingActionButton.isExtended)
+                    binding.floatingActionButton.extend();
             }
-        })
+        }
+//        binding.actionRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                if (dy > 0) {
+//                    // Scroll Down
+//                    if (binding.floatingActionButton.isExtended) {
+//                        binding.floatingActionButton.shrink();
+//                    }
+//                } else if (dy < 0) {
+//                    // Scroll Up
+//                    if (!binding.floatingActionButton.isExtended) {
+//                        binding.floatingActionButton.extend();
+//                    }
+//                }
+//            }
+//        })
 
         binding.floatingActionButton.setOnClickListener {
             bottomSheetDialog.show()
