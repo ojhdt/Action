@@ -209,7 +209,7 @@ class ExploreFragment : Fragment() {
                             BaseApplication.context.getString(R.string.about),
                             object : MyOnClickListener {
                                 override fun onClick() {
-                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                                    findNavController().navigate(R.id.action_exploreFragment_to_aboutFragment)
                                 }
                             }),
                     )

@@ -255,4 +255,11 @@
     <string name="tg_title">加入讨论群组</string>
     <!-- Log Preferences -->
     <string name="log_title">查看日志</string>
+
+    <!-- About Preferences -->
+    <string name="git_branch_title">创建分支</string>
+    <string name="license_title">开放源代码许可</string>
+    <string name="translate_title">翻译此应用</string>
+    <string name="privacy_title">隐私政策</string>
+
 </resources>

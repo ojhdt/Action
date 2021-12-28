@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        app:key="git_branch"
+        app:title="@string/git_branch_title" />
+    <Preference
+        app:key="license"
+        app:title="@string/license_title" />
+    <Preference
+        app:key="translate"
+        app:title="@string/translate_title" />
+    <Preference
+        app:key="privacy"
+        app:title="@string/privacy_title" />
+</PreferenceScreen>

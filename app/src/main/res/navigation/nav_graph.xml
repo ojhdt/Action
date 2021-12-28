@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_exploreFragment_to_helpAndSupportFragment"
             app:destination="@id/helpAndSupportFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/actionContentFragment"
@@ -133,6 +136,15 @@
         android:id="@+id/helpAndSupportFragment"
         android:name="com.ojhdtapp.action.ui.settings.HelpAndSupportFragment"
         android:label="@string/help_and_support" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.ojhdtapp.action.ui.settings.AboutFragment"
+        android:label="@string/about" >
         <argument
             android:name="isHomeFragment"
             app:argType="boolean"
