@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialContainerTransform
@@ -79,6 +80,12 @@ class ActionContentFragment : Fragment() {
             findNavController(),
             appBarConfiguration
         )
+        // Setup highlight RV
+        val myAdapter = ActionContentHighlightAdapter()
+        binding.highlights.run{
+            layoutManager = LinearLayoutManager(context)
+            adapter = myAdapter
+        }
 
         // Load Data & Initialize ViewModel
         viewmodel.sumbitData(data)
@@ -109,16 +116,11 @@ class ActionContentFragment : Fragment() {
                         4 to R.drawable.ic_outline_looks_5_24,
                         5 to R.drawable.ic_outline_looks_6_24
                     )
+                    val list = mutableListOf<Pair<Int,String>>()
                     forEachIndexed { index, s ->
-                        val item = Chip(binding.root.context).apply {
-                            chipIcon =
-                                ContextCompat.getDrawable(binding.root.context, numMap[index]!!)
-                            text = s
-                            isClickable = false
-                            chipStrokeWidth = 0f
-                        }
-                        binding.highlights.addView(item)
+                        list.add(Pair(numMap[index]!!,s))
                     }
+                    myAdapter.submitList(list)
                 }
             }
             binding.content.text = it.content
