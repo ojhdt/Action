@@ -37,6 +37,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/action_suggest_more_empty.xml" value="0.20606884057971014" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/activity_main2.xml" value="0.1265625" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/activity_welcome.xml" value="0.16822916666666668" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/explore_air_quality.xml" value="0.2" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/explore_air_quality_error.xml" value="0.264" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/explore_life.xml" value="0.264" />
@@ -56,7 +57,9 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_action_content.xml" value="0.264" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_action_content_highlights_cell.xml" value="0.4" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_explore.xml" value="0.16" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_first_welcome.xml" value="0.16799999999999998" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_scrolling.xml" value="0.176" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_second_welcome.xml" value="0.13994565217391305" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_settings_container.xml" value="0.17291666666666666" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive.xml" value="0.1" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_archive_tab.xml" value="0.15364583333333334" />
@@ -66,6 +69,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_history_tab.xml" value="0.1390625" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_history_tab_cell.xml" value="0.4" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_suggest_history_tab_empty.xml" value="0.15677083333333333" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/fragment_third_welcome.xml" value="0.13994565217391305" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/pref_template.xml" value="0.11302083333333333" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/achievement_toolbar.xml" value="0.159375" />
         <entry key="..\:/Project/Action/app/src/main/res/menu/action_archive_toolbar.xml" value="0.14895833333333333" />

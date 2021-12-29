@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="action_welcomes">
+        <item>你好，</item>
+        <item>好久不见，</item>
+        <item>很高兴见到你，</item>
+    </string-array>
+
     <!-- ExpiredTime Preference -->
     <string-array name="expired_time_entries">
         <item>@string/action_expired_time_5</item>

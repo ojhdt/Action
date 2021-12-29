@@ -3,6 +3,7 @@ package com.ojhdtapp.action
 import android.animation.ObjectAnimator
 import android.app.ActivityOptions
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,6 +26,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import androidx.transition.Fade
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
@@ -40,7 +42,16 @@ class MainActivity : AppCompatActivity(),
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Launch WelcomeActivity if First Launch
+        val sharedPreference = PreferenceManager.getDefaultSharedPreferences(this)
+        val isFirstLaunch = sharedPreference.getBoolean("isFirstLaunch", true)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        if(isFirstLaunch){
+            val intent = Intent(this, WelcomeActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         navController = navHostFragment.findNavController()

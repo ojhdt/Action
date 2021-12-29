@@ -7,11 +7,13 @@
 
     <string name="pair_messages">%1$s • %2$s</string>
 
-    <string-array name="action_welcomes">
-        <item>你好，</item>
-        <item>好久不见，</item>
-        <item>很高兴见到你，</item>
-    </string-array>
+    <string name="welcome_text_a">欢迎使用 Action</string>
+    <string name="welcome_text_b">贴心的即时环境保护提醒\n基于传感器数据 更快更精准</string>
+    <string name="welcome_text_c">如何称呼您</string>
+    <string name="welcome_text_d">设定昵称 挑选头像\n开始你的环保之旅</string>
+    <string name="welcome_text_e">权限检查</string>
+    <string name="welcome_text_f">开放权限以帮助应用监测状态\n您的设备信息将受到妥善保护</string>
+
     <string name="action_title_a">只要</string>
     <string name="action_title_b">行动</string>
     <string name="action_title_c">就永远不会太晚</string>
