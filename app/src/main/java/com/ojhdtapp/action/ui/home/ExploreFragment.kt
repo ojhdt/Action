@@ -80,6 +80,9 @@ class ExploreFragment : Fragment() {
                 R.id.refresh -> {
                     viewModel.weatherRefresh()
                 }
+                R.id.version -> {
+
+                }
                 else -> {}
             }
             false
