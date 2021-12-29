@@ -87,13 +87,26 @@ class ActionArchiveFragment : Fragment() {
             false
         }
         // Adapter for rv
-        val myAdapter = ActionArchiveAdapter(object: MyOnClickListener{
+        val myAdapter = ActionArchiveAdapter(object : MyOnClickListener {
             override fun onClick() {
                 exitTransition = Hold()
                 reenterTransition = Hold()
             }
+        }, object : MyOnClickListener {
+            override fun onClick() {
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                            .toLong()
+                }
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                    duration =
+                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                            .toLong()
+                }
+            }
         })
-        val myLayoutManager = GridLayoutManager(context,2)
+        val myLayoutManager = GridLayoutManager(context, 2)
         binding.recyclerView.run {
             adapter = myAdapter
             layoutManager = myLayoutManager

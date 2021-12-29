@@ -45,7 +45,7 @@ class SuggestHistoryTabFragment : Fragment() {
             SuggestHistoryAdapter(emptyBtnListener = object :MyOnClickListener{
                 override fun onClick() {
                     val bundle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
-                    findNavController().navigate(R.id.action_suggestArchiveFragment_to_actionFragment,bundle)
+                    findNavController().navigate(R.id.action_global_actionFragment,bundle)
                 }
             })
 //        val myLayoutManager =

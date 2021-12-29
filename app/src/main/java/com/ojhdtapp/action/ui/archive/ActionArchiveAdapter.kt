@@ -125,6 +125,7 @@ class ActionArchiveAdapter(
         fun bind() {
             binding.actionArchiveEmptyBtn.setOnClickListener {
                 listener?.onClick()
+                binding.root.findNavController().navigate(R.id.action_global_permissionsFragment)
             }
         }
     }

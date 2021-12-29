@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabBinding
@@ -44,7 +45,7 @@ class SuggestArchiveTabFragment : Fragment() {
             override fun onClick() {
                 val bundle = bundleOf("IS_SHOWING_BOTTOMSHEETDIALOG" to true)
                 findNavController().navigate(
-                    R.id.action_suggestArchiveFragment_to_actionFragment,
+                    R.id.action_global_actionFragment,
                     bundle
                 )
             }

@@ -92,13 +92,6 @@
         <action
             android:id="@+id/action_suggestArchiveFragment_to_suggestContentFragment"
             app:destination="@id/suggestContentFragment" />
-        <action
-            android:id="@+id/action_suggestArchiveFragment_to_actionFragment"
-            app:destination="@id/actionFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/actionFragment"
-            app:popUpToInclusive="true" />
         <argument
             android:name="isHomeFragment"
             app:argType="boolean"
@@ -149,5 +142,5 @@
             android:name="isHomeFragment"
             app:argType="boolean"
             android:defaultValue="false" />
-    </fragment>
+    </fragment><action android:id="@+id/action_global_actionFragment" app:destination="@id/actionFragment"/><action android:id="@+id/action_global_permissionsFragment" app:destination="@id/permissionsFragment"/>
 </navigation>
