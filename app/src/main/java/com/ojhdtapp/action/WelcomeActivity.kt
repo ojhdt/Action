@@ -11,9 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ojhdtapp.action.databinding.ActivityWelcomeBinding
-import com.ojhdtapp.action.ui.welcome.FirstWelcomeFragment
-import com.ojhdtapp.action.ui.welcome.SecondWelcomeFragment
-import com.ojhdtapp.action.ui.welcome.ThirdWelcomeFragment
+import com.ojhdtapp.action.ui.welcome.*
 
 class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,14 +23,16 @@ class WelcomeActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         // ViewPager2
-        binding.welcomeViewPager.adapter = object: FragmentStateAdapter(this){
-            override fun getItemCount(): Int = 3
+        binding.welcomeViewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int = 5
 
             override fun createFragment(position: Int): Fragment {
-                return when(position){
+                return when (position) {
                     0 -> FirstWelcomeFragment()
                     1 -> SecondWelcomeFragment()
-                    else -> ThirdWelcomeFragment()
+                    2 -> ThirdWelcomeFragment()
+                    3 -> FourthWelcomeFragment()
+                    else -> FifthWelcomeFragment()
                 }
             }
         }
@@ -43,15 +43,15 @@ class WelcomeActivity : AppCompatActivity() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                var numPages = 3
+                var numPages = 5
                 var progress = (position + positionOffset) / (numPages - 1)
-                binding.
+                binding.root.progress = progress
                 Log.d("aaa", progress.toString())
             }
-            })
+        })
         binding.welcomeFAB.setOnClickListener {
             binding.welcomeViewPager.run {
-                if(currentItem != 3)
+                if (currentItem != 3)
                     currentItem += 1
             }
         }
