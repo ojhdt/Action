@@ -20,6 +20,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentExploreBinding
+import com.ojhdtapp.action.ui.dialog.VersionDialogFragment
 
 class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
@@ -81,7 +82,7 @@ class ExploreFragment : Fragment() {
                     viewModel.weatherRefresh()
                 }
                 R.id.version -> {
-
+                    showVersionDialog()
                 }
                 else -> {}
             }
@@ -156,16 +157,18 @@ class ExploreFragment : Fragment() {
                             getString(R.string.explore_action_description),
                             object : MyOnClickListener {
                                 override fun onClick() {
-                                    exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                                        duration =
-                                            resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                .toLong()
-                                    }
-                                    reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                                        duration =
-                                            resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                .toLong()
-                                    }
+                                    exitTransition =
+                                        MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                                            duration =
+                                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                    .toLong()
+                                        }
+                                    reenterTransition =
+                                        MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                                            duration =
+                                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                    .toLong()
+                                        }
                                     findNavController().navigate(R.id.action_exploreFragment_to_actionArchiveFragment)
                                 }
                             }
@@ -176,16 +179,18 @@ class ExploreFragment : Fragment() {
                             getString(R.string.explore_suggest_description),
                             object : MyOnClickListener {
                                 override fun onClick() {
-                                    exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                                        duration =
-                                            resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                .toLong()
-                                    }
-                                    reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                                        duration =
-                                            resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                .toLong()
-                                    }
+                                    exitTransition =
+                                        MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                                            duration =
+                                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                    .toLong()
+                                        }
+                                    reenterTransition =
+                                        MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                                            duration =
+                                                resources.getInteger(R.integer.material_motion_duration_long_1)
+                                                    .toLong()
+                                        }
                                     findNavController().navigate(R.id.action_exploreFragment_to_suggestArchiveFragment)
                                 }
                             }
@@ -196,19 +201,22 @@ class ExploreFragment : Fragment() {
                                 override fun onClick() {
                                     findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
                                 }
-                            }),ExploreAdapters.SettingData(R.drawable.ic_outline_help_outline_24,
+                            }),
+                        ExploreAdapters.SettingData(R.drawable.ic_outline_help_outline_24,
                             BaseApplication.context.getString(R.string.help_and_support),
                             object : MyOnClickListener {
                                 override fun onClick() {
                                     findNavController().navigate(R.id.action_exploreFragment_to_helpAndSupportFragment)
                                 }
-                            }),ExploreAdapters.SettingData(R.drawable.ic_outline_thumb_up_24,
+                            }),
+                        ExploreAdapters.SettingData(R.drawable.ic_outline_thumb_up_24,
                             BaseApplication.context.getString(R.string.vote),
                             object : MyOnClickListener {
                                 override fun onClick() {
                                     findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
                                 }
-                            }),ExploreAdapters.SettingData(R.drawable.ic_outline_info_24,
+                            }),
+                        ExploreAdapters.SettingData(R.drawable.ic_outline_info_24,
                             BaseApplication.context.getString(R.string.about),
                             object : MyOnClickListener {
                                 override fun onClick() {
@@ -240,5 +248,12 @@ class ExploreFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    // Functions
+
+    private fun showVersionDialog() {
+        val newFragment = VersionDialogFragment()
+        newFragment.show(parentFragmentManager, "version")
     }
 }
