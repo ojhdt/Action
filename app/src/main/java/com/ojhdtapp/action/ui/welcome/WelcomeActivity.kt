@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ojhdtapp.action.R
@@ -37,13 +38,14 @@ class WelcomeActivity : AppCompatActivity() {
         }
         binding.welcomeViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
+            var numProgress = 0f
+            val numPages = 5
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                var numPages = 5
-                var numProgress = (position + positionOffset)
+                numProgress = (position + positionOffset)
                 binding.root.run {
                     if (numProgress >= 0 && numProgress < 1) {
                         setTransition(R.id.page1, R.id.page2)
@@ -65,7 +67,14 @@ class WelcomeActivity : AppCompatActivity() {
         })
 
         // Permission RV
-        binding
+        val myAdapter = PermissionAdapter()
+        binding.setPermission.recyclerView2.run{
+            layoutManager = LinearLayoutManager(context)
+            adapter = myAdapter
+        }
+        viewModel.permissionLive.observe(this){
+            myAdapter.submitList(it)
+        }
 
         binding.welcomeFAB.setOnClickListener {
             binding.welcomeViewPager.run {

@@ -5,7 +5,7 @@
 
     <ConstraintSet android:id="@+id/page1">
         <Constraint
-            android:id="@+id/imageView7"
+            android:id="@+id/appIcon"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="112dp"
             android:layout_height="112dp"
@@ -15,7 +15,7 @@
             android:alpha="1"
             android:visibility="visible" />
         <Constraint
-            android:id="@+id/include"
+            android:id="@+id/setUser"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
     </ConstraintSet>
     <ConstraintSet android:id="@+id/page2">
         <Constraint
-            android:id="@+id/imageView7"
+            android:id="@+id/appIcon"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="112dp"
             android:layout_height="112dp"
@@ -40,7 +40,7 @@
             android:alpha="0"
             android:visibility="invisible" />
         <Constraint
-            android:id="@+id/include"
+            android:id="@+id/setUser"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,10 +49,21 @@
             motion:layout_constraintStart_toStartOf="parent"
             android:alpha="1"
             android:visibility="visible" />
+        <Constraint
+            android:id="@+id/setPermission"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toTopOf="parent"
+            motion:layout_constraintTop_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintVertical_bias="0.7"
+            android:alpha="0" />
     </ConstraintSet>
     <ConstraintSet android:id="@+id/page3">
         <Constraint
-            android:id="@+id/include"
+            android:id="@+id/setUser"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,8 +73,30 @@
             motion:layout_constraintVertical_bias="0.3"
             android:alpha="0"
             android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/setPermission"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toTopOf="parent"
+            motion:layout_constraintTop_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:alpha="1" />
     </ConstraintSet>
-    <ConstraintSet android:id="@+id/page4"></ConstraintSet>
+    <ConstraintSet android:id="@+id/page4">
+        <Constraint
+            android:id="@+id/setPermission"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toTopOf="parent"
+            motion:layout_constraintTop_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintVertical_bias="0.3"
+            android:alpha="0" />
+    </ConstraintSet>
     <ConstraintSet android:id="@+id/page5"></ConstraintSet>
     <Transition
         motion:constraintSetStart="@+id/page1"
