@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
@@ -44,9 +45,24 @@ class WelcomeActivity : AppCompatActivity() {
                 positionOffsetPixels: Int
             ) {
                 var numPages = 5
-                var progress = (position + positionOffset) / (numPages - 1)
-                binding.root.progress = progress
-                Log.d("aaa", progress.toString())
+                var numProgress = (position + positionOffset)
+                binding.root.run {
+                    if (numProgress >= 0 && numProgress < 1) {
+                        setTransition(R.id.page1, R.id.page2)
+                        progress = numProgress % 1
+                    } else if (numProgress >= 1 && numProgress < 2) {
+                        setTransition(R.id.page2, R.id.page3)
+                        progress = numProgress % 1
+                    } else if (numProgress >= 2 && numProgress < 3) {
+                        setTransition(R.id.page3, R.id.page4)
+                        progress = numProgress % 1
+                    } else {
+                        setTransition(R.id.page4, R.id.page5)
+                        progress = numProgress % 1
+                    }
+//                var numProgress = (position + positionOffset) / (numPages - 1) * numPages
+//                binding.root.progress = progress
+                }
             }
         })
         binding.welcomeFAB.setOnClickListener {
