@@ -14,10 +14,12 @@
     <string name="welcome_text_e">权限检查</string>
     <string name="welcome_text_f">开放权限以帮助应用监测状态\n您的设备信息将受到妥善保护</string>
     <string name="welcome_text_g">许可协议</string>
-    <string name="welcome_text_h">了解Action将如何使用你的信息\n接受协议后继续</string>
+    <string name="welcome_text_h">了解 Action 将如何使用你的信息\n接受协议后继续</string>
     <string name="welcome_text_i">让我们开始吧</string>
     <string name="welcome_text_j">只要行动 就永远不会太晚</string>
     <string name="welcome_username_hint">昵称</string>
+    <string name="welcome_permission_btn">全部允许</string>
+    <string name="welcome_permission_notice">您亦可稍后授权</string>
 
     <string name="action_title_a">只要</string>
     <string name="action_title_b">行动</string>
