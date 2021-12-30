@@ -3,6 +3,7 @@ package com.ojhdtapp.action.ui.welcome
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -11,6 +12,7 @@ import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActivityWelcomeBinding
 
 class WelcomeActivity : AppCompatActivity() {
+    val viewModel by viewModels<WelcomeViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityWelcomeBinding.inflate(LayoutInflater.from(this), null, false)
@@ -61,6 +63,10 @@ class WelcomeActivity : AppCompatActivity() {
                 }
             }
         })
+
+        // Permission RV
+        binding
+
         binding.welcomeFAB.setOnClickListener {
             binding.welcomeViewPager.run {
                 if (currentItem != 3)
