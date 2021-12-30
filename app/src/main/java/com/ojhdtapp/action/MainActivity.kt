@@ -1,36 +1,25 @@
 package com.ojhdtapp.action
 
 import android.animation.ObjectAnimator
-import android.app.ActivityOptions
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.core.animation.addListener
 import androidx.core.animation.doOnEnd
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import androidx.transition.Fade
-import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
 import com.ojhdtapp.action.ui.home.SharedViewModel
+import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {

@@ -1,18 +1,14 @@
-package com.ojhdtapp.action
+package com.ojhdtapp.action.ui.welcome
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActivityWelcomeBinding
-import com.ojhdtapp.action.ui.welcome.*
 
 class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,7 +7,7 @@
     android:background="?attr/colorSecondaryContainer"
     android:fitsSystemWindows="true"
     app:layoutDescription="@xml/activity_welcome_scene"
-    tools:context=".WelcomeActivity">
+    tools:context=".ui.welcome.WelcomeActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/welcomeViewPager"
