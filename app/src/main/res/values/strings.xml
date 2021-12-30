@@ -18,12 +18,20 @@
     <string name="welcome_text_i">让我们开始吧</string>
     <string name="welcome_text_j">只要行动 就永远不会太晚</string>
     <string name="welcome_username_hint">昵称</string>
-    <string name="welcome_permission_btn">全部允许</string>
+    <string name="welcome_username_error">输入过长，继续将使用默认昵称</string>
+    <string name="welcome_username_error_positive">继续</string>
+    <string name="welcome_username_error_negative">返回</string>
+    <string name="welcome_permission_btn">全部授权</string>
+    <string name="welcome_permission_btn_disabled">已授权</string>
     <string name="welcome_permission_notice">您亦可稍后授权</string>
     <string name="welcome_permission_location">精确位置信息</string>
     <string name="welcome_permission_location_summary">用于场景识别及天气消息获取</string>
     <string name="welcome_permission_sensor">传感器</string>
     <string name="welcome_permission_sensor_summary">用于场景识别</string>
+    <string name="welcome_permission_not_granted_title">部分权限未授予</string>
+    <string name="welcome_permission_not_granted">您仍可正常使用应用，但部分功能将不可用。\n请返回上一页，或前往设置页面手动授予权限。</string>
+    <string name="welcome_permission_not_granted_positive">继续且不再提醒</string>
+    <string name="welcome_permission_not_granted_negative">返回</string>
 
     <string name="action_title_a">只要</string>
     <string name="action_title_b">行动</string>

@@ -1,23 +1,43 @@
 package com.ojhdtapp.action.ui.welcome
 
+import android.Manifest
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ojhdtapp.action.BaseApplication.Companion.context
+import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActivityWelcomeBinding
 
 class WelcomeActivity : AppCompatActivity() {
     val viewModel by viewModels<WelcomeViewModel>()
+    val sharedPreference by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityWelcomeBinding.inflate(LayoutInflater.from(this), null, false)
         setContentView(binding.root)
+
+        // Permission
+        val requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+                viewModel.updateState(it)
+            }
 
         // Hide NavigationBar & StatusBar
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -68,18 +88,85 @@ class WelcomeActivity : AppCompatActivity() {
 
         // Permission RV
         val myAdapter = PermissionAdapter()
-        binding.setPermission.recyclerView2.run{
+        binding.setPermission.recyclerView2.run {
             layoutManager = LinearLayoutManager(context)
             adapter = myAdapter
         }
-        viewModel.permissionLive.observe(this){
+        viewModel.permissionLive.observe(this) {
             myAdapter.submitList(it)
+
+        }
+        binding.setPermission.materialButton.setOnClickListener {
+            val permissions = arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.BODY_SENSORS
+            )
+            requestPermissionLauncher.launch(permissions)
         }
 
+        // Permission Btn
+        viewModel.permissionStateLive.observe(this) {
+            if (it.values.contains(false)) {
+                binding.setPermission.materialButton.run {
+                    isEnabled = true
+                    text = getString(R.string.welcome_permission_btn)
+                }
+            } else {
+                binding.setPermission.materialButton.run {
+                    isEnabled = false
+                    text = getString(R.string.welcome_permission_btn_disabled)
+                }
+            }
+        }
+
+        // Show Dialog
+        fun showEditTextErrorDialog(){
+            MaterialAlertDialogBuilder(this)
+                .setMessage(R.string.welcome_username_error)
+                .setPositiveButton(R.string.welcome_username_error_positive){ dialogInterface: DialogInterface, i: Int ->
+                    binding.welcomeViewPager.currentItem++
+                }
+                .setNegativeButton(R.string.welcome_username_error_negative){ dialogInterface: DialogInterface, i: Int ->
+                }
+                .show()
+        }
+
+        fun showPermissionNotGrantedWarningDialog(){
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.welcome_permission_not_granted_title)
+                .setMessage(R.string.welcome_permission_not_granted)
+                .setPositiveButton(R.string.welcome_permission_not_granted_positive){ dialogInterface: DialogInterface, i: Int ->
+                    sharedPreference.edit()
+                        .putBoolean("isAlreadyDialoged", true)
+                        .apply()
+                }
+                .setNegativeButton(R.string.welcome_permission_not_granted_negative) { dialogInterface: DialogInterface, i: Int -> }
+                .show()
+        }
+
+        // FAB
         binding.welcomeFAB.setOnClickListener {
             binding.welcomeViewPager.run {
-                if (currentItem != 3)
-                    currentItem += 1
+                when (currentItem) {
+                    0 -> currentItem++
+                    1 -> {
+                        if (binding.setUser.usernameEditText.text.toString().length > 10) {
+                            showEditTextErrorDialog()
+                        } else currentItem++
+                    }
+                    2 -> {
+                        val isAlreadyDialoged = sharedPreference.getBoolean("isAlreadyDialoged", false)
+                        if(!isAlreadyDialoged){
+                            showPermissionNotGrantedWarningDialog()
+                        }else currentItem++
+                    }
+                    3 -> currentItem++
+                    4 -> {
+                        val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else -> {}
+                }
             }
         }
     }

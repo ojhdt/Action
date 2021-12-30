@@ -54,12 +54,12 @@
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
             android:visibility="invisible"
-            motion:layout_constraintBottom_toTopOf="parent"
-            motion:layout_constraintTop_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintVertical_bias="0.7"
-            android:alpha="0" />
+            android:alpha="0"
+            motion:layout_constraintVertical_bias="0.7" />
     </ConstraintSet>
     <ConstraintSet android:id="@+id/page3">
         <Constraint
@@ -78,9 +78,9 @@
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
             android:visibility="visible"
-            motion:layout_constraintBottom_toTopOf="parent"
-            motion:layout_constraintTop_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             android:alpha="1" />
     </ConstraintSet>
@@ -90,12 +90,12 @@
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
             android:visibility="invisible"
-            motion:layout_constraintBottom_toTopOf="parent"
-            motion:layout_constraintTop_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintVertical_bias="0.3"
-            android:alpha="0" />
+            android:alpha="0"
+            motion:layout_constraintVertical_bias="0.3" />
     </ConstraintSet>
     <ConstraintSet android:id="@+id/page5"></ConstraintSet>
     <Transition

@@ -20,19 +20,21 @@
         tools:src="@drawable/anonymous" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="@string/welcome_username_hint"
         app:counterEnabled="true"
-        app:counterMaxLength="15"
+        app:counterMaxLength="10"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageFilterView2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>

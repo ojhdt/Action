@@ -1,12 +1,15 @@
 package com.ojhdtapp.action.ui.welcome
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat.clearColorFilter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ojhdtapp.action.BaseApplication.Companion.context
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.WelcomeSetPermissionCellBinding
 
@@ -16,14 +19,13 @@ class PermissionAdapter :
         override fun areItemsTheSame(
             oldItem: PermissionMessage,
             newItem: PermissionMessage
-        ): Boolean = oldItem.name == newItem.name
+        ): Boolean = false
 
 
         override fun areContentsTheSame(
             oldItem: PermissionMessage,
             newItem: PermissionMessage
-        ): Boolean =
-            oldItem.usage == newItem.usage
+        ): Boolean = false
 
     }) {
     inner class PermissionViewHolder(val binding: WelcomeSetPermissionCellBinding) :
@@ -46,12 +48,33 @@ class PermissionAdapter :
                     )
                 )
                 .into(binding.permissionState)
+
+            binding.permissionState.run {
+                if (data.isGranted) {
+                    TypedValue().apply {
+                        context.theme.resolveAttribute(
+                            android.R.attr.colorPrimary,
+                            this,
+                            true
+                        )
+                    }.data.let {
+                        setColorFilter(
+                            it,
+                            android.graphics.PorterDuff.Mode.SRC_IN
+                        )
+                    }
+                } else {
+                    clearColorFilter()
+                }
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PermissionViewHolder {
-        val binding = WelcomeSetPermissionCellBinding.inflate(LayoutInflater.from(parent.context),
-        parent, false)
+        val binding = WelcomeSetPermissionCellBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
         return PermissionViewHolder(binding)
     }
 
