@@ -32,6 +32,7 @@
     <string name="welcome_permission_not_granted">您仍可正常使用应用，但部分功能将不可用。\n请返回上一页，或前往设置页面手动授予权限。</string>
     <string name="welcome_permission_not_granted_positive">继续且不再提醒</string>
     <string name="welcome_permission_not_granted_negative">返回</string>
+    <string name="welcome_agreement">我已阅读并接受以上许可协议</string>
 
     <string name="action_title_a">只要</string>
     <string name="action_title_b">行动</string>

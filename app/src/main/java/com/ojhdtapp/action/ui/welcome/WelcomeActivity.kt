@@ -28,6 +28,7 @@ class WelcomeActivity : AppCompatActivity() {
     val sharedPreference by lazy {
         PreferenceManager.getDefaultSharedPreferences(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityWelcomeBinding.inflate(LayoutInflater.from(this), null, false)
@@ -76,9 +77,12 @@ class WelcomeActivity : AppCompatActivity() {
                     } else if (numProgress >= 2 && numProgress < 3) {
                         setTransition(R.id.page3, R.id.page4)
                         progress = numProgress % 1
-                    } else {
+                    } else if (numProgress >= 3 && numProgress < 4) {
                         setTransition(R.id.page4, R.id.page5)
                         progress = numProgress % 1
+                    } else {
+                        setTransition(R.id.page4, R.id.page5)
+                        progress = 1f
                     }
 //                var numProgress = (position + positionOffset) / (numPages - 1) * numPages
 //                binding.root.progress = progress
@@ -120,22 +124,22 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         // Show Dialog
-        fun showEditTextErrorDialog(){
+        fun showEditTextErrorDialog() {
             MaterialAlertDialogBuilder(this)
                 .setMessage(R.string.welcome_username_error)
-                .setPositiveButton(R.string.welcome_username_error_positive){ dialogInterface: DialogInterface, i: Int ->
+                .setPositiveButton(R.string.welcome_username_error_positive) { dialogInterface: DialogInterface, i: Int ->
                     binding.welcomeViewPager.currentItem++
                 }
-                .setNegativeButton(R.string.welcome_username_error_negative){ dialogInterface: DialogInterface, i: Int ->
+                .setNegativeButton(R.string.welcome_username_error_negative) { dialogInterface: DialogInterface, i: Int ->
                 }
                 .show()
         }
 
-        fun showPermissionNotGrantedWarningDialog(){
+        fun showPermissionNotGrantedWarningDialog() {
             MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.welcome_permission_not_granted_title)
                 .setMessage(R.string.welcome_permission_not_granted)
-                .setPositiveButton(R.string.welcome_permission_not_granted_positive){ dialogInterface: DialogInterface, i: Int ->
+                .setPositiveButton(R.string.welcome_permission_not_granted_positive) { dialogInterface: DialogInterface, i: Int ->
                     sharedPreference.edit()
                         .putBoolean("isAlreadyDialoged", true)
                         .apply()
@@ -155,10 +159,11 @@ class WelcomeActivity : AppCompatActivity() {
                         } else currentItem++
                     }
                     2 -> {
-                        val isAlreadyDialoged = sharedPreference.getBoolean("isAlreadyDialoged", false)
-                        if(!isAlreadyDialoged){
+                        val isAlreadyDialoged =
+                            sharedPreference.getBoolean("isAlreadyDialoged", false)
+                        if (!isAlreadyDialoged) {
                             showPermissionNotGrantedWarningDialog()
-                        }else currentItem++
+                        } else currentItem++
                     }
                     3 -> currentItem++
                     4 -> {
