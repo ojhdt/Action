@@ -1,6 +1,7 @@
 package com.ojhdtapp.action.ui.welcome
 
 import android.Manifest
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -31,7 +33,8 @@ class WelcomeActivity : AppCompatActivity() {
     private val sharedPreference: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(this)
     }
-    var isAlreadyReadAgreement by Delegates.notNull<Boolean>()
+    private var isAlreadyReadAgreement by Delegates.notNull<Boolean>()
+    private lateinit var imm:InputMethodManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,7 @@ class WelcomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         isAlreadyReadAgreement = sharedPreference.getBoolean("isAlreadyReadAgreement", false)
+        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // Permission
         val requestPermissionLauncher =
@@ -49,6 +53,12 @@ class WelcomeActivity : AppCompatActivity() {
 
         // Hide NavigationBar & StatusBar
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Hide KeyBoard
+        fun hideKeyBoard(){
+            if(imm.isActive != false)
+                imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
+        }
 
         // ViewPager2
         binding.welcomeViewPager.adapter = object : FragmentStateAdapter(this) {
@@ -88,9 +98,11 @@ class WelcomeActivity : AppCompatActivity() {
                         setTransition(R.id.page4, R.id.page5)
                         progress = numProgress % 1
                     } else {
+                        if (!binding.done.lottieAnimationView.isAnimating) binding.done.lottieAnimationView.playAnimation()
                         setTransition(R.id.page4, R.id.page5)
                         progress = 1f
                     }
+                    if(numProgress == 0f || numProgress == 2f) hideKeyBoard()
 //                var numProgress = (position + positionOffset) / (numPages - 1) * numPages
 //                binding.root.progress = progress
                 }
@@ -136,6 +148,13 @@ class WelcomeActivity : AppCompatActivity() {
             isAlreadyReadAgreement = isChecked
         }
 
+        // Lottie
+        binding.done.lottieAnimationView.run {
+            setOnClickListener {
+                if(!isAnimating) playAnimation()
+            }
+        }
+
         // Show Dialog
         fun showEditTextErrorDialog() {
             MaterialAlertDialogBuilder(this)
@@ -162,6 +181,21 @@ class WelcomeActivity : AppCompatActivity() {
                 .show()
         }
 
+        fun showHasErrorDialog() {
+            val message = getString(
+                R.string.welcome_done_error,
+                if (binding.setUser.usernameEditText.text.toString().length > 10) getString(R.string.welcome_done_error_a) else "",
+                if (!isAlreadyReadAgreement) getString(R.string.welcome_done_error_b) else "",
+                if (viewModel.permissionStateLive.value?.containsValue(false) != false) getString(R.string.welcome_done_error_c) else ""
+            )
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.welcome_done_error_title)
+                .setMessage(message)
+                .setPositiveButton(R.string.welcome_done_error_positive) { dialogInterface: DialogInterface, i: Int ->
+                }
+                .show()
+        }
+
         // FAB
         binding.welcomeFAB.setOnClickListener {
             binding.welcomeViewPager.run {
@@ -175,7 +209,10 @@ class WelcomeActivity : AppCompatActivity() {
                     2 -> {
                         val isAlreadyDialoged =
                             sharedPreference.getBoolean("isAlreadyDialoged", false)
-                        if (!isAlreadyDialoged && viewModel.permissionStateLive.value?.containsValue(false) != false) {
+                        if (!isAlreadyDialoged && viewModel.permissionStateLive.value?.containsValue(
+                                false
+                            ) != false
+                        ) {
                             showPermissionNotGrantedWarningDialog()
                         } else currentItem++
                     }
@@ -191,8 +228,22 @@ class WelcomeActivity : AppCompatActivity() {
                         }
                     }
                     4 -> {
-                        val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
-                        startActivity(intent)
+                        if (!isAlreadyReadAgreement) {
+                            showHasErrorDialog()
+                        } else {
+                            val username =
+                                if (binding.setUser.usernameEditText.text.isNullOrBlank())
+                                    getString(R.string.default_username)
+                                else if(binding.setUser.usernameEditText.text.toString().length > 10) getString(R.string.default_username)
+                                else binding.setUser.usernameEditText.text
+                            sharedPreference.edit()
+                                .putString("username", username.toString())
+                                .putBoolean("isAlreadyDialoged", true)
+                                .putBoolean("isFirstLaunch", false)
+                                .apply()
+                            val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                     else -> {}
                 }

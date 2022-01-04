@@ -7,6 +7,8 @@
 
     <string name="pair_messages">%1$s • %2$s</string>
 
+    <string name="default_username">冒险者</string>
+
     <string name="welcome_text_a">欢迎使用 Action</string>
     <string name="welcome_text_b">贴心的即时环境保护提醒\n基于传感器数据 更快更精准</string>
     <string name="welcome_text_c">如何称呼您</string>
@@ -36,6 +38,12 @@
     <string name="welcome_permission_not_granted_negative">返回</string>
     <string name="welcome_agreement">我已阅读并接受以上许可协议</string>
     <string name="welcome_agreement_toast">请勾选接受许可协议</string>
+    <string name="welcome_done_error_title">存在未处理的问题</string>
+    <string name="welcome_done_error">以下若干问题未通过启动前检查：\n%1$s%2$s%3$s请返回手动修复后再次尝试启动。</string>
+    <string name="welcome_done_error_a">- 用户名输入非法\n</string>
+    <string name="welcome_done_error_b">- 许可协议未接受\n</string>
+    <string name="welcome_done_error_c">- 部分权限未授予\n</string>
+    <string name="welcome_done_error_positive">完成</string>
 
     <string name="agreement_title">许可协议</string>
     <string name="agreement_sub_title">生效日期：2022年1月4日</string>
