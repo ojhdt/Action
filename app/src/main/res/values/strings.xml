@@ -18,6 +18,8 @@
     <string name="welcome_text_i">让我们开始吧</string>
     <string name="welcome_text_j">只要行动 就永远不会太晚</string>
     <string name="welcome_username_hint">昵称</string>
+    <string name="welcome_username_notice">留空将使用默认昵称</string>
+    <string name="welcome_username_error_title">非法输入</string>
     <string name="welcome_username_error">输入过长，继续将使用默认昵称</string>
     <string name="welcome_username_error_positive">继续</string>
     <string name="welcome_username_error_negative">返回</string>
@@ -33,6 +35,11 @@
     <string name="welcome_permission_not_granted_positive">继续且不再提醒</string>
     <string name="welcome_permission_not_granted_negative">返回</string>
     <string name="welcome_agreement">我已阅读并接受以上许可协议</string>
+    <string name="welcome_agreement_toast">请勾选接受许可协议</string>
+
+    <string name="agreement_title">许可协议</string>
+    <string name="agreement_sub_title">生效日期：2022年1月4日</string>
+
 
     <string name="action_title_a">只要</string>
     <string name="action_title_b">行动</string>
@@ -204,7 +211,7 @@
     <string name="sample_number">80</string>
     <string name="sample_month">12月</string>
     <string name="sample_day">14</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 
     <!-- Preference Header -->
     <string name="behavior_header">行为</string>

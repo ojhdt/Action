@@ -3,11 +3,13 @@ package com.ojhdtapp.action.ui.welcome
 import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -22,17 +24,22 @@ import com.ojhdtapp.action.BaseApplication.Companion.context
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActivityWelcomeBinding
+import kotlin.properties.Delegates
 
 class WelcomeActivity : AppCompatActivity() {
     val viewModel by viewModels<WelcomeViewModel>()
-    val sharedPreference by lazy {
+    private val sharedPreference: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(this)
     }
+    var isAlreadyReadAgreement by Delegates.notNull<Boolean>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityWelcomeBinding.inflate(LayoutInflater.from(this), null, false)
         setContentView(binding.root)
+
+        isAlreadyReadAgreement = sharedPreference.getBoolean("isAlreadyReadAgreement", false)
 
         // Permission
         val requestPermissionLauncher =
@@ -123,9 +130,16 @@ class WelcomeActivity : AppCompatActivity() {
             }
         }
 
+        // Agreement CheckBox
+        binding.agreement.materialCheckBox.isChecked = isAlreadyReadAgreement
+        binding.agreement.materialCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            isAlreadyReadAgreement = isChecked
+        }
+
         // Show Dialog
         fun showEditTextErrorDialog() {
             MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.welcome_username_error_title)
                 .setMessage(R.string.welcome_username_error)
                 .setPositiveButton(R.string.welcome_username_error_positive) { dialogInterface: DialogInterface, i: Int ->
                     binding.welcomeViewPager.currentItem++
@@ -161,11 +175,21 @@ class WelcomeActivity : AppCompatActivity() {
                     2 -> {
                         val isAlreadyDialoged =
                             sharedPreference.getBoolean("isAlreadyDialoged", false)
-                        if (!isAlreadyDialoged) {
+                        if (!isAlreadyDialoged && viewModel.permissionStateLive.value?.containsValue(false) != false) {
                             showPermissionNotGrantedWarningDialog()
                         } else currentItem++
                     }
-                    3 -> currentItem++
+                    3 -> {
+                        if (isAlreadyReadAgreement) {
+                            currentItem++
+                        } else {
+                            Toast.makeText(
+                                this@WelcomeActivity,
+                                getString(R.string.welcome_agreement_toast),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                     4 -> {
                         val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
                         startActivity(intent)
