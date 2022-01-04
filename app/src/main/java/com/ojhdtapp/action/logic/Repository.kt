@@ -69,12 +69,6 @@ object Repository {
 
     fun getSuggestMoreLive() = database.suggestDao().loadAllDisplaySuggestLive()
 
-    fun getUserInfoLive(): LiveData<User> {
-        return liveData {
-            emit(User("Username", R.drawable.anonymous, Timestamp(0)))
-        }
-    }
-
     fun getAllActionLive(): LiveData<List<Action>> =
         database.actionDao().loadAllActionLive()
 

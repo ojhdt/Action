@@ -34,7 +34,7 @@ class WelcomeActivity : AppCompatActivity() {
         PreferenceManager.getDefaultSharedPreferences(this)
     }
     private var isAlreadyReadAgreement by Delegates.notNull<Boolean>()
-    private lateinit var imm:InputMethodManager
+    private lateinit var imm: InputMethodManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +55,8 @@ class WelcomeActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         // Hide KeyBoard
-        fun hideKeyBoard(){
-            if(imm.isActive != false)
+        fun hideKeyBoard() {
+            if (imm.isActive != false)
                 imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
         }
 
@@ -102,7 +102,7 @@ class WelcomeActivity : AppCompatActivity() {
                         setTransition(R.id.page4, R.id.page5)
                         progress = 1f
                     }
-                    if(numProgress == 0f || numProgress == 2f) hideKeyBoard()
+                    if (numProgress == 0f || numProgress == 2f) hideKeyBoard()
 //                var numProgress = (position + positionOffset) / (numPages - 1) * numPages
 //                binding.root.progress = progress
                 }
@@ -151,7 +151,7 @@ class WelcomeActivity : AppCompatActivity() {
         // Lottie
         binding.done.lottieAnimationView.run {
             setOnClickListener {
-                if(!isAnimating) playAnimation()
+                if (!isAnimating) playAnimation()
             }
         }
 
@@ -234,7 +234,9 @@ class WelcomeActivity : AppCompatActivity() {
                             val username =
                                 if (binding.setUser.usernameEditText.text.isNullOrBlank())
                                     getString(R.string.default_username)
-                                else if(binding.setUser.usernameEditText.text.toString().length > 10) getString(R.string.default_username)
+                                else if (binding.setUser.usernameEditText.text.toString().length > 10) getString(
+                                    R.string.default_username
+                                )
                                 else binding.setUser.usernameEditText.text
                             sharedPreference.edit()
                                 .putString("username", username.toString())

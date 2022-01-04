@@ -7,5 +7,5 @@ import java.sql.Timestamp
 
 @Entity
 @Parcelize
-data class User(val username: String, val avatarResID: Int, val registerTime: Timestamp) :
+data class User(val username: String, val avatarResID: Int) :
     Parcelable

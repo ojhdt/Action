@@ -1,8 +1,10 @@
 package com.ojhdtapp.action.ui.home
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.Event
@@ -19,7 +21,11 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     AndroidViewModel(
         application
     ) {
+
     private val dataBase = AppDataBase.getDataBase()
+    private val sharedPreference: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(application)
+    }
 
     // SnackBar Messages
     private val _snackBarMessageLive = MutableLiveData<Event<String>>()
@@ -36,17 +42,15 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     // Action Fragment
     private val _actionNowLive = MutableLiveData<MutableList<Action>>()
     private val _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
-    private val _userInfoLive = MutableLiveData<Any?>()
+    private val _userInfoLive = MutableLiveData<User>()
 
     private val _actionNowTran: LiveData<List<Action>> =
         Transformations.switchMap(_actionNowLive) { Repository.getActionNowLive() }
     private val _suggestMoreTran: LiveData<List<Suggest>> =
         Transformations.switchMap(_suggestMoreLive) { Repository.getSuggestMoreLive() }
-    private val _userInfoTran: LiveData<User> =
-        Transformations.switchMap(_userInfoLive) { Repository.getUserInfoLive() }
     val actionNowLive: LiveData<List<Action>> get() = _actionNowTran
     val suggestMoreLive: LiveData<List<Suggest>> get() = _suggestMoreTran
-    val userInfoLive: LiveData<User> get() = _userInfoTran
+    val userInfoLive: LiveData<User> get() = _userInfoLive
 
     fun actionRefresh() {
         _actionNowLive.value = _actionNowLive.value
@@ -57,7 +61,12 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     }
 
     fun getUserInfo() {
-        _userInfoLive.value = _userInfoLive.value
+        _userInfoLive.value = User(
+            sharedPreference.getString(
+                "username",
+                getApplication<Application>().getString(R.string.network_error)
+            )!!, R.drawable.anonymous
+        )
     }
 
     suspend fun storeSuggestFromCloud(type: Int) {
