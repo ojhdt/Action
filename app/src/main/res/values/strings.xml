@@ -25,6 +25,7 @@
     <string name="welcome_username_error">输入过长，继续将使用默认昵称</string>
     <string name="welcome_username_error_positive">继续</string>
     <string name="welcome_username_error_negative">返回</string>
+    <string name="welcome_useravatar_error">存储权限未授予</string>
     <string name="welcome_permission_btn">全部授权</string>
     <string name="welcome_permission_btn_disabled">已授权</string>
     <string name="welcome_permission_notice">您亦可稍后授权</string>

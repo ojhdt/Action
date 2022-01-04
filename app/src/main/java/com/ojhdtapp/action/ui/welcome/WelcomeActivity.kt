@@ -1,20 +1,24 @@
 package com.ojhdtapp.action.ui.welcome
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -43,6 +47,7 @@ class WelcomeActivity : AppCompatActivity() {
     private lateinit var imm: InputMethodManager
     private var selectedAvatarID = R.drawable.avatar_a
     lateinit var binding: ActivityWelcomeBinding
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
 
     // Handle closing an expanded recipient card when on back is pressed.
     private val closeRecipientCardOnBackPressed = object : OnBackPressedCallback(false) {
@@ -89,6 +94,45 @@ class WelcomeActivity : AppCompatActivity() {
         closeRecipientCardOnBackPressed.isEnabled = false
     }
 
+    // Select Avatar
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val uri = data?.data
+                Log.d("aaa", uri.toString())
+//                Glide.with(context)
+//                    .load(uri)
+//                    .into(binding.setUser.userAvatar)
+            }
+        }
+
+    private fun openAlbum() {
+        val intent = Intent("android.intent.action.GET_CONTENT")
+        intent.type = "image/*"
+        resultLauncher.launch(intent)
+    }
+
+    private fun selectAvatar() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            openAlbum()
+        } else {
+            val permissions = arrayOf(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            requestPermissionLauncher.launch(permissions)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,9 +145,25 @@ class WelcomeActivity : AppCompatActivity() {
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         // Permission
-        val requestPermissionLauncher =
+        requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
                 viewModel.updateState(it)
+                if (it.containsKey(Manifest.permission.READ_EXTERNAL_STORAGE) || it.containsKey(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                ) {
+                    if (it[Manifest.permission.READ_EXTERNAL_STORAGE] == true &&
+                        it[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true
+                    ) {
+                        openAlbum()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.welcome_useravatar_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
 
         // Hide NavigationBar & StatusBar
@@ -224,6 +284,9 @@ class WelcomeActivity : AppCompatActivity() {
             avatarSelectionG.setOnClickListener {
                 selectedAvatarID = R.drawable.avatar_g
                 collapseAvatarCard()
+            }
+            avatarSelectionH.setOnClickListener {
+                selectAvatar()
             }
         }
 
