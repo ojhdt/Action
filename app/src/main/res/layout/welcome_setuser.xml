@@ -9,6 +9,7 @@
         android:id="@+id/imageFilterView2"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:layout_marginTop="32dp"
         android:background="?attr/colorPrimary"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -44,9 +45,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginBottom="32dp"
         android:layout_weight="1"
         android:text="@string/welcome_username_notice"
         android:textAppearance="?attr/textAppearanceLabelMedium"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
@@ -64,6 +67,146 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView16"
         app:srcCompat="@drawable/ic_outline_info_24" />
+
+    <com.google.android.material.card.MaterialCardView
+        style="?attr/materialCardViewElevatedStyle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="16dp">
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionA"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/avatarSelectionB"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundPercent="1" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionB"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/avatarSelectionC"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/avatarSelectionA"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundPercent="1" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionC"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/avatarSelectionD"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/avatarSelectionB"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundPercent="1" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionD"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/avatarSelectionC"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundPercent="1" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionH"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/avatarSelectionG"
+                app:layout_constraintTop_toBottomOf="@+id/avatarSelectionD"
+                app:roundPercent="1" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionE"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/avatarSelectionF"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/avatarSelectionA"
+                app:roundPercent="1" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionF"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/avatarSelectionG"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/avatarSelectionE"
+                app:layout_constraintTop_toBottomOf="@+id/avatarSelectionB"
+                app:roundPercent="1" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/avatarSelectionG"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="?attr/colorPrimary"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@+id/avatarSelectionH"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/avatarSelectionF"
+                app:layout_constraintTop_toBottomOf="@+id/avatarSelectionC"
+                app:roundPercent="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

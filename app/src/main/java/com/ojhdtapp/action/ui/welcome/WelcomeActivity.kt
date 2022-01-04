@@ -21,6 +21,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ojhdtapp.action.BaseApplication.Companion.context
 import com.ojhdtapp.action.MainActivity
@@ -56,8 +57,9 @@ class WelcomeActivity : AppCompatActivity() {
 
         // Hide KeyBoard
         fun hideKeyBoard() {
-            if (imm.isActive != false)
+            if (imm.isActive) {
                 imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
+            }
         }
 
         // ViewPager2
@@ -102,12 +104,16 @@ class WelcomeActivity : AppCompatActivity() {
                         setTransition(R.id.page4, R.id.page5)
                         progress = 1f
                     }
-                    if (numProgress == 0f || numProgress == 2f) hideKeyBoard()
+                    if (numProgress <= 0 || numProgress >= 2) hideKeyBoard()
 //                var numProgress = (position + positionOffset) / (numPages - 1) * numPages
 //                binding.root.progress = progress
                 }
             }
         })
+
+        // Avatars
+        Glide.with(this)
+            .load
 
         // Permission RV
         val myAdapter = PermissionAdapter()
