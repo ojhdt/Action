@@ -6,12 +6,15 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -19,10 +22,12 @@ import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.BaseApplication.Companion.context
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
@@ -36,12 +41,61 @@ class WelcomeActivity : AppCompatActivity() {
     }
     private var isAlreadyReadAgreement by Delegates.notNull<Boolean>()
     private lateinit var imm: InputMethodManager
+    private var selectedAvatarID = R.drawable.avatar_a
+    lateinit var binding: ActivityWelcomeBinding
+
+    // Handle closing an expanded recipient card when on back is pressed.
+    private val closeRecipientCardOnBackPressed = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            collapseAvatarCard()
+        }
+    }
+
+    // Expand & Collapse Avatar Select Card
+    private fun expandAvatarCard() {
+        binding.setUser.run {
+            val transform = MaterialContainerTransform().apply {
+                startView = this@run.userAvatar
+                endView = this@run.avatarCard
+                scrimColor = Color.TRANSPARENT
+                endElevation = this@WelcomeActivity.resources.getDimension(
+                    R.dimen.cardview_default_elevation
+                )
+                addTarget(this@run.avatarCard)
+            }
+            TransitionManager.beginDelayedTransition(this.root, transform)
+            avatarCard.visibility = View.VISIBLE
+        }
+        closeRecipientCardOnBackPressed.isEnabled = true
+    }
+
+    private fun collapseAvatarCard() {
+        binding.setUser.run {
+            Glide.with(this@WelcomeActivity)
+                .load(selectedAvatarID)
+                .into(userAvatar)
+            val transform = MaterialContainerTransform().apply {
+                startView = this@run.avatarCard
+                endView = this@run.userAvatar
+                scrimColor = Color.TRANSPARENT
+                startElevation = this@WelcomeActivity.resources.getDimension(
+                    R.dimen.cardview_default_elevation
+                )
+                addTarget(this@run.userAvatar)
+            }
+            TransitionManager.beginDelayedTransition(this.root, transform)
+            avatarCard.visibility = View.GONE
+        }
+        closeRecipientCardOnBackPressed.isEnabled = false
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityWelcomeBinding.inflate(LayoutInflater.from(this), null, false)
+        binding = ActivityWelcomeBinding.inflate(LayoutInflater.from(this), null, false)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this, closeRecipientCardOnBackPressed)
 
         isAlreadyReadAgreement = sharedPreference.getBoolean("isAlreadyReadAgreement", false)
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -112,8 +166,66 @@ class WelcomeActivity : AppCompatActivity() {
         })
 
         // Avatars
-        Glide.with(this)
-            .load
+        binding.setUser.userAvatar.setOnClickListener {
+            expandAvatarCard()
+        }
+        binding.setUser.run {
+            // Default
+            Glide.with(this@WelcomeActivity)
+                .load(selectedAvatarID)
+                .into(userAvatar)
+            // Selections
+            Glide.with(this@WelcomeActivity)
+                .load(R.drawable.avatar_a)
+                .into(avatarSelectionA)
+            Glide.with(this@WelcomeActivity)
+                .load(R.drawable.avatar_b)
+                .into(avatarSelectionB)
+            Glide.with(this@WelcomeActivity)
+                .load(R.drawable.avatar_c)
+                .into(avatarSelectionC)
+            Glide.with(this@WelcomeActivity)
+                .load(R.drawable.avatar_d)
+                .into(avatarSelectionD)
+            Glide.with(this@WelcomeActivity)
+                .load(R.drawable.avatar_e)
+                .into(avatarSelectionE)
+            Glide.with(this@WelcomeActivity)
+                .load(R.drawable.avatar_f)
+                .into(avatarSelectionF)
+            Glide.with(this@WelcomeActivity)
+                .load(R.drawable.avatar_g)
+                .into(avatarSelectionG)
+
+            avatarSelectionA.setOnClickListener {
+                selectedAvatarID = R.drawable.avatar_a
+                collapseAvatarCard()
+            }
+            avatarSelectionB.setOnClickListener {
+                selectedAvatarID = R.drawable.avatar_b
+                collapseAvatarCard()
+            }
+            avatarSelectionC.setOnClickListener {
+                selectedAvatarID = R.drawable.avatar_c
+                collapseAvatarCard()
+            }
+            avatarSelectionD.setOnClickListener {
+                selectedAvatarID = R.drawable.avatar_d
+                collapseAvatarCard()
+            }
+            avatarSelectionE.setOnClickListener {
+                selectedAvatarID = R.drawable.avatar_e
+                collapseAvatarCard()
+            }
+            avatarSelectionF.setOnClickListener {
+                selectedAvatarID = R.drawable.avatar_f
+                collapseAvatarCard()
+            }
+            avatarSelectionG.setOnClickListener {
+                selectedAvatarID = R.drawable.avatar_g
+                collapseAvatarCard()
+            }
+        }
 
         // Permission RV
         val myAdapter = PermissionAdapter()

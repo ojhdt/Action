@@ -89,6 +89,7 @@
                     android:id="@+id/textView13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:scrollbars="none"
                     android:text="@string/lorem_ipsum"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     app:layout_constraintEnd_toEndOf="parent"

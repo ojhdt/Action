@@ -6,11 +6,10 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:id="@+id/imageFilterView2"
+        android:id="@+id/userAvatar"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="32dp"
-        android:background="?attr/colorPrimary"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
         android:scaleType="centerCrop"
@@ -32,7 +31,7 @@
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFilterView2">
+        app:layout_constraintTop_toBottomOf="@+id/userAvatar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameEditText"
@@ -69,19 +68,19 @@
         app:srcCompat="@drawable/ic_outline_info_24" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/avatarCard"
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
 
+        android:layout_height="wrap_content"
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
+        android:visibility="gone"
         app:cardCornerRadius="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -92,7 +91,7 @@
                 android:id="@+id/avatarSelectionA"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
@@ -106,7 +105,7 @@
                 android:id="@+id/avatarSelectionB"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
@@ -120,7 +119,7 @@
                 android:id="@+id/avatarSelectionC"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
@@ -134,7 +133,7 @@
                 android:id="@+id/avatarSelectionD"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
@@ -149,22 +148,24 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
+                android:padding="12dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/avatarSelectionG"
                 app:layout_constraintTop_toBottomOf="@+id/avatarSelectionD"
-                app:roundPercent="1" />
+                app:roundPercent="1"
+                app:srcCompat="@drawable/ic_outline_add_24" />
 
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:id="@+id/avatarSelectionE"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
@@ -179,7 +180,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
@@ -194,7 +195,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryContainer"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:scaleType="centerCrop"
