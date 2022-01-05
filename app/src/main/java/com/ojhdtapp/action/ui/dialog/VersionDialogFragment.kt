@@ -9,6 +9,9 @@ import com.ojhdtapp.action.databinding.AboutDialogBinding
 import android.content.pm.PackageManager
 
 import android.content.pm.PackageInfo
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 

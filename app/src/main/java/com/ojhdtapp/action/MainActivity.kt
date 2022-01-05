@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity(),
                 }
                 isFromHomeFragment = isHomeFragment
                 binding.homeNav.run {
-                    Log.d("aaa", "motivate")
                     if (isHomeFragment && !isNavigationViewShowing) showNavigationView()
                     else if (!isHomeFragment && isNavigationViewShowing) hideNavigationView()
                 }

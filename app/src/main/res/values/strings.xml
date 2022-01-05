@@ -286,6 +286,8 @@
     <string name="avatar_summary">头像将于首页展示</string>
     <string name="clear_account_summary">清除所有行动记录，经验值与成就</string>
     <string name="account_notice">更改将在应用下次启动时生效</string>
+    <string name="avatar_dialog_title">选择头像</string>
+    <string name="avatar_dialog_negative">取消</string>
 
     <!-- Problem Preferences -->
     <string name="manual_title">帮助手册</string>

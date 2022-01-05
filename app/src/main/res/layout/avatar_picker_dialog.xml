@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:paddingVertical="16dp">
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionA"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/avatarDialogSelectionB"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundPercent="1" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionB"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/avatarDialogSelectionC"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/avatarDialogSelectionA"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundPercent="1" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionC"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/avatarDialogSelectionD"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/avatarDialogSelectionB"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundPercent="1" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionD"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/avatarDialogSelectionC"
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundPercent="1" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionH"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="12dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/avatarDialogSelectionG"
+        app:layout_constraintTop_toBottomOf="@+id/avatarDialogSelectionD"
+        app:roundPercent="1"
+        app:srcCompat="@drawable/ic_outline_add_24" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionE"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/avatarDialogSelectionF"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatarDialogSelectionA"
+        app:roundPercent="1" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionF"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/avatarDialogSelectionG"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/avatarDialogSelectionE"
+        app:layout_constraintTop_toBottomOf="@+id/avatarDialogSelectionB"
+        app:roundPercent="1" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/avatarDialogSelectionG"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/avatarDialogSelectionH"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/avatarDialogSelectionF"
+        app:layout_constraintTop_toBottomOf="@+id/avatarDialogSelectionC"
+        app:roundPercent="1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

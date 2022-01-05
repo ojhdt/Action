@@ -18,6 +18,8 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.getUriToDrawable
+import com.ojhdtapp.action.ui.dialog.AvatarPickerDialogFragment
+import com.ojhdtapp.action.ui.dialog.VersionDialogFragment
 
 class AccountFragment : PreferenceFragmentCompat() {
     private val sharedPreference: SharedPreferences by lazy {
@@ -36,10 +38,12 @@ class AccountFragment : PreferenceFragmentCompat() {
 
         findPreference<AvatarPreference>("userAvatarURI")?.run {
             setOnPreferenceClickListener {
-
+                showAvatarPickerDialog()
                 true
             }
             setOnPreferenceChangeListener { preference, newValue ->
+                Log.d("aaa", "received")
+                Log.d("aaa", newValue.toString())
                 setAvatar(Uri.parse(newValue as String))
                 true
             }
@@ -84,5 +88,10 @@ class AccountFragment : PreferenceFragmentCompat() {
                 false
             }
         }
+    }
+
+    private fun showAvatarPickerDialog() {
+        val newFragment = AvatarPickerDialogFragment()
+        newFragment.show(parentFragmentManager, "avatar")
     }
 }

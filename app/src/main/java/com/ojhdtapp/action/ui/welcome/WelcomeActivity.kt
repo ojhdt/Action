@@ -148,7 +148,6 @@ class WelcomeActivity : AppCompatActivity() {
         // Permission
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                viewModel.updateState(it)
                 if (it.containsKey(Manifest.permission.READ_EXTERNAL_STORAGE) || it.containsKey(
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                     )
@@ -164,7 +163,7 @@ class WelcomeActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }
+                } else viewModel.updateState(it)
             }
 
         // Hide NavigationBar & StatusBar
