@@ -19,4 +19,7 @@
         app:summary="@string/clear_account_summary"
         app:title="@string/clear_account_title" />
 
+    <Preference
+        app:summary="@string/account_notice"/>
+
 </PreferenceScreen>
