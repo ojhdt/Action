@@ -8,11 +8,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.DocumentsContract
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -36,6 +33,7 @@ import com.ojhdtapp.action.BaseApplication.Companion.context
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActivityWelcomeBinding
+import com.ojhdtapp.action.getUriToDrawable
 import kotlin.properties.Delegates
 
 class WelcomeActivity : AppCompatActivity() {
@@ -45,7 +43,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
     private var isAlreadyReadAgreement by Delegates.notNull<Boolean>()
     private lateinit var imm: InputMethodManager
-    private var selectedAvatarID = R.drawable.avatar_a
+    private var selectedAvatarURI = getUriToDrawable(R.drawable.avatar_a)
     lateinit var binding: ActivityWelcomeBinding
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
 
@@ -77,7 +75,7 @@ class WelcomeActivity : AppCompatActivity() {
     private fun collapseAvatarCard() {
         binding.setUser.run {
             Glide.with(this@WelcomeActivity)
-                .load(selectedAvatarID)
+                .load(selectedAvatarURI)
                 .into(userAvatar)
             val transform = MaterialContainerTransform().apply {
                 startView = this@run.avatarCard
@@ -100,7 +98,10 @@ class WelcomeActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
                 val uri = data?.data
-                Log.d("aaa", uri.toString())
+                uri?.let {
+                    selectedAvatarURI = it
+                }
+                collapseAvatarCard()
 //                Glide.with(context)
 //                    .load(uri)
 //                    .into(binding.setUser.userAvatar)
@@ -232,7 +233,7 @@ class WelcomeActivity : AppCompatActivity() {
         binding.setUser.run {
             // Default
             Glide.with(this@WelcomeActivity)
-                .load(selectedAvatarID)
+                .load(selectedAvatarURI)
                 .into(userAvatar)
             // Selections
             Glide.with(this@WelcomeActivity)
@@ -258,31 +259,31 @@ class WelcomeActivity : AppCompatActivity() {
                 .into(avatarSelectionG)
 
             avatarSelectionA.setOnClickListener {
-                selectedAvatarID = R.drawable.avatar_a
+                selectedAvatarURI = getUriToDrawable(R.drawable.avatar_a)
                 collapseAvatarCard()
             }
             avatarSelectionB.setOnClickListener {
-                selectedAvatarID = R.drawable.avatar_b
+                selectedAvatarURI = getUriToDrawable(R.drawable.avatar_b)
                 collapseAvatarCard()
             }
             avatarSelectionC.setOnClickListener {
-                selectedAvatarID = R.drawable.avatar_c
+                selectedAvatarURI = getUriToDrawable(R.drawable.avatar_c)
                 collapseAvatarCard()
             }
             avatarSelectionD.setOnClickListener {
-                selectedAvatarID = R.drawable.avatar_d
+                selectedAvatarURI = getUriToDrawable(R.drawable.avatar_d)
                 collapseAvatarCard()
             }
             avatarSelectionE.setOnClickListener {
-                selectedAvatarID = R.drawable.avatar_e
+                selectedAvatarURI = getUriToDrawable(R.drawable.avatar_e)
                 collapseAvatarCard()
             }
             avatarSelectionF.setOnClickListener {
-                selectedAvatarID = R.drawable.avatar_f
+                selectedAvatarURI = getUriToDrawable(R.drawable.avatar_f)
                 collapseAvatarCard()
             }
             avatarSelectionG.setOnClickListener {
-                selectedAvatarID = R.drawable.avatar_g
+                selectedAvatarURI = getUriToDrawable(R.drawable.avatar_g)
                 collapseAvatarCard()
             }
             avatarSelectionH.setOnClickListener {
@@ -421,6 +422,7 @@ class WelcomeActivity : AppCompatActivity() {
                                 else binding.setUser.usernameEditText.text
                             sharedPreference.edit()
                                 .putString("username", username.toString())
+                                .putString("userAvatarURI", selectedAvatarURI.toString())
                                 .putBoolean("isAlreadyDialoged", true)
                                 .putBoolean("isFirstLaunch", false)
                                 .apply()

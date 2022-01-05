@@ -2,6 +2,7 @@ package com.ojhdtapp.action.ui.home
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
@@ -9,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.Event
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.getUriToDrawable
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
@@ -64,8 +66,14 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
         _userInfoLive.value = User(
             sharedPreference.getString(
                 "username",
-                getApplication<Application>().getString(R.string.network_error)
-            )!!, R.drawable.anonymous
+                getApplication<Application>().getString(R.string.default_username)
+            )!!,
+            Uri.parse(
+                sharedPreference.getString(
+                    "userAvatarURI",
+                    getUriToDrawable(R.drawable.avatar_a).toString()
+                )
+            )
         )
     }
 

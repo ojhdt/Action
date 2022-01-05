@@ -390,7 +390,7 @@ class ActionFragment : Fragment() {
             binding.welcomeTextView.text =
                 resources.getStringArray(R.array.action_welcomes).random() + it.username
             Glide.with(BaseApplication.context)
-                .load(ContextCompat.getDrawable(BaseApplication.context, it.avatarResID))
+                .load(it.avatarURI)
                 .into(binding.welcomeAvatarImageView)
         }
 

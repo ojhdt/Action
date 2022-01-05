@@ -3,14 +3,20 @@ package com.ojhdtapp.action
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import cn.leancloud.LCObject
 import cn.leancloud.LeanCloud
 import com.google.android.material.color.DynamicColors
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.ContentResolver
+
+import androidx.annotation.AnyRes
+
+
+
 
 
 class BaseApplication : Application() {
@@ -37,7 +43,19 @@ class BaseApplication : Application() {
     }
 }
 
-interface MyOnClickListener{
+fun getUriToDrawable(
+    @AnyRes drawableId: Int
+): Uri {
+    val context = BaseApplication.context
+    return Uri.parse(
+        ContentResolver.SCHEME_ANDROID_RESOURCE
+                + "://" + context.resources.getResourcePackageName(drawableId)
+                + '/' + context.resources.getResourceTypeName(drawableId)
+                + '/' + context.resources.getResourceEntryName(drawableId)
+    )
+}
+
+interface MyOnClickListener {
     fun onClick()
 }
 
@@ -74,11 +92,11 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
 }
 
 object AnimType {
-    val FADE = 0
-    val HOLD = 1
-    val SHARED_AXIS_Z = 2
-    val ELEVATIONSCALE = 3
-    val NULL = 4
+    const val FADE = 0
+    const val HOLD = 1
+    const val SHARED_AXIS_Z = 2
+    const val ELEVATIONSCALE = 3
+    const val NULL = 4
 }
 
 object DateUtil {
@@ -88,7 +106,8 @@ object DateUtil {
     }
 
     fun formatDateWithoutHM(date: Date): String {
-        val format = SimpleDateFormat(BaseApplication.context.getString(R.string.date_format_without_h_m))
+        val format =
+            SimpleDateFormat(BaseApplication.context.getString(R.string.date_format_without_h_m))
         return format.format(date)
     }
 
@@ -148,6 +167,7 @@ object DeviceUtil {
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         return context.resources.getDimensionPixelSize(resourceId)
     }
+
     // 获得导航栏高度
     fun getNavigationBarHeight(context: Context): Int {
         val rid: Int =
