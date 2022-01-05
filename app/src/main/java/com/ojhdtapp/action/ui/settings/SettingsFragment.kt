@@ -1,10 +1,16 @@
 package com.ojhdtapp.action.ui.settings
 
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
+import android.text.Spanned
+import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
@@ -19,7 +25,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("action_expired_time")?.apply {
             setOnPreferenceClickListener {
-
                 false
             }
         }
@@ -48,7 +53,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar?.let{
+        toolbar?.let {
             it.inflateMenu(R.menu.settings_toolbar)
             NavigationUI.setupWithNavController(
                 it,
@@ -63,5 +68,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

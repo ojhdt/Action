@@ -7,7 +7,8 @@
             app:fragment="com.ojhdtapp.action.ui.settings.PermissionsFragment"
             app:key="permission"
             app:summary="@string/permission_summary"
-            app:title="@string/permission_title" />
+            app:title="@string/permission_title"
+            app:icon="@drawable/ic_outline_android_24"/>
 
         <Preference
             app:fragment="com.ojhdtapp.action.ui.settings.AccountFragment"

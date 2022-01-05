@@ -10,9 +10,11 @@
         app:useSimpleSummaryProvider="true" />
 
     <Preference
-        app:key="avatar"
+        android:layout="@layout/preference_material"
+        app:key="userAvatarURI"
         app:summary="@string/avatar_summary"
-        app:title="@string/avatar_title" />
+        app:title="@string/avatar_title"
+        app:widgetLayout="@layout/preference_material_avatar"/>
 
     <Preference
         app:key="clear_account"
