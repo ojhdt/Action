@@ -34,26 +34,13 @@ class AccountFragment : PreferenceFragmentCompat() {
             }
         }
 
-        findPreference<Preference>("userAvatarURI")?.run {
-//            context?.let {
-//                Glide.with(it)
-//                    .load(
-//                        Uri.parse(
-//                            sharedPreference.getString(
-//                                "userAvatarURI",
-//                                getUriToDrawable(R.drawable.avatar_a).toString()
-//                            )
-//                        )
-//                    )
-//                    .into(view?.findViewById(R.id.preferenceAvatar))
-//            }
+        findPreference<AvatarPreference>("userAvatarURI")?.run {
             setOnPreferenceClickListener {
+
                 true
             }
             setOnPreferenceChangeListener { preference, newValue ->
-//                Glide.with(context)
-//                    .load(Uri.parse(newValue as String))
-//                    .into(this@AccountFragment.activity?.findViewById(R.id.preferenceAvatar))
+                setAvatar(Uri.parse(newValue as String))
                 true
             }
         }
@@ -78,6 +65,7 @@ class AccountFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // Setup Appbar
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         val navController = findNavController()

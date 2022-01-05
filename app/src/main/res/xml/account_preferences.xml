@@ -9,7 +9,7 @@
         android:title="@string/username_title"
         app:useSimpleSummaryProvider="true" />
 
-    <Preference
+    <com.ojhdtapp.action.ui.settings.AvatarPreference
         android:layout="@layout/preference_material"
         app:key="userAvatarURI"
         app:summary="@string/avatar_summary"
