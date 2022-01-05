@@ -44,7 +44,6 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     // Action Fragment
     private val _actionNowLive = MutableLiveData<MutableList<Action>>()
     private val _suggestMoreLive = MutableLiveData<MutableList<Suggest>>()
-    private val _userInfoLive = MutableLiveData<User>()
 
     private val _actionNowTran: LiveData<List<Action>> =
         Transformations.switchMap(_actionNowLive) { Repository.getActionNowLive() }
@@ -52,7 +51,6 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
         Transformations.switchMap(_suggestMoreLive) { Repository.getSuggestMoreLive() }
     val actionNowLive: LiveData<List<Action>> get() = _actionNowTran
     val suggestMoreLive: LiveData<List<Suggest>> get() = _suggestMoreTran
-    val userInfoLive: LiveData<User> get() = _userInfoLive
 
     fun actionRefresh() {
         _actionNowLive.value = _actionNowLive.value
@@ -60,21 +58,6 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
 
     fun suggestRefresh() {
         _suggestMoreLive.value = _suggestMoreLive.value
-    }
-
-    fun getUserInfo() {
-        _userInfoLive.value = User(
-            sharedPreference.getString(
-                "username",
-                getApplication<Application>().getString(R.string.default_username)
-            )!!,
-            Uri.parse(
-                sharedPreference.getString(
-                    "userAvatarURI",
-                    getUriToDrawable(R.drawable.avatar_a).toString()
-                )
-            )
-        )
     }
 
     suspend fun storeSuggestFromCloud(type: Int) {

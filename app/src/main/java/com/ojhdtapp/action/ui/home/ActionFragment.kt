@@ -1,5 +1,8 @@
 package com.ojhdtapp.action.ui.home
 
+import android.app.Application
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +44,9 @@ class ActionFragment : Fragment() {
     val viewModel: SharedViewModel by activityViewModels()
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private val binding get() = _binding!!
+    private val sharedPreference: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(context)
+    }
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
 
     private var isShowingBottomSheetDialog: Boolean = false
@@ -386,13 +393,21 @@ class ActionFragment : Fragment() {
         }
 
         // Welcome Text & Avatar
-        viewModel.userInfoLive.observe(this) {
-            binding.welcomeTextView.text =
-                resources.getStringArray(R.array.action_welcomes).random() + it.username
-            Glide.with(BaseApplication.context)
-                .load(it.avatarURI)
-                .into(binding.welcomeAvatarImageView)
-        }
+        binding.welcomeTextView.text =
+            resources.getStringArray(R.array.action_welcomes).random() + sharedPreference.getString(
+                "username",
+                getString(R.string.default_username)
+            )!!
+        Glide.with(context!!)
+            .load(
+                Uri.parse(
+                    sharedPreference.getString(
+                        "userAvatarURI",
+                        getUriToDrawable(R.drawable.avatar_a).toString()
+                    )
+                )
+            )
+            .into(binding.welcomeAvatarImageView)
 
         // FAB Show & Hide & onCLick Call
         binding.actionScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->

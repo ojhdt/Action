@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity(),
         viewModel.run {
             actionRefresh()
             suggestRefresh()
-            getUserInfo()
             gainedAchievementRefresh()
             finishedActionRefresh()
             weatherRefresh(true)
