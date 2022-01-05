@@ -43,4 +43,16 @@ class AvatarPreference(context: Context?, attrs: AttributeSet?) : Preference(con
             .load(uri)
             .into(imageView)
     }
+
+    fun updateAvatar(){
+        val imgURI = Uri.parse(
+            sharedPreference.getString(
+                "userAvatarURI",
+                getUriToDrawable(R.drawable.avatar_a).toString()
+            )
+        )
+        Glide.with(context)
+            .load(imgURI)
+            .into(imageView)
+    }
 }

@@ -3,6 +3,7 @@ package com.ojhdtapp.action.ui.dialog
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
@@ -23,7 +24,12 @@ import com.ojhdtapp.action.databinding.AboutDialogBinding
 import com.ojhdtapp.action.databinding.AvatarPickerDialogBinding
 import com.ojhdtapp.action.getUriToDrawable
 
-class AvatarPickerDialogFragment : DialogFragment() {
+class AvatarPickerDialogFragment(val listener: AvatarChangedListener) : DialogFragment() {
+
+    interface AvatarChangedListener {
+        fun onAvatarChange()
+    }
+
     private var _binding: AvatarPickerDialogBinding? = null
     private val binding get() = _binding!!
     private val sharedPreference: SharedPreferences by lazy {
@@ -173,5 +179,6 @@ class AvatarPickerDialogFragment : DialogFragment() {
         sharedPreference.edit()
             .putString("userAvatarURI", uri.toString())
             .apply()
+        listener.onAvatarChange()
     }
 }

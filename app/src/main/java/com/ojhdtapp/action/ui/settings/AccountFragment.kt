@@ -41,12 +41,10 @@ class AccountFragment : PreferenceFragmentCompat() {
                 showAvatarPickerDialog()
                 true
             }
-            setOnPreferenceChangeListener { preference, newValue ->
-                Log.d("aaa", "received")
-                Log.d("aaa", newValue.toString())
-                setAvatar(Uri.parse(newValue as String))
-                true
-            }
+//            setOnPreferenceChangeListener { preference, newValue ->
+//                setAvatar(Uri.parse(newValue as String))
+//                true
+//            }
         }
     }
 
@@ -91,7 +89,11 @@ class AccountFragment : PreferenceFragmentCompat() {
     }
 
     private fun showAvatarPickerDialog() {
-        val newFragment = AvatarPickerDialogFragment()
+        val newFragment = AvatarPickerDialogFragment(object: AvatarPickerDialogFragment.AvatarChangedListener{
+            override fun onAvatarChange() {
+                findPreference<AvatarPreference>("userAvatarURI")?.updateAvatar()
+            }
+        })
         newFragment.show(parentFragmentManager, "avatar")
     }
 }
