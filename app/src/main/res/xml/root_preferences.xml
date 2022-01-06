@@ -5,18 +5,23 @@
 
         <Preference
             app:fragment="com.ojhdtapp.action.ui.settings.PermissionsFragment"
+            app:icon="@drawable/ic_outline_android_24"
             app:key="permission"
             app:summary="@string/permission_summary"
-            app:title="@string/permission_title"
-            app:icon="@drawable/ic_outline_android_24"/>
+            app:title="@string/permission_title" />
 
         <Preference
             app:fragment="com.ojhdtapp.action.ui.settings.AccountFragment"
+            app:icon="@drawable/ic_outline_account_circle_24"
             app:key="account"
             app:summary="@string/account_summary"
             app:title="@string/account_title" />
 
-        <Preference
+        <rikka.preference.SimpleMenuPreference
+            android:summary="%s"
+            app:defaultValue="10"
+            app:entries="@array/expired_time_entries"
+            app:entryValues="@array/expired_time_values"
             app:key="action_expired_time"
             app:title="@string/action_expired_title" />
 
@@ -37,26 +42,43 @@
 
     <PreferenceCategory app:title="@string/language_header">
 
-        <Preference
+        <rikka.preference.SimpleMenuPreference
+            app:defaultValue="0"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:icon="@drawable/ic_outline_translate_24"
             app:key="language"
+            app:summary="%s"
             app:title="@string/language_title" />
 
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/appearance_header">
 
-        <Preference
-            app:key="dark_node"
+        <rikka.preference.SimpleMenuPreference
+            android:summary="%s"
+            app:defaultValue="2"
+            app:entries="@array/dark_mode_entries"
+            app:entryValues="@array/dark_mode_values"
+            app:icon="@drawable/ic_outline_dark_mode_24"
+            app:key="dark_mode"
             app:title="@string/dark_mode_title" />
 
         <SwitchPreferenceCompat
+            android:disableDependentsState="true"
+            app:defaultValue="false"
             app:key="dynamic_color"
             app:summary="@string/dynamic_color_summary"
             app:title="@string/dynamic_color_title" />
 
-        <Preference
+        <rikka.preference.SimpleMenuPreference
+            app:defaultValue="0"
             app:dependency="dynamic_color"
+            app:entries="@array/theme_color_entries"
+            app:entryValues="@array/theme_color_values"
+            app:icon="@drawable/ic_outline_color_lens_24"
             app:key="color"
+            app:summary="%s"
             app:title="@string/color_title" />
 
     </PreferenceCategory>
@@ -64,12 +86,16 @@
     <PreferenceCategory app:title="@string/weather_header">
 
         <SwitchPreferenceCompat
+            android:disableDependentsState="true"
+            app:defaultValue="false"
+            app:icon="@drawable/ic_outline_location_on_24"
             app:key="locate"
             app:summary="@string/locate_summary"
             app:title="@string/locate_title" />
 
         <Preference
             app:dependency="locate"
+            app:icon="@drawable/ic_outline_apartment_24"
             app:key="set_locate"
             app:summary="@string/set_location_summary"
             app:title="@string/set_location_title" />
@@ -81,11 +107,17 @@
         <MultiSelectListPreference
             app:entries="@array/notification_type_entries"
             app:entryValues="@array/notification_type_entries"
+            app:icon="@drawable/ic_outline_notifications_active_24"
             app:key="notification_type"
             app:title="@string/notification_type_title" />
 
-        <Preference
+        <rikka.preference.SimpleMenuPreference
+            app:defaultValue="1"
+            app:entries="@array/notification_entries"
+            app:entryValues="@array/notification_values"
+            app:icon="@drawable/ic_outline_edit_notifications_24"
             app:key="notification_action"
+            app:summary="%s"
             app:title="@string/notification_action_title" />
 
     </PreferenceCategory>

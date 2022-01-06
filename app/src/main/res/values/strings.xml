@@ -251,6 +251,7 @@
 
     <!-- Language Preferences -->
     <string name="language_title">语言</string>
+    <string name="language_follow_system">跟随系统</string>
 
     <!-- Appearance Preferences -->
     <string name="color_title">主题颜色</string>
@@ -260,6 +261,7 @@
     <string name="dark_mode_always_on">始终开启</string>
     <string name="dark_mode_always_off">始终关闭</string>
     <string name="dark_mode_follow_system">跟随系统</string>
+    <string name="theme_color_green">浅绿</string>
 
     <!-- Weather Preferences -->
     <string name="locate_title">始终重新定位</string>
