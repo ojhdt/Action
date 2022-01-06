@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="color" format="color"/>
+    <attr name="progress" format="integer"/>
     <declare-styleable name="ProgressView">
-        <attr name="progress" format="integer"/>
-        <attr name="color" format="color"/>
+        <attr name="progress"/>
+        <attr name="color"/>
     </declare-styleable>
     <declare-styleable name="ProgressTextView">
-        <attr name="intValue" format="integer"/>
+        <attr name="progress"/>
         <attr name="suffix" format="string"/>
+    </declare-styleable>
+    <declare-styleable name="ProgressSurfaceView">
+        <attr name="color"/>
+        <attr name="targetProgress" format="integer"/>
     </declare-styleable>
 </resources>

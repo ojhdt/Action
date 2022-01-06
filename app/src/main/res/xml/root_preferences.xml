@@ -93,7 +93,7 @@
     <PreferenceCategory app:title="@string/other_header">
 
         <Preference
-            app:key="notification_action"
+            app:key="guide"
             app:summary="@string/guide_summary"
             app:title="@string/guide_title" />
 

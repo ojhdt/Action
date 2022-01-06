@@ -141,10 +141,11 @@ object ExploreAdapters {
                     R.string.weather_temperature_value,
                     weatherBlock.temperatureNow.value.toString()
                 )
-                ObjectAnimator.ofInt(binding.weatherTemperatureNow,"intValue",0,weatherBlock.temperatureNow.value).apply {
-                    duration = 1000
-                    start()
-                }
+                binding.weatherTemperatureNow.setTargetProgress(weatherBlock.temperatureNow.value)
+//                ObjectAnimator.ofInt(binding.weatherTemperatureNow,"progress",0,weatherBlock.temperatureNow.value).apply {
+//                    duration = 1000
+//                    start()
+//                }
 //                weatherTemperatureHighest.text = weatherBlock.temperatureNow.highest.toString()
 //                weatherTemperatureLowest.text = weatherBlock.temperatureNow.lowest.toString()
                 weatherIconNextHour.setAnimation(weatherBlock.temperature1HourLater.rawID)
@@ -216,15 +217,17 @@ object ExploreAdapters {
 //                airTitle.text = data.title
 //                airNum.text = data.num.toString()
 //                airProgressView.setProgress(data.progress)
-                ObjectAnimator.ofInt(binding.airNum,"intValue",0,data.num).apply {
-                    duration = 1000
-                    start()
-                }
-                ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
-                    .apply {
-                        duration = 1000
-                        start()
-                    }
+                airNum.setTargetProgress(data.num)
+//                ObjectAnimator.ofInt(airNum,"progress",0,data.num).apply {
+//                    duration = 1000
+//                    start()
+//                }
+//                ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
+//                    .apply {
+//                        duration = 1000
+//                        start()
+//                    }
+                airProgressView.setTargetProgress(data.progress)
             }
         }
     }
@@ -239,15 +242,17 @@ object ExploreAdapters {
 //                airTitle.text = data.title
 //                airNum.text = data.num.toString()
 //                airProgressView.setProgress(data.progress)
-                ObjectAnimator.ofInt(binding.airNum,"intValue",0,data.num).apply {
-                    duration = 1000
-                    start()
-                }
-                ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
-                    .apply {
-                        duration = 1000
-                        start()
-                    }
+                airNum.setTargetProgress(data.num)
+//                ObjectAnimator.ofInt(airNum,"progress",0,data.num).apply {
+//                    duration = 1000
+//                    start()
+//                }
+                airProgressView.setTargetProgress(data.progress)
+//                ObjectAnimator.ofInt(airProgressView, "progress", 0, data.progress)
+//                    .apply {
+//                        duration = 1000
+//                        start()
+//                    }
             }
         }
     }
@@ -256,28 +261,32 @@ object ExploreAdapters {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: LifeMessageBlock) {
             binding.run {
-                ObjectAnimator.ofInt(binding.ultravioletNum,"intValue",0, data.ultravioletValue).apply {
-                    duration = 1000
-                    start()
-                }
-                ObjectAnimator.ofInt(
-                    ultravioletProcessView,
-                    "progress",
-                    0,
-                    data.ultravioletProgress
-                ).apply {
-                    duration = 1000
-                    start()
-                }
-                ObjectAnimator.ofInt(binding.comfortNum,"intValue",0,data.ComfortValue).apply {
-                    duration = 1000
-                    start()
-                }
-                ObjectAnimator.ofInt(comfortProcessView, "progress", 0, data.ComfortProgress)
-                    .apply {
-                        duration = 1000
-                        start()
-                    }
+                ultravioletNum.setTargetProgress(data.ultravioletValue)
+//                ObjectAnimator.ofInt(ultravioletNum,"progress",0, data.ultravioletValue).apply {
+//                    duration = 1000
+//                    start()
+//                }
+                ultravioletProcessView.setTargetProgress(data.ultravioletProgress)
+//                ObjectAnimator.ofInt(
+//                    ultravioletProcessView,
+//                    "progress",
+//                    0,
+//                    data.ultravioletProgress
+//                ).apply {
+//                    duration = 1000
+//                    start()
+//                }
+                comfortNum.setTargetProgress(data.ComfortValue)
+//                ObjectAnimator.ofInt(comfortNum,"progress",0,data.ComfortValue).apply {
+//                    duration = 1000
+//                    start()
+//                }
+                comfortProcessView.setTargetProgress(data.ComfortProgress)
+//                ObjectAnimator.ofInt(comfortProcessView, "progress", 0, data.ComfortProgress)
+//                    .apply {
+//                        duration = 1000
+//                        start()
+//                    }
 //                ultravioletNum.text = ultravioletData.num.toString()
 //                ultravioletProcessView.setProgress(ultravioletData.progress)
 //                comfortNum.text = comfortData.num.toString()

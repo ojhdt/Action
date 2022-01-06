@@ -1,5 +1,7 @@
 package com.ojhdtapp.action.ui
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -40,9 +42,25 @@ class ProgressView @JvmOverloads constructor(
     public fun getProgress():Int{
         return progress
     }
+    public fun setTargetProgress(value: Int){
+        targetProgress = value
+        if(animator?.isRunning != true){
+            animator = ValueAnimator.ofInt(0, targetProgress).apply {
+                duration = 1000
+                addUpdateListener { updatedAnimation ->
+                    progress = updatedAnimation.animatedValue as Int
+                    invalidate()
+                }
+                start()
+            }
+        }
+    }
+
+    private var animator:Animator? = null
     private var mwidth = 0f
     private var mheight = 0f
     private var progress: Int = 0
+    private var targetProgress: Int = 0
     private var paintColor: Int? = null
     private val fillcolorPrimaryPaint = Paint().apply {
         style = Paint.Style.FILL
