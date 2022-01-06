@@ -14,6 +14,7 @@ class PermissionsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.permissions_preferences, rootKey)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class PermissionsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // Setup Appbar
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         val navController = findNavController()

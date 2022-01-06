@@ -66,11 +66,21 @@
     <fragment
         android:id="@+id/actionContentFragment"
         android:name="com.ojhdtapp.action.ui.content.ActionContentFragment"
-        android:label="@string/nav_action_content" />
+        android:label="@string/nav_action_content" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/suggestContentFragment"
         android:name="com.ojhdtapp.action.ui.content.SuggestContentFragment"
-        android:label="@string/suggest_content_toolbar" />
+        android:label="@string/suggest_content_toolbar" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/actionArchiveFragment"
         android:name="com.ojhdtapp.action.ui.archive.ActionArchiveFragment"
@@ -101,7 +111,12 @@
         android:id="@+id/actionArchiveHistoryFragment"
         android:name="com.ojhdtapp.action.ui.archive.ActionArchiveHistoryFragment"
         android:label="@string/action_history"
-        tools:layout="@layout/fragment_action_archive_history" />
+        tools:layout="@layout/fragment_action_archive_history" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.ojhdtapp.action.ui.settings.SettingsFragment"
@@ -120,11 +135,21 @@
     <fragment
         android:id="@+id/permissionsFragment"
         android:name="com.ojhdtapp.action.ui.settings.PermissionsFragment"
-        android:label="@string/permission_title" />
+        android:label="@string/permission_title" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.ojhdtapp.action.ui.settings.AccountFragment"
-        android:label="@string/account_title" />
+        android:label="@string/account_title" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <fragment
         android:id="@+id/helpAndSupportFragment"
         android:name="com.ojhdtapp.action.ui.settings.HelpAndSupportFragment"

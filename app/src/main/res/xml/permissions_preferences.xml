@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.ojhdtapp.action.ui.settings.PermissionPreference
+        app:key="permission_location"
+        app:permission="location"
+        app:summary="@string/location_summary"
+        app:title="@string/location_title"
+        app:widgetLayout="@layout/preference_permission_state"/>
+    <com.ojhdtapp.action.ui.settings.PermissionPreference
+        app:key="permission_sensor"
+        app:permission="sensor"
+        app:summary="@string/sensor_summary"
+        app:title="@string/sensor_title"
+        app:widgetLayout="@layout/preference_permission_state" />
+    <com.ojhdtapp.action.ui.settings.PermissionPreference
+        app:key="permission_storage"
+        app:permission="storage"
+        app:summary="@string/storage_summary"
+        app:title="@string/storage_title"
+        app:widgetLayout="@layout/preference_permission_state" />
+
+    <Preference
+        app:key="all_granted"
+        app:title="@string/all_granted"
+        app:summary="@string/all_granted_summary"/>
 
 </PreferenceScreen>

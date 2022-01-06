@@ -279,6 +279,17 @@
     <string name="guide_title">运行启动向导</string>
     <string name="guide_summary">重新运行初次启动向导</string>
 
+    <!-- Permission Preferences -->
+    <string name="location_title">精确位置信息</string>
+    <string name="location_summary">用于场景识别及天气消息获取</string>
+    <string name="sensor_title">传感器</string>
+    <string name="sensor_summary">用于场景识别</string>
+    <string name="storage_title">文件和媒体</string>
+    <string name="storage_summary">用于文件交互</string>
+    <string name="all_granted">全部授予</string>
+    <string name="all_granted_summary">将弹出授权弹窗</string>
+
+
     <!-- Account Preferences -->
     <string name="username_title">如何称呼您</string>
     <string name="avatar_title">用户头像</string>

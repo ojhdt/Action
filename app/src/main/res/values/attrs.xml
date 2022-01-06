@@ -14,4 +14,7 @@
         <attr name="color"/>
         <attr name="targetProgress" format="integer"/>
     </declare-styleable>
+    <declare-styleable name="PermissionPreference">
+        <attr name="permission" format="string"/>
+    </declare-styleable>
 </resources>
