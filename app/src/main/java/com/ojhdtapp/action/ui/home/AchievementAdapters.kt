@@ -303,13 +303,14 @@ object AchievementAdapters {
             binding.run {
                 totalA.text = titleA
 //                totalB.text = num.toString()
-                ValueAnimator.ofInt(0, num).apply {
-                    duration = 1000
-                    addUpdateListener {
-                        totalB.text = (it.animatedValue as Int).toString()
-                    }
-                    start()
-                }
+//                ValueAnimator.ofInt(0, num).apply {
+//                    duration = 1000
+//                    addUpdateListener {
+//                        totalB.text = (it.animatedValue as Int).toString()
+//                    }
+//                    start()
+//                }
+                totalB.setTargetProgress(num)
                 totalC.text = titleC
             }
         }
@@ -338,7 +339,7 @@ object AchievementAdapters {
             state: RecyclerView.State
         ) {
             val position = parent.getChildAdapterPosition(view)
-            if (position < listLength + 1){
+            if (position < listLength + 1) {
                 // Top
                 outRect.top = space
             }
