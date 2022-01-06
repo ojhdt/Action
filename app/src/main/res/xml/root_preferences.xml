@@ -77,7 +77,7 @@
             app:entries="@array/theme_color_entries"
             app:entryValues="@array/theme_color_values"
             app:icon="@drawable/ic_outline_color_lens_24"
-            app:key="color"
+            app:key="theme_color"
             app:summary="%s"
             app:title="@string/color_title" />
 

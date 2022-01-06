@@ -12,14 +12,17 @@ import com.google.android.material.color.DynamicColors
 import java.text.SimpleDateFormat
 import java.util.*
 import android.content.ContentResolver
+import android.content.SharedPreferences
+import android.util.Log
 
 import androidx.annotation.AnyRes
-
-
-
-
+import androidx.preference.PreferenceManager
 
 class BaseApplication : Application() {
+    private val sharedPreference: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
+
     override fun onCreate() {
         context = applicationContext
         super.onCreate()
@@ -31,9 +34,6 @@ class BaseApplication : Application() {
             "ynE9lHaem1e0htqO7rQqKQsa",
             "https://api.ojhdt.com"
         )
-
-        // Apply Dynamic Colors
-        DynamicColors.applyToActivitiesIfAvailable(this)
     }
 
     companion object {

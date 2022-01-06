@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
@@ -10,10 +11,9 @@ import android.widget.EditText
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.preference.EditTextPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.*
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
@@ -26,6 +26,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("action_expired_time")?.apply {
             setOnPreferenceClickListener {
                 false
+            }
+        }
+
+        findPreference<SwitchPreferenceCompat>("dynamic_color")?.apply {
+            if (!DynamicColors.isDynamicColorAvailable()) {
+                isEnabled = false
+            } else {
+                setOnPreferenceClickListener {
+                    activity?.recreate()
+                    true
+                }
             }
         }
     }

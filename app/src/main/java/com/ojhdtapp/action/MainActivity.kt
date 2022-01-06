@@ -2,6 +2,7 @@ package com.ojhdtapp.action
 
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
 import com.ojhdtapp.action.ui.home.SharedViewModel
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
@@ -26,16 +28,26 @@ class MainActivity : AppCompatActivity(),
     lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
     val viewModel: SharedViewModel by viewModels()
+    private val sharedPreference: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
 
     //    val viewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application))[SharedViewModel::class.java]
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Launch WelcomeActivity if First Launch
-        val sharedPreference = PreferenceManager.getDefaultSharedPreferences(this)
-        val isFirstLaunch = sharedPreference.getBoolean("isFirstLaunch", true)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        if(isFirstLaunch){
+
+        // Apply Dynamic Colors
+        Log.d("aaa", sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable()).toString())
+        if (sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())) {
+            DynamicColors.applyIfAvailable(this)
+        }
+
+        // Launch WelcomeActivity if First Launch
+        val isFirstLaunch = sharedPreference.getBoolean("isFirstLaunch", true)
+
+        if (isFirstLaunch) {
             val intent = Intent(this, WelcomeActivity::class.java)
             startActivity(intent)
             finish()

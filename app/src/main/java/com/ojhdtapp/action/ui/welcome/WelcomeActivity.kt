@@ -27,6 +27,7 @@ import androidx.transition.TransitionManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.BaseApplication.Companion.context
@@ -144,6 +145,11 @@ class WelcomeActivity : AppCompatActivity() {
 
         isAlreadyReadAgreement = sharedPreference.getBoolean("isAlreadyReadAgreement", false)
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        // Set Dynamic Color Default value
+        sharedPreference.edit()
+            .putBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())
+            .apply()
 
         // Permission
         requestPermissionLauncher =
