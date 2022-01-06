@@ -139,6 +139,12 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate(LayoutInflater.from(this), null, false)
+
+        // Apply Dynamic Colors
+        if (sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())) {
+            DynamicColors.applyIfAvailable(this)
+        }
+
         setContentView(binding.root)
 
         onBackPressedDispatcher.addCallback(this, closeRecipientCardOnBackPressed)

@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity(),
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         // Apply Dynamic Colors
-        Log.d("aaa", sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable()).toString())
         if (sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())) {
             DynamicColors.applyIfAvailable(this)
         }
