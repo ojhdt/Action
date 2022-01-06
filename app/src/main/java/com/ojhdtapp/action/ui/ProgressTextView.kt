@@ -43,14 +43,9 @@ class ProgressTextView @JvmOverloads constructor(
             duration = 1000
             addUpdateListener { updatedAnimation ->
                 progress = updatedAnimation.animatedValue as Int
-                invalidate()
+                text = if(suffix.isNullOrEmpty()) progress.toString() else progress.toString().plus(suffix)
             }
             start()
         }
-    }
-
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        text = if(suffix.isNullOrEmpty()) progress.toString() else progress.toString().plus(suffix)
     }
 }
