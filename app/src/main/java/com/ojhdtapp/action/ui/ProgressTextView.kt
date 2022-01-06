@@ -1,9 +1,9 @@
 package com.ojhdtapp.action.ui
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.widget.TextView
 import com.ojhdtapp.action.R
 
 class ProgressTextView @JvmOverloads constructor(
@@ -16,7 +16,7 @@ class ProgressTextView @JvmOverloads constructor(
             0, 0
         ).apply {
             try {
-                intValue = getInteger(R.styleable.ProgressTextView_intValue, 0)
+                progress = getInteger(R.styleable.ProgressTextView_progress, 0)
                 getString(R.styleable.ProgressTextView_suffix)?.let{
                     suffix = it
                 }
@@ -26,16 +26,31 @@ class ProgressTextView @JvmOverloads constructor(
         }
     }
 
-    private var intValue: Int = 0
+    private var progress: Int = 0
+    private var targetProgress: Int = 0
     private var suffix:String? = null
-    public fun setIntValue(value: Int) {
-        intValue = value
-        text = if(suffix.isNullOrEmpty()) intValue.toString() else intValue.toString().plus(suffix)
+    public fun setProgress(value: Int) {
+        progress = value
         invalidate()
     }
 
-    public fun getIntValue(): Int {
-        return intValue
+    public fun getProgress(): Int {
+        return progress
+    }
+    public fun setTargetProgress(value: Int){
+        targetProgress = value
+        ValueAnimator.ofInt(0, targetProgress).apply {
+            duration = 1000
+            addUpdateListener { updatedAnimation ->
+                progress = updatedAnimation.animatedValue as Int
+                invalidate()
+            }
+            start()
+        }
     }
 
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        text = if(suffix.isNullOrEmpty()) progress.toString() else progress.toString().plus(suffix)
+    }
 }
