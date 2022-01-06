@@ -8,6 +8,8 @@ import android.text.Spanned
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -17,6 +19,7 @@ import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
+import rikka.preference.SimpleMenuPreference
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -26,6 +29,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("action_expired_time")?.apply {
             setOnPreferenceClickListener {
                 false
+            }
+        }
+
+        findPreference<SimpleMenuPreference>("dark_mode")?.apply {
+            setOnPreferenceChangeListener { _, newValue ->
+                val oldValue = sharedPreferences.getString("dark_mode", "MODE_NIGHT_FOLLOW_SYSTEM")
+                if (oldValue != newValue) {
+                    setDefaultNightMode(
+                        when (newValue) {
+                            "MODE_NIGHT_NO" -> MODE_NIGHT_NO
+                            "MODE_NIGHT_YES" -> MODE_NIGHT_YES
+                            "MODE_NIGHT_FOLLOW_SYSTEM" -> MODE_NIGHT_FOLLOW_SYSTEM
+                            else -> -2
+                        }
+                    )
+                }
+                true
             }
         }
 

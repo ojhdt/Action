@@ -57,7 +57,7 @@
 
         <rikka.preference.SimpleMenuPreference
             android:summary="%s"
-            app:defaultValue="2"
+            app:defaultValue="MODE_NIGHT_FOLLOW_SYSTEM"
             app:entries="@array/dark_mode_entries"
             app:entryValues="@array/dark_mode_values"
             app:icon="@drawable/ic_outline_dark_mode_24"

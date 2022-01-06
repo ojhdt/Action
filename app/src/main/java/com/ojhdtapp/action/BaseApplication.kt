@@ -16,6 +16,7 @@ import android.content.SharedPreferences
 import android.util.Log
 
 import androidx.annotation.AnyRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 
 class BaseApplication : Application() {
@@ -33,6 +34,15 @@ class BaseApplication : Application() {
             "nRXp51Nf2KxuB3wzwcEFwgLf-gzGzoHsz",
             "ynE9lHaem1e0htqO7rQqKQsa",
             "https://api.ojhdt.com"
+        )
+
+        AppCompatDelegate.setDefaultNightMode(
+            when (sharedPreference.getString("dark_mode", "MODE_NIGHT_FOLLOW_SYSTEM")) {
+                "MODE_NIGHT_NO" -> AppCompatDelegate.MODE_NIGHT_NO
+                "MODE_NIGHT_YES" -> AppCompatDelegate.MODE_NIGHT_YES
+                "MODE_NIGHT_FOLLOW_SYSTEM" -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                else -> -2
+            }
         )
     }
 
