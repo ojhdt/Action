@@ -50,12 +50,14 @@
             app:lottie_rawRes="@raw/weather_sunny"
             app:lottie_repeatMode="restart" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="54dp" />
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="weatherSkycon,weatherIconNow,weatherLocation"
+            tools:layout_editor_absoluteX="12dp"
+            tools:layout_editor_absoluteY="78dp" />
 
         <com.ojhdtapp.action.ui.ProgressTextView
             android:id="@+id/weatherTemperatureNow"
@@ -64,9 +66,9 @@
             android:text="@string/weather_temperature_now"
             android:textAppearance="?attr/textAppearanceDisplayLarge"
             android:textColor="?attr/colorPrimary"
-            app:suffix="°"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+            app:layout_constraintTop_toTopOf="@+id/weatherTemperatureNextHour"
+            app:suffix="°" />
 
         <TextView
             android:id="@+id/weatherTemperatureNext4Hour"
@@ -79,7 +81,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/weatherIconNext4Hour"
             app:layout_constraintStart_toStartOf="@+id/weatherIconNext4Hour"
-            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+            app:layout_constraintTop_toBottomOf="@+id/barrier3" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/weatherIconNext4Hour"
@@ -220,22 +222,17 @@
             app:layout_constraintStart_toStartOf="@+id/weatherIconNextHour"
             app:layout_constraintTop_toBottomOf="@+id/weatherIconNextHour" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="160dp" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/color_primary_container_bg"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline4">
+            app:layout_constraintTop_toBottomOf="@+id/weatherTimeNext4Hour">
 
             <TextView
                 android:id="@+id/weatherTomorrow"
