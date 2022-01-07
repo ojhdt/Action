@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import rikka.preference.SimpleMenuPreference
+import java.util.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -30,6 +31,36 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setOnPreferenceClickListener {
                 false
             }
+        }
+
+        findPreference<SimpleMenuPreference>("language")?.apply {
+            setOnPreferenceChangeListener { preference, newValue ->
+                val locale = if (newValue == "SYSTEM") Locale.getDefault() else {
+                    Locale.forLanguageTag(newValue as String)
+                }
+                resources.configuration.setLocale(locale)
+                activity?.recreate()
+                true
+            }
+
+            val userLocale = resources.configuration.locales[0]
+            entries = arrayListOf(entries[0].toString()).apply {
+                addAll(getAppLanguages().map {
+                    getString(
+                        R.string.hyphen_messages,
+                        Locale.forLanguageTag(it).getDisplayName(Locale.forLanguageTag(it)),
+                        Locale.forLanguageTag(it).getDisplayName(userLocale)
+                    )
+                })
+            }.toTypedArray()
+            entryValues = arrayListOf(entryValues[0].toString()).apply {
+                addAll(getAppLanguages())
+            }.toTypedArray()
+//            summary = if(value == "SYSTEM") getString(R.string.language_follow_system) else{
+//                getString(R.string.hyphen_messages,
+//                    Locale.forLanguageTag(value).getDisplayName(Locale.forLanguageTag(value)),
+//                    Locale.forLanguageTag(value).getDisplayName(userLocale))
+//            }
         }
 
         findPreference<SimpleMenuPreference>("dark_mode")?.apply {
@@ -103,5 +134,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onResume() {
         super.onResume()
+    }
+
+    // Function
+    private fun getAppLanguages(): List<String> {
+        val configuration = resources.configuration
+        val originalLocale = configuration.locales[0]
+        val langList = mutableListOf<String>(Locale.ENGLISH.language)
+        context?.assets?.locales?.forEach {
+            if (!langList.contains(it))
+                langList.add(it)
+        }
+        return langList
     }
 }

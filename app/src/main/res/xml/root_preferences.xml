@@ -43,7 +43,7 @@
     <PreferenceCategory app:title="@string/language_header">
 
         <rikka.preference.SimpleMenuPreference
-            app:defaultValue="0"
+            app:defaultValue="SYSTEM"
             app:entries="@array/language_entries"
             app:entryValues="@array/language_values"
             app:icon="@drawable/ic_outline_translate_24"

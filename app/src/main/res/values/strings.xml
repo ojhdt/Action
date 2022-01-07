@@ -6,6 +6,7 @@
     <string name="nav_action_content">行动详情</string>
 
     <string name="pair_messages">%1$s • %2$s</string>
+    <string name="hyphen_messages">%1$s - %2$s</string>
 
     <string name="default_username">冒险者</string>
 
