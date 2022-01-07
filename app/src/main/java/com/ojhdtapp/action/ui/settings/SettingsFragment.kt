@@ -85,7 +85,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 isEnabled = false
             } else {
                 setOnPreferenceChangeListener { preference, newValue ->
-                    activity?.recreate()
+                    summary = getString(R.string.dynamic_color_summary_edited)
                     true
                 }
             }

@@ -244,8 +244,8 @@
     <string name="account_summary">更改本地账户信息</string>
     <string name="action_expired_summary">行动自动过期时间</string>
     <string name="suggest_auto_mark_summary">查看新建议时自动标记阅读\n仅已阅读建议于历史记录可见</string>
-    <string name="suggest_auto_get_summary_on">从数据库自动获取新建议</string>
-    <string name="suggest_auto_get_summary_off">如有必要，您仍可手动获取</string>
+    <string name="suggest_auto_get_summary_on">自动从数据库获取新建议</string>
+    <string name="suggest_auto_get_summary_off">如有必要 您仍可手动获取</string>
     <string name="action_expired_time_5">5分钟</string>
     <string name="action_expired_time_10">10分钟</string>
     <string name="action_expired_time_15">15分钟</string>
@@ -259,6 +259,7 @@
     <string name="dark_mode_title">深色模式</string>
     <string name="dynamic_color_title">动态颜色主题</string>
     <string name="dynamic_color_summary">根据壁纸自动选择应用主题色\n仅 Android 12（API 31）可用</string>
+    <string name="dynamic_color_summary_edited">根据壁纸自动选择应用主题色\n更改已保存 重启应用生效</string>
     <string name="dark_mode_always_on">始终开启</string>
     <string name="dark_mode_always_off">始终关闭</string>
     <string name="dark_mode_follow_system">跟随系统</string>
