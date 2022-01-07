@@ -72,7 +72,7 @@
             app:title="@string/dynamic_color_title" />
 
         <rikka.preference.SimpleMenuPreference
-            app:defaultValue="0"
+            app:defaultValue="COLOR_PRIMARY"
             app:dependency="dynamic_color"
             app:entries="@array/theme_color_entries"
             app:entryValues="@array/theme_color_values"

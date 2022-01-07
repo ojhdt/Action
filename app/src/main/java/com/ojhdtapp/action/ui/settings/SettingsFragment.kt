@@ -93,7 +93,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<SimpleMenuPreference>("theme_color")?.apply {
             setOnPreferenceChangeListener { _, newValue ->
-                if (newValue == value) {
+                if (newValue != value) {
                     activity?.recreate()
                 }
                 true

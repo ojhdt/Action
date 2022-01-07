@@ -3,6 +3,7 @@ package com.ojhdtapp.action
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -142,5 +143,13 @@ class MainActivity : AppCompatActivity(),
             }
         }
         return true
+    }
+
+    override fun onApplyThemeResource(theme: Resources.Theme?, resid: Int, first: Boolean) {
+        super.onApplyThemeResource(theme, resid, first)
+        when(sharedPreference.getString("theme_color", "COLOR_PRIMARY")){
+            "SAKURA" -> theme?.applyStyle(R.style.Sakura, true)
+            else -> {}
+        }
     }
 }
