@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity(),
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         // Apply Dynamic Colors
-        if (sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())) {
-            DynamicColors.applyIfAvailable(this)
-        }
+//        if (sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())) {
+//            DynamicColors.applyIfAvailable(this)
+//        }
 
         // Launch WelcomeActivity if First Launch
         val isFirstLaunch = sharedPreference.getBoolean("isFirstLaunch", true)

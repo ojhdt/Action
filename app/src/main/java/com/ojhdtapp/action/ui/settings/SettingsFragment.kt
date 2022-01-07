@@ -28,18 +28,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
         findPreference<Preference>("action_expired_time")?.apply {
-            setOnPreferenceClickListener {
-                false
-            }
+
         }
 
         findPreference<SimpleMenuPreference>("language")?.apply {
-            setOnPreferenceChangeListener { preference, newValue ->
-                val locale = if (newValue == "SYSTEM") Locale.getDefault() else {
-                    Locale.forLanguageTag(newValue as String)
+            setOnPreferenceChangeListener { _, newValue ->
+                if (newValue != value) {
+                    val locale = if (newValue == "SYSTEM") Locale.getDefault() else {
+                        Locale.forLanguageTag(newValue as String)
+                    }
+                    resources.configuration.setLocale(locale)
+                    activity?.recreate()
                 }
-                resources.configuration.setLocale(locale)
-                activity?.recreate()
                 true
             }
 
@@ -84,7 +84,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (!DynamicColors.isDynamicColorAvailable()) {
                 isEnabled = false
             } else {
-                setOnPreferenceClickListener {
+                setOnPreferenceChangeListener { preference, newValue ->
                     activity?.recreate()
                     true
                 }

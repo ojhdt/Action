@@ -44,6 +44,12 @@ class BaseApplication : Application() {
                 else -> -2
             }
         )
+
+        // Apply Dynamic Colors
+        if (sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())) {
+            DynamicColors.applyToActivitiesIfAvailable(this)
+        }
+
     }
 
     companion object {
