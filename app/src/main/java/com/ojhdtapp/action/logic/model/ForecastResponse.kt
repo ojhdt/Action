@@ -352,10 +352,17 @@ data class ForecastResponse(
             }
 
             data class Precipitation(
-                val local: Local
+                val local: Local,
+                val nearest: Nearest
             ) {
                 data class Local(
                     val datasource: String,
+                    val intensity: Double,
+                    val status: String
+                )
+
+                data class Nearest(
+                    val distance: Double,
                     val intensity: Double,
                     val status: String
                 )

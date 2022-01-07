@@ -120,7 +120,7 @@ object Repository {
                 emit(Result.failure(java.lang.Exception("Location Null")))
             }
         }
-        currentLocation = null
+//        currentLocation = null
         val defaultLng = 106.310003
         val defaultLat = 39.991957
         val df = DecimalFormat("0.000000").apply {
@@ -138,11 +138,8 @@ object Repository {
                 val locationResponseJob = async {
                     Network.getLocationResponse(lng, lat)
                 }
-                Log.d("aaa", "c")
                 val forecastResponse = forecastResponseJob.await()
-                Log.d("aaa", "a")
                 val locationResponse = locationResponseJob.await()
-                Log.d("aaa", "b")
                 if (forecastResponse.status == "ok" && locationResponse.status == "1") {
                     val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
                     forecastResponse.result.run {

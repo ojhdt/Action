@@ -16,12 +16,17 @@
 
         <TextView
             android:id="@+id/weatherLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="2"
             android:text="@string/weather_location"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             android:textColor="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/weatherIconNow"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
