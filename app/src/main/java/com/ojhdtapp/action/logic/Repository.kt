@@ -13,7 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import java.lang.RuntimeException
+import java.math.RoundingMode
 import java.sql.Timestamp
+import java.text.DecimalFormat
 import java.util.*
 
 object Repository {
@@ -113,27 +115,34 @@ object Repository {
     }
 
     fun getWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.IO) {
-        val currentLocation = LocationUtil.getLocation().also {
+        var currentLocation = LocationUtil.getLocation().also {
             if (it == null) {
                 emit(Result.failure(java.lang.Exception("Location Null")))
             }
         }
-//        val lng = "113.025516"
-//        val lat = "23.150850"
-//        val lng = "116.310003"
-//        val lat = "39.892058"
-        val lng = currentLocation?.longitude.toString()
-        val lat = currentLocation?.latitude.toString()
+        currentLocation = null
+        val defaultLng = 106.310003
+        val defaultLat = 39.991957
+        val df = DecimalFormat("0.000000").apply {
+            roundingMode = RoundingMode.HALF_UP
+        }
+        val lng = df.format(currentLocation?.longitude?:defaultLng)
+        val lat = df.format(currentLocation?.latitude?:defaultLat)
+        Log.d("aaa", lng)
+        Log.d("aaa", lat)
         val result = try {
-            coroutineScope {
+            coroutineScope<Result<Weather>> {
                 val forecastResponseJob = async {
                     Network.getForecastResponse(lng, lat)
                 }
                 val locationResponseJob = async {
                     Network.getLocationResponse(lng, lat)
                 }
+                Log.d("aaa", "c")
                 val forecastResponse = forecastResponseJob.await()
+                Log.d("aaa", "a")
                 val locationResponse = locationResponseJob.await()
+                Log.d("aaa", "b")
                 if (forecastResponse.status == "ok" && locationResponse.status == "1") {
                     val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
                     forecastResponse.result.run {

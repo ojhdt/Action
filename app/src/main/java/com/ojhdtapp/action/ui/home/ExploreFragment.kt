@@ -153,7 +153,6 @@ class ExploreFragment : Fragment() {
             addItemDecoration(ExploreAdapters.WeatherMessageBlockSpaceItemDecoration())
         }
         viewModel.weatherLive.observe(this) {
-            Log.d("aaa", it.toString())
             val result = it.getOrNull()
             val list = listOf(
                 if (it.isSuccess) result?.weather else
