@@ -90,6 +90,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             }
         }
+
+        findPreference<SimpleMenuPreference>("theme_color")?.apply {
+            setOnPreferenceChangeListener { _, newValue ->
+                if (newValue == value) {
+                    activity?.recreate()
+                }
+                true
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

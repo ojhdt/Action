@@ -262,7 +262,29 @@
     <string name="dark_mode_always_on">始终开启</string>
     <string name="dark_mode_always_off">始终关闭</string>
     <string name="dark_mode_follow_system">跟随系统</string>
-    <string name="theme_color_green">浅绿</string>
+
+    <!-- Colors -->
+    <string name="color_pixel_blue">Pixel 蓝</string>
+    <string name="color_sakura">樱花</string>
+    <string name="color_red">红色</string>
+    <string name="color_pink">粉色</string>
+    <string name="color_purple">紫色</string>
+    <string name="color_deep_purple">深紫</string>
+    <string name="color_indigo">靛青</string>
+    <string name="color_blue">蓝色</string>
+    <string name="color_light_blue">浅蓝</string>
+    <string name="color_cyan">青色</string>
+    <string name="color_teal">青绿</string>
+    <string name="color_green">绿色</string>
+    <string name="color_light_green">浅绿</string>
+    <string name="color_lime">石灰</string>
+    <string name="color_yellow">黄色</string>
+    <string name="color_amber">琥珀</string>
+    <string name="color_orange">橙色</string>
+    <string name="color_deep_orange">深橙</string>
+    <string name="color_brown">棕色</string>
+    <string name="color_grey">灰色</string>
+    <string name="color_blue_grey">灰蓝</string>
 
     <!-- Weather Preferences -->
     <string name="locate_title">始终重新定位</string>
