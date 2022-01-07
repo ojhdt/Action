@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DateUtil
-import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.StatisticsBlock
+import com.ojhdtapp.action.util.DateUtil
+import com.ojhdtapp.action.util.DensityUtil
 
 object AchievementAdapters {
     class StatisticsAdapter : ListAdapter<StatisticsBlock, RecyclerView.ViewHolder>(object :

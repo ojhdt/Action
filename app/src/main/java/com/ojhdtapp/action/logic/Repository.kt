@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.logic
 
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
@@ -7,6 +8,7 @@ import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.*
 import com.ojhdtapp.action.logic.network.Network
+import com.ojhdtapp.action.util.LocationUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -111,8 +113,17 @@ object Repository {
     }
 
     fun getWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.IO) {
-        val lng = "116.310003"
-        val lat = "39.991957"
+        val currentLocation = LocationUtil.getLocation().also {
+            if (it == null) {
+                emit(Result.failure(java.lang.Exception("Location Null")))
+            }
+        }
+//        val lng = "113.025516"
+//        val lat = "23.150850"
+//        val lng = "116.310003"
+//        val lat = "39.892058"
+        val lng = currentLocation?.longitude.toString()
+        val lat = currentLocation?.latitude.toString()
         val result = try {
             coroutineScope {
                 val forecastResponseJob = async {
@@ -179,6 +190,7 @@ object Repository {
                 }
             }
         } catch (e: Exception) {
+            Log.d("aaa", e.toString())
             Result.failure(e)
         }
         emit(result)

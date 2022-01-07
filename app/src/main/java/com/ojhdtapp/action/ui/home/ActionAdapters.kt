@@ -25,6 +25,8 @@ import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
+import com.ojhdtapp.action.util.DateUtil
+import com.ojhdtapp.action.util.DeviceUtil
 
 //Headline
 object ActionAdapters {

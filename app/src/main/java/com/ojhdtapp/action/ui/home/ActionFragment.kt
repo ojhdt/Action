@@ -30,6 +30,7 @@ import com.ojhdtapp.action.databinding.FragmentActionBinding
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.ActionHistory
+import com.ojhdtapp.action.util.DeviceUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

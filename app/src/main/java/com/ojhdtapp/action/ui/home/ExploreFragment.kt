@@ -1,11 +1,13 @@
 package com.ojhdtapp.action.ui.home
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -20,7 +22,11 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentExploreBinding
+import com.ojhdtapp.action.logic.model.LifeMessageBlock
+import com.ojhdtapp.action.logic.model.WeatherBlock
+import com.ojhdtapp.action.logic.model.WeatherMessageBlock
 import com.ojhdtapp.action.ui.dialog.VersionDialogFragment
+import java.util.jar.Manifest
 
 class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
@@ -79,7 +85,7 @@ class ExploreFragment : Fragment() {
         binding.toolbar2.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.refresh -> {
-                    viewModel.weatherRefresh()
+                    refreshWeather(true)
                 }
                 R.id.version -> {
                     showVersionDialog()
@@ -147,95 +153,109 @@ class ExploreFragment : Fragment() {
             addItemDecoration(ExploreAdapters.WeatherMessageBlockSpaceItemDecoration())
         }
         viewModel.weatherLive.observe(this) {
-            if (it.isSuccess) {
-                it.getOrNull()?.apply {
-                    val list = listOf(
-                        this.weather, this.air, this.life,
-                        ExploreAdapters.SettingAccentData(
-                            R.drawable.ic_outline_directions_run_24,
-                            getString(R.string.explore_action),
-                            getString(R.string.explore_action_description),
-                            object : MyOnClickListener {
-                                override fun onClick() {
-                                    exitTransition =
-                                        MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                                            duration =
-                                                resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                    .toLong()
-                                        }
-                                    reenterTransition =
-                                        MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                                            duration =
-                                                resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                    .toLong()
-                                        }
-                                    findNavController().navigate(R.id.action_exploreFragment_to_actionArchiveFragment)
+            Log.d("aaa", it.toString())
+            val result = it.getOrNull()
+            val list = listOf(
+                if (it.isSuccess) result?.weather else
+                    WeatherBlock(
+                        getString(R.string.loading_location_failed),
+                        getString(R.string.loading_data_failed),
+                        WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+                        WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+                        WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+                        WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+                        WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+                        WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0),
+                        WeatherBlock.WeatherTemperature(R.raw.weather_sunny, 0)
+                    ),
+                if (it.isSuccess) result?.air else
+                    WeatherMessageBlock(
+                        R.drawable.ic_outline_air_24,
+                        BaseApplication.context.getString(R.string.air),
+                        0,
+                        0
+                    ),
+                if (it.isSuccess) result?.life else
+                    LifeMessageBlock(0, 0, 0, 0),
+                ExploreAdapters.SettingAccentData(
+                    R.drawable.ic_outline_directions_run_24,
+                    getString(R.string.explore_action),
+                    getString(R.string.explore_action_description),
+                    object : MyOnClickListener {
+                        override fun onClick() {
+                            exitTransition =
+                                MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                                    duration =
+                                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                                            .toLong()
                                 }
-                            }
-                        ),
-                        ExploreAdapters.SettingAccentData(
-                            R.drawable.ic_outline_article_24,
-                            getString(R.string.explore_suggest),
-                            getString(R.string.explore_suggest_description),
-                            object : MyOnClickListener {
-                                override fun onClick() {
-                                    exitTransition =
-                                        MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                                            duration =
-                                                resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                    .toLong()
-                                        }
-                                    reenterTransition =
-                                        MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                                            duration =
-                                                resources.getInteger(R.integer.material_motion_duration_long_1)
-                                                    .toLong()
-                                        }
-                                    findNavController().navigate(R.id.action_exploreFragment_to_suggestArchiveFragment)
+                            reenterTransition =
+                                MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                                    duration =
+                                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                                            .toLong()
                                 }
-                            }
-                        ),
-                        ExploreAdapters.SettingData(R.drawable.ic_outline_settings_24,
-                            BaseApplication.context.getString(R.string.setting),
-                            object : MyOnClickListener {
-                                override fun onClick() {
-                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
-                                }
-                            }),
-                        ExploreAdapters.SettingData(R.drawable.ic_outline_help_outline_24,
-                            BaseApplication.context.getString(R.string.help_and_support),
-                            object : MyOnClickListener {
-                                override fun onClick() {
-                                    findNavController().navigate(R.id.action_exploreFragment_to_helpAndSupportFragment)
-                                }
-                            }),
-                        ExploreAdapters.SettingData(R.drawable.ic_outline_thumb_up_24,
-                            BaseApplication.context.getString(R.string.vote),
-                            object : MyOnClickListener {
-                                override fun onClick() {
-                                    findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
-                                }
-                            }),
-                        ExploreAdapters.SettingData(R.drawable.ic_outline_info_24,
-                            BaseApplication.context.getString(R.string.about),
-                            object : MyOnClickListener {
-                                override fun onClick() {
-                                    findNavController().navigate(R.id.action_exploreFragment_to_aboutFragment)
-                                }
-                            }),
-                    )
-                    weatherAdapter.submitList(list)
-                    if (this.isTemp) {
-                        viewModel.weatherRefresh()
-                    } else {
-//                        Snackbar.make(
-//                            binding.exploreCoordinatorLayout,
-//                            resources.getString(R.string.network_success),
-//                            Snackbar.LENGTH_SHORT
-//                        ).show()
+                            findNavController().navigate(R.id.action_exploreFragment_to_actionArchiveFragment)
+                        }
                     }
-                }
-            } else {
+                ),
+                ExploreAdapters.SettingAccentData(
+                    R.drawable.ic_outline_article_24,
+                    getString(R.string.explore_suggest),
+                    getString(R.string.explore_suggest_description),
+                    object : MyOnClickListener {
+                        override fun onClick() {
+                            exitTransition =
+                                MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                                    duration =
+                                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                                            .toLong()
+                                }
+                            reenterTransition =
+                                MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                                    duration =
+                                        resources.getInteger(R.integer.material_motion_duration_long_1)
+                                            .toLong()
+                                }
+                            findNavController().navigate(R.id.action_exploreFragment_to_suggestArchiveFragment)
+                        }
+                    }
+                ),
+                ExploreAdapters.SettingData(R.drawable.ic_outline_settings_24,
+                    BaseApplication.context.getString(R.string.setting),
+                    object : MyOnClickListener {
+                        override fun onClick() {
+                            findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                        }
+                    }),
+                ExploreAdapters.SettingData(R.drawable.ic_outline_help_outline_24,
+                    BaseApplication.context.getString(R.string.help_and_support),
+                    object : MyOnClickListener {
+                        override fun onClick() {
+                            findNavController().navigate(R.id.action_exploreFragment_to_helpAndSupportFragment)
+                        }
+                    }),
+                ExploreAdapters.SettingData(R.drawable.ic_outline_thumb_up_24,
+                    BaseApplication.context.getString(R.string.vote),
+                    object : MyOnClickListener {
+                        override fun onClick() {
+                            findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+                        }
+                    }),
+                ExploreAdapters.SettingData(R.drawable.ic_outline_info_24,
+                    BaseApplication.context.getString(R.string.about),
+                    object : MyOnClickListener {
+                        override fun onClick() {
+                            findNavController().navigate(R.id.action_exploreFragment_to_aboutFragment)
+                        }
+                    }),
+            )
+            weatherAdapter.submitList(list)
+            if (result?.isTemp == true) {
+                refreshWeather()
+            }
+
+            if (it.isFailure) {
                 Snackbar.make(
                     binding.exploreCoordinatorLayout,
                     resources.getString(R.string.network_error),
@@ -255,5 +275,26 @@ class ExploreFragment : Fragment() {
     private fun showVersionDialog() {
         val newFragment = VersionDialogFragment()
         newFragment.show(parentFragmentManager, "version")
+    }
+
+    private fun refreshWeather(createTemp:Boolean = false) {
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            viewModel.weatherRefresh(createTemp)
+        } else {
+            Snackbar.make(
+                binding.exploreCoordinatorLayout,
+                R.string.location_permission_denied,
+                Snackbar.LENGTH_SHORT
+            )
+                .setAction(R.string.go_to_authorization) {
+                    findNavController().navigate(R.id.action_global_permissionsFragment)
+                }
+                .show()
+        }
+
     }
 }

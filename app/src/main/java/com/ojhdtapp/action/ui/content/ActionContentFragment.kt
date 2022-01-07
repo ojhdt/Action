@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.transition.MaterialContainerTransform
-import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionContentBinding
 import com.ojhdtapp.action.logic.model.Action
+import com.ojhdtapp.action.util.DateUtil
 
 class ActionContentFragment : Fragment() {
     lateinit var data: Action

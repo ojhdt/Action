@@ -23,6 +23,8 @@ import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
 import com.ojhdtapp.action.ui.home.SharedViewModel
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
+import com.ojhdtapp.action.util.DensityUtil
+import com.ojhdtapp.action.util.DeviceUtil
 
 class MainActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {

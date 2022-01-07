@@ -19,6 +19,8 @@ import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabCellBinding
 import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabEmptyBinding
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
+import com.ojhdtapp.action.util.DateUtil
+import com.ojhdtapp.action.util.DensityUtil
 import java.lang.StringBuilder
 
 class ActionArchiveAdapter(

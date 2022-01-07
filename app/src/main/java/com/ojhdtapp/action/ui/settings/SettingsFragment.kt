@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.ui.settings
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputFilter
@@ -19,6 +20,7 @@ import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 import rikka.preference.SimpleMenuPreference
 import java.util.*
 
@@ -96,6 +98,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (newValue != value) {
                     activity?.recreate()
                 }
+                true
+            }
+        }
+
+        findPreference<Preference>("guide")?.apply {
+            setOnPreferenceClickListener {
+                val intent = Intent(activity, WelcomeActivity::class.java)
+                startActivity(intent)
                 true
             }
         }

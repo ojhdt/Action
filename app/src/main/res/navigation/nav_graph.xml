@@ -167,5 +167,5 @@
             android:name="isHomeFragment"
             app:argType="boolean"
             android:defaultValue="false" />
-    </fragment><action android:id="@+id/action_global_actionFragment" app:destination="@id/actionFragment"/><action android:id="@+id/action_global_permissionsFragment" app:destination="@id/permissionsFragment"/>
+    </fragment><action android:id="@+id/action_global_actionFragment" app:destination="@id/actionFragment"/><action android:id="@+id/action_global_permissionsFragment" app:destination="@id/permissionsFragment"/><action android:id="@+id/action_global_permissionsFragment2" app:destination="@id/permissionsFragment"/>
 </navigation>

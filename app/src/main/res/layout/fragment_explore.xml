@@ -5,6 +5,7 @@
     android:id="@+id/exploreCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="90dp"
     android:transitionGroup="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -34,7 +35,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="112dp"
+            android:paddingBottom="22dp"
             android:scrollbars="none">
 
         </androidx.recyclerview.widget.RecyclerView>

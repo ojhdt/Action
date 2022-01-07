@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.DensityUtil
 import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.*
 import com.ojhdtapp.action.logic.model.LifeMessageBlock
 import com.ojhdtapp.action.logic.model.WeatherBlock
 import com.ojhdtapp.action.logic.model.WeatherMessageBlock
+import com.ojhdtapp.action.util.DensityUtil
 import java.util.*
 
 object ExploreAdapters {

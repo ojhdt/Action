@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ojhdtapp.action.DateUtil
 import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActionSuggestMoreCellBinding
@@ -19,6 +18,7 @@ import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabCellBinding
 import com.ojhdtapp.action.databinding.FragmentSuggestArchiveTabEmptyBinding
 import com.ojhdtapp.action.databinding.FragmentSuggestHistoryTabEmptyBinding
 import com.ojhdtapp.action.logic.model.Suggest
+import com.ojhdtapp.action.util.DateUtil
 
 class SuggestArchiveAdapter(
     private val listener: MyOnClickListener? = null,
