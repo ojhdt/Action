@@ -84,4 +84,178 @@
         <item name="colorSurfaceInverse">@color/sakura_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/sakura_theme_dark_primaryInverse</item>
     </style>
+
+    <style name="Rose" parent="AppTheme">
+        <item name="colorPrimary">@color/rose_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/rose_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/rose_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/rose_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/rose_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/rose_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/rose_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/rose_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/rose_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/rose_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/rose_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/rose_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/rose_theme_dark_error</item>
+        <item name="colorErrorContainer">@color/rose_theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/rose_theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/rose_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/rose_theme_dark_background</item>
+        <item name="colorOnBackground">@color/rose_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/rose_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/rose_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/rose_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/rose_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/rose_theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/rose_theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/rose_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/rose_theme_dark_primaryInverse</item>
+    </style>
+
+    <style name="Tea" parent="AppTheme">
+        <item name="colorPrimary">@color/tea_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/tea_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/tea_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/tea_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/tea_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/tea_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/tea_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/tea_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/tea_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/tea_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/tea_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/tea_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/tea_theme_dark_error</item>
+        <item name="colorErrorContainer">@color/tea_theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/tea_theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/tea_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/tea_theme_dark_background</item>
+        <item name="colorOnBackground">@color/tea_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/tea_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/tea_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/tea_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/tea_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/tea_theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/tea_theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/tea_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/tea_theme_dark_primaryInverse</item>
+    </style>
+
+    <style name="Gardenia" parent="AppTheme">
+        <item name="colorPrimary">@color/gardenia_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/gardenia_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/gardenia_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/gardenia_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/gardenia_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/gardenia_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/gardenia_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/gardenia_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/gardenia_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/gardenia_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/gardenia_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/gardenia_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/gardenia_theme_dark_error</item>
+        <item name="colorErrorContainer">@color/gardenia_theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/gardenia_theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/gardenia_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/gardenia_theme_dark_background</item>
+        <item name="colorOnBackground">@color/gardenia_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/gardenia_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/gardenia_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/gardenia_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/gardenia_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/gardenia_theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/gardenia_theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/gardenia_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/gardenia_theme_dark_primaryInverse</item>
+    </style>
+
+    <style name="Water" parent="AppTheme">
+        <item name="colorPrimary">@color/water_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/water_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/water_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/water_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/water_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/water_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/water_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/water_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/water_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/water_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/water_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/water_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/water_theme_dark_error</item>
+        <item name="colorErrorContainer">@color/water_theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/water_theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/water_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/water_theme_dark_background</item>
+        <item name="colorOnBackground">@color/water_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/water_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/water_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/water_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/water_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/water_theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/water_theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/water_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/water_theme_dark_primaryInverse</item>
+    </style>
+
+    <style name="Fujimurasaki" parent="AppTheme">
+        <item name="colorPrimary">@color/fujimurasaki_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/fujimurasaki_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/fujimurasaki_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/fujimurasaki_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/fujimurasaki_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/fujimurasaki_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/fujimurasaki_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/fujimurasaki_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/fujimurasaki_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/fujimurasaki_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/fujimurasaki_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/fujimurasaki_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/fujimurasaki_theme_dark_error</item>
+        <item name="colorErrorContainer">@color/fujimurasaki_theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/fujimurasaki_theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/fujimurasaki_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/fujimurasaki_theme_dark_background</item>
+        <item name="colorOnBackground">@color/fujimurasaki_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/fujimurasaki_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/fujimurasaki_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/fujimurasaki_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/fujimurasaki_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/fujimurasaki_theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/fujimurasaki_theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/fujimurasaki_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/fujimurasaki_theme_dark_primaryInverse</item>
+    </style>
+
+    <style name="Ruri" parent="AppTheme">
+        <item name="colorPrimary">@color/ruri_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/ruri_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/ruri_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/ruri_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/ruri_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/ruri_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/ruri_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/ruri_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/ruri_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/ruri_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/ruri_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/ruri_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/ruri_theme_dark_error</item>
+        <item name="colorErrorContainer">@color/ruri_theme_dark_errorContainer</item>
+        <item name="colorOnError">@color/ruri_theme_dark_onError</item>
+        <item name="colorOnErrorContainer">@color/ruri_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/ruri_theme_dark_background</item>
+        <item name="colorOnBackground">@color/ruri_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/ruri_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/ruri_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/ruri_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/ruri_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/ruri_theme_dark_outline</item>
+        <item name="colorOnSurfaceInverse">@color/ruri_theme_dark_inverseOnSurface</item>
+        <item name="colorSurfaceInverse">@color/ruri_theme_dark_inverseSurface</item>
+        <item name="colorPrimaryInverse">@color/ruri_theme_dark_primaryInverse</item>
+    </style>
 </resources>

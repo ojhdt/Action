@@ -42,11 +42,23 @@
     <string-array name="theme_color_entries">
         <item>@string/color_light_green</item>
         <item>@string/color_sakura</item>
+        <item>@string/color_rose</item>
+        <item>@string/color_tea</item>
+        <item>@string/color_gardenia</item>
+        <item>@string/color_water</item>
+        <item>@string/color_fujimurasaki</item>
+        <item>@string/color_ruri</item>
     </string-array>
 
     <string-array name="theme_color_values">
         <item>COLOR_PRIMARY</item>
         <item>SAKURA</item>
+        <item>ROSE</item>
+        <item>TEA</item>
+        <item>GARDENIA</item>
+        <item>WATER</item>
+        <item>FUJIMURASAKI</item>
+        <item>RURI</item>
     </string-array>
 
     <!-- NotificationType Preference -->

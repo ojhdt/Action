@@ -265,7 +265,13 @@
 
     <!-- Colors -->
     <string name="color_sakura">樱花</string>
-    <string name="color_light_green">浅绿</string>
+    <string name="color_rose">玫红</string>
+    <string name="color_tea">浅茶</string>
+    <string name="color_light_green">柳染</string>
+    <string name="color_gardenia">栀子</string>
+    <string name="color_water">清水</string>
+    <string name="color_fujimurasaki">藤紫</string>
+    <string name="color_ruri">琉璃</string>
 
     <!-- Weather Preferences -->
     <string name="locate_title">始终重新定位</string>
