@@ -82,7 +82,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<SwitchPreferenceCompat>("dynamic_color")?.apply {
             if (!DynamicColors.isDynamicColorAvailable()) {
-                isEnabled = false
+
             } else {
                 setOnPreferenceChangeListener { preference, newValue ->
                     summary = getString(R.string.dynamic_color_summary_edited)

@@ -315,6 +315,7 @@ class WelcomeActivity : AppCompatActivity() {
         binding.setPermission.materialButton.setOnClickListener {
             val permissions = arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.BODY_SENSORS
             )
             requestPermissionLauncher.launch(permissions)
@@ -438,7 +439,10 @@ class WelcomeActivity : AppCompatActivity() {
                                 .putBoolean("isFirstLaunch", false)
                                 .apply()
                             val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
+                            finish()
                         }
                     }
                     else -> {}
