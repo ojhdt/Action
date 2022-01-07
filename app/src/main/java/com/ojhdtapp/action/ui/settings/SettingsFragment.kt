@@ -102,6 +102,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
 
+        findPreference<SwitchPreferenceCompat>("locate")?.apply {
+            setOnPreferenceChangeListener { preference, newValue ->
+                true
+            }
+        }
+
+        findPreference<Preference>("set_locale")?.apply {
+            setOnPreferenceClickListener {
+                true
+            }
+        }
+
         findPreference<Preference>("guide")?.apply {
             setOnPreferenceClickListener {
                 val intent = Intent(activity, WelcomeActivity::class.java)

@@ -1,9 +1,11 @@
 package com.ojhdtapp.action.logic
 
+import android.content.SharedPreferences
 import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.preference.PreferenceManager
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.*
@@ -20,6 +22,10 @@ import java.util.*
 
 object Repository {
     private val database = AppDataBase.getDataBase()
+    private val sharedPreference: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(BaseApplication.context)
+    }
+
     private fun getStringResource(id: Int): String {
         return BaseApplication.context.resources.getString(id)
     }
@@ -115,19 +121,31 @@ object Repository {
     }
 
     fun getWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.IO) {
-        var currentLocation = LocationUtil.getLocation().also {
-            if (it == null) {
-                emit(Result.failure(java.lang.Exception("Location Null")))
-            }
-        }
-//        currentLocation = null
+        var lng: String
+        var lat: String
         val defaultLng = 106.310003
         val defaultLat = 39.991957
         val df = DecimalFormat("0.000000").apply {
             roundingMode = RoundingMode.HALF_UP
         }
-        val lng = df.format(currentLocation?.longitude?:defaultLng).trim()
-        val lat = df.format(currentLocation?.latitude?:defaultLat).trim()
+        if (sharedPreference.getBoolean("locate", true)) {
+            var currentLocation = LocationUtil.getLocation().also {
+                if (it == null) {
+                    emit(Result.failure(java.lang.Exception("Location Null")))
+                }
+            }
+//        currentLocation = null
+            lng = df.format(currentLocation?.longitude ?: defaultLng).trim()
+            lat = df.format(currentLocation?.latitude ?: defaultLat).trim()
+            sharedPreference.edit()
+                .putString("lng", lng)
+                .putString("lat", lat)
+                .apply()
+        } else {
+            lng = sharedPreference.getString("lng", df.format(defaultLng).trim())!!
+            lat = sharedPreference.getString("lat", df.format(defaultLat).trim())!!
+        }
+
         Log.d("aaa", lng)
         Log.d("aaa", lat)
         val result = try {
