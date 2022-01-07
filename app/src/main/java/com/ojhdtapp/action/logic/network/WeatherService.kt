@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface WeatherService {
-    @GET("v2.5/Q0tltxXyl5JKD965/lng},{lat}{/realtime.json")
+    @GET("v2.5/Q0tltxXyl5JKD965/{lng},{lat}/realtime.json")
     fun getRealtimeWeather(
         @Path("lng") lng: String,
         @Path("lat") lat: String

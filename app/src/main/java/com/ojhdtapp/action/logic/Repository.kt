@@ -126,8 +126,8 @@ object Repository {
         val df = DecimalFormat("0.000000").apply {
             roundingMode = RoundingMode.HALF_UP
         }
-        val lng = df.format(currentLocation?.longitude?:defaultLng)
-        val lat = df.format(currentLocation?.latitude?:defaultLat)
+        val lng = df.format(currentLocation?.longitude?:defaultLng).trim()
+        val lat = df.format(currentLocation?.latitude?:defaultLat).trim()
         Log.d("aaa", lng)
         Log.d("aaa", lat)
         val result = try {
