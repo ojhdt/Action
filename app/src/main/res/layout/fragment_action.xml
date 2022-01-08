@@ -66,8 +66,7 @@
                 app:layout_constraintStart_toEndOf="@+id/welcomeTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:roundPercent="1"
-                tools:ignore="TouchTargetSizeCheck"
-                tools:src="@drawable/anonymous" />
+                tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

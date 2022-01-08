@@ -155,7 +155,7 @@ class ActionFragment : Fragment() {
                 val listA = listOf(
                     Action(
                         "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
-                        R.drawable.city,
+                        R.drawable.avatar_a,
                         getString(R.string.lorem_ipsum),
                         mapOf(
                             Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
@@ -229,7 +229,7 @@ class ActionFragment : Fragment() {
                 val listA = listOf(
                     Action(
                         "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
-                        R.drawable.city,
+                        R.drawable.avatar_a,
                         getString(R.string.lorem_ipsum),
                         mapOf(
                             Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),

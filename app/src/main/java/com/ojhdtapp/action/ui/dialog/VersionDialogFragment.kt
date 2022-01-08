@@ -27,7 +27,7 @@ class VersionDialogFragment : DialogFragment() {
             val packageManager = context!!.packageManager
             binding.appVersionCode.text = try {
                 val packageInfo = packageManager.getPackageInfo(context!!.packageName, 0)
-                packageInfo.longVersionCode.toString()
+                packageInfo.versionName.toString()
             } catch (e: PackageManager.NameNotFoundException) {
                 e.printStackTrace()
                 "ERROR"

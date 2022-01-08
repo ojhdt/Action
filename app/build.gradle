@@ -12,8 +12,8 @@ android {
         applicationId "com.ojhdtapp.action"
         minSdk 28
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        versionCode getSelfDefinedVersion("code")
+        versionName getSelfDefinedVersion("name")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,6 +34,24 @@ android {
 
     viewBinding {
         enabled true
+    }
+}
+
+static def getSelfDefinedVersion(type) {
+    int aa = 1
+    int bb = 0
+    Process process = "git rev-list --count HEAD".execute()
+    process.waitFor()
+    int cccc = process.getText().toInteger()
+
+    if ("code".equals(type)) {
+        aa * 1000000 + bb * 10000 + cccc
+    } else if ("name".equals(type)) {
+        String today = new Date().format("yyMMdd")
+        process = "git describe --always".execute()
+        process.waitFor()
+        String sha1 = process.getText().trim()
+        "$aa.$bb.$cccc.$today.$sha1"
     }
 }
 

@@ -73,8 +73,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:round="24dp"
-                app:srcCompat="@drawable/city" />
+                app:round="24dp" />
 
             <!--            <com.google.android.material.card.MaterialCardView-->
             <!--                android:id="@+id/materialCardView"-->

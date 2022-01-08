@@ -149,15 +149,21 @@ class MainActivity : AppCompatActivity(),
 
     override fun onApplyThemeResource(theme: Resources.Theme?, resid: Int, first: Boolean) {
         super.onApplyThemeResource(theme, resid, first)
-        when(sharedPreference.getString("theme_color", "COLOR_PRIMARY")){
-            "SAKURA" -> theme?.applyStyle(R.style.Sakura, true)
-            "ROSE" -> theme?.applyStyle(R.style.Rose, true)
-            "TEA" -> theme?.applyStyle(R.style.Tea, true)
-            "GARDENIA" -> theme?.applyStyle(R.style.Gardenia, true)
-            "WATER" -> theme?.applyStyle(R.style.Water, true)
-            "FUJIMURASAKI" -> theme?.applyStyle(R.style.Fujimurasaki, true)
-            "RURI" -> theme?.applyStyle(R.style.Ruri, true)
-            else -> {}
+        if (!sharedPreference.getBoolean(
+                "dynamic_color",
+                DynamicColors.isDynamicColorAvailable()
+            )
+        ) {
+            when (sharedPreference.getString("theme_color", "COLOR_PRIMARY")) {
+                "SAKURA" -> theme?.applyStyle(R.style.Sakura, true)
+                "ROSE" -> theme?.applyStyle(R.style.Rose, true)
+                "TEA" -> theme?.applyStyle(R.style.Tea, true)
+                "GARDENIA" -> theme?.applyStyle(R.style.Gardenia, true)
+                "WATER" -> theme?.applyStyle(R.style.Water, true)
+                "FUJIMURASAKI" -> theme?.applyStyle(R.style.Fujimurasaki, true)
+                "RURI" -> theme?.applyStyle(R.style.Ruri, true)
+                else -> {}
+            }
         }
     }
 }
