@@ -110,6 +110,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("set_locale")?.apply {
             setOnPreferenceClickListener {
+                findNavController().navigate(R.id.action_settingsFragment_to_mapFragment)
                 true
             }
         }

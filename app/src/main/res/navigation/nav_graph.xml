@@ -131,6 +131,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/permissionsFragment"
@@ -168,4 +171,13 @@
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment><action android:id="@+id/action_global_actionFragment" app:destination="@id/actionFragment"/><action android:id="@+id/action_global_permissionsFragment" app:destination="@id/permissionsFragment"/><action android:id="@+id/action_global_permissionsFragment2" app:destination="@id/permissionsFragment"/>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.ojhdtapp.action.ui.settings.MapFragment"
+        android:label="MapFragment" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>
