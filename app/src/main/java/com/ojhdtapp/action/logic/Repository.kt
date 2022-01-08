@@ -145,7 +145,7 @@ object Repository {
             lng = sharedPreference.getString("lng", df.format(defaultLng).trim())!!
             lat = sharedPreference.getString("lat", df.format(defaultLat).trim())!!
         }
-        
+
         val result = try {
             coroutineScope<Result<Weather>> {
                 val forecastResponseJob = async {
