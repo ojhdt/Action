@@ -294,6 +294,5 @@ class ExploreFragment : Fragment() {
                 }
                 .show()
         }
-
     }
 }
