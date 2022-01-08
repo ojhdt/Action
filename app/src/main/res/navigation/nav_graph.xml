@@ -174,10 +174,10 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.ojhdtapp.action.ui.settings.MapFragment"
-        android:label="MapFragment" >
+        android:label="@string/map_head">
         <argument
             android:name="isHomeFragment"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 </navigation>

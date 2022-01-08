@@ -3,6 +3,7 @@ package com.ojhdtapp.action
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.animation.doOnEnd
 import androidx.core.view.WindowCompat
 import androidx.navigation.*
@@ -133,6 +135,10 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+    }
+
     override fun onPreferenceStartFragment(
         caller: PreferenceFragmentCompat?,
         pref: Preference?
@@ -141,6 +147,7 @@ class MainActivity : AppCompatActivity(),
             when (it.key) {
                 "permission" -> navController.navigate(R.id.action_settingsFragment_to_permissionsFragment)
                 "account" -> navController.navigate(R.id.action_settingsFragment_to_accountFragment)
+                "set_locate" -> navController.navigate(R.id.action_settingsFragment_to_mapFragment)
                 else -> {}
             }
         }

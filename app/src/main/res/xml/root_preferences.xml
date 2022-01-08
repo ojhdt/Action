@@ -94,6 +94,7 @@
             app:title="@string/locate_title" />
 
         <Preference
+            app:fragment="com.ojhdtapp.action.ui.settings.MapFragment"
             app:dependency="locate"
             app:icon="@drawable/ic_outline_apartment_24"
             app:key="set_locate"
