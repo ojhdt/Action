@@ -137,17 +137,17 @@ object Repository {
 //        currentLocation = null
             lng = df.format(currentLocation?.longitude ?: defaultLng).trim()
             lat = df.format(currentLocation?.latitude ?: defaultLat).trim()
-            sharedPreference.edit()
-                .putString("lng", lng)
-                .putString("lat", lat)
-                .apply()
+//            sharedPreference.edit()
+//                .putString("lng", lng)
+//                .putString("lat", lat)
+//                .apply()
         } else {
             lng = sharedPreference.getString("lng", df.format(defaultLng).trim())!!
             lat = sharedPreference.getString("lat", df.format(defaultLat).trim())!!
         }
 
-        Log.d("aaa", lng)
-        Log.d("aaa", lat)
+//        Log.d("aaa", lng)
+//        Log.d("aaa", lat)
         val result = try {
             coroutineScope<Result<Weather>> {
                 val forecastResponseJob = async {
