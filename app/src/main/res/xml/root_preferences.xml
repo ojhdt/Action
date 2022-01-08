@@ -87,7 +87,7 @@
 
         <SwitchPreferenceCompat
             android:disableDependentsState="true"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:icon="@drawable/ic_outline_location_on_24"
             app:key="locate"
             app:summary="@string/locate_summary"

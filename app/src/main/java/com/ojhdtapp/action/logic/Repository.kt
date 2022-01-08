@@ -123,7 +123,7 @@ object Repository {
     fun getWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.IO) {
         var lng: String
         var lat: String
-        val defaultLng = 106.310003
+        val defaultLng = 116.310003
         val defaultLat = 39.991957
         val df = DecimalFormat("0.000000").apply {
             roundingMode = RoundingMode.HALF_UP
@@ -145,9 +145,7 @@ object Repository {
             lng = sharedPreference.getString("lng", df.format(defaultLng).trim())!!
             lat = sharedPreference.getString("lat", df.format(defaultLat).trim())!!
         }
-
-//        Log.d("aaa", lng)
-//        Log.d("aaa", lat)
+        
         val result = try {
             coroutineScope<Result<Weather>> {
                 val forecastResponseJob = async {

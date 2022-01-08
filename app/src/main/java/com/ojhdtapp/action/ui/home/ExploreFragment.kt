@@ -280,6 +280,10 @@ class ExploreFragment : Fragment() {
         if (ContextCompat.checkSelfPermission(
                 context!!,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                context!!,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             viewModel.weatherRefresh(createTemp)

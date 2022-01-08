@@ -95,40 +95,6 @@ class MapFragment : Fragment() {
             }
         }
 
-        // AMap
-        binding.textureMapView.onCreate(savedInstanceState)
-        amap = binding.textureMapView.map
-        amap.isMyLocationEnabled = false
-        amap.uiSettings.run {
-            isMyLocationButtonEnabled = false
-            isZoomControlsEnabled = false
-            isCompassEnabled = true
-        }
-        if (isDarkTheme()) {
-            amap.mapType = AMap.MAP_TYPE_NIGHT
-        }
-        getMyLocation()
-        amap.setOnMapLoadedListener {
-            drawSelectedLocationMarker()
-            val latLng = amap.cameraPosition.target
-//            Log.d("aaa", latLng.latitude.toString() + "," + latLng.longitude.toString())
-            val screenPosition = amap.projection.toScreenLocation(latLng)
-            selectedLocationMarker?.setPositionByPixels(screenPosition.x, screenPosition.y);
-        }
-
-        amap.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
-            override fun onCameraChange(p0: CameraPosition?) {
-            }
-
-            override fun onCameraChangeFinish(p0: CameraPosition?) {
-                p0?.let {
-//                  Log.d("aaa", it.target.latitude.toString() + "," + it.target.longitude.toString())
-                    selectedLng = it.target.longitude
-                    selectedLat = it.target.latitude
-                }
-            }
-        })
-
         // Setup FAB
         binding.myLocation.setOnClickListener {
             getMyLocation()
@@ -136,6 +102,59 @@ class MapFragment : Fragment() {
 
         binding.selectDone.setOnClickListener {
             saveAndExit()
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                context!!,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                context!!,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            // AMap
+            binding.textureMapView.onCreate(savedInstanceState)
+            amap = binding.textureMapView.map
+            amap.isMyLocationEnabled = false
+            amap.uiSettings.run {
+                isMyLocationButtonEnabled = false
+                isZoomControlsEnabled = false
+                isCompassEnabled = true
+            }
+            if (isDarkTheme()) {
+                amap.mapType = AMap.MAP_TYPE_NIGHT
+            }
+            getMyLocation()
+            amap.setOnMapLoadedListener {
+                drawSelectedLocationMarker()
+                val latLng = amap.cameraPosition.target
+//            Log.d("aaa", latLng.latitude.toString() + "," + latLng.longitude.toString())
+                val screenPosition = amap.projection.toScreenLocation(latLng)
+                selectedLocationMarker?.setPositionByPixels(screenPosition.x, screenPosition.y);
+            }
+
+            amap.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
+                override fun onCameraChange(p0: CameraPosition?) {
+                }
+
+                override fun onCameraChangeFinish(p0: CameraPosition?) {
+                    p0?.let {
+//                  Log.d("aaa", it.target.latitude.toString() + "," + it.target.longitude.toString())
+                        selectedLng = it.target.longitude
+                        selectedLat = it.target.latitude
+                    }
+                }
+            })
+        } else {
+            Snackbar.make(
+                binding.mapCoordinatorLayout,
+                R.string.location_permission_denied,
+                Snackbar.LENGTH_SHORT
+            )
+                .setAction(R.string.go_to_authorization) {
+                    findNavController().navigate(R.id.action_global_permissionsFragment)
+                }
+                .show()
         }
     }
 
@@ -175,6 +194,9 @@ class MapFragment : Fragment() {
         if (ContextCompat.checkSelfPermission(
                 context!!,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                context!!,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             moveToMyLocation()
@@ -226,14 +248,16 @@ class MapFragment : Fragment() {
         selectedLocationMarker = amap.addMarker(options)
     }
 
-    private fun saveAndExit(){
-        if(selectedLat != null && selectedLng != null){
+    private fun saveAndExit() {
+        if (selectedLat != null && selectedLng != null) {
             val selectedLatStr = df.format(selectedLat).trim()
             val selectedLngStr = df.format(selectedLng).trim()
             sharedPreference.edit()
                 .putString("lng", selectedLngStr)
                 .putString("lat", selectedLatStr)
                 .apply()
+            findNavController().navigateUp()
+        } else {
             findNavController().navigateUp()
         }
     }
