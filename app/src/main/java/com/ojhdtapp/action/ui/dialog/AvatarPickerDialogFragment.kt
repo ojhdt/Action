@@ -59,17 +59,12 @@ class AvatarPickerDialogFragment(val listener: AvatarChangedListener) : DialogFr
     private fun selectAvatar() {
         if (ContextCompat.checkSelfPermission(
                 context!!,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                context!!,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             openAlbum()
         } else {
             val permissions = arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
             requestPermissionLauncher.launch(permissions)
@@ -81,9 +76,7 @@ class AvatarPickerDialogFragment(val listener: AvatarChangedListener) : DialogFr
         // Permission
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                if (it[Manifest.permission.READ_EXTERNAL_STORAGE] == true &&
-                    it[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true
-                ) {
+                if (it[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
                     openAlbum()
                 } else {
                     dismiss()

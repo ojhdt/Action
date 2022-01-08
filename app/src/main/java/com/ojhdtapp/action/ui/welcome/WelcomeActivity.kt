@@ -119,17 +119,12 @@ class WelcomeActivity : AppCompatActivity() {
     private fun selectAvatar() {
         if (ContextCompat.checkSelfPermission(
                 this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             openAlbum()
         } else {
             val permissions = arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
             requestPermissionLauncher.launch(permissions)
@@ -161,13 +156,8 @@ class WelcomeActivity : AppCompatActivity() {
         // Permission
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-                if (it.containsKey(Manifest.permission.READ_EXTERNAL_STORAGE) || it.containsKey(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-                ) {
-                    if (it[Manifest.permission.READ_EXTERNAL_STORAGE] == true &&
-                        it[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true
-                    ) {
+                if (it.containsKey(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    if (it[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
                         openAlbum()
                     } else {
                         Toast.makeText(
