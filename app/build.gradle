@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -66,9 +67,10 @@ dependencies {
 
     // Play Services
     implementation 'com.google.android.gms:play-services-awareness:19.0.1'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     // AMap
-    implementation files('libs\\Android_Map3D_SDK_V6.9.3_20190722.jar')
+    implementation files('libs/Android_Map3D_SDK_V6.9.3_20190722.jar')
 
     // Rikka
     implementation 'androidx.preference:preference-ktx:1.1.1'

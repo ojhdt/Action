@@ -33,7 +33,12 @@
 
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
-            android:value="AIzaSyDJHCTFIcxSgWCub3x2Q1etSJtfimVjOrc" />
+            android:value="${API_KEY}" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${API_KEY}" />
+
 
         <activity
             android:name=".ui.welcome.WelcomeActivity"
