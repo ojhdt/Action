@@ -2,6 +2,7 @@ package com.ojhdtapp.action.ui.content
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -20,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.PreferenceManager
 import cn.leancloud.LCObject
 import cn.leancloud.LCQuery
 import com.bumptech.glide.Glide
@@ -47,6 +49,9 @@ class SuggestContentFragment : Fragment() {
     private var _binding: FragmentSuggestContentBinding? = null
     private val binding get() = _binding!!
     val viewModel by viewModels<SuggestContentViewModel>()
+    private val sharedPreference: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(context)
+    }
 
     private var processing = false
 
@@ -55,6 +60,7 @@ class SuggestContentFragment : Fragment() {
         arguments?.let {
             data = it.getParcelable<Suggest>("SUGGEST") ?: Suggest()
         }
+
         // Add Transition
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_host
@@ -119,6 +125,11 @@ class SuggestContentFragment : Fragment() {
                 else -> {}
             }
             false
+        }
+
+        // Auto Switch State
+        if (sharedPreference.getBoolean("suggest_auto_mark", false)) {
+            switchReadState()
         }
 
         // Load Data & Initialize ViewModel
@@ -271,11 +282,16 @@ class SuggestContentFragment : Fragment() {
     }
 
     private fun switchReadState() {
-        if (data.read == false) {
+        if (!data.read) {
             val newData = data.apply {
                 read = true
             }
             updateData(newData)
+            Snackbar.make(
+                binding.suggestContentContainer,
+                R.string.suggest_content_switch_read_state,
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -601,13 +617,13 @@ class SuggestContentFragment : Fragment() {
         }
     }
 
-    private fun deleteSuggest(){
-        context?.let{
+    private fun deleteSuggest() {
+        context?.let {
             MaterialAlertDialogBuilder(it)
                 .setTitle(R.string.suggest_dialog_delete_title)
                 .setMessage(R.string.suggest_dialog_delete_content)
-                .setNegativeButton(R.string.cancel){ dialogInterface: DialogInterface, i: Int -> }
-                .setPositiveButton(R.string.confirm){ dialogInterface: DialogInterface, i: Int ->
+                .setNegativeButton(R.string.cancel) { dialogInterface: DialogInterface, i: Int -> }
+                .setPositiveButton(R.string.confirm) { dialogInterface: DialogInterface, i: Int ->
                     findNavController().navigateUp()
                     updateData(data.apply {
                         deleted = true
