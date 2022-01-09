@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
 import kotlinx.coroutines.*
 
@@ -13,10 +14,10 @@ class AutoSuggestWorker(context: Context, workerParams: WorkerParameters) : Coro
     workerParams
 ) {
     override suspend fun doWork(): Result {
-        val result = withContext(Dispatchers.Default) {
-            Repository.storeSuggestFromCloud(1)
+        return withContext(Dispatchers.IO) {
+            val result =
+                Repository.storeSuggestFromCloud(1)
+            if (result.isSuccess) Result.success() else Result.failure()
         }
-        Log.d("aaa", result.isSuccess.toString())
-        return if (result.isSuccess) Result.success() else Result.failure()
     }
 }

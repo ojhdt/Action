@@ -43,8 +43,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (newValue as Boolean) {
                     val request = PeriodicWorkRequest.Builder(
                         AutoSuggestWorker::class.java,
-                        16,
-                        TimeUnit.MINUTES
+                        24,
+                        TimeUnit.HOURS
                     )
                         .addTag("autoSuggest")
                         .build()
