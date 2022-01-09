@@ -85,8 +85,8 @@
         <item>@string/notification_action_silence</item>
     </string-array>
     <string-array name="notification_values">
-        <item>0</item>
-        <item>1</item>
+        <item>IMPORTANCE_MIN</item>
+        <item>IMPORTANCE_DEFAULT</item>
     </string-array>
 
     <!-- Reply Preference -->

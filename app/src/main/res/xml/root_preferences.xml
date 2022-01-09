@@ -122,7 +122,7 @@
             app:title="@string/notification_type_title" />
 
         <rikka.preference.SimpleMenuPreference
-            app:defaultValue="1"
+            app:defaultValue="IMPORTANCE_DEFAULT"
             app:entries="@array/notification_entries"
             app:entryValues="@array/notification_values"
             app:icon="@drawable/ic_outline_edit_notifications_24"

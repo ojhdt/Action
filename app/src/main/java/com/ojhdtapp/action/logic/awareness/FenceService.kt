@@ -25,7 +25,7 @@ class FenceService : Service() {
         // Register BroadCastReceiver
         val intent = Intent("fense_receiver_action")
         fenceReceiver = FenceReceiver()
-        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         registerReceiver(fenceReceiver, IntentFilter("fense_receiver_action"))
     }
 

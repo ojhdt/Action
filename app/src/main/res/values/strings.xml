@@ -217,6 +217,12 @@
 
     <string name="map_head">选取位置</string>
 
+    // Notification
+    <string name="channel_name_action">行动</string>
+    <string name="channel_name_action_des">基于用户行动的提醒</string>
+    <string name="channel_name_suggest">建议</string>
+    <string name="channel_name_suggest_des">有助保护环境的小贴士</string>
+
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>
     <string name="date_format_without_h_m">yyyy年mm月dd日</string>
     <string name="year_format">yyyy</string>
