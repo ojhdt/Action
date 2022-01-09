@@ -15,14 +15,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.*
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 import rikka.preference.SimpleMenuPreference
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -31,6 +35,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("action_expired_time")?.apply {
 
+        }
+
+        findPreference<SwitchPreferenceCompat>("suggest_auto_get")?.apply {
+            setOnPreferenceChangeListener { preference, newValue ->
+                val workManager = WorkManager.getInstance(context)
+                if (newValue as Boolean) {
+                    val request = PeriodicWorkRequest.Builder(
+                        AutoSuggestWorker::class.java,
+                        16,
+                        TimeUnit.MINUTES
+                    )
+                        .addTag("autoSuggest")
+                        .build()
+                    workManager.enqueue(request)
+                } else {
+                    workManager.cancelAllWorkByTag("autoSuggest")
+                }
+                true
+            }
         }
 
         findPreference<SimpleMenuPreference>("language")?.apply {

@@ -21,12 +21,15 @@ import androidx.navigation.ui.NavigationUI
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import androidx.work.PeriodicWorkRequest
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
+import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.home.SharedViewModel
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 import com.ojhdtapp.action.util.DensityUtil
 import com.ojhdtapp.action.util.DeviceUtil
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -134,10 +137,6 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
-        // WorkManager Init
-        if(sharedPreference.getBoolean("suggest_auto_get", false)){
-
-        }
     }
 
     override fun onPreferenceStartFragment(

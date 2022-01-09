@@ -102,7 +102,7 @@ object Repository {
     }
 
     // From Cloud
-    suspend fun storeSuggestFromCloud(type: Int):Result<String> {
+    suspend fun storeSuggestFromCloud(type: Int): Result<String> {
         return try {
             val result = LeanCloudDataBase.getNewSuggest(type)
             database.suggestDao().insertSuggest(result)

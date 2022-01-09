@@ -1,6 +1,7 @@
 package com.ojhdtapp.action.logic.worker
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -12,7 +13,10 @@ class AutoSuggestWorker(context: Context, workerParams: WorkerParameters) : Coro
     workerParams
 ) {
     override suspend fun doWork(): Result {
-        val result = Repository.storeSuggestFromCloud(1)
+        val result = withContext(Dispatchers.Default) {
+            Repository.storeSuggestFromCloud(1)
+        }
+        Log.d("aaa", result.isSuccess.toString())
         return if (result.isSuccess) Result.success() else Result.failure()
     }
 }

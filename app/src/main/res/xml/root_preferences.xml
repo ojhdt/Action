@@ -32,7 +32,7 @@
             app:title="@string/suggest_auto_mark_title" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
+            app:defaultValue="false"
             app:key="suggest_auto_get"
             app:summaryOff="@string/suggest_auto_get_summary_off"
             app:summaryOn="@string/suggest_auto_get_summary_on"
