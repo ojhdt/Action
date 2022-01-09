@@ -382,17 +382,6 @@ class ActionFragment : Fragment() {
 //            }
         }
 
-        // SnackBar
-        viewModel.snackBarMessageLive.observe(this) {
-            it.getContentIfNotHandled()?.let {
-                Snackbar.make(
-                    binding.root,
-                    it,
-                    Snackbar.LENGTH_SHORT
-                ).show()
-            }
-        }
-
         // Welcome Text & Avatar
         binding.welcomeTextView.text =
             resources.getStringArray(R.array.action_welcomes).random() + sharedPreference.getString(

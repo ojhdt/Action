@@ -94,12 +94,21 @@
             app:title="@string/locate_title" />
 
         <Preference
-            app:fragment="com.ojhdtapp.action.ui.settings.MapFragment"
             app:dependency="locate"
+            app:fragment="com.ojhdtapp.action.ui.settings.MapFragment"
             app:icon="@drawable/ic_outline_apartment_24"
             app:key="set_locate"
             app:summary="@string/set_location_summary"
             app:title="@string/set_location_title" />
+
+        <rikka.preference.SimpleMenuPreference
+            app:defaultValue="AMAP"
+            app:dependency="locate"
+            app:entries="@array/map_provider_entries"
+            app:entryValues="@array/map_provider_values"
+            app:key="map_provider"
+            app:title="@string/map_provider_title"
+            app:summary="%s" />
 
     </PreferenceCategory>
 

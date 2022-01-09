@@ -61,6 +61,18 @@
         <item>RURI</item>
     </string-array>
 
+    <!-- Map Provider Preference -->
+
+    <string-array name="map_provider_entries">
+        <item>@string/map_provider_amap</item>
+        <item>@string/map_provider_gmap</item>
+    </string-array>
+
+    <string-array name="map_provider_values">
+        <item>AMAP</item>
+        <item>GMAP</item>
+    </string-array>
+
     <!-- NotificationType Preference -->
     <string-array name="notification_type_entries">
         <item>@string/notification_type_action</item>

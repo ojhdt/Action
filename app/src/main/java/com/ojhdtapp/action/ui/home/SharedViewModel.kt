@@ -29,10 +29,6 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
         PreferenceManager.getDefaultSharedPreferences(application)
     }
 
-    // SnackBar Messages
-    private val _snackBarMessageLive = MutableLiveData<Event<String>>()
-    val snackBarMessageLive get() = _snackBarMessageLive
-
     // Transition Type
     private val _shouldSetTransitionLive = MutableLiveData<Boolean>()
     val shouldSetTransitionLive get() = _shouldSetTransitionLive
@@ -61,15 +57,7 @@ class SharedViewModel(application: Application, private val state: SavedStateHan
     }
 
     suspend fun storeSuggestFromCloud(type: Int) {
-        try {
-            // suspend
-            val result = LeanCloudDataBase.getNewSuggest(type)
-            dataBase.suggestDao().insertSuggest(result)
-            _snackBarMessageLive.postValue(Event(getApplication<Application>().getString(R.string.network_success)))
-        } catch (e: Exception) {
-//            Log.d("aaa", e.toString())
-            _snackBarMessageLive.postValue(Event(getApplication<Application>().getString(R.string.network_error)))
-        }
+        Repository.storeSuggestFromCloud(type)
     }
 
 

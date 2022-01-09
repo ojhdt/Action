@@ -286,6 +286,9 @@
     <string name="set_location_title">常用地址</string>
     <string name="locate_summary">启动应用时自动定位并获取天气信息</string>
     <string name="set_location_summary">设置常用地址以避免反复定位</string>
+    <string name="map_provider_title">地图服务提供商</string>
+    <string name="map_provider_amap">高德</string>
+    <string name="map_provider_gmap">谷歌</string>
 
     <!-- Notification Preferences -->
     <string name="notification_type_title">接收通知类型</string>

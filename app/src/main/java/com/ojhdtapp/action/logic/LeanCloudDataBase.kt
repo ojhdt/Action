@@ -13,7 +13,7 @@ import kotlin.coroutines.suspendCoroutine
 
 
 object LeanCloudDataBase {
-    val dataBase by lazy {
+    private val dataBase by lazy {
         AppDataBase.getDataBase()
     }
 

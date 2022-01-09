@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.logic
 
+import android.app.Application
 import android.content.SharedPreferences
 import android.location.Location
 import android.util.Log
@@ -7,6 +8,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.preference.PreferenceManager
 import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.Event
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.*
 import com.ojhdtapp.action.logic.network.Network
@@ -98,6 +100,19 @@ object Repository {
             emit(list)
         }
     }
+
+    // From Cloud
+    suspend fun storeSuggestFromCloud(type: Int):Result<String> {
+        return try {
+            val result = LeanCloudDataBase.getNewSuggest(type)
+            database.suggestDao().insertSuggest(result)
+            Result.success(getStringResource(R.string.network_success))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Weather
 
     fun createTempWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.Main) {
         val weather = WeatherBlock(

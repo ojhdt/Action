@@ -133,10 +133,11 @@ class MainActivity : AppCompatActivity(),
                 }
             }
         }
-    }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
+        // WorkManager Init
+        if(sharedPreference.getBoolean("suggest_auto_get", false)){
+
+        }
     }
 
     override fun onPreferenceStartFragment(
