@@ -1,13 +1,13 @@
 package com.ojhdtapp.action
 
 import android.animation.ObjectAnimator
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.IBinder
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -24,6 +24,7 @@ import androidx.preference.PreferenceManager
 import androidx.work.PeriodicWorkRequest
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
+import com.ojhdtapp.action.logic.awareness.FenceService
 import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.home.SharedViewModel
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
@@ -137,6 +138,17 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
+        // Bind FenceService
+        val intent = Intent(this, FenceService::class.java)
+        startService(intent)
+        bindService(intent, object : ServiceConnection {
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                val binder = service as FenceService.FenceBinder
+            }
+
+            override fun onServiceDisconnected(name: ComponentName?) {
+            }
+        }, Context.BIND_AUTO_CREATE)
     }
 
     override fun onPreferenceStartFragment(

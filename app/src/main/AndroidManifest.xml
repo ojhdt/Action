@@ -4,20 +4,16 @@
 
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission-sdk-23 android:name="android.permission.BODY_SENSORS" />
-    <!--    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <uses-permission-sdk-23 android:name="android.permission.BODY_SENSORS" /> <!-- <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission-sdk-23 android:name="android.permission.MANAGE_DOCUMENTS" />
     <uses-permission-sdk-23 android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission-sdk-23 android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission-sdk-23 android:name="android.permission.READ_PHONE_STATE" />
-
-    <uses-permission-sdk-23 android:name="android.permission.ACTIVITY_RECOGNITION"/>
-    
+    <uses-permission-sdk-23 android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:name=".BaseApplication"
@@ -27,18 +23,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".logic.awareness.FenceService"
+            android:enabled="true"
+            android:exported="true" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="7ffa669c33ce512247eb529a68bd37f9" />
-
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
             android:value="${API_KEY}" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${API_KEY}" />
-
 
         <activity
             android:name=".ui.welcome.WelcomeActivity"
