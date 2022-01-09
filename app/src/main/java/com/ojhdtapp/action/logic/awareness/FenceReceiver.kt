@@ -15,10 +15,23 @@ import kotlinx.coroutines.launch
 
 class FenceReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d("aaa", "Receiver received")
         val state = intent?.let { FenceState.extract(it) }
         state?.let {
             when(it.fenceKey){
                 "headphonePlug" -> {
+                    when(it.currentState){
+                        FenceState.TRUE -> {
+                            CoroutineScope(Dispatchers.Default).launch {
+                                Repository.getAllActionLive().value?.get(0)?.let {
+                                    NotificationUtil.sendAction(it)
+                                }
+                            }
+                        }
+                        else -> {}
+                    }
+                }
+                "walking" -> {
                     when(it.currentState){
                         FenceState.TRUE -> {
                             CoroutineScope(Dispatchers.Default).launch {
