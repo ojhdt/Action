@@ -30,12 +30,7 @@ class BaseApplication : Application() {
         super.onCreate()
 
         // LeanCloud Initialize
-        LeanCloud.initialize(
-            this,
-            "nRXp51Nf2KxuB3wzwcEFwgLf-gzGzoHsz",
-            "ynE9lHaem1e0htqO7rQqKQsa",
-            "https://api.ojhdt.com"
-        )
+        initLeanCLoud()
 
         AppCompatDelegate.setDefaultNightMode(
             when (sharedPreference.getString("dark_mode", "MODE_NIGHT_FOLLOW_SYSTEM")) {
@@ -58,6 +53,16 @@ class BaseApplication : Application() {
         lateinit var context: Context
 
     }
+}
+
+fun initLeanCLoud(){
+    // LeanCloud Initialize
+    LeanCloud.initialize(
+        BaseApplication.context,
+        "nRXp51Nf2KxuB3wzwcEFwgLf-gzGzoHsz",
+        "ynE9lHaem1e0htqO7rQqKQsa",
+        "https://api.ojhdt.com"
+    )
 }
 
 fun isDarkTheme(): Boolean {

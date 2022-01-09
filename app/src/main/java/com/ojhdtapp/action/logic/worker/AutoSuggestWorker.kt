@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.ojhdtapp.action.initLeanCLoud
 import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.Repository
 import kotlinx.coroutines.*
