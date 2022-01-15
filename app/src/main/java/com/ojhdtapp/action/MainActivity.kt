@@ -25,6 +25,7 @@ import androidx.work.PeriodicWorkRequest
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
 import com.ojhdtapp.action.logic.awareness.FenceService
+import com.ojhdtapp.action.logic.transition.TransitionService
 import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.home.SharedViewModel
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
@@ -139,11 +140,22 @@ class MainActivity : AppCompatActivity(),
         }
 
         // Bind FenceService
-        val intent = Intent(this, FenceService::class.java)
-        startService(intent)
-        bindService(intent, object : ServiceConnection {
+        val fenceServiceIntent = Intent(this, FenceService::class.java)
+        startService(fenceServiceIntent)
+        bindService(fenceServiceIntent, object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
                 val binder = service as FenceService.FenceBinder
+            }
+
+            override fun onServiceDisconnected(name: ComponentName?) {
+            }
+        }, Context.BIND_AUTO_CREATE)
+
+        // Bind TransitionService
+        val transitionServiceIntent = Intent(this, TransitionService::class.java)
+        startService(transitionServiceIntent)
+        bindService(transitionServiceIntent, object : ServiceConnection {
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             }
 
             override fun onServiceDisconnected(name: ComponentName?) {

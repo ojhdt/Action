@@ -20,6 +20,7 @@ import com.ojhdtapp.action.util.FenceUtil
 class FenceService : Service() {
     lateinit var fenceReceiver: FenceReceiver
     lateinit var pendingIntent: PendingIntent
+    private lateinit var fenceMap: Map<String, AwarenessFence>
     val context = BaseApplication.context
 
     override fun onCreate() {
@@ -33,31 +34,30 @@ class FenceService : Service() {
         registerReceiver(fenceReceiver, IntentFilter("fence_receiver_action"))
     }
 
+    @SuppressLint("MissingPermission")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("aaa", "Fence Service started")
-        val headphoneFence = HeadphoneFence.during(HeadphoneState.PLUGGED_IN)
+//        val headphoneFence = HeadphoneFence.during(HeadphoneState.PLUGGED_IN)
 //        val walkingFence = DetectedActivityFence.during(DetectedActivityFence.WALKING)
-//        val fenceMap =
-//            mapOf<String,AwarenessFence>(
-//                "headphonePlug" to HeadphoneFence.during(HeadphoneState.PLUGGED_IN),
-//                "walking" to DetectedActivityFence.during(DetectedActivityFence.WALKING)
-//            )
-//        val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
-//            fenceMap.forEach { t, u ->
-//                addFence(t,u,pendingIntent)
-//            }
-//        }.build()
-        val fenceUpdateRequest =FenceUpdateRequest.Builder().apply {
-            addFence("headphonePlug", headphoneFence, pendingIntent)
-//            addFence("walking", walkingFence, pendingIntent)
+        fenceMap =
+            mapOf<String, AwarenessFence>(
+                "headphonePlug" to HeadphoneFence.during(HeadphoneState.PLUGGED_IN),
+                "walking" to DetectedActivityFence.during(DetectedActivityFence.WALKING)
+            )
+        val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
+            fenceMap.forEach { (t, u) ->
+                addFence(t, u, pendingIntent)
+            }
         }.build()
+//        val fenceUpdateRequest =FenceUpdateRequest.Builder().apply {
+////            addFence("headphonePlug", headphoneFence, pendingIntent)
+////            addFence("walking", walkingFence, pendingIntent)
+//        }.build()
         Awareness.getFenceClient(context).updateFences(fenceUpdateRequest).addOnSuccessListener {
             Log.d("aaa", "Fence was successfully registered.")
         }.addOnFailureListener {
             Log.e("aaa", "Fence could not be registered: $it");
         }
-        FenceUtil.queryFence("headphonePlug")
-        FenceUtil.queryFence("walking")
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -66,6 +66,16 @@ class FenceService : Service() {
     }
 
     override fun onDestroy() {
+        val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
+            fenceMap.forEach { (t, u) ->
+                removeFence(t)
+            }
+        }.build()
+        Awareness.getFenceClient(context).updateFences(fenceUpdateRequest).addOnSuccessListener {
+            Log.d("aaa", "Fence was successfully unregistered.")
+        }.addOnFailureListener {
+            Log.e("aaa", "Fence could not be unregistered: $it");
+        }
         unregisterReceiver(fenceReceiver)
         super.onDestroy()
         Log.d("aaa", "Fence Service destroyed")

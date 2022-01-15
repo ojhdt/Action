@@ -21,9 +21,9 @@ import java.util.*
 
 
 object FenceUtil {
-    fun queryFence(fenceKey: String) {
+    fun queryFence(fenceKeyList: List<String>) {
         Awareness.getFenceClient(BaseApplication.context)
-            .queryFences(FenceQueryRequest.forFences(listOf(fenceKey)))
+            .queryFences(FenceQueryRequest.forFences(fenceKeyList))
             .addOnSuccessListener { response ->
                 val map = response.fenceStateMap
                 for (fenceKey in map.fenceKeys) {
@@ -41,8 +41,30 @@ object FenceUtil {
                 }
             }
             .addOnFailureListener(OnFailureListener {
-                Log.d("aaa", "Could not query fence: $fenceKey")
+                Log.d("aaa", "Could not query fence")
                 return@OnFailureListener
             })
     }
+
+    fun queryFenceForResult(fenceKeyList: List<String>): List<FenceResult> {
+        val result = mutableListOf<FenceResult>()
+        Awareness.getFenceClient(BaseApplication.context)
+            .queryFences(FenceQueryRequest.forFences(fenceKeyList))
+            .addOnSuccessListener { response ->
+                val map = response.fenceStateMap
+                for (fenceKey in map.fenceKeys) {
+                    val fenceState = map.getFenceState(fenceKey)
+                    if (fenceState!!.currentState == fenceState.previousState) {
+                        result.add(FenceResult(fenceKey, fenceState.currentState))
+                    }
+                }
+            }
+            .addOnFailureListener(OnFailureListener {
+                Log.d("aaa", "Could not query fence")
+                return@OnFailureListener
+            })
+        return result
+    }
+
+    data class FenceResult(val fenceKey: String, val state: Int)
 }
