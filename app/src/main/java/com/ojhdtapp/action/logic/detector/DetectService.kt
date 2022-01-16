@@ -12,7 +12,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Binder
 import android.os.IBinder
-import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
@@ -49,11 +48,14 @@ class DetectService : Service() {
     private val FENCE_ACTION = "fence_receiver_action"
     private val TRANSITION_ACTION = "transition_receiver_action"
 
+    private lateinit var sensorManager: SensorManager
+
     // Accelerometer Sensor
     private var shakeTime: Long = 0
     private var showTime: Long = 0
     private var triggerTime: Long = 0
-    private lateinit var sensorManager: SensorManager
+    // Light Sensor
+
 
     override fun onCreate() {
         super.onCreate()
@@ -112,11 +114,25 @@ class DetectService : Service() {
             sharedPreference.edit()
                 .putBoolean("isAccelerometerSensorRegistered", true)
                 .apply()
-            initSensorEvent()
+            initAccelerometerSensorEvent()
         } else {
             Log.d("aaa", "Accelerometer could not be registered");
             sharedPreference.edit()
                 .putBoolean("isAccelerometerSensorRegistered", false)
+                .apply()
+        }
+
+        // Register Light Sensor
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null) {
+            Log.d("aaa", "Light was successfully registered.")
+            sharedPreference.edit()
+                .putBoolean("isLightSensorRegistered", true)
+                .apply()
+            initLightSensorEvent()
+        } else {
+            Log.d("aaa", "Light could not be registered");
+            sharedPreference.edit()
+                .putBoolean("isLightSensorRegistered", false)
                 .apply()
         }
     }
@@ -222,7 +238,9 @@ class DetectService : Service() {
         unregisterReceiver(transitionReceiver)
         unregisterReceiver(timeChangeReceiver)
         // Accelerometer
-        sensorManager.unregisterListener(sensorEventListener)
+        sensorManager.unregisterListener(accelerometerSensorEventListener)
+        // Light
+        sensorManager.unregisterListener(lightSensorEventListener)
 
         super.onDestroy()
 //        if (sharedPreference.getBoolean("restart_service", false)) {
@@ -239,40 +257,83 @@ class DetectService : Service() {
     }
 
     // Accelerometer Functions
-    private val sensorEventListener: SensorEventListener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent) {
-            val values = event.values
-            //X轴方向的重力加速度，向右为正
-            val x = values[0]
-            //Y轴方向的重力加速度，向前为正
-            val y = values[1]
-            //Z轴方向的重力加速度，向上为正
-            val z = values[2]
-            val medumValue = 12
-            //判断是否抬手
-            if (abs(x) > medumValue || abs(y) > medumValue || abs(z) > medumValue) {
-                shakeTime = System.currentTimeMillis()
+    private val accelerometerSensorEventListener: SensorEventListener =
+        object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+                val values = event.values
+                //X轴方向的重力加速度，向右为正
+                val x = values[0]
+                //Y轴方向的重力加速度，向前为正
+                val y = values[1]
+                //Z轴方向的重力加速度，向上为正
+                val z = values[2]
+                val medumValue = 18
+                //判断是否抬手
+                if (abs(x) > medumValue || abs(y) > medumValue || abs(z) > medumValue) {
+                    shakeTime = System.currentTimeMillis()
+                }
+                if (z < 9 && z > 2 && -2 < x && x < 2 && 4 < y && y < 10) {
+                    showTime = System.currentTimeMillis()
+                    if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
+                        shakeTime = 0
+                        triggerTime = System.currentTimeMillis()
+                        Log.d("aaa", "Accelerometer Worked!!")
+                    }
+                }
             }
-            if (z < 9 && z > 2 && -2 < x && x < 2 && 4 < y && y < 10) {
-                showTime = System.currentTimeMillis()
-                if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
-                    shakeTime = 0
+
+            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+        }
+
+    @SuppressLint("InvalidWakeLockTag")
+    private fun initAccelerometerSensorEvent() {
+        val accelerometer: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager.registerListener(
+            accelerometerSensorEventListener,
+            accelerometer,
+            SensorManager.SENSOR_DELAY_UI
+        )
+    }
+
+    // Light Functions
+    private val lightSensorEventListener: SensorEventListener = object : SensorEventListener {
+        var light: Float = 0f
+        var lastState: Int = -1
+        var nowState: Int = -1
+
+        //        var times: Int = 0
+        var triggerTime = System.currentTimeMillis()
+        override fun onSensorChanged(event: SensorEvent?) {
+            light = event?.values?.get(0) ?: 0f
+            nowState = getLightState(light)
+            if (lastState == -1) lastState = nowState
+            else {
+                if (nowState != lastState && System.currentTimeMillis() - triggerTime > 10000) {
+                    lastState = nowState
                     triggerTime = System.currentTimeMillis()
-                    Log.d("aaa", "Accelerometer Worked!!")
+                    Log.d("aaa", "Light triggered")
                 }
             }
         }
 
-        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        }
     }
 
-    @SuppressLint("InvalidWakeLockTag")
-    private fun initSensorEvent() {
-        val accelerometer: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+    private fun initLightSensorEvent() {
+        val lightSensor: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
         sensorManager.registerListener(
-            sensorEventListener,
-            accelerometer,
+            lightSensorEventListener,
+            lightSensor,
             SensorManager.SENSOR_DELAY_UI
         )
+    }
+
+    private fun getLightState(light: Float) = when (light) {
+        in 0f..8f -> 0
+        in 8f..SensorManager.LIGHT_SUNRISE -> 1
+        in SensorManager.LIGHT_SUNRISE..SensorManager.LIGHT_SHADE -> 2
+        in SensorManager.LIGHT_SHADE..SensorManager.LIGHT_SUNLIGHT_MAX -> 3
+        else -> -1
     }
 }

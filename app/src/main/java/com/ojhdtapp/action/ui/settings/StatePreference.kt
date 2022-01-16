@@ -32,6 +32,7 @@ class StatePreference(context: Context, attrs: AttributeSet?) : Preference(conte
                     "awareness" -> "isAwarenessRegistered"
                     "transition" -> "isTransitionRegistered"
                     "state_accelerometer" -> "isAccelerometerSensorRegistered"
+                    "light" -> "isLightSensorRegistered"
                     else -> ""
                 }
             } finally {

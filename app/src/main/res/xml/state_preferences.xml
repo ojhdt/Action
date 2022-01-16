@@ -19,4 +19,10 @@
         app:title="@string/accelerometer_title"
         app:summary="@string/accelerometer_summary"
         app:widgetLayout="@layout/preference_service_state"/>
+    <com.ojhdtapp.action.ui.settings.StatePreference
+        app:key="state_light"
+        app:type="light"
+        app:title="@string/light_title"
+        app:summary="@string/light_summary"
+        app:widgetLayout="@layout/preference_service_state"/>
 </PreferenceScreen>

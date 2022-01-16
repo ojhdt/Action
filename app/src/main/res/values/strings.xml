@@ -354,6 +354,9 @@
     <string name="transition_api_summary">帮助应用确定用户何时启动或停止特定 Activity（例如步行、骑车或驾车）</string>
     <string name="accelerometer_title">加速度传感器监听</string>
     <string name="accelerometer_summary">帮助应用检测设备移动状态，可能增加些许耗电</string>
+    <string name="light_title">光线传感器监听</string>
+    <string name="light_summary">帮助应用感知周边环境变化，可能增加些许耗电</string>
+
 
     <!-- Problem Preferences -->
     <string name="manual_title">帮助手册</string>
