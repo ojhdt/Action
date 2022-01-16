@@ -7,10 +7,11 @@ import android.util.Log
 import com.ojhdtapp.action.util.FenceUtil
 
 class FenceReceiver : BroadcastReceiver() {
+    val pusher = ActionPusher.getPusher()
     override fun onReceive(context: Context, intent: Intent?) {
 //        Log.d("aaa", "Receiver received")
-        FenceUtil.queryFence(listOf("headphonePlug", "walking"))
-        val fenceKeyList = listOf<String>("headphonePlug", "walking")
+        FenceUtil.queryFence(listOf("headphonePlug", "inVehicle","onBicycle","onFoot"))
+        val fenceKeyList = listOf<String>("headphonePlug", "inVehicle","onBicycle","onFoot")
         val result = FenceUtil.queryFenceForResult(fenceKeyList)
         result.forEach {
             Log.d("aaa", it.fenceKey)
@@ -20,7 +21,9 @@ class FenceReceiver : BroadcastReceiver() {
 
                     }
                 }
-                "walking" -> {}
+                "onFoot" -> {}
+                "inVehicle" -> {}
+                "onBicycle" -> {}
             }
         }
 

@@ -149,7 +149,9 @@ class DetectService : Service() {
             fenceMap =
                 mapOf<String, AwarenessFence>(
                     "headphonePlug" to HeadphoneFence.during(HeadphoneState.PLUGGED_IN),
-                    "walking" to DetectedActivityFence.during(DetectedActivityFence.WALKING)
+                    "inVehicle" to DetectedActivityFence.during(DetectedActivityFence.IN_VEHICLE),
+                    "onBicycle" to DetectedActivityFence.during(DetectedActivityFence.ON_BICYCLE),
+                    "onFoot" to DetectedActivityFence.during(DetectedActivityFence.ON_FOOT),
                 )
             val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
                 fenceMap.forEach { (t, u) ->

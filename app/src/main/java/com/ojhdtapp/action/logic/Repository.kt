@@ -113,7 +113,6 @@ object Repository {
     }
 
     // Weather
-
     fun createTempWeatherLive(): LiveData<Result<Weather>> = liveData(Dispatchers.Main) {
         val weather = WeatherBlock(
             BaseApplication.context.getString(R.string.loading_location),
