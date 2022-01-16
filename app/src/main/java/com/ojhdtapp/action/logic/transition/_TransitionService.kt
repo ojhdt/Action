@@ -13,11 +13,11 @@ import com.google.android.gms.location.ActivityTransition
 import com.google.android.gms.location.ActivityTransitionRequest
 import com.google.android.gms.location.DetectedActivity
 import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.logic.awareness.FenceReceiver
+import com.ojhdtapp.action.logic.detector.TransitionReceiver
 
-class TransitionService : Service() {
+class _TransitionService : Service() {
     lateinit var pendingIntent: PendingIntent
-    lateinit var transitionReceiver:TransitionReceiver
+    lateinit var transitionReceiver: TransitionReceiver
     val context = BaseApplication.context
 
     override fun onCreate() {

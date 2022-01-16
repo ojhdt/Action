@@ -1,19 +1,10 @@
-package com.ojhdtapp.action.logic.awareness
+package com.ojhdtapp.action.logic.detector
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.text.TextUtils
 import android.util.Log
-import com.google.android.gms.awareness.fence.FenceState
-import com.ojhdtapp.action.logic.Repository
-import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.util.FenceUtil
-import com.ojhdtapp.action.util.NotificationUtil
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 class FenceReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {

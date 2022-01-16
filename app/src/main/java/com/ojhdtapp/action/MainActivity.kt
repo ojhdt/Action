@@ -2,16 +2,13 @@ package com.ojhdtapp.action
 
 import android.animation.ObjectAnimator
 import android.content.*
-import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.animation.doOnEnd
 import androidx.core.view.WindowCompat
 import androidx.navigation.*
@@ -21,17 +18,13 @@ import androidx.navigation.ui.NavigationUI
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import androidx.work.PeriodicWorkRequest
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
-import com.ojhdtapp.action.logic.awareness.FenceService
-import com.ojhdtapp.action.logic.transition.TransitionService
-import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
+import com.ojhdtapp.action.logic.detector.DetectService
 import com.ojhdtapp.action.ui.home.SharedViewModel
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 import com.ojhdtapp.action.util.DensityUtil
 import com.ojhdtapp.action.util.DeviceUtil
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -139,23 +132,35 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
-        // Bind FenceService
-        val fenceServiceIntent = Intent(this, FenceService::class.java)
-        startService(fenceServiceIntent)
-        bindService(fenceServiceIntent, object : ServiceConnection {
-            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-                val binder = service as FenceService.FenceBinder
-            }
+        // Bind _FenceService
+//        val fenceServiceIntent = Intent(this, _FenceService::class.java)
+//        startService(fenceServiceIntent)
+//        bindService(fenceServiceIntent, object : ServiceConnection {
+//            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+//                val binder = service as _FenceService.FenceBinder
+//            }
+//
+//            override fun onServiceDisconnected(name: ComponentName?) {
+//            }
+//        }, Context.BIND_AUTO_CREATE)
 
-            override fun onServiceDisconnected(name: ComponentName?) {
-            }
-        }, Context.BIND_AUTO_CREATE)
+        // Bind _TransitionService
+//        val transitionServiceIntent = Intent(this, _TransitionService::class.java)
+//        startService(transitionServiceIntent)
+//        bindService(transitionServiceIntent, object : ServiceConnection {
+//            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+//            }
+//
+//            override fun onServiceDisconnected(name: ComponentName?) {
+//            }
+//        }, Context.BIND_AUTO_CREATE)
 
-        // Bind TransitionService
-        val transitionServiceIntent = Intent(this, TransitionService::class.java)
-        startService(transitionServiceIntent)
-        bindService(transitionServiceIntent, object : ServiceConnection {
+        // Bind DetectService
+        val detectServiceIntent = Intent(this, DetectService::class.java)
+        startService(detectServiceIntent)
+        bindService(detectServiceIntent, object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                val binder = service as DetectService.DetectBinder
             }
 
             override fun onServiceDisconnected(name: ComponentName?) {

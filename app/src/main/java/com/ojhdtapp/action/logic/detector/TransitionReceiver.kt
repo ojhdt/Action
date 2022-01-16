@@ -1,4 +1,4 @@
-package com.ojhdtapp.action.logic.transition
+package com.ojhdtapp.action.logic.detector
 
 import android.content.BroadcastReceiver
 import android.content.Context

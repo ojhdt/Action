@@ -22,6 +22,7 @@ import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.detector.DetectService
 import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 import rikka.preference.SimpleMenuPreference
@@ -52,6 +53,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 } else {
                     workManager.cancelAllWorkByTag("autoSuggest")
                 }
+                true
+            }
+        }
+
+        findPreference<SwitchPreferenceCompat>("foreground_service")?.apply {
+            setOnPreferenceChangeListener { _, _ ->
+                sharedPreferences.edit()
+                    .putBoolean("restart_service", true)
+                    .apply()
+                context.stopService(Intent(context, DetectService::class.java))
                 true
             }
         }

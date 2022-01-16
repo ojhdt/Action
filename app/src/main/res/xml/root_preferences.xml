@@ -38,6 +38,12 @@
             app:summaryOn="@string/suggest_auto_get_summary_on"
             app:title="@string/suggest_auto_get_title" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="foreground_service"
+            app:summary="@string/foreground_service_summary"
+            app:title="@string/foreground_service_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/language_header">

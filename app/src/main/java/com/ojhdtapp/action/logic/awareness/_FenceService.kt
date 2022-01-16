@@ -15,9 +15,9 @@ import com.google.android.gms.awareness.fence.FenceUpdateRequest
 import com.google.android.gms.awareness.fence.HeadphoneFence
 import com.google.android.gms.awareness.state.HeadphoneState
 import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.util.FenceUtil
+import com.ojhdtapp.action.logic.detector.FenceReceiver
 
-class FenceService : Service() {
+class _FenceService : Service() {
     lateinit var fenceReceiver: FenceReceiver
     lateinit var pendingIntent: PendingIntent
     private lateinit var fenceMap: Map<String, AwarenessFence>

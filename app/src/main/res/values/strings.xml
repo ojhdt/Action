@@ -222,6 +222,11 @@
     <string name="channel_name_action_des">基于用户行动的提醒</string>
     <string name="channel_name_suggest">建议</string>
     <string name="channel_name_suggest_des">有助保护环境的小贴士</string>
+    <string name="channel_name_foreground_service">前台服务通知</string>
+    <string name="channel_name_foreground_service_des">保持后台运行的服务</string>
+    <string name="foreground_service_notification_title">Action 正在后台运行</string>
+    <string name="foreground_service_notification_text">正在检测您的活动</string>
+
 
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>
     <string name="date_format_without_h_m">yyyy年mm月dd日</string>
@@ -263,6 +268,9 @@
     <string name="action_expired_time_5">5分钟</string>
     <string name="action_expired_time_10">10分钟</string>
     <string name="action_expired_time_15">15分钟</string>
+    <string name="foreground_service_title">使用前台服务</string>
+    <string name="foreground_service_summary">可大幅提升应用后台留存能力</string>
+
 
     <!-- Language Preferences -->
     <string name="language_title">语言</string>
