@@ -1,11 +1,13 @@
 package com.ojhdtapp.action.ui.settings
 
 import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -18,6 +20,7 @@ import com.ojhdtapp.action.R
 class PermissionsFragment : PreferenceFragmentCompat() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.permissions_preferences, rootKey)
         findPreference<Preference>("all_granted")?.apply {
@@ -26,7 +29,8 @@ class PermissionsFragment : PreferenceFragmentCompat() {
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.BODY_SENSORS,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.ACTIVITY_RECOGNITION
                 )
                 requestPermissionLauncher.launch(permissions)
                 true
@@ -42,6 +46,7 @@ class PermissionsFragment : PreferenceFragmentCompat() {
                 findPreference<PermissionPreference>("permission_location")?.refreshState()
                 findPreference<PermissionPreference>("permission_sensor")?.refreshState()
                 findPreference<PermissionPreference>("permission_storage")?.refreshState()
+                findPreference<PermissionPreference>("permission_activity_recognition")?.refreshState()
             }
         // Setup Transition
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {

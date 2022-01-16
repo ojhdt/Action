@@ -3,7 +3,9 @@ package com.ojhdtapp.action.ui.welcome
 import android.Manifest
 import android.app.Application
 import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -11,6 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ojhdtapp.action.R
 
+@RequiresApi(Build.VERSION_CODES.Q)
 class WelcomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _permissionLive = MutableLiveData<List<PermissionMessage>>()
     private val _permissionStateLive = MutableLiveData<Map<String, Boolean>>()
@@ -24,6 +27,10 @@ class WelcomeViewModel(application: Application) : AndroidViewModel(application)
             Manifest.permission.BODY_SENSORS to (ContextCompat.checkSelfPermission(
                 application,
                 Manifest.permission.BODY_SENSORS
+            ) == PackageManager.PERMISSION_GRANTED),
+            Manifest.permission.ACTIVITY_RECOGNITION to (ContextCompat.checkSelfPermission(
+                application,
+                Manifest.permission.ACTIVITY_RECOGNITION
             ) == PackageManager.PERMISSION_GRANTED)
         )
         _permissionLive.value = mutableListOf<PermissionMessage>(
@@ -31,19 +38,24 @@ class WelcomeViewModel(application: Application) : AndroidViewModel(application)
                 application.getString(R.string.welcome_permission_location),
                 application.getString(R.string.welcome_permission_location_summary),
                 R.drawable.ic_outline_location_on_24,
-                iniState[Manifest.permission.ACCESS_FINE_LOCATION]?:false
+                iniState[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
             ), PermissionMessage(
                 application.getString(R.string.welcome_permission_sensor),
                 application.getString(R.string.welcome_permission_sensor_summary),
                 R.drawable.ic_outline_sensors_24,
-                iniState[Manifest.permission.BODY_SENSORS]?:false
+                iniState[Manifest.permission.BODY_SENSORS] ?: false
+            ), PermissionMessage(
+                application.getString(R.string.welcome_permission_activity_recognition),
+                application.getString(R.string.welcome_permission_activity_recognition_summary),
+                R.drawable.ic_outline_directions_run_24,
+                iniState[Manifest.permission.ACTIVITY_RECOGNITION] ?: false
             )
         )
         _permissionStateLive.value = iniState
     }
 
     val permissionLive: LiveData<List<PermissionMessage>> get() = _permissionLive
-    val permissionStateLive: LiveData<Map<String,Boolean>> get() = _permissionStateLive
+    val permissionStateLive: LiveData<Map<String, Boolean>> get() = _permissionStateLive
 
     fun updateState(result: Map<String, Boolean>) {
 //        val list = _permissionLive.value!!.apply {
@@ -64,6 +76,11 @@ class WelcomeViewModel(application: Application) : AndroidViewModel(application)
                 application.getString(R.string.welcome_permission_sensor_summary),
                 R.drawable.ic_outline_sensors_24,
                 result[Manifest.permission.BODY_SENSORS] ?: false
+            ), PermissionMessage(
+                application.getString(R.string.welcome_permission_activity_recognition),
+                application.getString(R.string.welcome_permission_activity_recognition_summary),
+                R.drawable.ic_outline_directions_run_24,
+                result[Manifest.permission.ACTIVITY_RECOGNITION] ?: false
             )
         )
     }

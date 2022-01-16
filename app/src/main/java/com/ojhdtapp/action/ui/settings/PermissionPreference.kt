@@ -11,8 +11,11 @@ import androidx.preference.PreferenceViewHolder
 import com.bumptech.glide.Glide
 import com.ojhdtapp.action.R
 import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
 import kotlin.properties.Delegates
 
+@RequiresApi(Build.VERSION_CODES.Q)
 class PermissionPreference(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
     init {
         context.theme.obtainStyledAttributes(
@@ -25,6 +28,7 @@ class PermissionPreference(context: Context, attrs: AttributeSet?) : Preference(
                     "location" -> Manifest.permission.ACCESS_FINE_LOCATION
                     "sensor" -> Manifest.permission.BODY_SENSORS
                     "storage" -> Manifest.permission.READ_EXTERNAL_STORAGE
+                    "activity_recognition" -> Manifest.permission.ACTIVITY_RECOGNITION
                     else -> ""
                 }
             } finally {
