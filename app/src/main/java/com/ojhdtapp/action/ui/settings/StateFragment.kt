@@ -48,6 +48,12 @@ class StateFragment : PreferenceFragmentCompat() {
                 true
             }
         }
+        findPreference<StatePreference>("state_accelerometer")?.apply {
+            setOnPreferenceClickListener {
+                this.refreshState()
+                true
+            }
+        }
 
         // Setup Appbar
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)

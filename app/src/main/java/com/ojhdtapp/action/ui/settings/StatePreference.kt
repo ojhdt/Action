@@ -31,6 +31,7 @@ class StatePreference(context: Context, attrs: AttributeSet?) : Preference(conte
                 preferenceKey = when (getString(R.styleable.StatePreference_type)) {
                     "awareness" -> "isAwarenessRegistered"
                     "transition" -> "isTransitionRegistered"
+                    "state_accelerometer" -> "isAccelerometerSensorRegistered"
                     else -> ""
                 }
             } finally {

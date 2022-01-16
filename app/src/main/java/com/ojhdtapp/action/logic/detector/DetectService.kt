@@ -6,8 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Binder
 import android.os.IBinder
+import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
@@ -25,8 +30,13 @@ import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
 import kotlin.concurrent.thread
+import kotlin.math.abs
 
 class DetectService : Service() {
+
+    class DetectBinder : Binder()
+
+    val context = BaseApplication.context
     private val sharedPreference: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(context)
     }
@@ -35,15 +45,22 @@ class DetectService : Service() {
     lateinit var transitionPendingIntent: PendingIntent
     lateinit var transitionReceiver: TransitionReceiver
     private lateinit var fenceMap: Map<String, AwarenessFence>
-    val context = BaseApplication.context
+    private lateinit var timeChangeReceiver: TimeChangeReceiver
     private val FENCE_ACTION = "fence_receiver_action"
     private val TRANSITION_ACTION = "transition_receiver_action"
+
+    // Accelerometer Sensor
+    private var shakeTime: Long = 0
+    private var showTime: Long = 0
+    private var triggerTime: Long = 0
+    private lateinit var sensorManager: SensorManager
 
     override fun onCreate() {
         super.onCreate()
 
         // Register as Foreground Service
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         val channel = NotificationChannel(
             "foreground",
             context.getString(R.string.channel_name_foreground_service),
@@ -53,7 +70,7 @@ class DetectService : Service() {
         }
         manager.createNotificationChannel(channel)
         val mainActivityIntent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
         val mainActivityPendingIntent =
             PendingIntent.getActivity(this, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
@@ -82,6 +99,26 @@ class DetectService : Service() {
         transitionPendingIntent =
             PendingIntent.getBroadcast(context, 0, transitionIntent, PendingIntent.FLAG_IMMUTABLE)
         registerReceiver(transitionReceiver, IntentFilter(TRANSITION_ACTION))
+
+        // Register TimeChangeReceiver
+        timeChangeReceiver = TimeChangeReceiver()
+        registerReceiver(timeChangeReceiver, IntentFilter().apply {
+            addAction("android.intent.action.TIME_TICK")
+        })
+
+        // Register Accelerometer Sensor
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
+            Log.d("aaa", "Accelerometer was successfully registered.")
+            sharedPreference.edit()
+                .putBoolean("isAccelerometerSensorRegistered", true)
+                .apply()
+            initSensorEvent()
+        } else {
+            Log.d("aaa", "Accelerometer could not be registered");
+            sharedPreference.edit()
+                .putBoolean("isAccelerometerSensorRegistered", false)
+                .apply()
+        }
     }
 
     override fun onBind(intent: Intent): IBinder {
@@ -110,11 +147,11 @@ class DetectService : Service() {
                         .putBoolean("isAwarenessRegistered", true)
                         .apply()
                 }.addOnFailureListener {
-                Log.e("aaa", "Fence could not be registered: $it");
+                    Log.e("aaa", "Fence could not be registered: $it");
                     sharedPreference.edit()
                         .putBoolean("isAwarenessRegistered", false)
                         .apply()
-            }
+                }
 
             // Transition
             val transitions = mutableListOf<ActivityTransition>()
@@ -151,13 +188,14 @@ class DetectService : Service() {
                 Log.d("aaa", it.message.toString())
             }
         }
-
         return super.onStartCommand(intent, flags, startId)
     }
+
 
     @SuppressLint("MissingPermission")
     override fun onDestroy() {
         Log.d("aaa", "DetectService Destroyed")
+        stopForeground(true)
         // Fence
         val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
             fenceMap.forEach { (t, u) ->
@@ -180,7 +218,11 @@ class DetectService : Service() {
         task.addOnFailureListener {
             it.message?.let { it1 -> Log.d("aaa", it1) }
         }
+        // TimeChanger
         unregisterReceiver(transitionReceiver)
+        unregisterReceiver(timeChangeReceiver)
+        // Accelerometer
+        sensorManager.unregisterListener(sensorEventListener)
 
         super.onDestroy()
 //        if (sharedPreference.getBoolean("restart_service", false)) {
@@ -196,5 +238,41 @@ class DetectService : Service() {
             .apply()
     }
 
-    class DetectBinder : Binder()
+    // Accelerometer Functions
+    private val sensorEventListener: SensorEventListener = object : SensorEventListener {
+        override fun onSensorChanged(event: SensorEvent) {
+            val values = event.values
+            //X轴方向的重力加速度，向右为正
+            val x = values[0]
+            //Y轴方向的重力加速度，向前为正
+            val y = values[1]
+            //Z轴方向的重力加速度，向上为正
+            val z = values[2]
+            val medumValue = 12
+            //判断是否抬手
+            if (abs(x) > medumValue || abs(y) > medumValue || abs(z) > medumValue) {
+                shakeTime = System.currentTimeMillis()
+            }
+            if (z < 9 && z > 2 && -2 < x && x < 2 && 4 < y && y < 10) {
+                showTime = System.currentTimeMillis()
+                if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
+                    shakeTime = 0
+                    triggerTime = System.currentTimeMillis()
+                    Log.d("aaa", "Accelerometer Worked!!")
+                }
+            }
+        }
+
+        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+    }
+
+    @SuppressLint("InvalidWakeLockTag")
+    private fun initSensorEvent() {
+        val accelerometer: Sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager.registerListener(
+            sensorEventListener,
+            accelerometer,
+            SensorManager.SENSOR_DELAY_UI
+        )
+    }
 }

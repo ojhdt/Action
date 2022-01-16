@@ -13,4 +13,10 @@
         app:title="@string/transition_api_title"
         app:summary="@string/transition_api_summary"
         app:widgetLayout="@layout/preference_service_state"/>
+    <com.ojhdtapp.action.ui.settings.StatePreference
+        app:key="state_accelerometer"
+        app:type="accelerometer"
+        app:title="@string/accelerometer_title"
+        app:summary="@string/accelerometer_summary"
+        app:widgetLayout="@layout/preference_service_state"/>
 </PreferenceScreen>

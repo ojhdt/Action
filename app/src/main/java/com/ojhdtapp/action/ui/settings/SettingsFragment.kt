@@ -57,6 +57,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
 
+        findPreference<Preference>("sync_action_database")?.apply {
+            summary = getString(R.string.sync_action_database_summary, "0")
+            setOnPreferenceClickListener {
+                true
+            }
+        }
+
         findPreference<SwitchPreferenceCompat>("foreground_service")?.apply {
             setOnPreferenceChangeListener { _, _ ->
 //                sharedPreferences.edit()

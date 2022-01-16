@@ -23,6 +23,11 @@
             app:summary="@string/service_state_summary"
             app:title="@string/service_state_title" />
 
+        <Preference
+            app:key="sync_action_database"
+            app:title="@string/sync_action_database_title"
+            app:summary="@string/sync_action_database_summary"/>
+
         <rikka.preference.SimpleMenuPreference
             android:summary="%s"
             app:defaultValue="10"

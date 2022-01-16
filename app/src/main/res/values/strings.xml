@@ -266,7 +266,7 @@
     <string name="permission_summary">开放权限以帮助应用监测状态</string>
     <string name="account_summary">更改本地账户信息</string>
     <string name="service_state_summary">查看各项活动检测服务运行状态</string>
-    <string name="sync_action_database_summary">本地共存储行动数据%1$s条</string>
+    <string name="sync_action_database_summary">本地共存储行动数据 %1$s 条</string>
     <string name="action_expired_summary">行动自动过期时间</string>
     <string name="suggest_auto_mark_summary">查看新建议时自动标记阅读\n仅已阅读建议于历史记录可见</string>
     <string name="suggest_auto_get_summary_on">自动从数据库获取新建议\n该功能在定制UI上运行不稳定</string>
@@ -349,9 +349,11 @@
 
     <!-- State Preferences -->
     <string name="awareness_api_title">Google Awareness API</string>
-    <string name="awareness_api_summary">一个统一的传感平台，使应用程序能够了解用户上下文的多个方面，同时管理电池和内存的健康状况。</string>
+    <string name="awareness_api_summary">一个统一的传感平台，使应用程序能够了解用户上下文的多个方面，同时管理电池和内存的健康状况</string>
     <string name="transition_api_title">Activity Recognition Transition API </string>
     <string name="transition_api_summary">帮助应用确定用户何时启动或停止特定 Activity（例如步行、骑车或驾车）</string>
+    <string name="accelerometer_title">加速度传感器监听</string>
+    <string name="accelerometer_summary">帮助应用检测设备移动状态，可能增加些许耗电</string>
 
     <!-- Problem Preferences -->
     <string name="manual_title">帮助手册</string>
