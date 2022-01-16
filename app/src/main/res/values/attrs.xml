@@ -17,4 +17,7 @@
     <declare-styleable name="PermissionPreference">
         <attr name="permission" format="string"/>
     </declare-styleable>
+    <declare-styleable name="StatePreference">
+        <attr name="type" format="string"/>
+    </declare-styleable>
 </resources>

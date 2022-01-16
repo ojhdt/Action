@@ -17,6 +17,12 @@
             app:summary="@string/account_summary"
             app:title="@string/account_title" />
 
+        <Preference
+            app:fragment="com.ojhdtapp.action.ui.settings.StateFragment"
+            app:key="state"
+            app:summary="@string/service_state_summary"
+            app:title="@string/service_state_title" />
+
         <rikka.preference.SimpleMenuPreference
             android:summary="%s"
             app:defaultValue="10"

@@ -89,6 +89,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/layout/pref_template.xml" value="0.11302083333333333" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/preference_material_avatar.xml" value="0.536" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/preference_permission_state.xml" value="0.11197916666666667" />
+        <entry key="..\:/Project/Action/app/src/main/res/layout/preference_service_state.xml" value="0.1" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/welcome_agreement.xml" value="0.4" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/welcome_done.xml" value="0.4" />
         <entry key="..\:/Project/Action/app/src/main/res/layout/welcome_set_permission.xml" value="0.264" />
@@ -110,6 +111,7 @@
         <entry key="..\:/Project/Action/app/src/main/res/xml/help_and_support_preferences.xml" value="0.12001811594202899" />
         <entry key="..\:/Project/Action/app/src/main/res/xml/permissions_preferences.xml" value="0.12545289855072464" />
         <entry key="..\:/Project/Action/app/src/main/res/xml/root_preferences.xml" value="0.2" />
+        <entry key="..\:/Project/Action/app/src/main/res/xml/state_preferences.xml" value="0.11770833333333333" />
       </map>
     </option>
   </component>

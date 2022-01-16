@@ -134,6 +134,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_stateFragment"
+            app:destination="@id/stateFragment" />
     </fragment>
     <fragment
         android:id="@+id/permissionsFragment"
@@ -179,5 +182,14 @@
             android:name="isHomeFragment"
             android:defaultValue="false"
             app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/stateFragment"
+        android:name="com.ojhdtapp.action.ui.settings.StateFragment"
+        android:label="@string/service_state_title" >
+        <argument
+            android:name="isHomeFragment"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

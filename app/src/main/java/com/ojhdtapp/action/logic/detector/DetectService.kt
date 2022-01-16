@@ -28,7 +28,7 @@ import kotlin.concurrent.thread
 
 class DetectService : Service() {
     private val sharedPreference: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(this)
+        PreferenceManager.getDefaultSharedPreferences(context)
     }
     lateinit var fenceReceiver: FenceReceiver
     lateinit var fencePendingIntent: PendingIntent
@@ -104,8 +104,14 @@ class DetectService : Service() {
             Awareness.getFenceClient(context).updateFences(fenceUpdateRequest)
                 .addOnSuccessListener {
                     Log.d("aaa", "Fence was successfully registered.")
+                    sharedPreference.edit()
+                        .putBoolean("isAwarenessRegistered", true)
+                        .apply()
                 }.addOnFailureListener {
                 Log.e("aaa", "Fence could not be registered: $it");
+                    sharedPreference.edit()
+                        .putBoolean("isAwarenessRegistered", false)
+                        .apply()
             }
 
             // Transition
@@ -131,9 +137,15 @@ class DetectService : Service() {
                 .requestActivityTransitionUpdates(request, transitionPendingIntent)
             task.addOnSuccessListener {
                 Log.d("aaa", "Transition was successfully registered")
+                sharedPreference.edit()
+                    .putBoolean("isTransitionRegistered", true)
+                    .apply()
             }
             task.addOnFailureListener {
                 Log.d("aaa", "Transition could not be registered")
+                sharedPreference.edit()
+                    .putBoolean("isTransitionRegistered", false)
+                    .apply()
                 Log.d("aaa", it.message.toString())
             }
         }
@@ -169,12 +181,17 @@ class DetectService : Service() {
         unregisterReceiver(transitionReceiver)
 
         super.onDestroy()
-        if (sharedPreference.getBoolean("restart_service", false)) {
-            sharedPreference.edit()
-                .putBoolean("restart_service", false)
-                .apply()
-            context.startService(Intent(context, DetectService::class.java))
-        }
+//        if (sharedPreference.getBoolean("restart_service", false)) {
+//            sharedPreference.edit()
+//                .putBoolean("restart_service", false)
+//                .apply()
+//            context.startService(Intent(context, DetectService::class.java))
+//        }
+
+        sharedPreference.edit()
+            .putBoolean("isAwarenessRegistered", false)
+            .putBoolean("isTransitionRegistered", false)
+            .apply()
     }
 
     class DetectBinder : Binder()

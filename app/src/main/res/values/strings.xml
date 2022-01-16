@@ -258,20 +258,25 @@
     <!-- Behavior Preferences -->
     <string name="permission_title">授予权限</string>
     <string name="account_title">账户</string>
+    <string name="service_state_title">服务状态</string>
+    <string name="sync_action_database_title">同步行动数据库</string>
     <string name="action_expired_title">行动自动过期时间</string>
     <string name="suggest_auto_mark_title">自动标记已阅</string>
     <string name="suggest_auto_get_title">定期获取新建议</string>
     <string name="permission_summary">开放权限以帮助应用监测状态</string>
     <string name="account_summary">更改本地账户信息</string>
+    <string name="service_state_summary">查看各项活动检测服务运行状态</string>
+    <string name="sync_action_database_summary">本地共存储行动数据%1$s条</string>
     <string name="action_expired_summary">行动自动过期时间</string>
     <string name="suggest_auto_mark_summary">查看新建议时自动标记阅读\n仅已阅读建议于历史记录可见</string>
-    <string name="suggest_auto_get_summary_on">自动从数据库获取新建议</string>
+    <string name="suggest_auto_get_summary_on">自动从数据库获取新建议\n该功能在定制UI上运行不稳定</string>
     <string name="suggest_auto_get_summary_off">如有必要 您仍可手动获取</string>
     <string name="action_expired_time_5">5分钟</string>
     <string name="action_expired_time_10">10分钟</string>
     <string name="action_expired_time_15">15分钟</string>
     <string name="foreground_service_title">使用前台服务</string>
     <string name="foreground_service_summary">可大幅提升应用后台留存能力</string>
+    <string name="foreground_service_notice">更改将在应用下次启动时生效</string>
 
 
     <!-- Language Preferences -->
@@ -341,6 +346,12 @@
     <string name="account_notice">更改将在应用下次启动时生效</string>
     <string name="avatar_dialog_title">选择头像</string>
     <string name="avatar_dialog_negative">取消</string>
+
+    <!-- State Preferences -->
+    <string name="awareness_api_title">Google Awareness API</string>
+    <string name="awareness_api_summary">一个统一的传感平台，使应用程序能够了解用户上下文的多个方面，同时管理电池和内存的健康状况。</string>
+    <string name="transition_api_title">Activity Recognition Transition API </string>
+    <string name="transition_api_summary">帮助应用确定用户何时启动或停止特定 Activity（例如步行、骑车或驾车）</string>
 
     <!-- Problem Preferences -->
     <string name="manual_title">帮助手册</string>

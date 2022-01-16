@@ -176,6 +176,7 @@ class MainActivity : AppCompatActivity(),
             when (it.key) {
                 "permission" -> navController.navigate(R.id.action_settingsFragment_to_permissionsFragment)
                 "account" -> navController.navigate(R.id.action_settingsFragment_to_accountFragment)
+                "state" -> navController.navigate(R.id.action_settingsFragment_to_stateFragment)
                 "set_locate" -> navController.navigate(R.id.action_settingsFragment_to_mapFragment)
                 else -> {}
             }

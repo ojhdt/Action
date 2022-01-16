@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.ojhdtapp.action.ui.settings.StatePreference
+        app:key="state_awareness"
+        app:type="awareness"
+        app:title="@string/awareness_api_title"
+        app:summary="@string/awareness_api_summary"
+        app:widgetLayout="@layout/preference_service_state"/>
+    <com.ojhdtapp.action.ui.settings.StatePreference
+        app:key="state_transition"
+        app:type="transition"
+        app:title="@string/transition_api_title"
+        app:summary="@string/transition_api_summary"
+        app:widgetLayout="@layout/preference_service_state"/>
+</PreferenceScreen>

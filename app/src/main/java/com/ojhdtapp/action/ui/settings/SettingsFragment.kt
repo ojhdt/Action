@@ -59,10 +59,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<SwitchPreferenceCompat>("foreground_service")?.apply {
             setOnPreferenceChangeListener { _, _ ->
-                sharedPreferences.edit()
-                    .putBoolean("restart_service", true)
-                    .apply()
-                context.stopService(Intent(context, DetectService::class.java))
+//                sharedPreferences.edit()
+//                    .putBoolean("restart_service", true)
+//                    .apply()
+//                context.stopService(Intent(context, DetectService::class.java))
+                summary = context.getString(R.string.foreground_service_notice)
                 true
             }
         }
