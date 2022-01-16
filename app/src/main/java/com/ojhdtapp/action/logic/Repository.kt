@@ -171,6 +171,9 @@ object Repository {
                 val forecastResponse = forecastResponseJob.await()
                 val locationResponse = locationResponseJob.await()
                 if (forecastResponse.status == "ok" && locationResponse.status == "1") {
+                    // pois
+//                    Log.d("aaa", locationResponse.regeocode.pois.toString())
+                    //weather block
                     val systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
                     forecastResponse.result.run {
                         val weather = WeatherBlock(

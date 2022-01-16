@@ -6,6 +6,9 @@ import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.logic.AppDataBase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class ActionPusher {
     companion object {
@@ -32,15 +35,26 @@ class ActionPusher {
     private var triggerTime: Long = 0
 
     fun submitState(activityState: Int? = null, lightState: Int? = null) {
-        activityState?.let{
+        activityState?.let {
             this.activityState = it
         }
-        lightState?.let{
+        lightState?.let {
             this.lightState = it
         }
     }
 
-    fun tryPushingNewAction() {
+    fun tryPushingNewAction(
+        mainCause: String,
+        shouldNoticeActivity: Boolean? = false,
+        shouldNoticeLight: Boolean? = false,
+        shouldNoticeLocation: Boolean? = false
+    ) {
+        if (System.currentTimeMillis() - triggerTime > 60000) {
+            triggerTime = System.currentTimeMillis()
+            val job = Job()
+            CoroutineScope(job).launch {
 
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@ import android.util.Log
 import com.ojhdtapp.action.util.FenceUtil
 
 class FenceReceiver : BroadcastReceiver() {
-    val pusher = ActionPusher.getPusher()
+    private val pusher = ActionPusher.getPusher()
     override fun onReceive(context: Context, intent: Intent?) {
 //        Log.d("aaa", "Receiver received")
         FenceUtil.queryFence(listOf("headphonePlug", "inVehicle","onBicycle","onFoot"))
@@ -21,9 +21,16 @@ class FenceReceiver : BroadcastReceiver() {
 
                     }
                 }
-                "onFoot" -> {}
-                "inVehicle" -> {}
-                "onBicycle" -> {}
+                "onFoot" -> {
+                    pusher.submitState(activityState = ActionPusher.ACTIVITY_ON_FOOT)
+                }
+                "inVehicle" -> {
+                    pusher.submitState(activityState = ActionPusher.ACTIVITY_IN_VEHICLE)
+                }
+                "onBicycle" -> {
+                    pusher.submitState(activityState = ActionPusher.ACTIVITY_ON_BICYCLE)
+
+                }
             }
         }
 

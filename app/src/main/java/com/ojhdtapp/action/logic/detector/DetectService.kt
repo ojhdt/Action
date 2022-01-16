@@ -269,7 +269,7 @@ class DetectService : Service() {
                 val y = values[1]
                 //Z轴方向的重力加速度，向上为正
                 val z = values[2]
-                val medumValue = 18
+                val medumValue = 14
                 //判断是否抬手
                 if (abs(x) > medumValue || abs(y) > medumValue || abs(z) > medumValue) {
                     shakeTime = System.currentTimeMillis()
