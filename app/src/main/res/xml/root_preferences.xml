@@ -45,7 +45,7 @@
             app:title="@string/suggest_auto_get_title" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:key="foreground_service"
             app:summary="@string/foreground_service_summary"
             app:title="@string/foreground_service_title" />

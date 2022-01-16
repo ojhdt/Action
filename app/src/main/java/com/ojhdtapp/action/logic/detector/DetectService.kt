@@ -52,7 +52,9 @@ class DetectService : Service() {
             description = context.getString(R.string.channel_name_foreground_service_des)
         }
         manager.createNotificationChannel(channel)
-        val mainActivityIntent = Intent(this, MainActivity::class.java)
+        val mainActivityIntent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
         val mainActivityPendingIntent =
             PendingIntent.getActivity(this, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
         val notification = NotificationCompat.Builder(this, "foreground")
