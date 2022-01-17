@@ -1,6 +1,5 @@
 package com.ojhdtapp.action.logic.network
 
-import android.util.Log
 import androidx.room.TypeConverter
 import com.ojhdtapp.action.logic.model.ActionHistory
 import java.lang.StringBuilder
@@ -81,7 +80,7 @@ class Converters {
             historyStr.run {
                 append(storeDateToLong(actionHistory.time).toString())
                 append(";")
-                append(actionHistory.source)
+                append(actionHistory.cause)
                 append(";")
                 append(actionHistory.finished.toString())
             }

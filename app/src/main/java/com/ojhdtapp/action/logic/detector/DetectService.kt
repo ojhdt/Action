@@ -39,6 +39,7 @@ class DetectService : Service() {
     private val sharedPreference: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(context)
     }
+    private val pusher = ActionPusher.getPusher()
     lateinit var fenceReceiver: FenceReceiver
     lateinit var fencePendingIntent: PendingIntent
     lateinit var transitionPendingIntent: PendingIntent
@@ -314,6 +315,7 @@ class DetectService : Service() {
                     lastState = nowState
                     triggerTime = System.currentTimeMillis()
                     Log.d("aaa", "Light triggered")
+                    pusher.submitState(lightState = nowState)
                 }
             }
         }
@@ -332,10 +334,10 @@ class DetectService : Service() {
     }
 
     private fun getLightState(light: Float) = when (light) {
-        in 0f..8f -> 0
-        in 8f..SensorManager.LIGHT_SUNRISE -> 1
-        in SensorManager.LIGHT_SUNRISE..SensorManager.LIGHT_SHADE -> 2
-        in SensorManager.LIGHT_SHADE..SensorManager.LIGHT_SUNLIGHT_MAX -> 3
+        in 0f..8f -> ActionPusher.LIGHT_FULL_MOON
+        in 8f..SensorManager.LIGHT_SUNRISE -> ActionPusher.LIGHT_SUNRISE
+        in SensorManager.LIGHT_SUNRISE..SensorManager.LIGHT_SHADE -> ActionPusher.LIGHT_SHADE
+        in SensorManager.LIGHT_SHADE..SensorManager.LIGHT_SUNLIGHT_MAX -> ActionPusher.LIGHT_SUNLIGHT
         else -> -1
     }
 }

@@ -192,7 +192,7 @@ class ActionFragment : Fragment() {
 //                        "https://static01.nyt.com/images/2018/02/16/multimedia/author-patricia-cohen/author-patricia-cohen-thumbLarge.jpg"
 //                    )
 //                    put("author", "Patricia Cohen")
-//                    put("source", "NY Times")
+//                    put("cause", "NY Times")
 //                    put("type", 0)
 //                    put(
 //                        "content",

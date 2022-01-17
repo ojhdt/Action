@@ -18,17 +18,26 @@ data class Action @Ignore constructor(
     var label: Map<Int, String>? = mapOf(),
     var hightlight: List<String> = listOf(),
     var history: List<ActionHistory> = listOf(),
-    var isActivating: Boolean = false
+    var isActivating: Boolean = false,
+    var weight:Int = 1,
+    var activityStateTrigger:Int = -1,
+    var lightStateTrigger:Int = -1,
+    var locationStateTrigger:Int = -1,
+    var timeStateTrigger:Int = -1,
+    var weatherStateTrigger:Int = -1,
+    var canSaveWater:Float = 0f,
+    var canSaveElectricity:Float = 0f,
+    var canSaveTree:Float = 0f,
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
-    constructor() : this("Title", 0, "Content", mapOf(), listOf(), listOf(), false)
+    constructor() : this("Title", 0, "Content", mapOf(), listOf(), listOf(), false, 1,-1,-1,-1,-1,-1, 0f, 0f, 0f)
 }
 
 @Parcelize
 data class ActionHistory(
     var time: Date = Date(),
-    var source: String = "Source",
+    var cause: String = "Cause",
     var finished: Boolean = false
 ) : Parcelable

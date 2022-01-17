@@ -2,7 +2,6 @@ package com.ojhdtapp.action.ui.archive
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionArchiveHistoryBinding
@@ -93,7 +91,7 @@ class ActionArchiveHistoryFragment : Fragment() {
                     ActionArchiveHistoryAdapters.HistoryData(
                         getString(R.string.action_history_history_trigger_month, times[1]),
                         times[2],
-                        it.source
+                        it.cause
                     )
                 )
             }

@@ -1,21 +1,15 @@
 package com.ojhdtapp.action.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.*
 import androidx.core.view.ViewCompat.setTransitionName
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -116,7 +110,7 @@ object ActionAdapters {
                 actionContent.text = data.title
                 actionSource.text = binding.root.resources.getString(
                     R.string.pair_messages,
-                    data.history.last().source,
+                    data.history.last().cause,
                     DateUtil.timeAgo(data.history.last().time)
                 )
                 Glide.with(binding.root)
