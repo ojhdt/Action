@@ -152,26 +152,33 @@ class ActionFragment : Fragment() {
             cardViewNews.setOnClickListener {
                 bottomSheetDialog.hide()
                 val database = AppDataBase.getDataBase().actionDao()
-                val listA = listOf(
-                    Action(
-                        "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
-                        R.drawable.avatar_a,
-                        getString(R.string.lorem_ipsum),
-                        mapOf(
-                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                        ),
-                        listOf("第一条", "第二条", "第三条"),
-                        listOf(ActionHistory(Date(System.currentTimeMillis()), "位置信息", true)),
-                        false
-                    ),
-                )
-                val job = Job()
-                CoroutineScope(job).launch {
-                    listA.forEach {
-                        database.insertAction(it)
+                if (!isSearching) {
+                    CoroutineScope(lcJob).launch(Dispatchers.IO) {
+                        isSearching = true
+                        viewModel.storeSuggestFromCloud(1)
+                        isSearching = false
                     }
                 }
+//                val listA = listOf(
+//                    Action(
+//                        "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
+//                        R.drawable.avatar_a,
+//                        getString(R.string.lorem_ipsum),
+//                        mapOf(
+//                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+//                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+//                        ),
+//                        listOf("第一条", "第二条", "第三条"),
+//                        listOf(ActionHistory(Date(System.currentTimeMillis()), "位置信息", true)),
+//                        false
+//                    ),
+//                )
+//                val job = Job()
+//                CoroutineScope(job).launch {
+//                    listA.forEach {
+//                        database.insertAction(it)
+//                    }
+//                }
 //                val list = mutableListOf<Pair<Int, String>>()
 //                list.add(Pair(R.drawable.ic_outline_emoji_events_24, "Watersave"))
 //                list.add(Pair(R.drawable.ic_outline_settings_24, "Elecsave"))
@@ -225,27 +232,34 @@ class ActionFragment : Fragment() {
             }
             cardViewTips.setOnClickListener {
                 bottomSheetDialog.hide()
-                val database = AppDataBase.getDataBase().actionDao()
-                val listA = listOf(
-                    Action(
-                        "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
-                        R.drawable.avatar_a,
-                        getString(R.string.lorem_ipsum),
-                        mapOf(
-                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-                        ),
-                        listOf("第一条", "第二条", "第三条"),
-                        listOf(ActionHistory(Date(System.currentTimeMillis()), "位置信息", true)),
-                        true
-                    ),
-                )
-                val job = Job()
-                CoroutineScope(job).launch {
-                    listA.forEach {
-                        database.insertAction(it)
+                if (!isSearching) {
+                    CoroutineScope(lcJob).launch(Dispatchers.IO) {
+                        isSearching = true
+                        viewModel.storeSuggestFromCloud(2)
+                        isSearching = false
                     }
                 }
+//                val database = AppDataBase.getDataBase().actionDao()
+//                val listA = listOf(
+//                    Action(
+//                        "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
+//                        R.drawable.avatar_a,
+//                        getString(R.string.lorem_ipsum),
+//                        mapOf(
+//                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
+//                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
+//                        ),
+//                        listOf("第一条", "第二条", "第三条"),
+//                        listOf(ActionHistory(Date(System.currentTimeMillis()), "位置信息", true)),
+//                        true
+//                    ),
+//                )
+//                val job = Job()
+//                CoroutineScope(job).launch {
+//                    listA.forEach {
+//                        database.insertAction(it)
+//                    }
+//                }
             }
         }
 

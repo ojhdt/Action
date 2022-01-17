@@ -32,6 +32,7 @@ class FenceReceiver : BroadcastReceiver() {
 
                 }
             }
+            pusher.tryPushingNewAction("activity")
         }
 
 //        val state = FenceState.extract(intent) as FenceState

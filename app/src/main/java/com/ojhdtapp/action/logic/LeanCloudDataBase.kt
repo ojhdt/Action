@@ -38,7 +38,7 @@ object LeanCloudDataBase {
             time = obj.getDate("time")
             authorAvatarUrl = obj.getString("authorAvatarUrl")
             author = obj.getString("author")
-            source = obj.getString("cause")
+            source = obj.getString("source")
             type = obj.getInt("type")
             content = obj.getString("content")
             label = map

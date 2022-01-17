@@ -281,6 +281,7 @@ class DetectService : Service() {
                         shakeTime = 0
                         triggerTime = System.currentTimeMillis()
                         Log.d("aaa", "Accelerometer Worked!!")
+                        pusher.tryPushingNewAction("")
                     }
                 }
             }
@@ -316,6 +317,7 @@ class DetectService : Service() {
                     triggerTime = System.currentTimeMillis()
                     Log.d("aaa", "Light triggered")
                     pusher.submitState(lightState = nowState)
+                    pusher.tryPushingNewAction("light")
                 }
             }
         }

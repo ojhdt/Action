@@ -1,5 +1,6 @@
 package com.ojhdtapp.action.logic.dao
 
+import android.hardware.lights.LightState
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.ojhdtapp.action.logic.model.Action
@@ -30,4 +31,14 @@ interface ActionDao {
     @Query("DELETE FROM `action_table` WHERE id = :id")
     fun deleteActionById(id: Long): Int
 
+
+    @Query("SELECT * FROM action_table WHERE isActivating = 0 AND (:currentTime - lastTriggered) >= 43200000  AND activityStateTrigger = :activityStateTrigger AND lightStateTrigger = :lightStateTrigger AND locationStateTrigger =:locationStateTrigger AND timeStateTrigger = :timeStateTrigger AND weatherStateTrigger = :weatherStateTrigger ORDER BY weight DESC")
+    fun loadAvailableActionByConditions(
+        activityStateTrigger: Int = -1,
+        lightStateTrigger: Int = -1,
+        locationStateTrigger: Int = -1,
+        timeStateTrigger: Int = -1,
+        weatherStateTrigger: Int = -1,
+        currentTime: Long = System.currentTimeMillis()
+    ): List<Action>
 }

@@ -7,19 +7,26 @@ import android.util.Log
 import java.util.*
 
 class TimeChangeReceiver : BroadcastReceiver() {
-    private var systemCalendarHour:Int = 0
-    private var lastTimeState:Int = -1
-    private var timeState:Int = -1
+    private var systemCalendarHour: Int = 0
+    private var lastTimeState: Int = -1
+    private var timeState: Int = -1
     private val pusher = ActionPusher.getPusher()
 
     override fun onReceive(context: Context?, intent: Intent?) {
 //        Log.d("aaa", System.currentTimeMillis().toString())
+        Log.d("aaa", "Time passed 1min")
         systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        if(lastTimeState == -1) lastTimeState = getTimeState(systemCalendarHour)
-        else{
+        if (lastTimeState == -1) {
             timeState = getTimeState(systemCalendarHour)
-            if(timeState != lastTimeState){
+            lastTimeState = timeState
+            pusher.submitState(timeState = timeState)
+        }
+        else {
+            timeState = getTimeState(systemCalendarHour)
+            if (timeState != lastTimeState) {
                 pusher.submitState(timeState = timeState)
+                lastTimeState = timeState
+                pusher.tryPushingNewAction("time")
             }
         }
     }

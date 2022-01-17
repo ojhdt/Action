@@ -31,6 +31,7 @@ class TransitionReceiver : BroadcastReceiver() {
                         Log.d("aaa", "TILTING")
                     }
                 }
+                pusher.tryPushingNewAction("activity")
             }
         }
     }

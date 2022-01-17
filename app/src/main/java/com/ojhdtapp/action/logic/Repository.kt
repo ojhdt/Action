@@ -101,6 +101,22 @@ object Repository {
         }
     }
 
+    fun loadAvailableActionByConditions(
+        activityStateTrigger: Int = -1,
+        lightStateTrigger: Int = -1,
+        locationStateTrigger: Int = -1,
+        timeStateTrigger: Int = -1,
+        weatherStateTrigger: Int = -1,
+        currentTime: Long = System.currentTimeMillis()
+    ): List<Action> = database.actionDao().loadAvailableActionByConditions(
+        activityStateTrigger,
+        lightStateTrigger,
+        locationStateTrigger,
+        timeStateTrigger,
+        weatherStateTrigger,
+        currentTime
+    )
+
     // From Cloud
     suspend fun storeSuggestFromCloud(type: Int): Result<String> {
         return try {
