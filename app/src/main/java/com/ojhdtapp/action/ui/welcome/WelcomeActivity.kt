@@ -38,6 +38,7 @@ import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.ActivityWelcomeBinding
 import com.ojhdtapp.action.getUriToDrawable
+import com.ojhdtapp.action.logic.LeanCloudDataBase
 import kotlin.properties.Delegates
 
 class WelcomeActivity : AppCompatActivity() {
@@ -433,6 +434,9 @@ class WelcomeActivity : AppCompatActivity() {
                                 .putBoolean("isAlreadyDialoged", true)
                                 .putBoolean("isFirstLaunch", false)
                                 .apply()
+
+                            LeanCloudDataBase.syncAllAction()
+
                             val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK

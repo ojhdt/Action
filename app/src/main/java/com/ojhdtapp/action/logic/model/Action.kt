@@ -29,6 +29,7 @@ data class Action @Ignore constructor(
     var canSaveWater: Float = 0f,
     var canSaveElectricity: Float = 0f,
     var canSaveTree: Float = 0f,
+    var objectId: String = ""
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -50,7 +51,8 @@ data class Action @Ignore constructor(
         -1,
         0f,
         0f,
-        0f
+        0f,
+        ""
     )
 }
 

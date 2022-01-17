@@ -9,6 +9,7 @@ import android.text.Spanned
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.navigation.fragment.findNavController
@@ -22,9 +23,14 @@ import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.AppDataBase
+import com.ojhdtapp.action.logic.LeanCloudDataBase
 import com.ojhdtapp.action.logic.detector.DetectService
 import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import rikka.preference.SimpleMenuPreference
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -59,7 +65,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("sync_action_database")?.apply {
             summary = getString(R.string.sync_action_database_summary, "0")
+            val database = AppDataBase.getDataBase().actionDao()
+            val job = Job()
+            CoroutineScope(job).launch {
+                val size = database.loadAllAction().size
+                summary = getString(R.string.sync_action_database_summary, size.toString())
+            }
             setOnPreferenceClickListener {
+                Toast.makeText(activity, "正在同步数据", Toast.LENGTH_SHORT).show()
+                LeanCloudDataBase.syncAllAction()
                 true
             }
         }

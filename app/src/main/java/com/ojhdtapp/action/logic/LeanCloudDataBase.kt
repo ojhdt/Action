@@ -4,8 +4,12 @@ import android.util.Log
 import cn.leancloud.LCObject
 import io.reactivex.disposables.Disposable
 import cn.leancloud.LCQuery
+import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 import io.reactivex.Observer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.sql.ClientInfoStatus
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -49,6 +53,32 @@ object LeanCloudDataBase {
             archived = acd
             read = rd
             deleted = ded
+            objectId = obj.objectId
+        }
+    }
+
+    fun lcObject2Action(obj:LCObject) : Action{
+        val storeAction = Action()
+        val list = obj.getList("label") as List<HashMap<String, Any>>
+        val map = mutableMapOf<Int, String>()
+        list.forEach {
+            map[it["first"] as Int] = it["second"] as String
+        }
+        return storeAction.apply {
+            title = obj.getString("title")
+            imageID = obj.getInt("imageID")
+            content = obj.getString("content")
+            label = map
+            hightlight = obj.getList("highlight") as List<String>
+            weight = obj.getInt("weight")
+            activityStateTrigger = obj.getInt("activityStateTrigger")
+            lightStateTrigger = obj.getInt("lightStateTrigger")
+            locationStateTrigger = obj.getInt("locationStateTrigger")
+            timeStateTrigger = obj.getInt("timeStateTrigger")
+            weatherStateTrigger = obj.getInt("weatherStateTrigger")
+            canSaveWater = obj.getInt("canSaveWater").toFloat() / 1000
+            canSaveElectricity = obj.getInt("canSaveElectricity").toFloat() / 1000
+            canSaveTree = obj.getInt("canSaveTree").toFloat() / 1000
             objectId = obj.objectId
         }
     }
@@ -105,5 +135,36 @@ object LeanCloudDataBase {
         }
         dataBase.suggestDao().updateSuggest(result)
         return result
+    }
+
+    fun syncAllAction(){
+        val query = LCQuery<LCObject>("Action")
+        query.findInBackground().subscribe(object : Observer<List<LCObject>> {
+            override fun onSubscribe(d: Disposable) {
+            }
+
+            override fun onNext(t: List<LCObject>) {
+                storeActionsToDatabase(t)
+            }
+
+            override fun onError(e: Throwable) {
+            }
+
+            override fun onComplete() {
+            }
+
+
+        })
+    }
+
+    fun storeActionsToDatabase(list:List<LCObject>){
+        val job = Job()
+        CoroutineScope(job).launch {
+            list.forEach {
+                if(!dataBase.actionDao().isStored(it.objectId))
+                    dataBase.actionDao().insertAction(lcObject2Action(it))
+            }
+        }
+        job.complete()
     }
 }

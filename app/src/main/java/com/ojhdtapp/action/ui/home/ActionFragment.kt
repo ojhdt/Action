@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Fade
+import cn.leancloud.LCObject
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +32,8 @@ import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.ActionHistory
 import com.ojhdtapp.action.util.DeviceUtil
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -179,6 +182,8 @@ class ActionFragment : Fragment() {
 //                        database.insertAction(it)
 //                    }
 //                }
+
+
 //                val list = mutableListOf<Pair<Int, String>>()
 //                list.add(Pair(R.drawable.ic_outline_emoji_events_24, "Watersave"))
 //                list.add(Pair(R.drawable.ic_outline_settings_24, "Elecsave"))
@@ -239,27 +244,46 @@ class ActionFragment : Fragment() {
                         isSearching = false
                     }
                 }
-//                val database = AppDataBase.getDataBase().actionDao()
-//                val listA = listOf(
-//                    Action(
-//                        "McCarthy blasts Democrats, stalls Biden bill in over-8-hour tirade on House floor",
-//                        R.drawable.avatar_a,
-//                        getString(R.string.lorem_ipsum),
-//                        mapOf(
-//                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave"),
-//                            Pair(R.drawable.ic_outline_emoji_events_24, "WaterSave")
-//                        ),
-//                        listOf("第一条", "第二条", "第三条"),
-//                        listOf(ActionHistory(Date(System.currentTimeMillis()), "位置信息", true)),
-//                        true
-//                    ),
-//                )
-//                val job = Job()
-//                CoroutineScope(job).launch {
-//                    listA.forEach {
-//                        database.insertAction(it)
-//                    }
+
+                // /1000
+//                val newAction = LCObject("Action").apply {
+//                    val list = mutableListOf<Pair<Int, String>>()
+//                    list.add(Pair(R.drawable.ic_outline_directions_run_24, "节水"))
+//                    list.add(Pair(R.drawable.ic_outline_directions_run_24, "节电"))
+//                    put("title", "正在工作吗？不妨试试双面打印")
+//                    put("imageID", R.drawable.ic_outline_directions_run_24)
+//                    put(
+//                        "content",
+//                        "目前，我国每生产一吨纸就要耗费7棵大树、100立方米的水。如果每人每天浪费一张纸，全国就要浪费约2700吨纸、27万吨水。\n相反每节约5000张A4的纸就等于节约1立方米木材，如果全国每人每天节约1张纸，一年就节约4745亿张纸，一棵二十岁的树可造3000张A4纸，如果这样算来就可少砍伐1581666棵树"
+//                    )
+//                    put("label", list)
+//                    put("highlight", listOf("启用双面打印", "合理排版内容", "重复使用打印纸"))
+//                    put("weight", 1)
+//                    put("activityStateTrigger", -1)
+//                    put("lightStateTrigger", -1)
+//                    put("locationStateTrigger", -1)
+//                    put("timeStateTrigger", -1)
+//                    put("weatherStateTrigger", -1)
+//                    put("canSaveWater", 20)
+//                    put("canSaveElectricity", 30)
+//                    put("canSaveTree", 3)
 //                }
+//                newAction.saveInBackground().subscribe(object : Observer<LCObject> {
+//                    override fun onSubscribe(d: Disposable) {
+//                    }
+//
+//                    override fun onNext(t: LCObject) {
+//                        Log.d("aaa", "success,id=${t.objectId}")
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        Log.d("aaa", "err:${e.toString()}")
+//                    }
+//
+//                    override fun onComplete() {
+//                    }
+//                })
+
             }
         }
 

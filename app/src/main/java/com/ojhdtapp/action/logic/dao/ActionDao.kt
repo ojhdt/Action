@@ -41,4 +41,7 @@ interface ActionDao {
         weatherStateTrigger: Int = -1,
         currentTime: Long = System.currentTimeMillis()
     ): List<Action>
+
+    @Query("SELECT 1 FROM action_table WHERE objectId = :objectId LIMIT 1")
+    fun isStored(objectId: String): Boolean
 }
