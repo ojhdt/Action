@@ -1,16 +1,9 @@
 package com.ojhdtapp.action.ui.settings
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.InputFilter
-import android.text.InputFilter.LengthFilter
-import android.text.Spanned
-import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,12 +13,10 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.LeanCloudDataBase
-import com.ojhdtapp.action.logic.detector.DetectService
 import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 import kotlinx.coroutines.CoroutineScope
@@ -64,16 +55,29 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>("sync_action_database")?.apply {
-            summary = getString(R.string.sync_action_database_summary, "0")
+            var size = 0
+            summary = getString(R.string.sync_action_database_summary, size.toString())
             val database = AppDataBase.getDataBase().actionDao()
             val job = Job()
             CoroutineScope(job).launch {
-                val size = database.loadAllAction().size
+                size = database.loadAllAction().size
                 summary = getString(R.string.sync_action_database_summary, size.toString())
             }
             setOnPreferenceClickListener {
-                Toast.makeText(activity, "正在同步数据", Toast.LENGTH_SHORT).show()
-                LeanCloudDataBase.syncAllAction()
+                isEnabled = false
+                LeanCloudDataBase.syncAllAction(object : LeanCloudDataBase.SyncActionListener {
+                    override fun onSuccess(dataSize: Int) {
+                        size = dataSize
+                        summary =
+                            getString(R.string.sync_action_database_summary, dataSize.toString())
+                        isEnabled = true
+                    }
+
+                    override fun onFailure() {
+                        summary = getString(R.string.sync_action_database_summary, size.toString())
+                        isEnabled = true
+                    }
+                })
                 true
             }
         }

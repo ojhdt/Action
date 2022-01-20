@@ -86,6 +86,11 @@ interface MyOnClickListener {
     fun onClick()
 }
 
+interface MyOperationListener{
+    fun onSuccess()
+    fun onFailure()
+}
+
 open class Event<out T>(private val content: T) {
 
     var hasBeenHandled = false

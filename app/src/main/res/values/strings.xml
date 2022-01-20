@@ -267,6 +267,9 @@
     <string name="account_summary">更改本地账户信息</string>
     <string name="service_state_summary">查看各项活动检测服务运行状态</string>
     <string name="sync_action_database_summary">本地共存储行动数据 %1$s 条</string>
+    <string name="sync_action_database_syncing_summary">正在同步数据</string>
+    <string name="sync_action_database_syncing_summary_success">同步成功 本地共存储行动数据 %1$s 条</string>
+    <string name="sync_action_database_syncing_summary_failure">同步失败 本地共存储行动数据 %1$s 条</string>
     <string name="action_expired_summary">行动自动过期时间</string>
     <string name="suggest_auto_mark_summary">查看新建议时自动标记阅读\n仅已阅读建议于历史记录可见</string>
     <string name="suggest_auto_get_summary_on">自动从数据库获取新建议\n该功能在定制UI上运行不稳定</string>

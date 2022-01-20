@@ -1,9 +1,13 @@
 package com.ojhdtapp.action.logic
 
 import android.util.Log
+import android.widget.Toast
 import cn.leancloud.LCObject
 import io.reactivex.disposables.Disposable
 import cn.leancloud.LCQuery
+import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.MyOperationListener
+import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 import io.reactivex.Observer
@@ -137,7 +141,17 @@ object LeanCloudDataBase {
         return result
     }
 
-    fun syncAllAction(){
+    interface SyncActionListener{
+        fun onSuccess(dataSize:Int)
+        fun onFailure()
+    }
+
+    fun syncAllAction(listener: SyncActionListener){
+        Toast.makeText(
+            BaseApplication.context,
+            BaseApplication.context.getString(R.string.sync_action_database_syncing_summary),
+            Toast.LENGTH_SHORT
+        ).show()
         val query = LCQuery<LCObject>("Action")
         query.findInBackground().subscribe(object : Observer<List<LCObject>> {
             override fun onSubscribe(d: Disposable) {
@@ -145,9 +159,11 @@ object LeanCloudDataBase {
 
             override fun onNext(t: List<LCObject>) {
                 storeActionsToDatabase(t)
+                listener.onSuccess(t.size)
             }
 
             override fun onError(e: Throwable) {
+                listener.onFailure()
             }
 
             override fun onComplete() {
