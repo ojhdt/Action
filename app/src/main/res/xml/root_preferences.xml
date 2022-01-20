@@ -19,14 +19,15 @@
 
         <Preference
             app:fragment="com.ojhdtapp.action.ui.settings.StateFragment"
+            app:icon="@drawable/ic_outline_sensors_24"
             app:key="state"
             app:summary="@string/service_state_summary"
             app:title="@string/service_state_title" />
 
         <Preference
             app:key="sync_action_database"
-            app:title="@string/sync_action_database_title"
-            app:summary="@string/sync_action_database_summary"/>
+            app:summary="@string/sync_action_database_summary"
+            app:title="@string/sync_action_database_title" />
 
         <rikka.preference.SimpleMenuPreference
             android:summary="%s"
@@ -54,6 +55,11 @@
             app:key="foreground_service"
             app:summary="@string/foreground_service_summary"
             app:title="@string/foreground_service_title" />
+
+        <Preference
+            app:key="ignore_battery_optimizations"
+            app:summary="@string/ignore_battery_optimizations_summary"
+            app:title="@string/ignore_battery_optimizations_title" />
 
     </PreferenceCategory>
 
@@ -124,8 +130,8 @@
             app:entries="@array/map_provider_entries"
             app:entryValues="@array/map_provider_values"
             app:key="map_provider"
-            app:title="@string/map_provider_title"
-            app:summary="%s" />
+            app:summary="%s"
+            app:title="@string/map_provider_title" />
 
     </PreferenceCategory>
 

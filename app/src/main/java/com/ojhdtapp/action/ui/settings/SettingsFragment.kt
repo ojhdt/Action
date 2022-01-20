@@ -1,10 +1,17 @@
 package com.ojhdtapp.action.ui.settings
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -23,11 +30,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import rikka.preference.SimpleMenuPreference
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
+    @SuppressLint("BatteryLife")
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
@@ -69,12 +78,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     override fun onSuccess(dataSize: Int) {
                         size = dataSize
                         summary =
-                            getString(R.string.sync_action_database_syncing_summary_success, dataSize.toString())
+                            getString(
+                                R.string.sync_action_database_syncing_summary_success,
+                                dataSize.toString()
+                            )
                         isEnabled = true
                     }
 
                     override fun onFailure() {
-                        summary = getString(R.string.sync_action_database_syncing_summary_failure, size.toString())
+                        summary = getString(
+                            R.string.sync_action_database_syncing_summary_failure,
+                            size.toString()
+                        )
                         isEnabled = true
                     }
                 })
@@ -89,6 +104,30 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //                    .apply()
 //                context.stopService(Intent(context, DetectService::class.java))
                 summary = context.getString(R.string.foreground_service_notice)
+                true
+            }
+        }
+
+        fun isIgnoringBatteryOptimizations(): Boolean {
+            var isIgnoring = false
+            context?.let {
+                val powerManager = it.getSystemService(Context.POWER_SERVICE) as PowerManager
+                isIgnoring = powerManager.isIgnoringBatteryOptimizations(it.packageName)
+            }
+            return isIgnoring
+        }
+        findPreference<Preference>("ignore_battery_optimizations")?.apply {
+            if(isIgnoringBatteryOptimizations()) summary = getString(R.string.ignore_battery_optimizations_summary_success)
+            setOnPreferenceClickListener {
+                if (!isIgnoringBatteryOptimizations()) {
+                    try {
+                        val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                        intent.data = Uri.parse("package:" + context.packageName)
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 true
             }
         }
