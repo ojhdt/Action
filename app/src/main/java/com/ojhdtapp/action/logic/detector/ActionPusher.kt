@@ -58,10 +58,6 @@ class ActionPusher {
     private var triggerTime: Long = 0
 
     fun submitState(activityState: Int? = null, lightState: Int? = null, timeState: Int? = null) {
-        Log.d(
-            "aaa",
-            this.activityState.toString() + " " + this.lightState.toString() + " " + this.timeState.toString()
-        )
         activityState?.let {
             this.activityState = it
         }
@@ -71,6 +67,10 @@ class ActionPusher {
         timeState?.let {
             this.timeState = it
         }
+        Log.d(
+            "sensor",
+            this.activityState.toString() + " " + this.lightState.toString() + " " + this.timeState.toString()
+        )
     }
 
     fun tryPushingNewAction(
@@ -86,292 +86,82 @@ class ActionPusher {
                 var tempList: List<Action> = listOf()
                 when (mainTrigger) {
                     "activity" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, false, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            -1,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, false, false, false, false
-                            )
-                            return@launch
-                        }
+//                        tempList = Repository.loadAvailableActionByConditions(
+//                            activityState,
+//                            lightState,
+//                            locationState,
+//                            timeState,
+//                            weatherState
+//                        )
+//                        if (tempList.isNotEmpty()) {
+//                            editAndPushAction(
+//                                selectActionRandomlyByWeight(tempList),
+//                                true, true, true, true, true
+//                            )
+//                            return@launch
+//                        }
+//                        tempList = Repository.loadAvailableActionByConditions(
+//                            activityState,
+//                            lightState,
+//                            locationState,
+//                            timeState,
+//                            -1
+//                        )
+//                        if (tempList.isNotEmpty()) {
+//                            editAndPushAction(
+//                                selectActionRandomlyByWeight(tempList),
+//                                true, true, true, true, false
+//                            )
+//                            return@launch
+//                        }
+//                        tempList = Repository.loadAvailableActionByConditions(
+//                            activityState,
+//                            lightState,
+//                            locationState,
+//                            -1,
+//                            -1
+//                        )
+//                        if (tempList.isNotEmpty()) {
+//                            editAndPushAction(
+//                                selectActionRandomlyByWeight(tempList),
+//                                true, true, true, false, false
+//                            )
+//                            return@launch
+//                        }
+//                        tempList = Repository.loadAvailableActionByConditions(
+//                            activityState,
+//                            lightState,
+//                            -1,
+//                            -1,
+//                            -1
+//                        )
+//                        if (tempList.isNotEmpty()) {
+//                            editAndPushAction(
+//                                selectActionRandomlyByWeight(tempList),
+//                                true, true, false, false, false
+//                            )
+//                            return@launch
+//                        }
+//                        tempList = Repository.loadAvailableActionByConditions(
+//                            activityState,
+//                            -1,
+//                            -1,
+//                            -1,
+//                            -1
+//                        )
+//                        if (tempList.isNotEmpty()) {
+//                            editAndPushAction(
+//                                selectActionRandomlyByWeight(tempList),
+//                                true, false, false, false, false
+//                            )
+//                            return@launch
+//                        }
                     }
                     "light" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, false, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            -1,
-                            lightState,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                false, true, false, false, false
-                            )
-                            return@launch
-                        }
                     }
                     "location" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            -1,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, false, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            -1,
-                            -1,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                false, false, true, false, false
-                            )
-                            return@launch
-                        }
                     }
                     "time" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            -1,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, false, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            -1,
-                            -1,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, false, false, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            -1,
-                            -1,
-                            -1,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                false, false, false, true, false
-                            )
-                            return@launch
-                        }
                     }
                     "weather" -> {}
                     else -> {

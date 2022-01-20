@@ -280,7 +280,7 @@ class DetectService : Service() {
                     if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
                         shakeTime = 0
                         triggerTime = System.currentTimeMillis()
-                        Log.d("aaa", "Accelerometer Worked!!")
+                        Log.d("sensor", "Accelerometer Worked!!")
                         pusher.tryPushingNewAction("")
                     }
                 }
@@ -310,12 +310,13 @@ class DetectService : Service() {
         override fun onSensorChanged(event: SensorEvent?) {
             light = event?.values?.get(0) ?: 0f
             nowState = getLightState(light)
+//            Log.d("sensor", nowState.toString())
             if (lastState == -1) lastState = nowState
             else {
-                if (nowState != lastState && System.currentTimeMillis() - triggerTime > 10000) {
+                if (nowState != lastState && System.currentTimeMillis() - triggerTime > 0) {
                     lastState = nowState
                     triggerTime = System.currentTimeMillis()
-                    Log.d("aaa", "Light triggered")
+                    Log.d("sensor", "Light triggered")
                     pusher.submitState(lightState = nowState)
                     pusher.tryPushingNewAction("light")
                 }
