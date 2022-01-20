@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -116,6 +118,21 @@ class ActionArchiveHistoryFragment : Fragment() {
                 adapter = myAdapter
                 myAdapter.submitList(historyTriggerList)
             }
+        }
+
+        // FAB
+        binding.toContentFAB.transitionName =
+            getString(R.string.action_history_transition_name, data.id.toString())
+        binding.toContentFAB.setOnClickListener {
+            val bundle = bundleOf("ACTION" to data)
+            val actionContentTransitionName =
+                binding.root.resources.getString(R.string.action_content_transition_name)
+            val extras =
+                FragmentNavigatorExtras(binding.toContentFAB to actionContentTransitionName)
+            navController.navigate(
+                R.id.action_actionArchiveHistoryFragment_to_actionContentFragment,
+                bundle, null, extras
+            )
         }
     }
 

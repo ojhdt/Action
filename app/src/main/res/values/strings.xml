@@ -160,6 +160,7 @@
     <string name="reset_all_settings">重设为默认</string>
 
     <string name="action_transition_name">action_card_%1$s</string>
+    <string name="action_history_name">action_history_%1$s</string>
     <string name="action_content_transition_name">action_card_detail</string>
 
     <string name="suggest_content_toolbar">详情</string>
@@ -280,6 +281,8 @@
     <string name="foreground_service_title">使用前台服务</string>
     <string name="foreground_service_summary">可大幅提升应用后台留存能力</string>
     <string name="foreground_service_notice">更改将在应用下次启动时生效</string>
+    <string name="ignore_battery_optimizations_title">请求忽略电池优化</string>
+    <string name="ignore_battery_optimizations_summary">将本应用添加至电池优化白名单</string>
 
     <string name="action_pusher_cause_location">位置信息</string>
     <string name="action_pusher_cause_weather">天气</string>

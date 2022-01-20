@@ -435,7 +435,13 @@ class WelcomeActivity : AppCompatActivity() {
                                 .putBoolean("isFirstLaunch", false)
                                 .apply()
 
-                            LeanCloudDataBase.syncAllAction()
+                            LeanCloudDataBase.syncAllAction(object: LeanCloudDataBase.SyncActionListener{
+                                override fun onSuccess(dataSize: Int) {
+                                }
+
+                                override fun onFailure() {
+                                }
+                            })
 
                             val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
                             intent.flags =

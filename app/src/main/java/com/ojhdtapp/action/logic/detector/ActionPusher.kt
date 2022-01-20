@@ -222,7 +222,7 @@ class ActionPusher {
             lastTriggered = System.currentTimeMillis()
             history = newHistory
         }
-        database.insertAction(newItem)
+//        database.insertAction(newItem)
         NotificationUtil.sendAction(newItem)
     }
 }

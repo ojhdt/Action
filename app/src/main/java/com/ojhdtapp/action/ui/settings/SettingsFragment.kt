@@ -69,12 +69,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     override fun onSuccess(dataSize: Int) {
                         size = dataSize
                         summary =
-                            getString(R.string.sync_action_database_summary, dataSize.toString())
+                            getString(R.string.sync_action_database_syncing_summary_success, dataSize.toString())
                         isEnabled = true
                     }
 
                     override fun onFailure() {
-                        summary = getString(R.string.sync_action_database_summary, size.toString())
+                        summary = getString(R.string.sync_action_database_syncing_summary_failure, size.toString())
                         isEnabled = true
                     }
                 })
