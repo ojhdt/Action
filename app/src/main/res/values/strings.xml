@@ -48,6 +48,8 @@
     <string name="welcome_done_error_b">- 许可协议未接受\n</string>
     <string name="welcome_done_error_c">- 部分权限未授予\n</string>
     <string name="welcome_done_error_positive">完成</string>
+    <string name="welcome_sync_action_success">数据库初始化完成</string>
+    <string name="welcome_sync_action_failure">数据化初始化失败，请前往设置页面重试</string>
 
     <string name="agreement_title">许可协议</string>
     <string name="agreement_sub_title">生效日期：2022年1月4日</string>

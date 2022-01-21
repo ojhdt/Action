@@ -79,6 +79,7 @@ class ActionPusher {
 //        shouldNoticeLight: Boolean? = false,
 //        shouldNoticeLocation: Boolean? = false
     ) {
+        Log.d("sensor", (System.currentTimeMillis() - triggerTime).toString())
         if (System.currentTimeMillis() - triggerTime > 60000) {
             triggerTime = System.currentTimeMillis()
             val job = Job()
@@ -165,11 +166,13 @@ class ActionPusher {
                     }
                     "weather" -> {}
                     else -> {
-                        tempList = Repository.loadAvailableActionByConditions(-1,-1,-1,-1,-1)
-                        editAndPushAction(
-                            selectActionRandomlyByWeight(tempList),
-                            false, false, false, false, false
-                        )
+                        tempList = Repository.loadAvailableActionByConditions(-1, -1, -1, -1, -1)
+                        if (tempList.isNotEmpty()) {
+                            editAndPushAction(
+                                selectActionRandomlyByWeight(tempList),
+                                false, false, false, false, false
+                            )
+                        }
                     }
                 }
             }
@@ -185,7 +188,7 @@ class ActionPusher {
         var ranNum = (0..sum).random()
         list.forEach {
             ssum += it.weight
-            if (ssum >= sum) {
+            if (ssum >= ranNum) {
                 return it
             }
         }
@@ -199,18 +202,19 @@ class ActionPusher {
         isLightStateUsed: Boolean = false,
         isLocationStateUsed: Boolean = false,
         isTimeStateUsed: Boolean = false,
-        isWeatherStateUsed: Boolean = false
+        isWeatherStateUsed: Boolean = false,
+        mainTrigger: String? = null
     ) {
-        val causeStr = StringBuilder()
-            .append(if(isActivityStateUsed) context.getString(R.string.action_pusher_cause_activity) else "")
+        val causeStr = StringBuilder(mainTrigger?:"")
+            .append(if (isActivityStateUsed) context.getString(R.string.action_pusher_cause_activity) else "")
             .append(" ")
-            .append(if(isLightStateUsed) context.getString(R.string.action_pusher_cause_light) else "")
+            .append(if (isLightStateUsed) context.getString(R.string.action_pusher_cause_light) else "")
             .append(" ")
-            .append(if(isLocationStateUsed) context.getString(R.string.action_pusher_cause_location) else "")
+            .append(if (isLocationStateUsed) context.getString(R.string.action_pusher_cause_location) else "")
             .append(" ")
-            .append(if(isTimeStateUsed) context.getString(R.string.action_pusher_cause_time) else "")
+            .append(if (isTimeStateUsed) context.getString(R.string.action_pusher_cause_time) else "")
             .append(" ")
-            .append(if(isWeatherStateUsed) context.getString(R.string.action_pusher_cause_weather) else "")
+            .append(if (isWeatherStateUsed) context.getString(R.string.action_pusher_cause_weather) else "")
             .toString()
 
         val newHistory = item.history.toMutableList().apply {
@@ -222,7 +226,7 @@ class ActionPusher {
             lastTriggered = System.currentTimeMillis()
             history = newHistory
         }
-//        database.insertAction(newItem)
+        database.updateAction(newItem)
         NotificationUtil.sendAction(newItem)
     }
 }

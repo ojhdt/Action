@@ -84,6 +84,9 @@ object Repository {
     fun getAllActionLive(): LiveData<List<Action>> =
         database.actionDao().loadAllActionLive()
 
+    fun getActivatedActionLive(): LiveData<List<Action>> =
+        database.actionDao().loadActivatedActionLive()
+
     fun getReadSuggestLive(): LiveData<List<Suggest>> =
         database.suggestDao().loadAllReadSuggestLive()
 

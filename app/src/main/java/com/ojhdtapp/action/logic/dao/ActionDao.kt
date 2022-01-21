@@ -25,6 +25,9 @@ interface ActionDao {
     @Query("SELECT * FROM `action_table`")
     fun loadAllActionLive(): LiveData<List<Action>>
 
+    @Query("SELECT * FROM `action_table` WHERE history IS NOT NULL")
+    fun loadActivatedActionLive(): LiveData<List<Action>>
+
     @Query("SELECT * FROM `action_table` WHERE isActivating = 1")
     fun loadAllActivatingActionLive(): LiveData<List<Action>>
 

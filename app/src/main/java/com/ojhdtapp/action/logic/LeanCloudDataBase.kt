@@ -63,6 +63,7 @@ object LeanCloudDataBase {
 
     fun lcObject2Action(obj:LCObject) : Action{
         val storeAction = Action()
+        Log.d("aaa", storeAction.toString())
         val list = obj.getList("label") as List<HashMap<String, Any>>
         val map = mutableMapOf<Int, String>()
         list.forEach {
@@ -73,6 +74,7 @@ object LeanCloudDataBase {
             imageID = obj.getInt("imageID")
             content = obj.getString("content")
             label = map
+            history = emptyList()
             hightlight = obj.getList("highlight") as List<String>
             weight = obj.getInt("weight")
             activityStateTrigger = obj.getInt("activityStateTrigger")
