@@ -78,6 +78,13 @@
         <item>@string/notification_type_action</item>
         <item>@string/notification_type_suggest</item>
     </string-array>
+    <string-array name="notification_type_values">
+        <item>TYPE_ACTION</item>
+        <item>TYPE_SUGGEST</item>
+    </string-array>
+    <string-array name="notification_type_default_values">
+        <item>TYPE_ACTION</item>
+    </string-array>
 
     <!-- Notification Preference -->
     <string-array name="notification_entries">

@@ -117,7 +117,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             return isIgnoring
         }
         findPreference<Preference>("ignore_battery_optimizations")?.apply {
-            if(isIgnoringBatteryOptimizations()) summary = getString(R.string.ignore_battery_optimizations_summary_success)
+            if (isIgnoringBatteryOptimizations()) summary =
+                getString(R.string.ignore_battery_optimizations_summary_success)
             setOnPreferenceClickListener {
                 if (!isIgnoringBatteryOptimizations()) {
                     try {
@@ -209,6 +210,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("set_locale")?.apply {
             setOnPreferenceClickListener {
+                true
+            }
+        }
+
+        findPreference<MultiSelectListPreference>("notification_type")?.apply {
+            fun setSummary(arr: HashSet<String>) {
+                summary = if (arr.contains("TYPE_ACTION") && !arr.contains("TYPE_SUGGEST")) {
+                    getString(R.string.notification_type_action_summary)
+                } else if (!arr.contains("TYPE_ACTION") && arr.contains("TYPE_SUGGEST")) {
+                    getString(R.string.notification_type_suggest_summary)
+                } else if (arr.contains("TYPE_ACTION") && arr.contains("TYPE_SUGGEST")) {
+                    getString(R.string.notification_type_all_summary)
+                }else {
+                    getString(R.string.notification_type_none_summary)
+                }
+            }
+            setSummary(values as HashSet<String>)
+            setOnPreferenceChangeListener { preference, newValue ->
+                setSummary(newValue as HashSet<String>)
+                Log.d("aaa", newValue.toString())
                 true
             }
         }

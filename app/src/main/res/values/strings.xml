@@ -330,6 +330,10 @@
     <string name="notification_type_title">接收通知类型</string>
     <string name="notification_type_action">行动</string>
     <string name="notification_type_suggest">建议</string>
+    <string name="notification_type_action_summary">仅行动</string>
+    <string name="notification_type_suggest_summary">仅建议</string>
+    <string name="notification_type_all_summary">行动及建议</string>
+    <string name="notification_type_none_summary">不接收通知</string>
     <string name="notification_action_title">触发行动时的通知优先级</string>
     <string name="notification_action_standard">默认</string>
     <string name="notification_action_silence">静音</string>
