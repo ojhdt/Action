@@ -123,7 +123,7 @@ object Repository {
         val job = Job()
         CoroutineScope(job).launch {
             val list = database.actionDao().loadAllActivatingAction()
-            val milltime = (sharedPreference.getInt("action_expired_time", 10) * 60000).toLong()
+            val milltime = (sharedPreference.getString("action_expired_time", "10")!!.toInt() * 60000).toLong()
             if (list.isNotEmpty()) {
                 list.forEach {
                     if (System.currentTimeMillis() - it.lastTriggered > milltime) {

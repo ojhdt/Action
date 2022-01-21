@@ -117,7 +117,7 @@ object NotificationUtil {
             val manager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val channel = NotificationChannel(
-                "action",
+                "suggest",
                 context.getString(R.string.channel_name_suggest),
                 NotificationManager.IMPORTANCE_MIN
             ).apply {
