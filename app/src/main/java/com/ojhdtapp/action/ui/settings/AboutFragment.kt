@@ -5,15 +5,24 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.util.BrowserUtil
 
 class AboutFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.about_preferences, rootKey)
+
+        findPreference<Preference>("git_branch")?.apply {
+            setOnPreferenceClickListener {
+                BrowserUtil.launchURL(context, "https://github.com/ojhdt/Action")
+                true
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -233,6 +233,9 @@
     <string name="notification_finished_action_toast">已标记完成</string>
     <string name="notification_ignored_action_toast">已暂时忽略</string>
 
+    // Email
+    <string name="email_subject">《行动 Action》 用户使用反馈</string>
+
 
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>
     <string name="date_format_without_h_m">yyyy年mm月dd日</string>

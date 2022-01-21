@@ -5,16 +5,43 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.util.BrowserUtil
 
 class HelpAndSupportFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.help_and_support_preferences, rootKey)
+
+        findPreference<Preference>("problem_action")?.apply {
+            setOnPreferenceClickListener {
+                BrowserUtil.launchURL(context, "https://guide.app.ojhdt.com/")
+                true
+            }
+        }
+
+        findPreference<Preference>("email")?.apply {
+            setOnPreferenceClickListener {
+                BrowserUtil.composeEmail(
+                    context,
+                    arrayOf("ojhdtmail@gmail.com"),
+                    getString(R.string.email_subject)
+                )
+                true
+            }
+        }
+
+        findPreference<Preference>("tg")?.apply {
+            setOnPreferenceClickListener {
+                true
+            }
+        }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Setup Transition
@@ -38,7 +65,7 @@ class HelpAndSupportFragment : PreferenceFragmentCompat() {
         val toolbar = view.findViewById<MaterialToolbar>(R.id.toolbar)
         val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar?.let{
+        toolbar?.let {
 //            it.inflateMenu(R.menu.settings_toolbar)
             NavigationUI.setupWithNavController(
                 it,
