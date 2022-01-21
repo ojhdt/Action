@@ -28,12 +28,16 @@ import com.google.android.gms.location.DetectedActivity
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.NotificationActionReceiver
+import com.ojhdtapp.action.util.NotificationUtil
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
 class DetectService : Service() {
 
     class DetectBinder : Binder()
+
+    lateinit var notificationActionReceiver: NotificationActionReceiver
 
     val context = BaseApplication.context
     private val sharedPreference: SharedPreferences by lazy {
@@ -60,6 +64,13 @@ class DetectService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Register Notification Action Receiver
+        notificationActionReceiver = NotificationActionReceiver()
+        registerReceiver(notificationActionReceiver, IntentFilter().apply {
+            addAction(NotificationUtil.ACTION_FINISHED)
+            addAction(NotificationUtil.ACTION_IGNORED)
+        })
 
         // Register as Foreground Service
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -215,6 +226,8 @@ class DetectService : Service() {
     override fun onDestroy() {
         Log.d("aaa", "DetectService Destroyed")
         stopForeground(true)
+        // Notification
+        unregisterReceiver(notificationActionReceiver)
         // Fence
         val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
             fenceMap.forEach { (t, u) ->
