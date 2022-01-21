@@ -18,10 +18,14 @@ import com.bumptech.glide.request.transition.Transition
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.NotificationActionReceiver
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 
 object NotificationUtil {
+    val ACTION_FINISHED = "FINISHED"
+    val ACTION_IGNORED = "IGNORED"
+
     private val sharedPreference: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(BaseApplication.context)
     }
@@ -43,6 +47,21 @@ object NotificationUtil {
             description = context.getString(R.string.channel_name_action_des)
         }
         manager.createNotificationChannel(channel)
+
+        // Finished Intent
+        val finishedIntent = Intent(context, NotificationActionReceiver::class.java).apply {
+            setAction(ACTION_FINISHED)
+        }
+        val finishedPendingIntent =
+            PendingIntent.getBroadcast(context, -2, finishedIntent, PendingIntent.FLAG_IMMUTABLE)
+
+        // Ignore Intent
+        val ignoredIntent = Intent().apply {
+            setAction(ACTION_IGNORED)
+        }
+        val ignoredPendingIntent =
+            PendingIntent.getBroadcast(context, -3, ignoredIntent, PendingIntent.FLAG_IMMUTABLE)
+
         // Create an explicit intent for an Activity in your app
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -51,16 +70,26 @@ object NotificationUtil {
             PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val notification = NotificationCompat.Builder(context, "action")
             .setContentTitle(action.title)
-            .setContentText(action.content)
+            .setContentText(context.getString(R.string.notification_action_text))
             .setSmallIcon(R.drawable.ic_outline_android_24)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, action.imageID))
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .addAction(
+                R.drawable.ic_outline_done_24,
+                context.getString(R.string.action_content_fab_mark),
+                finishedPendingIntent
+            )
+            .addAction(
+                R.drawable.ic_outline_error_outline_24,
+                context.getString(R.string.action_content_fab_ignore),
+                ignoredPendingIntent
+            )
             .build()
         manager.notify(action.id.toInt(), notification)
     }
 
-    fun sendSuggest(suggest:Suggest){
+    fun sendSuggest(suggest: Suggest) {
         val context = BaseApplication.context
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channel = NotificationChannel(
@@ -80,7 +109,7 @@ object NotificationUtil {
         Glide.with(context)
             .asBitmap()
             .load(suggest.imgUrl)
-            .into(object : CustomTarget<Bitmap>(){
+            .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     val notification = NotificationCompat.Builder(context, "suggest")
                         .setContentTitle(suggest.title)
@@ -92,6 +121,7 @@ object NotificationUtil {
                         .build()
                     manager.notify(suggest.id.toInt(), notification)
                 }
+
                 override fun onLoadCleared(placeholder: Drawable?) {
                     // this is called when imageView is cleared on lifecycle call or for
                     // some other reason.

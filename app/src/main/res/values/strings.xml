@@ -229,6 +229,9 @@
     <string name="channel_name_foreground_service_des">保持后台运行的服务</string>
     <string name="foreground_service_notification_title">Action 正在后台运行</string>
     <string name="foreground_service_notification_text">正在检测您的活动</string>
+    <string name="notification_action_text">您接收到了一条新行动</string>
+    <string name="notification_finished_action_toast">已标记完成</string>
+    <string name="notification_ignored_action_toast">已暂时忽略</string>
 
 
     <string name="date_format">yyyy年mm月dd日 HH:mm</string>

@@ -222,14 +222,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     getString(R.string.notification_type_suggest_summary)
                 } else if (arr.contains("TYPE_ACTION") && arr.contains("TYPE_SUGGEST")) {
                     getString(R.string.notification_type_all_summary)
-                }else {
+                } else {
                     getString(R.string.notification_type_none_summary)
                 }
             }
             setSummary(values as HashSet<String>)
             setOnPreferenceChangeListener { preference, newValue ->
                 setSummary(newValue as HashSet<String>)
-                Log.d("aaa", newValue.toString())
                 true
             }
         }
