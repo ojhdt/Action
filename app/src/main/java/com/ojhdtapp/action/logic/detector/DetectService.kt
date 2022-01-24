@@ -294,10 +294,16 @@ class DetectService : Service() {
                 if (z < 9 && z > 2 && -2 < x && x < 2 && 4 < y && y < 10) {
                     showTime = System.currentTimeMillis()
                     if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
+                        if(showTime - triggerTime > 1200000){
+                            // long stay
+                            pusher.tryPushingNewAction("设备久置后移动")
+                        }else{
+                            // normal
+                            pusher.tryPushingNewAction("设备移动")
+                        }
                         shakeTime = 0
                         triggerTime = System.currentTimeMillis()
                         Log.d("sensor", "Accelerometer Worked!!")
-                        pusher.tryPushingNewAction("")
                     }
                 }
             }
