@@ -21,7 +21,7 @@ object BrowserUtil {
         )
     }.data
     private val defaultColor = CustomTabColorSchemeParams.Builder()
-        .setToolbarColor(colorInt)
+//        .setToolbarColor(colorInt)
         .build()
 
     fun launchURL(context: Context, url: String) {
