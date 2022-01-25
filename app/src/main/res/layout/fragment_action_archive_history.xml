@@ -53,7 +53,7 @@
                         android:padding="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_outline_air_24" />
+                        app:srcCompat="@drawable/ic_outline_emoji_flags_24" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -154,7 +154,7 @@
                         android:padding="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_outline_air_24" />
+                        app:srcCompat="@drawable/ic_emoji_events_24" />
 
                     <TextView
                         android:id="@+id/textView12"
@@ -185,7 +185,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView17"
                         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
                     <com.google.android.material.button.MaterialButton
@@ -214,6 +214,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/imageView5"
                         android:layout_width="24dp"
@@ -224,7 +225,7 @@
                         android:padding="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_outline_air_24" />
+                        app:srcCompat="@drawable/ic_outline_history_24" />
                     <TextView
                         android:id="@+id/textView18"
                         style="?attr/textAppearanceTitleMedium"

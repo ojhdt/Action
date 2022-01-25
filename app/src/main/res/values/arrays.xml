@@ -1,8 +1,8 @@
 <resources>
     <string-array name="action_welcomes">
-        <item>你好，</item>
-        <item>好久不见，</item>
-        <item>很高兴见到你，</item>
+        <item>@string/home_welcome_text_a</item>
+        <item>@string/home_welcome_text_b</item>
+        <item>@string/home_welcome_text_c</item>
     </string-array>
 
     <!-- ExpiredTime Preference -->

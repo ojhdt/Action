@@ -82,7 +82,7 @@
     <string name="weather_location">Location</string>
     <string name="weather_skycon">Skycon</string>
     <string name="weather_tomorrow">Tomorrow</string>
-    <string name="weather_the_day_after_tomorrow">The day after tomorrow</string>
+    <string name="weather_the_day_after_tomorrow">Two days later</string>
     <string name="life">Life</string>
     <string name="air">Air Pollution</string>
     <string name="life_ultraviolet">UV</string>
@@ -117,7 +117,7 @@
     <string name="explore_action_description">View all %1$s actions that have been triggered</string>
     <string name="explore_suggest">Historical advice and archiving</string>
     <string name="explore_suggest_description">View all %1$s read suggestions</string>
-    <string name="setting">Setting</string>
+    <string name="setting">Settings</string>
     <string name="help_and_support">Help and Support</string>
     <string name="vote">Rate this app</string>
     <string name="about">About</string>
@@ -207,7 +207,7 @@
     <string name="sync_action_database_syncing_summary_success">Synchronization success. There are %1$s of mobile data stored locally</string>
     <string name="sync_action_database_syncing_summary_failure">Synchronization failed. There are %1$s of mobile data stored locally</string>
     <string name="action_expired_summary">Action auto expiration time</string>
-    <string name="suggest_auto_mark_summary">Automatically mark read when viewing new suggestions. Only read suggestions are visible in history</string>
+    <string name="suggest_auto_mark_summary">Automatically mark read when viewing new suggestions. \nOnly read suggestions are visible in history</string>
     <string name="suggest_auto_get_summary_on">Automatically fetches new suggestions from the database This feature does not work erratically on the custom UI</string>
     <string name="suggest_auto_get_summary_off">You can still get it manually if necessary</string>
     <string name="action_expired_time_5">5 minutes</string>
@@ -230,7 +230,7 @@
     <string name="color_title">Color theme</string>
     <string name="dark_mode_title">Dark mode</string>
     <string name="dynamic_color_title">Dynamic color theme</string>
-    <string name="dynamic_color_summary">Automatically select app theme color based on wallpaper Only available on Android 12 (API 31)</string>
+    <string name="dynamic_color_summary">Automatically select app theme color based on wallpaper \nOnly available on Android 12 (API 31)</string>
     <string name="dynamic_color_summary_edited">Automatically select the application theme color according to the wallpaper Changes are saved Restart the application to take effect</string>
     <string name="dark_mode_always_on">Always on</string>
     <string name="dark_mode_always_off">Always off</string>
@@ -276,7 +276,7 @@
     <string name="avatar_title">Avatar</string>
     <string name="clear_account_title">Clear progress</string>
     <string name="avatar_summary">The avatar will be displayed on the homepage</string>
-    <string name="clear_account_summary">Clear all action records, exp points and achievements</string>
+    <string name="clear_account_summary">Clear all action records, EXP points and achievements</string>
     <string name="account_notice">Changes will take effect the next time the app launches</string>
     <string name="avatar_dialog_title">Select your avatar</string>
     <string name="avatar_dialog_negative">Cancel</string>
@@ -296,4 +296,11 @@
     <string name="license_title">Open Source License</string>
     <string name="translate_title">Translate this app</string>
     <string name="privacy_title">Privacy Policy</string>
+    <string name="action_history_contribution_water">Fresh water saving %1$s cubic meters</string>
+    <string name="action_history_contribution_electricity">Electricity savings %1$s kWh</string>
+    <string name="action_history_contribution_tree">Reduced felling of %1$s mature trees</string>
+
+    <string name="home_welcome_text_a">Welcome, </string>
+    <string name="home_welcome_text_b">Long time no see, </string>
+    <string name="home_welcome_text_c">Nice to see you here, </string>
 </resources>

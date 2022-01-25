@@ -54,6 +54,10 @@
     <string name="agreement_title">许可协议</string>
     <string name="agreement_sub_title">生效日期：2022年1月4日</string>
 
+    <string name="home_welcome_text_a">你好，</string>
+    <string name="home_welcome_text_b">好久不见，</string>
+    <string name="home_welcome_text_c">很高兴见到你，</string>
+
 
     <string name="action_title_a">只要</string>
     <string name="action_title_b">行动</string>
@@ -205,6 +209,9 @@
     <string name="action_history_finished">完成次数</string>
     <string name="action_history_last_time">上一次触发：%1$s</string>
     <string name="action_history_contribution">作出的贡献</string>
+    <string name="action_history_contribution_water">节约淡水 %1$s 立方米</string>
+    <string name="action_history_contribution_electricity">节约电力 %1$s 千瓦时</string>
+    <string name="action_history_contribution_tree">减少成年树木砍伐 %1$s 株</string>
     <string name="action_history_contribution_message">感谢您的每一次行动对环境保护作出的贡献。\n您的贡献量化后相当于：</string>
     <string name="action_history_contribution_button">查看全部贡献</string>
     <string name="action_history_history">该行动的触发历史</string>
