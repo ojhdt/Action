@@ -19,6 +19,9 @@ interface ActionDao {
     @Query("SELECT * FROM `action_table`")
     fun loadAllAction(): List<Action>
 
+    @Query("SELECT * FROM `action_table` WHERE history IS NOT NULL AND history != ''")
+    fun loadActivatedAction(): List<Action>
+
     @Query("SELECT * FROM `action_table` WHERE isActivating = 1")
     fun loadAllActivatingAction(): List<Action>
 

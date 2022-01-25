@@ -66,12 +66,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<Preference>("sync_action_database")?.apply {
             var size = 0
             summary = getString(R.string.sync_action_database_summary, size.toString())
-            val database = AppDataBase.getDataBase().actionDao()
-            val job = Job()
-            CoroutineScope(job).launch {
-                size = database.loadAllAction().size
-                summary = getString(R.string.sync_action_database_summary, size.toString())
-            }
             setOnPreferenceClickListener {
                 isEnabled = false
                 LeanCloudDataBase.syncAllAction(object : LeanCloudDataBase.SyncActionListener {
@@ -95,6 +89,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 })
                 true
             }
+            val database = AppDataBase.getDataBase().actionDao()
+            val job = Job()
+            CoroutineScope(job).launch {
+                size = database.loadAllAction().size
+                summary = getString(R.string.sync_action_database_summary, size.toString())
+            }
+            job.complete()
         }
 
         findPreference<SwitchPreferenceCompat>("foreground_service")?.apply {

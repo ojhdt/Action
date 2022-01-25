@@ -150,9 +150,9 @@
     <string name="go_to_authorization">前往授权</string>
 
     <string name="explore_action">所有行动</string>
-    <string name="explore_action_description">查看曾触发的所有%1$s条行动</string>
+    <string name="explore_action_description">查看曾触发的所有 %1$s 条行动</string>
     <string name="explore_suggest">历史建议及归档</string>
-    <string name="explore_suggest_description">查看所有%1$s条已阅读建议</string>
+    <string name="explore_suggest_description">查看所有 %1$s 条已阅读建议</string>
 
     <string name="setting">设置</string>
     <string name="help_and_support">帮助与支持</string>
@@ -392,7 +392,7 @@
     <string name="git_branch_title">创建分支</string>
     <string name="license_title">开放源代码许可</string>
     <string name="translate_title">翻译此应用</string>
-    <string name="action_history_history_trigger_month">%1$s月·</string>
+    <string name="action_history_history_trigger_month">%1$s月</string>
     <string name="channel_name_suggest">建议</string>
     <string name="sync_action_database_syncing_summary_failure">同步失败 本地共存储行动数据 %1$s 条</string>
     <string name="transition_api_title">"Activity Recognition Transition API "</string>
