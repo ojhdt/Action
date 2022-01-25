@@ -142,19 +142,27 @@ class AchievementFragment : Fragment() {
             }
         }
         viewModel.allActionLive.observeOnce(this) {
-            var finishedTotalNum = 0
+            var totalFinished = 0
+            var totalSaveWater = 0f
+            var totalSaveElectricity = 0f
+            var totalSaveTree = 0f
             it.forEach {
                 it.history.forEach {
-                    if (it.finished) finishedTotalNum++
+                    if (it.finished) totalFinished++
                 }
+                totalSaveWater += it.canSaveWater
+                totalSaveElectricity += it.canSaveElectricity
+                totalSaveTree += it.canSaveTree
             }
-            statisticsAdapter.setTotalNum(finishedTotalNum)
-            //分类逻辑
+            statisticsAdapter.setTotalNum(totalFinished)
             //分好类的StatisticsBlock列表
             val sortedStatisticsBlockList = listOf(
-                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
-                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
-                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
+                StatisticsBlock(R.drawable.ic_outline_bolt_24,
+                getString(R.string.achievement_electricity), totalSaveElectricity.toString()),
+                StatisticsBlock(R.drawable.ic_outline_water_drop_24,
+                getString(R.string.achievement_water), totalSaveWater.toString()),
+                StatisticsBlock(R.drawable.ic_outline_forest_24,
+                getString(R.string.achievement_tree), totalSaveTree.toString()),
             )
             statisticsAdapter.submitList(mutableListOf(StatisticsBlock()).apply {
                 addAll(sortedStatisticsBlockList)

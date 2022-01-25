@@ -323,7 +323,7 @@ object AchievementAdapters {
                 Glide.with(root)
                     .load(ContextCompat.getDrawable(root.context, data.drawableID))
                     .into(statisticsIcon)
-                statisticsNum.text = data.num.toString()
+                statisticsNum.text = data.num
                 statisticsTitle.text = data.title
             }
         }

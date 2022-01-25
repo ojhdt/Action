@@ -94,11 +94,14 @@
     <string name="achievement_total_a">哇噢！你已累计完成了不同类型的行动</string>
     <string name="achievement_total_c">次</string>
 
-    <string-array name="achievement_xps">
-        <item>行动起来！</item>
-        <item>再接再厉！</item>
-        <item>你是一位英雄！</item>
-    </string-array>
+    <string name="achievement_water">节约水资源</string>
+    <string name="achievement_electricity">节约电力</string>
+    <string name="achievement_tree">保护树木</string>
+
+    <string name="achievement_text_a">行动起来！</string>
+    <string name="achievement_text_b">再接再厉！</string>
+    <string name="achievement_text_c">你是一位英雄！</string>
+
     <string name="achievement_xp_needed">你还需要额外 %1$s 经验来提升到等级 %2$s</string>
 
     <string name="achievement_gained">已解锁的成就</string>
