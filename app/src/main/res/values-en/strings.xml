@@ -310,4 +310,5 @@
     <string name="achievement_electricity">Electricity saving</string>
     <string name="achievement_tree">Reduced trees felling</string>
     <string name="achievement_tree_unit" />
+    <string name="action_content_switch_finish_state">Finish state switched</string>
 </resources>

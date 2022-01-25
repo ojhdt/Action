@@ -60,6 +60,46 @@ class ActionPusher {
             mutableListOf(false, false, false, false),
         )
 
+        val fullStateList = listOf<MutableList<Boolean>>(
+            mutableListOf(true, true, true, true, true),
+
+            mutableListOf(true, true, true, true, false),
+            mutableListOf(true, true, true, false, true),
+            mutableListOf(true, true, false, true, true),
+            mutableListOf(true, false, true, true, true),
+            mutableListOf(false, true, true, true, true),
+
+            mutableListOf(true, true, true, false, false),
+            mutableListOf(true, true, false, true, false),
+            mutableListOf(true, false, true, true, false),
+            mutableListOf(false, true, true, true, false),
+            mutableListOf(true, true, false, false, true),
+            mutableListOf(true, false, true, false, true),
+            mutableListOf(false, true, true, false, true),
+            mutableListOf(true, false, false, true, true),
+            mutableListOf(false, true, false, true, true),
+            mutableListOf(false, false, true, true, true),
+
+            mutableListOf(true, true, false, false, false),
+            mutableListOf(true, false, true, false, false),
+            mutableListOf(false, true, true, false, false),
+            mutableListOf(true, false, false, true, false),
+            mutableListOf(false, true, false, true, false),
+            mutableListOf(false, false, true, true, false),
+            mutableListOf(true, false, false, false, true),
+            mutableListOf(false, true, false, false, true),
+            mutableListOf(false, false, true, false, true),
+            mutableListOf(false, false, false, true, true),
+
+            mutableListOf(true, false, false, false, false),
+            mutableListOf(false, true, false, false, false),
+            mutableListOf(false, false, true, false, false),
+            mutableListOf(false, false, false, true, false),
+            mutableListOf(false, false, false, false, true),
+
+            mutableListOf(false, false, false, false, false),
+        )
+
         private val instance by lazy {
             ActionPusher()
         }
@@ -130,19 +170,31 @@ class ActionPusher {
                     }
                 }
             }
+            job.complete()
         }
     }
 
-    private suspend fun possibleForeach(target: Int, mainTrigger: String? = null) {
+    private fun possibleForeach(target: Int, mainTrigger: String? = null) {
         var tempList: List<Action>
         if (target == -1) {
-            tempList = Repository.loadAvailableActionByConditions(-1, -1, -1, -1, -1)
-            if (tempList.isNotEmpty()) {
-                editAndPushAction(
-                    selectActionRandomlyByWeight(tempList),
-                    false, false, false, false, false, mainTrigger
+            fullStateList.forEachIndexed { index, booleans ->
+                Log.d("aaa", index.toString())
+                tempList = database.loadAvailableActionByConditions(
+                    if (booleans[0]) activityState else -1,
+                    if (booleans[1]) lightState else -1,
+                    if (booleans[2]) locationState else -1,
+                    if (booleans[3]) timeState else -1,
+                    if (booleans[4]) weatherState else -1
                 )
-                return
+                if (tempList.isNotEmpty()) {
+                    editAndPushAction(
+                        selectActionRandomlyByWeight(tempList),
+                        booleans[0], booleans[1], booleans[2], booleans[3], booleans[4], mainTrigger
+                    )
+                    Log.d("aaa", "done")
+                    return
+                }
+                Log.d("aaa", "not found")
             }
         } else {
             stateList.forEachIndexed { index, booleans ->
