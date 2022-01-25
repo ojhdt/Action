@@ -75,7 +75,7 @@
     <string name="processing">Do not click repeatedly</string>
     <string name="achievement_total_a">Wow! You have completed various types of actions cumulatively</string>
     <string name="achievement_total_c">times</string>
-    <string name="achievement_xp_needed">You also need an additional %1$s experience to advance to level %2$s</string>
+    <string name="achievement_xp_needed">You need an additional %1$s experience to advance to level %2$s</string>
     <string name="achievement_gained">Unlocked achievements</string>
     <string name="achievement_sort_by_alpha">Sort alphabetically</string>
     <string name="achievement_sort_by_time">Sort by unlock time</string>
@@ -307,6 +307,7 @@
     <string name="achievement_text_b">Make persistent efforts!</string>
     <string name="achievement_text_c">You are a hero!</string>
     <string name="achievement_water">Water saving</string>
-    <string name="achievement_electricity">Eletricity saving</string>
+    <string name="achievement_electricity">Electricity saving</string>
     <string name="achievement_tree">Reduced trees felling</string>
+    <string name="achievement_tree_unit" />
 </resources>

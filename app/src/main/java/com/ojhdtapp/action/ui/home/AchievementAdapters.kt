@@ -325,6 +325,7 @@ object AchievementAdapters {
                     .into(statisticsIcon)
                 statisticsNum.text = data.num
                 statisticsTitle.text = data.title
+                statisticsUnit.text = data.unit
             }
         }
     }

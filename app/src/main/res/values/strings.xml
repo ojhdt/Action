@@ -95,8 +95,11 @@
     <string name="achievement_total_c">次</string>
 
     <string name="achievement_water">节约水资源</string>
+    <string name="achievement_water_unit" translatable="false">m³</string>
     <string name="achievement_electricity">节约电力</string>
+    <string name="achievement_electricity_unit" translatable="false">kWh</string>
     <string name="achievement_tree">保护树木</string>
+    <string name="achievement_tree_unit">株</string>
 
     <string name="achievement_text_a">行动起来！</string>
     <string name="achievement_text_b">再接再厉！</string>
