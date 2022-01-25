@@ -13,6 +13,7 @@
     <string name="welcome_text_a">欢迎使用 Action</string>
     <string name="welcome_text_b">贴心的即时环境保护提醒 基于传感器数据 更快更精准</string>
     <string name="welcome_text_c">如何称呼您</string>
+    <string name="welcome_text_d">设定昵称 挑选头像 开始你的环保之旅</string>
     <string name="welcome_text_e">权限检查</string>
     <string name="welcome_text_f">开放权限以帮助应用监测状态 您的设备信息将受到妥善保护</string>
     <string name="welcome_text_g">许可协议</string>
@@ -391,9 +392,6 @@
     <string name="git_branch_title">创建分支</string>
     <string name="license_title">开放源代码许可</string>
     <string name="translate_title">翻译此应用</string>
-    <string name="welcome_text_d">设定昵称 挑选头像 开始你的环保之旅</string>
-    <string name="welcome_text_d">设定昵称 挑选头像 开始你的环保之旅</string>
-    <string name="welcome_text_g">许可协议</string>
     <string name="action_history_history_trigger_month">%1$s月·</string>
     <string name="channel_name_suggest">建议</string>
     <string name="sync_action_database_syncing_summary_failure">同步失败 本地共存储行动数据 %1$s 条</string>
