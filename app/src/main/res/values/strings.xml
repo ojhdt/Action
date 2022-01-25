@@ -11,13 +11,13 @@
     <string name="default_username">冒险者</string>
 
     <string name="welcome_text_a">欢迎使用 Action</string>
-    <string name="welcome_text_b">贴心的即时环境保护提醒 基于传感器数据 更快更精准</string>
+    <string name="welcome_text_b">贴心的即时环境保护提醒 \n基于传感器数据 更快更精准</string>
     <string name="welcome_text_c">如何称呼您</string>
-    <string name="welcome_text_d">设定昵称 挑选头像 开始你的环保之旅</string>
+    <string name="welcome_text_d">设定昵称 挑选头像 \n开始你的环保之旅</string>
     <string name="welcome_text_e">权限检查</string>
-    <string name="welcome_text_f">开放权限以帮助应用监测状态 您的设备信息将受到妥善保护</string>
+    <string name="welcome_text_f">开放权限以帮助应用监测状态 \n您的设备信息将受到妥善保护</string>
     <string name="welcome_text_g">许可协议</string>
-    <string name="welcome_text_h">了解 Action 将如何使用你的信息 接受协议后继续</string>
+    <string name="welcome_text_h">了解 Action 将如何使用你的信息 \n接受协议后继续</string>
     <string name="welcome_text_i">让我们开始吧</string>
     <string name="welcome_text_j">只要行动 就永远不会太晚</string>
     <string name="welcome_username_hint">昵称</string>
@@ -37,15 +37,15 @@
     <string name="welcome_permission_activity_recognition">身体活动</string>
     <string name="welcome_permission_activity_recognition_summary">用于场景识别</string>
     <string name="welcome_permission_not_granted_title">部分权限未授予</string>
-    <string name="welcome_permission_not_granted">您仍可正常使用应用，但部分功能将不可用。 请返回上一页，或前往设置页面手动授予权限。</string>
+    <string name="welcome_permission_not_granted">您仍可正常使用应用，但部分功能将不可用。\n 请返回上一页，或前往设置页面手动授予权限。</string>
     <string name="welcome_permission_not_granted_positive">继续且不再提醒</string>
     <string name="welcome_permission_not_granted_negative">返回</string>
     <string name="welcome_agreement">我已阅读并接受以上许可协议</string>
     <string name="welcome_agreement_toast">请勾选接受许可协议</string>
     <string name="welcome_done_error_title">存在未处理的问题</string>
     <string name="welcome_done_error">以下若干问题未通过启动前检查： %1$s%2$s%3$s请返回手动修复后再次尝试启动。</string>
-    <string name="welcome_done_error_a">"- 用户名输入非法 "</string>
-    <string name="welcome_done_error_b">"- 许可协议未接受 "</string>
+    <string name="welcome_done_error_a">- 用户名输入非法\n</string>
+    <string name="welcome_done_error_b">- 许可协议未接受\n</string>
     <string name="welcome_done_error_c">- 部分权限未授予\n</string>
     <string name="welcome_done_error_positive">完成</string>
     <string name="welcome_sync_action_success">数据库初始化完成</string>
@@ -188,11 +188,11 @@
     <string name="action_bottom_sheet_dialog_tips">贴士</string>
 
     <string name="suggest_dialog_delete_title">删除该建议</string>
-    <string name="suggest_dialog_delete_content">该建议将不被再获取，且将同时从你的浏览记录和归档中移除。 是否继续？</string>
+    <string name="suggest_dialog_delete_content">该建议将不被再获取，且将同时从你的浏览记录和归档中移除。\n是否继续？</string>
 
     <string name="action_archive_head">所有行动</string>
     <string name="action_archive_time">最近于 %1$s 触发</string>
-    <string name="action_archive_empty">应用将根据设备状态为您推荐行动。 开放权限以帮助应用监测状态。</string>
+    <string name="action_archive_empty">应用将根据设备状态为您推荐行动。\n开放权限以帮助应用监测状态。</string>
     <string name="action_archive_empty_note">您的个人隐私将受到保护</string>
     <string name="action_archive_permission">权限管理</string>
     <string name="action_archive_transition_name" translatable="false">action_archive_card_%1$s</string>
@@ -205,7 +205,7 @@
     <string name="action_history_finished">完成次数</string>
     <string name="action_history_last_time">上一次触发：%1$s</string>
     <string name="action_history_contribution">作出的贡献</string>
-    <string name="action_history_contribution_message">感谢您的每一次行动对环境保护作出的贡献。 您的贡献量化后相当于：</string>
+    <string name="action_history_contribution_message">感谢您的每一次行动对环境保护作出的贡献。\n您的贡献量化后相当于：</string>
     <string name="action_history_contribution_button">查看全部贡献</string>
     <string name="action_history_history">该行动的触发历史</string>
     <string name="action_history_history_trigger">触发条件</string>
@@ -277,8 +277,8 @@
     <string name="sync_action_database_syncing_summary">正在同步数据</string>
     <string name="sync_action_database_syncing_summary_success">同步成功 本地共存储行动数据 %1$s 条</string>
     <string name="action_expired_summary">行动自动过期时间</string>
-    <string name="suggest_auto_mark_summary">查看新建议时自动标记阅读 仅已阅读建议于历史记录可见</string>
-    <string name="suggest_auto_get_summary_on">自动从数据库获取新建议 该功能在定制UI上运行不稳定</string>
+    <string name="suggest_auto_mark_summary">查看新建议时自动标记阅读\n 仅已阅读建议于历史记录可见</string>
+    <string name="suggest_auto_get_summary_on">自动从数据库获取新建议\n 该功能在定制UI上运行不稳定</string>
     <string name="suggest_auto_get_summary_off">如有必要 您仍可手动获取</string>
     <string name="action_expired_time_5">5分钟</string>
     <string name="action_expired_time_10">10分钟</string>
@@ -306,8 +306,8 @@
     <string name="color_title">主题颜色</string>
     <string name="dark_mode_title">深色模式</string>
     <string name="dynamic_color_title">动态颜色主题</string>
-    <string name="dynamic_color_summary">根据壁纸自动选择应用主题色 仅 Android 12（API 31）可用</string>
-    <string name="dynamic_color_summary_edited">根据壁纸自动选择应用主题色 更改已保存 重启应用生效</string>
+    <string name="dynamic_color_summary">根据壁纸自动选择应用主题色 \n仅 Android 12（API 31）可用</string>
+    <string name="dynamic_color_summary_edited">根据壁纸自动选择应用主题色 \n更改已保存 重启应用生效</string>
     <string name="dark_mode_always_on">始终开启</string>
     <string name="dark_mode_always_off">始终关闭</string>
     <string name="dark_mode_follow_system">跟随系统</string>
