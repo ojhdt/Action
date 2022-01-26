@@ -238,7 +238,7 @@ class ExploreFragment : Fragment() {
                     BaseApplication.context.getString(R.string.vote),
                     object : MyOnClickListener {
                         override fun onClick() {
-                            findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+//                            findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
                         }
                     }),
                 ExploreAdapters.SettingData(R.drawable.ic_outline_info_24,

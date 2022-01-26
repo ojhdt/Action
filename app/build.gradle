@@ -40,7 +40,7 @@ android {
 
 static def getSelfDefinedVersion(type) {
     int aa = 1
-    int bb = 1
+    int bb = 2
     Process process = "git rev-list --count HEAD".execute()
     process.waitFor()
     int cccc = process.getText().toInteger()

@@ -19,7 +19,7 @@ class HelpAndSupportFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("problem_action")?.apply {
             setOnPreferenceClickListener {
-                BrowserUtil.launchURL(context, "https://guide.action.ojhdt.com/")
+                BrowserUtil.launchURL(context, "https://app.ojhdt.com/action/guide")
                 true
             }
         }
