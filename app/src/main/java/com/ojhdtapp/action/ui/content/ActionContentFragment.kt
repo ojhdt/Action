@@ -20,6 +20,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.FragmentActionContentBinding
 import com.ojhdtapp.action.logic.AppDataBase
+import com.ojhdtapp.action.logic.detector.AchievementPusher
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.util.DateUtil
 import kotlinx.coroutines.CoroutineScope
@@ -184,6 +185,7 @@ class ActionContentFragment : Fragment() {
                 R.string.action_content_switch_finish_state,
                 Snackbar.LENGTH_SHORT
             ).show()
+            AchievementPusher.getPusher().tryPushingNewAchievement()
         }
     }
 

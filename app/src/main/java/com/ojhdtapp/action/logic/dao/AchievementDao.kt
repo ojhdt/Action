@@ -20,4 +20,7 @@ interface AchievementDao {
 
     @Query("SELECT * FROM achievement_table")
     fun loadAllAchievementLive(): LiveData<List<Achievement>>
+
+    @Query("SELECT 1 FROM achievement_table WHERE title = :title LIMIT 1")
+    fun isStored(title: String): Boolean
 }

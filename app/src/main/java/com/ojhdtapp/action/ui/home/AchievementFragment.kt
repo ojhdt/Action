@@ -155,37 +155,38 @@ class AchievementFragment : Fragment() {
             }
         }
         viewModel.allActionLive.observeOnce(this) { it ->
-            var totalFinished = 0
-            var totalSaveWater = 0f
-            var totalSaveElectricity = 0f
-            var totalSaveTree = 0f
-            it.forEach { action ->
-                action.history.forEach {
-                    if (it.finished) {
-                        totalSaveWater += action.canSaveWater
-                        totalSaveElectricity += action.canSaveElectricity
-                        totalSaveTree += action.canSaveTree
-                        totalFinished++
-                    }
-                }
-            }
-            statisticsAdapter.setTotalNum(totalFinished)
+            val actionInformation = achievementPusher.getActionInformation(it)
+//            var totalFinished = 0
+//            var totalSaveWater = 0f
+//            var totalSaveElectricity = 0f
+//            var totalSaveTree = 0f
+//            it.forEach { action ->
+//                action.history.forEach {
+//                    if (it.finished) {
+//                        totalSaveWater += action.canSaveWater
+//                        totalSaveElectricity += action.canSaveElectricity
+//                        totalSaveTree += action.canSaveTree
+//                        totalFinished++
+//                    }
+//                }
+//            }
+            statisticsAdapter.setTotalNum(actionInformation.totalFinished)
             //分好类的StatisticsBlock列表
             val sortedStatisticsBlockList = listOf(
                 StatisticsBlock(
                     R.drawable.ic_outline_bolt_24,
                     getString(R.string.achievement_electricity),
-                    String.format("%.3f", totalSaveElectricity),
+                    String.format("%.3f", actionInformation.totalSaveElectricity),
                     getString(R.string.achievement_electricity_unit)
                 ),
                 StatisticsBlock(
                     R.drawable.ic_outline_water_drop_24,
-                    getString(R.string.achievement_water), String.format("%.3f", totalSaveWater),
+                    getString(R.string.achievement_water), String.format("%.3f", actionInformation.totalSaveWater),
                     getString(R.string.achievement_water_unit)
                 ),
                 StatisticsBlock(
                     R.drawable.ic_outline_forest_24,
-                    getString(R.string.achievement_tree), String.format("%.3f", totalSaveTree),
+                    getString(R.string.achievement_tree), String.format("%.3f", actionInformation.totalSaveTree),
                     getString(R.string.achievement_tree_unit)
                 ),
             )

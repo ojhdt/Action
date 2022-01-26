@@ -309,6 +309,7 @@ class DetectService : Service() {
                             .putLong("accelerometerTriggerTime", triggerTime)
                             .apply()
                         Log.d("sensor", "Accelerometer Worked!!")
+                        AchievementPusher.getPusher().tryPushingNewAchievement("accelerometer")
                     }
                 }
             }
@@ -346,6 +347,7 @@ class DetectService : Service() {
                     Log.d("sensor", "Light triggered")
                     pusher.submitState(lightState = nowState)
                     pusher.tryPushingNewAction("light")
+                    AchievementPusher.getPusher().tryPushingNewAchievement("light")
                 }
             }
         }

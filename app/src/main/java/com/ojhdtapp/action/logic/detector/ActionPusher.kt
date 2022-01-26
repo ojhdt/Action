@@ -244,6 +244,7 @@ class ActionPusher {
         isWeatherStateUsed: Boolean = false,
         mainTrigger: String? = null
     ) {
+        AchievementPusher.getPusher().tryPushingNewAchievement("sensor")
         Log.d("aaa", isActivityStateUsed.toString() + " " + isLightStateUsed.toString() + " " + isLocationStateUsed.toString() + " " + isTimeStateUsed.toString() + " " + isWeatherStateUsed.toString())
         val causeStr = StringBuilder(mainTrigger ?: "")
             .append(if (isActivityStateUsed && activityState != -1) " " + context.getString(R.string.action_pusher_cause_activity) else "")

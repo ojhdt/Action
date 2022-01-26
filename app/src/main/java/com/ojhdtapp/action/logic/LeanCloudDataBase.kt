@@ -8,6 +8,7 @@ import cn.leancloud.LCQuery
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.MyOperationListener
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.detector.AchievementPusher
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 import io.reactivex.Observer
@@ -90,6 +91,7 @@ object LeanCloudDataBase {
     }
 
     suspend fun getNewSuggest(type: Int) = suspendCoroutine<Suggest> {
+        AchievementPusher.getPusher().tryPushingNewAchievement("suggestion")
         val query = LCQuery<LCObject>("Suggest")
         when (type) {
             1 -> query.whereEqualTo("type", 1)

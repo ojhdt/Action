@@ -236,7 +236,7 @@
 
     <string name="map_head">选取位置</string>
 
-    // Notification
+<!--    Notification-->
     <string name="channel_name_action">行动</string>
     <string name="channel_name_action_des">基于用户行动的提醒</string>
     <string name="channel_name_suggest_des">有助保护环境的小贴士</string>
@@ -248,7 +248,7 @@
     <string name="notification_finished_action_toast">已标记完成</string>
     <string name="notification_ignored_action_toast">已暂时忽略</string>
 
-    // Email
+<!--     Email-->
     <string name="email_subject">《行动 Action》 用户使用反馈</string>
 
 
@@ -258,6 +258,11 @@
     <string name="month_format">mm</string>
     <string name="day_format">dd</string>
     <string name="time_format">HH:mm</string>
+
+<!--    Achievement-->
+    <string name="achievement_type_event">事件</string>
+    <string name="achievement_type_schedule">进度</string>
+    <string name="achievement_type_resource">资源</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

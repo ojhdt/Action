@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ojhdtapp.action.R
 import kotlinx.android.parcel.Parcelize
-import java.sql.Timestamp
 import java.util.*
 
 @Parcelize

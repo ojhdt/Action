@@ -312,4 +312,7 @@
     <string name="achievement_tree_unit" />
     <string name="action_content_switch_finish_state">Finish state switched</string>
     <string name="action_content_fab_ignored">Ignored</string>
+    <string name="achievement_type_event">Event</string>
+    <string name="achievement_type_schedule">Schedule</string>
+    <string name="achievement_type_resource">Resourse</string>
 </resources>
