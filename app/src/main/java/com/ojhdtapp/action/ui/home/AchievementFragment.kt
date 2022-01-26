@@ -161,17 +161,18 @@ class AchievementFragment : Fragment() {
             val sortedStatisticsBlockList = listOf(
                 StatisticsBlock(
                     R.drawable.ic_outline_bolt_24,
-                    getString(R.string.achievement_electricity), totalSaveElectricity.toString(),
+                    getString(R.string.achievement_electricity),
+                    String.format("%.3f", totalSaveElectricity),
                     getString(R.string.achievement_electricity_unit)
                 ),
                 StatisticsBlock(
                     R.drawable.ic_outline_water_drop_24,
-                    getString(R.string.achievement_water), totalSaveWater.toString(),
+                    getString(R.string.achievement_water), String.format("%.3f", totalSaveWater),
                     getString(R.string.achievement_water_unit)
                 ),
                 StatisticsBlock(
                     R.drawable.ic_outline_forest_24,
-                    getString(R.string.achievement_tree), totalSaveTree.toString(),
+                    getString(R.string.achievement_tree), String.format("%.3f", totalSaveTree),
                     getString(R.string.achievement_tree_unit)
                 ),
             )

@@ -332,7 +332,7 @@ class DetectService : Service() {
         override fun onSensorChanged(event: SensorEvent?) {
             light = event?.values?.get(0) ?: 0f
             nowState = getLightState(light)
-            Log.d("sensor", nowState.toString())
+//            Log.d("sensor", nowState.toString())
             if (lastState == -1) lastState = nowState
             else {
                 if (nowState != lastState && System.currentTimeMillis() - triggerTime > 0) {

@@ -48,6 +48,7 @@
                 android:id="@+id/statisticsNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:text="@string/sample_number"
                 android:textAppearance="?attr/textAppearanceDisplaySmall"
                 android:textColor="?attr/colorPrimary"
