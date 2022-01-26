@@ -58,7 +58,8 @@ class DetectService : Service() {
     // Accelerometer Sensor
     private var shakeTime: Long = 0
     private var showTime: Long = 0
-    private var triggerTime: Long = 0
+    private var triggerTime: Long =
+        sharedPreference.getLong("accelerometerTriggerTime", System.currentTimeMillis())
     // Light Sensor
 
 
@@ -294,6 +295,7 @@ class DetectService : Service() {
                 if (z < 9 && z > 2 && -2 < x && x < 2 && 4 < y && y < 10) {
                     showTime = System.currentTimeMillis()
                     if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
+                        Log.d("aaa", "trigger" + (showTime - triggerTime).toString())
                         if (showTime - triggerTime > 1200000) {
                             // long stay
                             pusher.tryPushingNewAction("设备久置后移动")
@@ -303,6 +305,9 @@ class DetectService : Service() {
                         }
                         shakeTime = 0
                         triggerTime = System.currentTimeMillis()
+                        sharedPreference.edit()
+                            .putLong("accelerometerTriggerTime", triggerTime)
+                            .apply()
                         Log.d("sensor", "Accelerometer Worked!!")
                     }
                 }
