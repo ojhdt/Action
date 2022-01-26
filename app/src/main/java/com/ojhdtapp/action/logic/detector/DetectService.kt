@@ -102,7 +102,7 @@ class DetectService : Service() {
         val notification = NotificationCompat.Builder(this, "foreground")
             .setContentTitle(context.getString(R.string.foreground_service_notification_title))
             .setContentText(context.getString(R.string.foreground_service_notification_text))
-            .setSmallIcon(R.drawable.ic_outline_android_24)
+            .setSmallIcon(R.drawable.ic_stat_name)
             .setContentIntent(mainActivityPendingIntent)
             .setAutoCancel(true)
             .build()
