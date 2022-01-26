@@ -62,7 +62,7 @@ object LeanCloudDataBase {
         }
     }
 
-    fun lcObject2Action(obj:LCObject) : Action{
+    fun lcObject2Action(obj: LCObject): Action {
         val storeAction = Action()
         Log.d("aaa", storeAction.toString())
         val list = obj.getList("label") as List<HashMap<String, Any>>
@@ -90,14 +90,14 @@ object LeanCloudDataBase {
         }
     }
 
-    suspend fun getNewSuggest(type: Int) = suspendCoroutine<Suggest> {
-        AchievementPusher.getPusher().tryPushingNewAchievement("suggestion")
+    private suspend fun getSuggestWithPast(type: Int, skip: Int = 0) = suspendCoroutine<Suggest> {
         val query = LCQuery<LCObject>("Suggest")
         when (type) {
             1 -> query.whereEqualTo("type", 1)
             2 -> query.whereEqualTo("type", 2)
             else -> {}
         }
+        query.skip(skip)
         query.firstInBackground.subscribe(object : Observer<LCObject?> {
             override fun onSubscribe(d: Disposable) {
             }
@@ -113,6 +113,28 @@ object LeanCloudDataBase {
             override fun onComplete() {
             }
         })
+    }
+
+    suspend fun getNewSuggest(type: Int): Suggest {
+        AchievementPusher.getPusher().tryPushingNewAchievement("suggestion")
+        var skip = 0
+        var suggest: Suggest? = null
+        do {
+//            Log.d("aaa", skip.toString())
+            try {
+                suggest = getSuggestWithPast(type, skip)
+                Log.d("aaa", suggest.toString())
+                if (dataBase.suggestDao()
+                        .isStored(suggest.objectId!!)
+                ) {
+                    suggest = null
+                    skip += 1
+                }
+            } catch (e: Exception) {
+                break
+            }
+        } while (suggest == null)
+        return suggest!!
     }
 
     suspend fun syncSuggest(objectId: String): Suggest {
@@ -145,12 +167,12 @@ object LeanCloudDataBase {
         return result
     }
 
-    interface SyncActionListener{
-        fun onSuccess(dataSize:Int)
+    interface SyncActionListener {
+        fun onSuccess(dataSize: Int)
         fun onFailure()
     }
 
-    fun syncAllAction(listener: SyncActionListener){
+    fun syncAllAction(listener: SyncActionListener) {
         Toast.makeText(
             BaseApplication.context,
             BaseApplication.context.getString(R.string.sync_action_database_syncing_summary),
@@ -177,11 +199,11 @@ object LeanCloudDataBase {
         })
     }
 
-    fun storeActionsToDatabase(list:List<LCObject>){
+    fun storeActionsToDatabase(list: List<LCObject>) {
         val job = Job()
         CoroutineScope(job).launch {
             list.forEach {
-                if(!dataBase.actionDao().isStored(it.objectId))
+                if (!dataBase.actionDao().isStored(it.objectId))
                     dataBase.actionDao().insertAction(lcObject2Action(it))
             }
         }
