@@ -6,7 +6,6 @@ import cn.leancloud.LCObject
 import io.reactivex.disposables.Disposable
 import cn.leancloud.LCQuery
 import com.ojhdtapp.action.BaseApplication
-import com.ojhdtapp.action.MyOperationListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.detector.AchievementPusher
 import com.ojhdtapp.action.logic.model.Action
@@ -15,7 +14,6 @@ import io.reactivex.Observer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.sql.ClientInfoStatus
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -90,7 +88,7 @@ object LeanCloudDataBase {
         }
     }
 
-    private suspend fun getSuggestWithPast(type: Int, skip: Int = 0) = suspendCoroutine<Suggest> {
+    private suspend fun getSuggestWithSkip(type: Int, skip: Int = 0) = suspendCoroutine<Suggest> {
         val query = LCQuery<LCObject>("Suggest")
         when (type) {
             1 -> query.whereEqualTo("type", 1)
@@ -122,7 +120,7 @@ object LeanCloudDataBase {
         do {
 //            Log.d("aaa", skip.toString())
             try {
-                suggest = getSuggestWithPast(type, skip)
+                suggest = getSuggestWithSkip(type, skip)
                 Log.d("aaa", suggest.toString())
                 if (dataBase.suggestDao()
                         .isStored(suggest.objectId!!)

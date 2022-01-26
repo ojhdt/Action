@@ -20,10 +20,9 @@ import com.ojhdtapp.action.logic.model.LifeMessageBlock
 import com.ojhdtapp.action.logic.model.WeatherBlock
 import com.ojhdtapp.action.logic.model.WeatherMessageBlock
 import com.ojhdtapp.action.util.DensityUtil
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.*
+import kotlin.coroutines.suspendCoroutine
 
 object ExploreAdapters {
     class WeatherAdapter :
@@ -314,16 +313,19 @@ object ExploreAdapters {
             val actionDao = AppDataBase.getDataBase().actionDao()
             val suggestDao = AppDataBase.getDataBase().suggestDao()
             val job = Job()
+            var size: Int = 0
             CoroutineScope(job).launch {
-                val size = when (data.descriptionId) {
+                size = when (data.descriptionId) {
                     R.string.explore_action_description -> actionDao.loadActivatedAction().size
                     R.string.explore_suggest_description -> suggestDao.loadAllReadSuggest().size
                     else -> 0
                 }
-                binding.settingAccentDescription.text = binding.root.resources.getString(
-                    data.descriptionId,
-                    size.toString()
-                )
+                launch(Dispatchers.Main) {
+                    binding.settingAccentDescription.text = binding.root.resources.getString(
+                        data.descriptionId,
+                        size.toString()
+                    )
+                }
             }
             job.complete()
         }
