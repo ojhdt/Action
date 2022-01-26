@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.os.bundleOf
 import androidx.preference.PreferenceManager
@@ -34,7 +35,8 @@ object NotificationUtil {
 
     fun sendAction(action: Action) {
         val resultSet =
-            sharedPreference.getStringSet("notification_type", setOf()) as HashSet<String>
+            sharedPreference.getStringSet("notification_type", hashSetOf<String>("TYPE_ACTION")) as HashSet<String>
+        Log.d("aaa", resultSet.toString())
         if (resultSet.contains("TYPE_ACTION")) {
             val context = BaseApplication.context
             val manager =
@@ -86,11 +88,16 @@ object NotificationUtil {
             }
             val pendingIntent: PendingIntent =
                 PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+            val futureTarget = Glide.with(context)
+                .asBitmap()
+                .load(action.imageUrl)
+                .submit()
+            val bitmap = futureTarget.get()
             val notification = NotificationCompat.Builder(context, "action")
                 .setContentText(action.title)
                 .setContentTitle(context.getString(R.string.notification_action_text))
                 .setSmallIcon(R.drawable.ic_outline_android_24)
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources, action.imageID))
+                .setLargeIcon(bitmap)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setPriority(importance)
@@ -105,6 +112,7 @@ object NotificationUtil {
                     ignoredPendingIntent
                 )
                 .build()
+            Glide.with(context).clear(futureTarget)
             manager.notify(action.id.toInt(), notification)
         }
     }

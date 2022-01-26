@@ -71,7 +71,7 @@ object LeanCloudDataBase {
         }
         return storeAction.apply {
             title = obj.getString("title")
-            imageID = obj.getInt("imageID")
+            imageUrl = obj.getString("imageUrl")
             content = obj.getString("content")
             label = map
             history = emptyList()

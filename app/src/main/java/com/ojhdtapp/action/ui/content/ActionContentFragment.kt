@@ -100,7 +100,7 @@ class ActionContentFragment : Fragment() {
 //            activity?.findViewById<MaterialToolbar>(R.id.actionContentToolbar)?.title = it.title
             binding.toolbar.title = it.title
             Glide.with(this)
-                .load(it.imageID)
+                .load(it.imageUrl)
                 .into(binding.imageFilterView)
             binding.chips.removeAllViews()
             data.label?.forEach {

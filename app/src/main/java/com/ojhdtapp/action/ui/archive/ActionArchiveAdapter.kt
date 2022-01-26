@@ -88,9 +88,9 @@ class ActionArchiveAdapter(
                         DateUtil.timeAgo(data.history.last().time)
                     )
                 }
-                if (data.imageID != null) {
+                if (data.imageUrl != null) {
                     Glide.with(binding.root.context)
-                        .load(data.imageID)
+                        .load(data.imageUrl)
                         .into(actionArchiveImage)
                 } else {
 //                    actionArchiveImage.visibility = View.GONE

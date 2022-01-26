@@ -13,7 +13,7 @@ import java.util.*
 @Entity(tableName = "action_table")
 data class Action @Ignore constructor(
     var title: String = "Title",
-    var imageID: Int = 0,
+    var imageUrl: String? = null,
     var content: String = "Content",
     var label: Map<Int, String>? = emptyMap(),
     var hightlight: List<String> = emptyList<String>(),
@@ -36,7 +36,7 @@ data class Action @Ignore constructor(
 
     constructor() : this(
         "Title",
-        0,
+        null,
         "Content",
         emptyMap(),
         emptyList(),

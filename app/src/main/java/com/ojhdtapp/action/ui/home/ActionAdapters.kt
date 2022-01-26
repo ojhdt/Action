@@ -114,7 +114,7 @@ object ActionAdapters {
                     DateUtil.timeAgo(data.history.last().time)
                 )
                 Glide.with(binding.root)
-                    .load(data.imageID)
+                    .load(data.imageUrl)
                     .into(binding.actionImage)
                 actionChips.removeAllViews()
                 data.label?.forEach {
