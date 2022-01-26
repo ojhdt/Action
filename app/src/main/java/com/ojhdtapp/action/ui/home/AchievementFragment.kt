@@ -25,6 +25,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
+import com.ojhdtapp.action.logic.detector.AchievementPusher
 import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.StatisticsBlock
 
@@ -32,6 +33,7 @@ class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
     val binding get() = _binding!!
     val viewModel: SharedViewModel by activityViewModels()
+    val achievementPusher = AchievementPusher.getPusher()
 
     private var animType: Int = AnimType.NULL
 
@@ -77,6 +79,14 @@ class AchievementFragment : Fragment() {
 //            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
 //            setPadding(0, offset, 0, 0)
 //        }
+        binding.toolbar3.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.refresh -> viewModel.finishedActionRefresh()
+                else -> {}
+            }
+            false
+        }
+
         // Set AnimType if Necessary
         when (animType) {
             AnimType.FADE -> {
@@ -189,8 +199,14 @@ class AchievementFragment : Fragment() {
                 sortedStatisticsBlockList.size
             )
             binding.recyclerView.addItemDecoration(itemDecoration)
-
         }
+
+        val expInformation = achievementPusher.getExpInformation()
+        xpAdapter.submitValue(
+            expInformation.levelNow,
+            expInformation.neededExp,
+            expInformation.progress
+        )
 
         fun updateAchievement(data: List<Achievement>, isSortByTime: Boolean) {
             val list =
@@ -205,11 +221,11 @@ class AchievementFragment : Fragment() {
             }
             achievementListAdapter.submitList(list)
         }
-        viewModel.gainedAchievementLive.observe(this) {
+        viewModel.gainedAchievementLive.observe(viewLifecycleOwner) {
             updateAchievement(it, viewModel.isSortByTimeLive.value!!)
         }
 
-        viewModel.isSortByTimeLive.observe(this) {
+        viewModel.isSortByTimeLive.observe(viewLifecycleOwner) {
             updateAchievement(viewModel.gainedAchievementLive.value!!, it)
         }
 
