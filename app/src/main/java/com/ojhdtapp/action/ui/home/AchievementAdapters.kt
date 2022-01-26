@@ -410,7 +410,7 @@ object AchievementAdapters {
         fun bind(data: Achievement) {
             binding.run {
                 Glide.with(root)
-                    .load(ContextCompat.getDrawable(root.context, data.drawableID))
+                    .load(data.drawableID)
                     .into(achievementIcon)
                 achievementTitle.text = data.title
                 achievementDescription.text = data.description
