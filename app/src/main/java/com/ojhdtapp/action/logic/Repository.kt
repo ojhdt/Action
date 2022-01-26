@@ -92,16 +92,8 @@ object Repository {
     fun getArchivedSuggestLive(): LiveData<List<Suggest>> =
         database.suggestDao().loadAllArchivedSuggestLive()
 
-    fun getGainedAchievementLive(): LiveData<List<Achievement>> {
-        return liveData {
-            val list = listOf(
-                Achievement(),
-                Achievement(),
-                Achievement(),
-            )
-            emit(list)
-        }
-    }
+    fun getGainedAchievementLive(): LiveData<List<Achievement>> =
+        database.achievementDao().loadAllAchievementLive()
 
     fun loadAvailableActionByConditions(
         activityStateTrigger: Int = -1,
@@ -123,7 +115,8 @@ object Repository {
         val job = Job()
         CoroutineScope(job).launch {
             val list = database.actionDao().loadAllActivatingAction()
-            val milltime = (sharedPreference.getString("action_expired_time", "10")!!.toInt() * 60000).toLong()
+            val milltime =
+                (sharedPreference.getString("action_expired_time", "10")!!.toInt() * 60000).toLong()
             if (list.isNotEmpty()) {
                 list.forEach {
                     if (System.currentTimeMillis() - it.lastTriggered > milltime) {

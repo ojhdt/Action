@@ -60,4 +60,8 @@ class AchievementPusher {
     }
 
     data class ExpInformation(val levelNow: Int, val neededExp: Int, val progress: Int)
+
+    fun tryPushingNewAchievement(){
+
+    }
 }

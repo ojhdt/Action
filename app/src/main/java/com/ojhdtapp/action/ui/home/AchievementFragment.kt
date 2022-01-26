@@ -37,6 +37,8 @@ class AchievementFragment : Fragment() {
 
     private var animType: Int = AnimType.NULL
 
+    private var isSortByTime = true
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,7 +135,8 @@ class AchievementFragment : Fragment() {
         val achievementListAdapter = AchievementAdapters.AchievementListAdapter(object :
             AchievementAdapters.SwitchSortByListener {
             override fun onClick() {
-                viewModel.switchSortByTimeValue()
+                isSortByTime = !isSortByTime
+                viewModel.gainedAchievementRefresh()
             }
         })
         val mylayoutManager = GridLayoutManager(context, 2).apply {
@@ -222,12 +225,12 @@ class AchievementFragment : Fragment() {
             achievementListAdapter.submitList(list)
         }
         viewModel.gainedAchievementLive.observe(viewLifecycleOwner) {
-            updateAchievement(it, viewModel.isSortByTimeLive.value!!)
+            updateAchievement(it, isSortByTime)
         }
 
-        viewModel.isSortByTimeLive.observe(viewLifecycleOwner) {
-            updateAchievement(viewModel.gainedAchievementLive.value!!, it)
-        }
+//        viewModel.isSortByTimeLive.observe(viewLifecycleOwner) {
+//            updateAchievement(viewModel.gainedAchievementLive.value!!, it)
+//        }
 
 
     }

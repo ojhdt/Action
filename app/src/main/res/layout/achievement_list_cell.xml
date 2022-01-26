@@ -33,7 +33,8 @@
         android:textAppearance="?attr/textAppearanceBodyMedium"
         app:layout_constraintBottom_toTopOf="@+id/achievement_description"
         app:layout_constraintStart_toEndOf="@+id/achievement_icon"
-        app:layout_constraintTop_toTopOf="@+id/achievement_icon" />
+        app:layout_constraintTop_toTopOf="@+id/achievement_icon"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/achievement_description"
