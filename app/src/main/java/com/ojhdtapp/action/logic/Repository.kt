@@ -13,9 +13,8 @@ import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.model.*
 import com.ojhdtapp.action.logic.network.Network
 import com.ojhdtapp.action.util.LocationUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import com.ojhdtapp.action.util.NotificationUtil
+import kotlinx.coroutines.*
 import java.lang.RuntimeException
 import java.math.RoundingMode
 import java.sql.Timestamp
@@ -84,22 +83,17 @@ object Repository {
     fun getAllActionLive(): LiveData<List<Action>> =
         database.actionDao().loadAllActionLive()
 
+    fun getActivatedActionLive(): LiveData<List<Action>> =
+        database.actionDao().loadActivatedActionLive()
+
     fun getReadSuggestLive(): LiveData<List<Suggest>> =
         database.suggestDao().loadAllReadSuggestLive()
 
     fun getArchivedSuggestLive(): LiveData<List<Suggest>> =
         database.suggestDao().loadAllArchivedSuggestLive()
 
-    fun getGainedAchievementLive(): LiveData<List<Achievement>> {
-        return liveData {
-            val list = listOf(
-                Achievement(),
-                Achievement(),
-                Achievement(),
-            )
-            emit(list)
-        }
-    }
+    fun getGainedAchievementLive(): LiveData<List<Achievement>> =
+        database.achievementDao().loadAllAchievementLive()
 
     fun loadAvailableActionByConditions(
         activityStateTrigger: Int = -1,
@@ -116,6 +110,31 @@ object Repository {
         weatherStateTrigger,
         currentTime
     )
+
+    fun updateAllActivatingActionState() {
+        val job = Job()
+        CoroutineScope(job).launch {
+            val list = database.actionDao().loadAllActivatingAction()
+            val milltime =
+                (sharedPreference.getString("action_expired_time", "10")!!.toInt() * 60000).toLong()
+            if (list.isNotEmpty()) {
+                list.forEach {
+                    if (System.currentTimeMillis() - it.lastTriggered > milltime) {
+                        it.let {
+                            it.isActivating = false
+                            Log.d(
+                                "aaa",
+                                "No." + it.id.toString() + "task has been automatically cleared"
+                            )
+                            database.actionDao().updateAction(it)
+                            NotificationUtil.cancelAction(it.id.toInt())
+                        }
+                    }
+                }
+            }
+        }
+        job.complete()
+    }
 
     // From Cloud
     suspend fun storeSuggestFromCloud(type: Int): Result<String> {

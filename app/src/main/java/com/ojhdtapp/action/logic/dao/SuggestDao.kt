@@ -45,6 +45,6 @@ interface SuggestDao {
     @Query("DELETE FROM suggest_table WHERE id = :id")
     fun deleteSuggestById(id: Long): Int
 
-    @Query("SELECT 1 FROM suggest_table WHERE id = :id LIMIT 1")
-    fun isStored(id: Long): Boolean
+    @Query("SELECT 1 FROM suggest_table WHERE objectId = :objectId LIMIT 1")
+    fun isStored(objectId: String): Boolean
 }

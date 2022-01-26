@@ -25,6 +25,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.*
 import com.ojhdtapp.action.databinding.FragmentAchievementBinding
 import com.ojhdtapp.action.databinding.FragmentActionBinding
+import com.ojhdtapp.action.logic.detector.AchievementPusher
 import com.ojhdtapp.action.logic.model.Achievement
 import com.ojhdtapp.action.logic.model.StatisticsBlock
 
@@ -32,8 +33,11 @@ class AchievementFragment : Fragment() {
     var _binding: FragmentAchievementBinding? = null
     val binding get() = _binding!!
     val viewModel: SharedViewModel by activityViewModels()
+    val achievementPusher = AchievementPusher.getPusher()
 
     private var animType: Int = AnimType.NULL
+
+    private var isSortByTime = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +81,14 @@ class AchievementFragment : Fragment() {
 //            val offset = DeviceUtil.getStatusBarHeight(BaseApplication.context)
 //            setPadding(0, offset, 0, 0)
 //        }
+        binding.toolbar3.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.refresh -> viewModel.finishedActionRefresh()
+                else -> {}
+            }
+            false
+        }
+
         // Set AnimType if Necessary
         when (animType) {
             AnimType.FADE -> {
@@ -123,7 +135,8 @@ class AchievementFragment : Fragment() {
         val achievementListAdapter = AchievementAdapters.AchievementListAdapter(object :
             AchievementAdapters.SwitchSortByListener {
             override fun onClick() {
-                viewModel.switchSortByTimeValue()
+                isSortByTime = !isSortByTime
+                viewModel.gainedAchievementRefresh()
             }
         })
         val mylayoutManager = GridLayoutManager(context, 2).apply {
@@ -141,20 +154,41 @@ class AchievementFragment : Fragment() {
                 removeItemDecorationAt(0)
             }
         }
-        viewModel.allActionLive.observeOnce(this) {
-            var finishedTotalNum = 0
-            it.forEach {
-                it.history.forEach {
-                    if (it.finished) finishedTotalNum++
-                }
-            }
-            statisticsAdapter.setTotalNum(finishedTotalNum)
-            //分类逻辑
+        viewModel.allActionLive.observeOnce(this) { it ->
+            val actionInformation = achievementPusher.getActionInformation(it)
+//            var totalFinished = 0
+//            var totalSaveWater = 0f
+//            var totalSaveElectricity = 0f
+//            var totalSaveTree = 0f
+//            it.forEach { action ->
+//                action.history.forEach {
+//                    if (it.finished) {
+//                        totalSaveWater += action.canSaveWater
+//                        totalSaveElectricity += action.canSaveElectricity
+//                        totalSaveTree += action.canSaveTree
+//                        totalFinished++
+//                    }
+//                }
+//            }
+            statisticsAdapter.setTotalNum(actionInformation.totalFinished)
             //分好类的StatisticsBlock列表
             val sortedStatisticsBlockList = listOf(
-                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
-                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
-                StatisticsBlock(R.drawable.ic_outline_emoji_events_24),
+                StatisticsBlock(
+                    R.drawable.ic_outline_bolt_24,
+                    getString(R.string.achievement_electricity),
+                    String.format("%.3f", actionInformation.totalSaveElectricity),
+                    getString(R.string.achievement_electricity_unit)
+                ),
+                StatisticsBlock(
+                    R.drawable.ic_outline_water_drop_24,
+                    getString(R.string.achievement_water), String.format("%.3f", actionInformation.totalSaveWater),
+                    getString(R.string.achievement_water_unit)
+                ),
+                StatisticsBlock(
+                    R.drawable.ic_outline_forest_24,
+                    getString(R.string.achievement_tree), String.format("%.3f", actionInformation.totalSaveTree),
+                    getString(R.string.achievement_tree_unit)
+                ),
             )
             statisticsAdapter.submitList(mutableListOf(StatisticsBlock()).apply {
                 addAll(sortedStatisticsBlockList)
@@ -169,8 +203,14 @@ class AchievementFragment : Fragment() {
                 sortedStatisticsBlockList.size
             )
             binding.recyclerView.addItemDecoration(itemDecoration)
-
         }
+
+        val expInformation = achievementPusher.getExpInformation()
+        xpAdapter.submitValue(
+            expInformation.levelNow,
+            expInformation.neededExp,
+            expInformation.progress
+        )
 
         fun updateAchievement(data: List<Achievement>, isSortByTime: Boolean) {
             val list =
@@ -185,13 +225,13 @@ class AchievementFragment : Fragment() {
             }
             achievementListAdapter.submitList(list)
         }
-        viewModel.gainedAchievementLive.observe(this) {
-            updateAchievement(it, viewModel.isSortByTimeLive.value!!)
+        viewModel.gainedAchievementLive.observe(viewLifecycleOwner) {
+            updateAchievement(it, isSortByTime)
         }
 
-        viewModel.isSortByTimeLive.observe(this) {
-            updateAchievement(viewModel.gainedAchievementLive.value!!, it)
-        }
+//        viewModel.isSortByTimeLive.observe(viewLifecycleOwner) {
+//            updateAchievement(viewModel.gainedAchievementLive.value!!, it)
+//        }
 
 
     }

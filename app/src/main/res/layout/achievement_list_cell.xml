@@ -29,17 +29,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:maxLines="1"
+        android:paddingBottom="6dp"
         android:text="@string/title"
         android:textAppearance="?attr/textAppearanceBodyMedium"
         app:layout_constraintBottom_toTopOf="@+id/achievement_description"
         app:layout_constraintStart_toEndOf="@+id/achievement_icon"
-        app:layout_constraintTop_toTopOf="@+id/achievement_icon" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/achievement_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
+        android:paddingBottom="2dp"
         android:text="@string/subhead"
         android:textAppearance="?attr/textAppearanceBodySmall"
         app:layout_constraintBottom_toTopOf="@+id/achievement_messages"
@@ -52,8 +55,8 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="?attr/textAppearanceBodySmall"
-        app:layout_constraintBottom_toBottomOf="@+id/achievement_icon"
-        app:layout_constraintStart_toStartOf="@+id/achievement_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/achievement_title"
         app:layout_constraintTop_toBottomOf="@+id/achievement_description" />
 
     <TextView

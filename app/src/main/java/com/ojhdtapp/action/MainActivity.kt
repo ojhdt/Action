@@ -20,6 +20,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.android.material.color.DynamicColors
 import com.ojhdtapp.action.databinding.ActivityMainBinding
+import com.ojhdtapp.action.logic.detector.AchievementPusher
 import com.ojhdtapp.action.logic.detector.DetectService
 import com.ojhdtapp.action.ui.home.SharedViewModel
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
@@ -166,6 +167,9 @@ class MainActivity : AppCompatActivity(),
             override fun onServiceDisconnected(name: ComponentName?) {
             }
         }, Context.BIND_AUTO_CREATE)
+
+        // Check Achievement
+        AchievementPusher.getPusher().tryPushingNewAchievement()
     }
 
     override fun onPreferenceStartFragment(

@@ -2,13 +2,16 @@ package com.ojhdtapp.action.ui.archive
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -73,8 +76,9 @@ class ActionArchiveHistoryFragment : Fragment() {
         )
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.refresh -> {}
-                R.id.toContent -> {}
+                R.id.toContent -> {
+                    toContent()
+                }
                 else -> {}
             }
             false
@@ -99,13 +103,48 @@ class ActionArchiveHistoryFragment : Fragment() {
             binding.finishedTime.text = it.history.filterList {
                 this.finished
             }.size.toString()
-            binding.lastTriggered.text = getString(
-                R.string.action_history_last_time,
-                DateUtil.timeAgo(it.history.last().time)
-            )
+            if (it.history.isNotEmpty()) {
+                binding.lastTriggered.text = getString(
+                    R.string.action_history_last_time,
+                    DateUtil.timeAgo(it.history.last().time)
+                )
+            }
             binding.contributionRecyclerView.run {
                 val myAdapter = ActionArchiveHistoryAdapters.ContributionAdapter()
                 val list = mutableListOf<Pair<Int, String>>()
+//                    Log.d("aaa", it.canSaveElectricity.toString())
+//                    Log.d("aaa", it.canSaveWater.toString())
+//                    Log.d("aaa", it.canSaveTree.toString())
+                if (it.canSaveElectricity != 0f) list.add(
+                    Pair(
+                        R.drawable.ic_outline_bolt_24,
+                        getString(
+                            R.string.action_history_contribution_electricity,
+//                            String.format("%.2f", (it.canSaveElectricity))
+                            it.canSaveElectricity.toString()
+                        )
+                    )
+                )
+                if (it.canSaveWater != 0f) list.add(
+                    Pair(
+                        R.drawable.ic_outline_water_drop_24,
+                        getString(
+                            R.string.action_history_contribution_water,
+//                            String.format("%.2f", (it.canSaveWater))
+                            it.canSaveWater.toString()
+                        )
+                    )
+                )
+                if (it.canSaveTree != 0f) list.add(
+                    Pair(
+                        R.drawable.ic_outline_forest_24,
+                        getString(
+                            R.string.action_history_contribution_tree,
+//                            String.format("%.2f", (it.canSaveTree))
+                            it.canSaveTree.toString()
+                        )
+                    )
+                )
                 layoutManager = LinearLayoutManager(context)
                 adapter = myAdapter
                 myAdapter.submitList(list)
@@ -117,10 +156,30 @@ class ActionArchiveHistoryFragment : Fragment() {
                 myAdapter.submitList(historyTriggerList)
             }
         }
+
+        // FAB
+        binding.toContentFAB.transitionName =
+            getString(R.string.action_history_transition_name, data.id.toString())
+        binding.toContentFAB.setOnClickListener {
+            toContent()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    // Function
+    private fun toContent() {
+        val bundle = bundleOf("ACTION" to data)
+        val actionContentTransitionName =
+            binding.root.resources.getString(R.string.action_content_transition_name)
+        val extras =
+            FragmentNavigatorExtras(binding.toContentFAB to actionContentTransitionName)
+        findNavController().navigate(
+            R.id.action_actionArchiveHistoryFragment_to_actionContentFragment,
+            bundle, null, extras
+        )
     }
 }

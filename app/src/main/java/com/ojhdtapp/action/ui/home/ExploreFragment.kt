@@ -179,7 +179,7 @@ class ExploreFragment : Fragment() {
                 ExploreAdapters.SettingAccentData(
                     R.drawable.ic_outline_directions_run_24,
                     getString(R.string.explore_action),
-                    getString(R.string.explore_action_description),
+                    R.string.explore_action_description,
                     object : MyOnClickListener {
                         override fun onClick() {
                             exitTransition =
@@ -201,7 +201,7 @@ class ExploreFragment : Fragment() {
                 ExploreAdapters.SettingAccentData(
                     R.drawable.ic_outline_article_24,
                     getString(R.string.explore_suggest),
-                    getString(R.string.explore_suggest_description),
+                    R.string.explore_suggest_description,
                     object : MyOnClickListener {
                         override fun onClick() {
                             exitTransition =
@@ -238,7 +238,7 @@ class ExploreFragment : Fragment() {
                     BaseApplication.context.getString(R.string.vote),
                     object : MyOnClickListener {
                         override fun onClick() {
-                            findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
+//                            findNavController().navigate(R.id.action_exploreFragment_to_settingsFragment)
                         }
                     }),
                 ExploreAdapters.SettingData(R.drawable.ic_outline_info_24,

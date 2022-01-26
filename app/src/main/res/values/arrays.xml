@@ -1,8 +1,14 @@
 <resources>
     <string-array name="action_welcomes">
-        <item>你好，</item>
-        <item>好久不见，</item>
-        <item>很高兴见到你，</item>
+        <item>@string/home_welcome_text_a</item>
+        <item>@string/home_welcome_text_b</item>
+        <item>@string/home_welcome_text_c</item>
+    </string-array>
+
+    <string-array name="achievement_xps">
+        <item>@string/achievement_text_a</item>
+        <item>@string/achievement_text_b</item>
+        <item>@string/achievement_text_c</item>
     </string-array>
 
     <!-- ExpiredTime Preference -->
@@ -77,6 +83,13 @@
     <string-array name="notification_type_entries">
         <item>@string/notification_type_action</item>
         <item>@string/notification_type_suggest</item>
+    </string-array>
+    <string-array name="notification_type_values">
+        <item>TYPE_ACTION</item>
+        <item>TYPE_SUGGEST</item>
+    </string-array>
+    <string-array name="notification_type_default_values">
+        <item>TYPE_ACTION</item>
     </string-array>
 
     <!-- Notification Preference -->

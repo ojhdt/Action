@@ -6,20 +6,18 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.ojhdtapp.action.R
 import kotlinx.android.parcel.Parcelize
-import java.sql.Timestamp
 import java.util.*
 
-@Entity
 @Parcelize
+@Entity(tableName = "achievement_table")
 data class Achievement(
     val title: String = "Title",
     val description: String = "Description",
-    val type:String = "Type",
-    val drawableID:Int = R.drawable.ic_outline_emoji_events_24,
+    val type: String = "Type",
+    val drawableID: Int = R.drawable.ic_outline_emoji_events_24,
     val xp: Int = 0,
-    val gained: Boolean = false,
     val time: Date = Date()
-): Parcelable{
+) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 }

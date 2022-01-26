@@ -28,12 +28,16 @@ import com.google.android.gms.location.DetectedActivity
 import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.NotificationActionReceiver
+import com.ojhdtapp.action.util.NotificationUtil
 import kotlin.concurrent.thread
 import kotlin.math.abs
 
 class DetectService : Service() {
 
     class DetectBinder : Binder()
+
+    lateinit var notificationActionReceiver: NotificationActionReceiver
 
     val context = BaseApplication.context
     private val sharedPreference: SharedPreferences by lazy {
@@ -54,12 +58,30 @@ class DetectService : Service() {
     // Accelerometer Sensor
     private var shakeTime: Long = 0
     private var showTime: Long = 0
-    private var triggerTime: Long = 0
+    private var triggerTime: Long =
+        sharedPreference.getLong("accelerometerTriggerTime", System.currentTimeMillis())
     // Light Sensor
 
 
+    @SuppressLint("MissingPermission")
     override fun onCreate() {
         super.onCreate()
+
+        // FenceMap
+        fenceMap =
+            mapOf<String, AwarenessFence>(
+                "headphonePlug" to HeadphoneFence.during(HeadphoneState.PLUGGED_IN),
+                "inVehicle" to DetectedActivityFence.during(DetectedActivityFence.IN_VEHICLE),
+                "onBicycle" to DetectedActivityFence.during(DetectedActivityFence.ON_BICYCLE),
+                "onFoot" to DetectedActivityFence.during(DetectedActivityFence.ON_FOOT),
+            )
+
+        // Register Notification Action Receiver
+        notificationActionReceiver = NotificationActionReceiver()
+        registerReceiver(notificationActionReceiver, IntentFilter().apply {
+            addAction(NotificationUtil.ACTION_FINISHED)
+            addAction(NotificationUtil.ACTION_IGNORED)
+        })
 
         // Register as Foreground Service
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -73,14 +95,14 @@ class DetectService : Service() {
         }
         manager.createNotificationChannel(channel)
         val mainActivityIntent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val mainActivityPendingIntent =
             PendingIntent.getActivity(this, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
         val notification = NotificationCompat.Builder(this, "foreground")
             .setContentTitle(context.getString(R.string.foreground_service_notification_title))
             .setContentText(context.getString(R.string.foreground_service_notification_text))
-            .setSmallIcon(R.drawable.ic_outline_android_24)
+            .setSmallIcon(R.drawable.ic_stat_name)
             .setContentIntent(mainActivityPendingIntent)
             .setAutoCancel(true)
             .build()
@@ -147,13 +169,6 @@ class DetectService : Service() {
         Log.d("aaa", "DetectService Start")
         thread {
             // Fence
-            fenceMap =
-                mapOf<String, AwarenessFence>(
-                    "headphonePlug" to HeadphoneFence.during(HeadphoneState.PLUGGED_IN),
-                    "inVehicle" to DetectedActivityFence.during(DetectedActivityFence.IN_VEHICLE),
-                    "onBicycle" to DetectedActivityFence.during(DetectedActivityFence.ON_BICYCLE),
-                    "onFoot" to DetectedActivityFence.during(DetectedActivityFence.ON_FOOT),
-                )
             val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
                 fenceMap.forEach { (t, u) ->
                     addFence(t, u, fencePendingIntent)
@@ -215,6 +230,8 @@ class DetectService : Service() {
     override fun onDestroy() {
         Log.d("aaa", "DetectService Destroyed")
         stopForeground(true)
+        // Notification
+        unregisterReceiver(notificationActionReceiver)
         // Fence
         val fenceUpdateRequest = FenceUpdateRequest.Builder().apply {
             fenceMap.forEach { (t, u) ->
@@ -278,10 +295,21 @@ class DetectService : Service() {
                 if (z < 9 && z > 2 && -2 < x && x < 2 && 4 < y && y < 10) {
                     showTime = System.currentTimeMillis()
                     if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
+                        Log.d("aaa", "trigger" + (showTime - triggerTime).toString())
+                        if (showTime - triggerTime > 1200000) {
+                            // long stay
+                            pusher.tryPushingNewAction("设备久置后移动")
+                        } else {
+                            // normal
+                            pusher.tryPushingNewAction("设备移动")
+                        }
                         shakeTime = 0
                         triggerTime = System.currentTimeMillis()
-                        Log.d("aaa", "Accelerometer Worked!!")
-                        pusher.tryPushingNewAction("")
+                        sharedPreference.edit()
+                            .putLong("accelerometerTriggerTime", triggerTime)
+                            .apply()
+                        Log.d("sensor", "Accelerometer Worked!!")
+                        AchievementPusher.getPusher().tryPushingNewAchievement("accelerometer")
                     }
                 }
             }
@@ -310,14 +338,16 @@ class DetectService : Service() {
         override fun onSensorChanged(event: SensorEvent?) {
             light = event?.values?.get(0) ?: 0f
             nowState = getLightState(light)
+//            Log.d("sensor", nowState.toString())
             if (lastState == -1) lastState = nowState
             else {
-                if (nowState != lastState && System.currentTimeMillis() - triggerTime > 10000) {
+                if (nowState != lastState && System.currentTimeMillis() - triggerTime > 0) {
                     lastState = nowState
                     triggerTime = System.currentTimeMillis()
-                    Log.d("aaa", "Light triggered")
+                    Log.d("sensor", "Light triggered")
                     pusher.submitState(lightState = nowState)
                     pusher.tryPushingNewAction("light")
+                    AchievementPusher.getPusher().tryPushingNewAchievement("light")
                 }
             }
         }
@@ -336,8 +366,8 @@ class DetectService : Service() {
     }
 
     private fun getLightState(light: Float) = when (light) {
-        in 0f..8f -> ActionPusher.LIGHT_FULL_MOON
-        in 8f..SensorManager.LIGHT_SUNRISE -> ActionPusher.LIGHT_SUNRISE
+        in 0f..20f -> ActionPusher.LIGHT_FULL_MOON
+        in 20f..SensorManager.LIGHT_SUNRISE -> ActionPusher.LIGHT_SUNRISE
         in SensorManager.LIGHT_SUNRISE..SensorManager.LIGHT_SHADE -> ActionPusher.LIGHT_SHADE
         in SensorManager.LIGHT_SHADE..SensorManager.LIGHT_SUNLIGHT_MAX -> ActionPusher.LIGHT_SUNLIGHT
         else -> -1

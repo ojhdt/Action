@@ -9,12 +9,13 @@
 
     <ImageView
         android:id="@+id/highlightCellIcon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:tint="?attr/colorPrimary"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorPrimary"
         tools:srcCompat="@drawable/ic_outline_looks_one_24" />
 
     <TextView

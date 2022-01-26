@@ -32,6 +32,7 @@ class TransitionReceiver : BroadcastReceiver() {
                     }
                 }
                 pusher.tryPushingNewAction("activity")
+                AchievementPusher.getPusher().tryPushingNewAchievement("activity")
             }
         }
     }

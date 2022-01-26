@@ -116,6 +116,9 @@
             android:name="isHomeFragment"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_actionArchiveHistoryFragment_to_actionContentFragment"
+            app:destination="@id/actionContentFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

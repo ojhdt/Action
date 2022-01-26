@@ -102,8 +102,10 @@ class Converters {
                 ActionHistory(getDateFromLong(tempHistoryList[0].toLong())!!,
                 tempHistoryList[1],
                 tempHistoryList[2].toBooleanStrict())
-            } else ActionHistory()
-            resList.add(history)
+            } else null
+            if (history != null) {
+                resList.add(history)
+            }
         }
         return resList
     }

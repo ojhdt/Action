@@ -16,11 +16,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:cardCornerRadius="24dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="start|center_vertical"
-            android:orientation="vertical"
             android:padding="16dp">
 
             <ImageView
@@ -29,25 +27,48 @@
                 android:layout_height="40dp"
                 android:background="@drawable/circle_color_primary"
                 android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/statisticsTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
                 app:srcCompat="@drawable/ic_baseline_star_outline_24" />
 
             <TextView
                 android:id="@+id/statisticsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:text="TextView"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                app:layout_constraintBottom_toTopOf="@+id/statisticsNum"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statisticsIcon" />
 
             <TextView
                 android:id="@+id/statisticsNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:text="@string/sample_number"
-                android:textAppearance="?attr/textAppearanceDisplayMedium"
-                android:textColor="?attr/colorPrimary" />
+                android:textAppearance="?attr/textAppearanceDisplaySmall"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statisticsTitle" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/statisticsUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="4dp"
+                android:text="Textview"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/statisticsNum"
+                app:layout_constraintStart_toEndOf="@+id/statisticsNum" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

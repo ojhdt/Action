@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.ojhdtapp.action.logic.Repository
 import java.util.*
 
 class TimeChangeReceiver : BroadcastReceiver() {
@@ -13,8 +14,11 @@ class TimeChangeReceiver : BroadcastReceiver() {
     private val pusher = ActionPusher.getPusher()
 
     override fun onReceive(context: Context?, intent: Intent?) {
-//        Log.d("aaa", System.currentTimeMillis().toString())
-        Log.d("aaa", "Time passed 1min")
+        Log.d("sensor", "Time passed 1min")
+
+        // Auto Clear Actions
+        Repository.updateAllActivatingActionState()
+
         systemCalendarHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         if (lastTimeState == -1) {
             timeState = getTimeState(systemCalendarHour)

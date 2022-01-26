@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialContainerTransform
+import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.BaseApplication.Companion.context
 import com.ojhdtapp.action.MainActivity
 import com.ojhdtapp.action.R
@@ -435,7 +436,24 @@ class WelcomeActivity : AppCompatActivity() {
                                 .putBoolean("isFirstLaunch", false)
                                 .apply()
 
-                            LeanCloudDataBase.syncAllAction()
+                            LeanCloudDataBase.syncAllAction(object :
+                                LeanCloudDataBase.SyncActionListener {
+                                override fun onSuccess(dataSize: Int) {
+                                    Toast.makeText(
+                                        BaseApplication.context,
+                                        getString(R.string.welcome_sync_action_success),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                                override fun onFailure() {
+                                    Toast.makeText(
+                                        BaseApplication.context,
+                                        getString(R.string.welcome_sync_action_failure),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            })
 
                             val intent = Intent(this@WelcomeActivity, MainActivity::class.java)
                             intent.flags =
@@ -452,7 +470,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onApplyThemeResource(theme: Resources.Theme?, resid: Int, first: Boolean) {
         super.onApplyThemeResource(theme, resid, first)
-        when(sharedPreference.getString("theme_color", "COLOR_PRIMARY")){
+        when (sharedPreference.getString("theme_color", "COLOR_PRIMARY")) {
             "SAKURA" -> theme?.applyStyle(R.style.Sakura, true)
             "ROSE" -> theme?.applyStyle(R.style.Rose, true)
             "TEA" -> theme?.applyStyle(R.style.Tea, true)

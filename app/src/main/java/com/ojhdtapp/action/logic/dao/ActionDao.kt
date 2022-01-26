@@ -16,14 +16,23 @@ interface ActionDao {
     @Update
     fun updateAction(newAction: Action)
 
+    @Query("DELETE FROM action_table")
+    fun deleteAll()
+
     @Query("SELECT * FROM `action_table`")
     fun loadAllAction(): List<Action>
+
+    @Query("SELECT * FROM `action_table` WHERE history IS NOT NULL AND history != ''")
+    fun loadActivatedAction(): List<Action>
 
     @Query("SELECT * FROM `action_table` WHERE isActivating = 1")
     fun loadAllActivatingAction(): List<Action>
 
     @Query("SELECT * FROM `action_table`")
     fun loadAllActionLive(): LiveData<List<Action>>
+
+    @Query("SELECT * FROM `action_table` WHERE history IS NOT NULL AND history != ''")
+    fun loadActivatedActionLive(): LiveData<List<Action>>
 
     @Query("SELECT * FROM `action_table` WHERE isActivating = 1")
     fun loadAllActivatingActionLive(): LiveData<List<Action>>

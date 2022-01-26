@@ -48,6 +48,7 @@
             android:id="@+id/totalC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/achievement_total_c"
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="?attr/colorPrimary"

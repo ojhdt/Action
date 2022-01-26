@@ -1,6 +1,7 @@
 package com.ojhdtapp.action.ui.archive
 
 import android.graphics.Rect
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,13 +82,15 @@ class ActionArchiveAdapter(
                         }
                     }
                 }
-                actionArchiveLabel.text = binding.root.resources.getString(
-                    R.string.action_archive_time,
-                    DateUtil.timeAgo(data.history.last().time)
-                )
-                if (data.imageID != null) {
+                if (data.history.isNotEmpty()) {
+                    actionArchiveLabel.text = binding.root.resources.getString(
+                        R.string.action_archive_time,
+                        DateUtil.timeAgo(data.history.last().time)
+                    )
+                }
+                if (data.imageUrl != null) {
                     Glide.with(binding.root.context)
-                        .load(data.imageID)
+                        .load(data.imageUrl)
                         .into(actionArchiveImage)
                 } else {
 //                    actionArchiveImage.visibility = View.GONE

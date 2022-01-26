@@ -1,16 +1,19 @@
 package com.ojhdtapp.action.logic
 
 import android.util.Log
+import android.widget.Toast
 import cn.leancloud.LCObject
 import io.reactivex.disposables.Disposable
 import cn.leancloud.LCQuery
+import com.ojhdtapp.action.BaseApplication
+import com.ojhdtapp.action.R
+import com.ojhdtapp.action.logic.detector.AchievementPusher
 import com.ojhdtapp.action.logic.model.Action
 import com.ojhdtapp.action.logic.model.Suggest
 import io.reactivex.Observer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.sql.ClientInfoStatus
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -57,8 +60,9 @@ object LeanCloudDataBase {
         }
     }
 
-    fun lcObject2Action(obj:LCObject) : Action{
+    fun lcObject2Action(obj: LCObject): Action {
         val storeAction = Action()
+        Log.d("aaa", storeAction.toString())
         val list = obj.getList("label") as List<HashMap<String, Any>>
         val map = mutableMapOf<Int, String>()
         list.forEach {
@@ -66,9 +70,10 @@ object LeanCloudDataBase {
         }
         return storeAction.apply {
             title = obj.getString("title")
-            imageID = obj.getInt("imageID")
+            imageUrl = obj.getString("imageUrl")
             content = obj.getString("content")
             label = map
+            history = emptyList()
             hightlight = obj.getList("highlight") as List<String>
             weight = obj.getInt("weight")
             activityStateTrigger = obj.getInt("activityStateTrigger")
@@ -83,13 +88,14 @@ object LeanCloudDataBase {
         }
     }
 
-    suspend fun getNewSuggest(type: Int) = suspendCoroutine<Suggest> {
+    private suspend fun getSuggestWithSkip(type: Int, skip: Int = 0) = suspendCoroutine<Suggest> {
         val query = LCQuery<LCObject>("Suggest")
         when (type) {
             1 -> query.whereEqualTo("type", 1)
             2 -> query.whereEqualTo("type", 2)
             else -> {}
         }
+        query.skip(skip)
         query.firstInBackground.subscribe(object : Observer<LCObject?> {
             override fun onSubscribe(d: Disposable) {
             }
@@ -105,6 +111,28 @@ object LeanCloudDataBase {
             override fun onComplete() {
             }
         })
+    }
+
+    suspend fun getNewSuggest(type: Int): Suggest {
+        AchievementPusher.getPusher().tryPushingNewAchievement("suggestion")
+        var skip = 0
+        var suggest: Suggest? = null
+        do {
+//            Log.d("aaa", skip.toString())
+            try {
+                suggest = getSuggestWithSkip(type, skip)
+                Log.d("aaa", suggest.toString())
+                if (dataBase.suggestDao()
+                        .isStored(suggest.objectId!!)
+                ) {
+                    suggest = null
+                    skip += 1
+                }
+            } catch (e: Exception) {
+                break
+            }
+        } while (suggest == null)
+        return suggest!!
     }
 
     suspend fun syncSuggest(objectId: String): Suggest {
@@ -137,7 +165,17 @@ object LeanCloudDataBase {
         return result
     }
 
-    fun syncAllAction(){
+    interface SyncActionListener {
+        fun onSuccess(dataSize: Int)
+        fun onFailure()
+    }
+
+    fun syncAllAction(listener: SyncActionListener) {
+        Toast.makeText(
+            BaseApplication.context,
+            BaseApplication.context.getString(R.string.sync_action_database_syncing_summary),
+            Toast.LENGTH_SHORT
+        ).show()
         val query = LCQuery<LCObject>("Action")
         query.findInBackground().subscribe(object : Observer<List<LCObject>> {
             override fun onSubscribe(d: Disposable) {
@@ -145,9 +183,11 @@ object LeanCloudDataBase {
 
             override fun onNext(t: List<LCObject>) {
                 storeActionsToDatabase(t)
+                listener.onSuccess(t.size)
             }
 
             override fun onError(e: Throwable) {
+                listener.onFailure()
             }
 
             override fun onComplete() {
@@ -157,11 +197,11 @@ object LeanCloudDataBase {
         })
     }
 
-    fun storeActionsToDatabase(list:List<LCObject>){
+    fun storeActionsToDatabase(list: List<LCObject>) {
         val job = Job()
         CoroutineScope(job).launch {
             list.forEach {
-                if(!dataBase.actionDao().isStored(it.objectId))
+                if (!dataBase.actionDao().isStored(it.objectId))
                     dataBase.actionDao().insertAction(lcObject2Action(it))
             }
         }

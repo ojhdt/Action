@@ -1,17 +1,17 @@
 package com.ojhdtapp.action.ui.settings
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
-import android.text.InputFilter
-import android.text.InputFilter.LengthFilter
-import android.text.Spanned
+import android.os.PowerManager
+import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -20,23 +20,23 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.LeanCloudDataBase
-import com.ojhdtapp.action.logic.detector.DetectService
 import com.ojhdtapp.action.logic.worker.AutoSuggestWorker
 import com.ojhdtapp.action.ui.welcome.WelcomeActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import rikka.preference.SimpleMenuPreference
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
+    @SuppressLint("BatteryLife")
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
@@ -64,18 +64,38 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>("sync_action_database")?.apply {
-            summary = getString(R.string.sync_action_database_summary, "0")
+            var size = 0
+            summary = getString(R.string.sync_action_database_summary, size.toString())
+            setOnPreferenceClickListener {
+                isEnabled = false
+                LeanCloudDataBase.syncAllAction(object : LeanCloudDataBase.SyncActionListener {
+                    override fun onSuccess(dataSize: Int) {
+                        size = dataSize
+                        summary =
+                            getString(
+                                R.string.sync_action_database_syncing_summary_success,
+                                dataSize.toString()
+                            )
+                        isEnabled = true
+                    }
+
+                    override fun onFailure() {
+                        summary = getString(
+                            R.string.sync_action_database_syncing_summary_failure,
+                            size.toString()
+                        )
+                        isEnabled = true
+                    }
+                })
+                true
+            }
             val database = AppDataBase.getDataBase().actionDao()
             val job = Job()
             CoroutineScope(job).launch {
-                val size = database.loadAllAction().size
+                size = database.loadAllAction().size
                 summary = getString(R.string.sync_action_database_summary, size.toString())
             }
-            setOnPreferenceClickListener {
-                Toast.makeText(activity, "正在同步数据", Toast.LENGTH_SHORT).show()
-                LeanCloudDataBase.syncAllAction()
-                true
-            }
+            job.complete()
         }
 
         findPreference<SwitchPreferenceCompat>("foreground_service")?.apply {
@@ -85,6 +105,31 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //                    .apply()
 //                context.stopService(Intent(context, DetectService::class.java))
                 summary = context.getString(R.string.foreground_service_notice)
+                true
+            }
+        }
+
+        fun isIgnoringBatteryOptimizations(): Boolean {
+            var isIgnoring = false
+            context?.let {
+                val powerManager = it.getSystemService(Context.POWER_SERVICE) as PowerManager
+                isIgnoring = powerManager.isIgnoringBatteryOptimizations(it.packageName)
+            }
+            return isIgnoring
+        }
+        findPreference<Preference>("ignore_battery_optimizations")?.apply {
+            if (isIgnoringBatteryOptimizations()) summary =
+                getString(R.string.ignore_battery_optimizations_summary_success)
+            setOnPreferenceClickListener {
+                if (!isIgnoringBatteryOptimizations()) {
+                    try {
+                        val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                        intent.data = Uri.parse("package:" + context.packageName)
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
                 true
             }
         }
@@ -166,6 +211,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<Preference>("set_locale")?.apply {
             setOnPreferenceClickListener {
+                true
+            }
+        }
+
+        findPreference<MultiSelectListPreference>("notification_type")?.apply {
+            fun setSummary(arr: HashSet<String>) {
+                summary = if (arr.contains("TYPE_ACTION") && !arr.contains("TYPE_SUGGEST")) {
+                    getString(R.string.notification_type_action_summary)
+                } else if (!arr.contains("TYPE_ACTION") && arr.contains("TYPE_SUGGEST")) {
+                    getString(R.string.notification_type_suggest_summary)
+                } else if (arr.contains("TYPE_ACTION") && arr.contains("TYPE_SUGGEST")) {
+                    getString(R.string.notification_type_all_summary)
+                } else {
+                    getString(R.string.notification_type_none_summary)
+                }
+            }
+            setSummary(values as HashSet<String>)
+            setOnPreferenceChangeListener { preference, newValue ->
+                setSummary(newValue as HashSet<String>)
                 true
             }
         }

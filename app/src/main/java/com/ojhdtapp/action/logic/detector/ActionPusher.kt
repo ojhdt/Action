@@ -35,6 +35,70 @@ class ActionPusher {
         val TIME_DUSK = 5
         val TIME_EVENING = 6
 
+        val STATE_ACTIVITY = 0
+        val STATE_LIGHT = 1
+        val STATE_LOCATION = 2
+        val STATE_TIME = 3
+        val STATE_WEATHER = 4
+
+        val stateList = listOf<MutableList<Boolean>>(
+            mutableListOf(true, true, true, true),
+            mutableListOf(true, true, true, false),
+            mutableListOf(true, true, false, true),
+            mutableListOf(true, false, true, true),
+            mutableListOf(false, true, true, true),
+            mutableListOf(true, true, false, false),
+            mutableListOf(true, false, true, false),
+            mutableListOf(false, true, true, false),
+            mutableListOf(true, false, false, true),
+            mutableListOf(false, true, false, true),
+            mutableListOf(false, false, true, true),
+            mutableListOf(true, false, false, false),
+            mutableListOf(false, true, false, false),
+            mutableListOf(false, false, true, false),
+            mutableListOf(false, false, false, true),
+            mutableListOf(false, false, false, false),
+        )
+
+        val fullStateList = listOf<MutableList<Boolean>>(
+            mutableListOf(true, true, true, true, true),
+
+            mutableListOf(true, true, true, true, false),
+            mutableListOf(true, true, true, false, true),
+            mutableListOf(true, true, false, true, true),
+            mutableListOf(true, false, true, true, true),
+            mutableListOf(false, true, true, true, true),
+
+            mutableListOf(true, true, true, false, false),
+            mutableListOf(true, true, false, true, false),
+            mutableListOf(true, false, true, true, false),
+            mutableListOf(false, true, true, true, false),
+            mutableListOf(true, true, false, false, true),
+            mutableListOf(true, false, true, false, true),
+            mutableListOf(false, true, true, false, true),
+            mutableListOf(true, false, false, true, true),
+            mutableListOf(false, true, false, true, true),
+            mutableListOf(false, false, true, true, true),
+
+            mutableListOf(true, true, false, false, false),
+            mutableListOf(true, false, true, false, false),
+            mutableListOf(false, true, true, false, false),
+            mutableListOf(true, false, false, true, false),
+            mutableListOf(false, true, false, true, false),
+            mutableListOf(false, false, true, true, false),
+            mutableListOf(true, false, false, false, true),
+            mutableListOf(false, true, false, false, true),
+            mutableListOf(false, false, true, false, true),
+            mutableListOf(false, false, false, true, true),
+
+            mutableListOf(true, false, false, false, false),
+            mutableListOf(false, true, false, false, false),
+            mutableListOf(false, false, true, false, false),
+            mutableListOf(false, false, false, true, false),
+            mutableListOf(false, false, false, false, true),
+
+            mutableListOf(false, false, false, false, false),
+        )
 
         private val instance by lazy {
             ActionPusher()
@@ -58,10 +122,6 @@ class ActionPusher {
     private var triggerTime: Long = 0
 
     fun submitState(activityState: Int? = null, lightState: Int? = null, timeState: Int? = null) {
-        Log.d(
-            "aaa",
-            this.activityState.toString() + " " + this.lightState.toString() + " " + this.timeState.toString()
-        )
         activityState?.let {
             this.activityState = it
         }
@@ -71,6 +131,10 @@ class ActionPusher {
         timeState?.let {
             this.timeState = it
         }
+        Log.d(
+            "sensor",
+            this.activityState.toString() + " " + this.lightState.toString() + " " + this.timeState.toString()
+        )
     }
 
     fun tryPushingNewAction(
@@ -79,6 +143,7 @@ class ActionPusher {
 //        shouldNoticeLight: Boolean? = false,
 //        shouldNoticeLocation: Boolean? = false
     ) {
+        Log.d("sensor", (System.currentTimeMillis() - triggerTime).toString())
         if (System.currentTimeMillis() - triggerTime > 60000) {
             triggerTime = System.currentTimeMillis()
             val job = Job()
@@ -86,304 +151,71 @@ class ActionPusher {
                 var tempList: List<Action> = listOf()
                 when (mainTrigger) {
                     "activity" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, false, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            -1,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, false, false, false, false
-                            )
-                            return@launch
-                        }
+                        possibleForeach(0, mainTrigger)
                     }
                     "light" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, false, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            -1,
-                            lightState,
-                            -1,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                false, true, false, false, false
-                            )
-                            return@launch
-                        }
+                        possibleForeach(1, mainTrigger)
                     }
                     "location" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            -1,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, false, true, false, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            -1,
-                            -1,
-                            locationState,
-                            -1,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                false, false, true, false, false
-                            )
-                            return@launch
-                        }
+                        possibleForeach(2, mainTrigger)
                     }
                     "time" -> {
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            weatherState
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, true
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            locationState,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, true, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            lightState,
-                            -1,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, true, false, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            activityState,
-                            -1,
-                            -1,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                true, false, false, true, false
-                            )
-                            return@launch
-                        }
-                        tempList = Repository.loadAvailableActionByConditions(
-                            -1,
-                            -1,
-                            -1,
-                            timeState,
-                            -1
-                        )
-                        if (tempList.isNotEmpty()) {
-                            editAndPushAction(
-                                selectActionRandomlyByWeight(tempList),
-                                false, false, false, true, false
-                            )
-                            return@launch
-                        }
+                        possibleForeach(3, mainTrigger)
                     }
-                    "weather" -> {}
+                    "weather" -> {
+                        possibleForeach(4, mainTrigger)
+                    }
                     else -> {
-                        tempList = Repository.loadAvailableActionByConditions(-1,-1,-1,-1,-1)
-                        editAndPushAction(
-                            selectActionRandomlyByWeight(tempList),
-                            false, false, false, false, false
-                        )
+                        possibleForeach(-1, mainTrigger)
                     }
                 }
             }
+            job.complete()
         }
+    }
+
+    private fun possibleForeach(target: Int, mainTrigger: String? = null) {
+        var tempList: List<Action>
+        if (target == -1) {
+            fullStateList.forEachIndexed { index, booleans ->
+                Log.d("aaa", index.toString())
+                tempList = database.loadAvailableActionByConditions(
+                    if (booleans[0]) activityState else -1,
+                    if (booleans[1]) lightState else -1,
+                    if (booleans[2]) locationState else -1,
+                    if (booleans[3]) timeState else -1,
+                    if (booleans[4]) weatherState else -1
+                )
+                if (tempList.isNotEmpty()) {
+                    editAndPushAction(
+                        selectActionRandomlyByWeight(tempList),
+                        booleans[0], booleans[1], booleans[2], booleans[3], booleans[4], mainTrigger
+                    )
+                    Log.d("aaa", "done")
+                    return
+                }
+                Log.d("aaa", "not found")
+            }
+        } else {
+            stateList.forEachIndexed { index, booleans ->
+                booleans.add(target, true)
+                tempList = database.loadAvailableActionByConditions(
+                    if (booleans[0]) activityState else -1,
+                    if (booleans[1]) lightState else -1,
+                    if (booleans[2]) locationState else -1,
+                    if (booleans[3]) timeState else -1,
+                    if (booleans[4]) weatherState else -1
+                )
+                if (tempList.isNotEmpty()) {
+                    editAndPushAction(
+                        selectActionRandomlyByWeight(tempList),
+                        booleans[0], booleans[1], booleans[2], booleans[3], booleans[4], mainTrigger
+                    )
+                    return
+                }
+            }
+        }
+        Log.d("aaa", "Nothing can be push")
     }
 
     private fun selectActionRandomlyByWeight(list: List<Action>): Action {
@@ -395,7 +227,7 @@ class ActionPusher {
         var ranNum = (0..sum).random()
         list.forEach {
             ssum += it.weight
-            if (ssum >= sum) {
+            if (ssum >= ranNum) {
                 return it
             }
         }
@@ -409,18 +241,17 @@ class ActionPusher {
         isLightStateUsed: Boolean = false,
         isLocationStateUsed: Boolean = false,
         isTimeStateUsed: Boolean = false,
-        isWeatherStateUsed: Boolean = false
+        isWeatherStateUsed: Boolean = false,
+        mainTrigger: String? = null
     ) {
-        val causeStr = StringBuilder()
-            .append(if(isActivityStateUsed) context.getString(R.string.action_pusher_cause_activity) else "")
-            .append(" ")
-            .append(if(isLightStateUsed) context.getString(R.string.action_pusher_cause_light) else "")
-            .append(" ")
-            .append(if(isLocationStateUsed) context.getString(R.string.action_pusher_cause_location) else "")
-            .append(" ")
-            .append(if(isTimeStateUsed) context.getString(R.string.action_pusher_cause_time) else "")
-            .append(" ")
-            .append(if(isWeatherStateUsed) context.getString(R.string.action_pusher_cause_weather) else "")
+        AchievementPusher.getPusher().tryPushingNewAchievement("sensor")
+        Log.d("aaa", isActivityStateUsed.toString() + " " + isLightStateUsed.toString() + " " + isLocationStateUsed.toString() + " " + isTimeStateUsed.toString() + " " + isWeatherStateUsed.toString())
+        val causeStr = StringBuilder(mainTrigger ?: "")
+            .append(if (isActivityStateUsed && activityState != -1) " " + context.getString(R.string.action_pusher_cause_activity) else "")
+            .append(if (isLightStateUsed && lightState != -1) " " + context.getString(R.string.action_pusher_cause_light) else "")
+            .append(if (isLocationStateUsed && locationState != -1) " " + context.getString(R.string.action_pusher_cause_location) else "")
+            .append(if (isTimeStateUsed && timeState != -1) " " + context.getString(R.string.action_pusher_cause_time) else "")
+            .append(if (isWeatherStateUsed && weatherState != -1) " " + context.getString(R.string.action_pusher_cause_weather) else "")
             .toString()
 
         val newHistory = item.history.toMutableList().apply {
@@ -432,7 +263,7 @@ class ActionPusher {
             lastTriggered = System.currentTimeMillis()
             history = newHistory
         }
-        database.insertAction(newItem)
+        database.updateAction(newItem)
         NotificationUtil.sendAction(newItem)
     }
 }

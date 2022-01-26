@@ -10,7 +10,7 @@ import com.ojhdtapp.action.logic.model.Action
 class ActionArchiveViewModel : ViewModel() {
     private val _actionLive = MutableLiveData<MutableList<Action>>()
     private val _actionTran: LiveData<List<Action>> =
-        Transformations.switchMap(_actionLive) { Repository.getAllActionLive() }
+        Transformations.switchMap(_actionLive) { Repository.getActivatedActionLive() }
     val actionLive: LiveData<List<Action>> get() = _actionTran
 
     fun actionRefresh(){

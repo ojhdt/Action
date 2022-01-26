@@ -15,11 +15,14 @@ import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.MyOnClickListener
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.databinding.*
+import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.logic.model.LifeMessageBlock
 import com.ojhdtapp.action.logic.model.WeatherBlock
 import com.ojhdtapp.action.logic.model.WeatherMessageBlock
 import com.ojhdtapp.action.util.DensityUtil
+import kotlinx.coroutines.*
 import java.util.*
+import kotlin.coroutines.suspendCoroutine
 
 object ExploreAdapters {
     class WeatherAdapter :
@@ -302,14 +305,38 @@ object ExploreAdapters {
                 .load(ContextCompat.getDrawable(binding.root.context, data.iconID))
                 .into(binding.settingAccentIcon)
             binding.settingAccentTitle.text = data.title
-            binding.settingAccentDescription.text = data.description
+            binding.settingAccentDescription.text =
+                binding.root.resources.getString(data.descriptionId, "0")
             binding.root.setOnClickListener {
                 data.listener.onClick()
             }
+            val actionDao = AppDataBase.getDataBase().actionDao()
+            val suggestDao = AppDataBase.getDataBase().suggestDao()
+            val job = Job()
+            var size: Int = 0
+            CoroutineScope(job).launch {
+                size = when (data.descriptionId) {
+                    R.string.explore_action_description -> actionDao.loadActivatedAction().size
+                    R.string.explore_suggest_description -> suggestDao.loadAllReadSuggest().size
+                    else -> 0
+                }
+                launch(Dispatchers.Main) {
+                    binding.settingAccentDescription.text = binding.root.resources.getString(
+                        data.descriptionId,
+                        size.toString()
+                    )
+                }
+            }
+            job.complete()
         }
     }
 
-    data class SettingAccentData(val iconID:Int, val title:String, val description:String, val listener:MyOnClickListener)
+    data class SettingAccentData(
+        val iconID: Int,
+        val title: String,
+        val descriptionId: Int,
+        val listener: MyOnClickListener
+    )
 
     class SettingViewHolder(private val binding: ExploreSettingBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -324,7 +351,7 @@ object ExploreAdapters {
         }
     }
 
-    data class SettingData(val iconID:Int, val title:String, val listener:MyOnClickListener)
+    data class SettingData(val iconID: Int, val title: String, val listener: MyOnClickListener)
 
     class WeatherMessageBlockSpaceItemDecoration : RecyclerView.ItemDecoration() {
         private val space = DensityUtil.dip2px(BaseApplication.context, 12f)

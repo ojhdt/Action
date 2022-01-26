@@ -13,11 +13,11 @@ import java.util.*
 @Entity(tableName = "action_table")
 data class Action @Ignore constructor(
     var title: String = "Title",
-    var imageID: Int = 0,
+    var imageUrl: String? = null,
     var content: String = "Content",
-    var label: Map<Int, String>? = mapOf(),
-    var hightlight: List<String> = listOf(),
-    var history: List<ActionHistory> = listOf(),
+    var label: Map<Int, String>? = emptyMap(),
+    var hightlight: List<String> = emptyList<String>(),
+    var history: List<ActionHistory> = emptyList<ActionHistory>(),
     var isActivating: Boolean = false,
     var lastTriggered: Long = 0,
     var weight: Int = 1,
@@ -36,11 +36,11 @@ data class Action @Ignore constructor(
 
     constructor() : this(
         "Title",
-        0,
+        null,
         "Content",
-        mapOf(),
-        listOf(),
-        listOf(),
+        emptyMap(),
+        emptyList(),
+        emptyList(),
         false,
         0,
         1,
