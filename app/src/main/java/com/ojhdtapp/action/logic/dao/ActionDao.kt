@@ -16,6 +16,9 @@ interface ActionDao {
     @Update
     fun updateAction(newAction: Action)
 
+    @Query("DELETE FROM action_table")
+    fun deleteAll()
+
     @Query("SELECT * FROM `action_table`")
     fun loadAllAction(): List<Action>
 

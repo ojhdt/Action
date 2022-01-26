@@ -15,6 +15,9 @@ interface AchievementDao {
     @Update
     fun updateAchievement(newAchievement: Achievement)
 
+    @Query("DELETE FROM achievement_table")
+    fun deleteAll()
+
     @Query("SELECT * FROM achievement_table")
     fun loadAllAchievement(): List<Achievement>
 

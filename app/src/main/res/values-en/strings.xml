@@ -314,5 +314,10 @@
     <string name="action_content_fab_ignored">Ignored</string>
     <string name="achievement_type_event">Event</string>
     <string name="achievement_type_schedule">Schedule</string>
-    <string name="achievement_type_resource">Resourse</string>
+    <string name="achievement_type_resource">Resource</string>
+    <string name="clear_account_dialog_title">Warning</string>
+    <string name="clear_account_message">This operation is a high-risk operation! You will lose all your action records, experience points and achievements. This operation cannot be reverted. still continue?</string>
+    <string name="clear_account_positive">Continue</string>
+    <string name="clear_account_negative">Cancel</string>
+    <string name="clear_account_toast">Operation completed</string>
 </resources>

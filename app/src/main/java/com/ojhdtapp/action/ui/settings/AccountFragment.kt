@@ -1,11 +1,13 @@
 package com.ojhdtapp.action.ui.settings
 
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -15,11 +17,16 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.getUriToDrawable
+import com.ojhdtapp.action.logic.AppDataBase
 import com.ojhdtapp.action.ui.dialog.AvatarPickerDialogFragment
 import com.ojhdtapp.action.ui.dialog.VersionDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class AccountFragment : PreferenceFragmentCompat() {
     private val sharedPreference: SharedPreferences by lazy {
@@ -45,6 +52,29 @@ class AccountFragment : PreferenceFragmentCompat() {
 //                setAvatar(Uri.parse(newValue as String))
 //                true
 //            }
+        }
+
+        findPreference<Preference>("clear_account")?.run{
+            setOnPreferenceClickListener {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(R.string.clear_account_dialog_title)
+                    .setMessage(R.string.clear_account_message)
+                    .setPositiveButton(R.string.clear_account_positive) { dialogInterface: DialogInterface, i: Int ->
+                        sharedPreference.edit()
+                            .putInt("exp", 0)
+                            .apply()
+                        val job = Job()
+                        CoroutineScope(job).launch {
+                            val dataBase = AppDataBase.getDataBase()
+                            dataBase.actionDao().deleteAll()
+                            dataBase.achievementDao().deleteAll()
+                        }
+                        Toast.makeText(context, getString(R.string.clear_account_toast), Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton(R.string.clear_account_negative) { dialogInterface: DialogInterface, i: Int -> }
+                    .show()
+                true
+            }
         }
     }
 

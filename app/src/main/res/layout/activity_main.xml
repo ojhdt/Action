@@ -19,6 +19,7 @@
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        app:labelVisibilityMode="selected"
         android:id="@+id/home_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
