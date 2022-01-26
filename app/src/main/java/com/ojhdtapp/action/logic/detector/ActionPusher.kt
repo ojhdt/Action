@@ -244,12 +244,13 @@ class ActionPusher {
         isWeatherStateUsed: Boolean = false,
         mainTrigger: String? = null
     ) {
+        Log.d("aaa", isActivityStateUsed.toString() + " " + isLightStateUsed.toString() + " " + isLocationStateUsed.toString() + " " + isTimeStateUsed.toString() + " " + isWeatherStateUsed.toString())
         val causeStr = StringBuilder(mainTrigger ?: "")
-            .append(if (isActivityStateUsed) " " + context.getString(R.string.action_pusher_cause_activity) else "")
-            .append(if (isLightStateUsed) " " + context.getString(R.string.action_pusher_cause_light) else "")
-            .append(if (isLocationStateUsed) " " + context.getString(R.string.action_pusher_cause_location) else "")
-            .append(if (isTimeStateUsed) " " + context.getString(R.string.action_pusher_cause_time) else "")
-            .append(if (isWeatherStateUsed) " " + context.getString(R.string.action_pusher_cause_weather) else "")
+            .append(if (isActivityStateUsed && activityState != -1) " " + context.getString(R.string.action_pusher_cause_activity) else "")
+            .append(if (isLightStateUsed && lightState != -1) " " + context.getString(R.string.action_pusher_cause_light) else "")
+            .append(if (isLocationStateUsed && locationState != -1) " " + context.getString(R.string.action_pusher_cause_location) else "")
+            .append(if (isTimeStateUsed && timeState != -1) " " + context.getString(R.string.action_pusher_cause_time) else "")
+            .append(if (isWeatherStateUsed && weatherState != -1) " " + context.getString(R.string.action_pusher_cause_weather) else "")
             .toString()
 
         val newHistory = item.history.toMutableList().apply {

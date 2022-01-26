@@ -78,6 +78,7 @@
     <string name="action_content_fab_mark">标记完成</string>
     <string name="action_content_fab_unmark">撤销标记</string>
     <string name="action_content_fab_ignore">暂时忽略</string>
+    <string name="action_content_fab_ignored">已忽略</string>
     <string name="action_content_hightlight">关键信息</string>
     <string name="action_content_switch_finish_state">已切换完成状态</string>
 

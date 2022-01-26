@@ -294,10 +294,10 @@ class DetectService : Service() {
                 if (z < 9 && z > 2 && -2 < x && x < 2 && 4 < y && y < 10) {
                     showTime = System.currentTimeMillis()
                     if (showTime - shakeTime in 1..800 && showTime - triggerTime > 10000) {
-                        if(showTime - triggerTime > 1200000){
+                        if (showTime - triggerTime > 1200000) {
                             // long stay
                             pusher.tryPushingNewAction("设备久置后移动")
-                        }else{
+                        } else {
                             // normal
                             pusher.tryPushingNewAction("设备移动")
                         }
@@ -332,7 +332,7 @@ class DetectService : Service() {
         override fun onSensorChanged(event: SensorEvent?) {
             light = event?.values?.get(0) ?: 0f
             nowState = getLightState(light)
-//            Log.d("sensor", nowState.toString())
+            Log.d("sensor", nowState.toString())
             if (lastState == -1) lastState = nowState
             else {
                 if (nowState != lastState && System.currentTimeMillis() - triggerTime > 0) {
@@ -359,8 +359,8 @@ class DetectService : Service() {
     }
 
     private fun getLightState(light: Float) = when (light) {
-        in 0f..8f -> ActionPusher.LIGHT_FULL_MOON
-        in 8f..SensorManager.LIGHT_SUNRISE -> ActionPusher.LIGHT_SUNRISE
+        in 0f..20f -> ActionPusher.LIGHT_FULL_MOON
+        in 20f..SensorManager.LIGHT_SUNRISE -> ActionPusher.LIGHT_SUNRISE
         in SensorManager.LIGHT_SUNRISE..SensorManager.LIGHT_SHADE -> ActionPusher.LIGHT_SHADE
         in SensorManager.LIGHT_SHADE..SensorManager.LIGHT_SUNLIGHT_MAX -> ActionPusher.LIGHT_SUNLIGHT
         else -> -1

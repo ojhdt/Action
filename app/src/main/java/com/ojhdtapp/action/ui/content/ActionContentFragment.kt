@@ -136,6 +136,22 @@ class ActionContentFragment : Fragment() {
                     data.history.last().cause,
                     DateUtil.timeAgo(data.history.last().time)
                 )
+
+            // Btn State
+            binding.confirnButton.run {
+                isEnabled = it.isActivating
+                text =
+                    if (!it.history.last().finished) getString(R.string.action_content_fab_mark) else getString(
+                        R.string.action_content_fab_unmark
+                    )
+            }
+            binding.ignoreButton.run {
+                isEnabled = it.isActivating
+                text =
+                    if (it.isActivating) getString(R.string.action_content_fab_ignore) else getString(
+                        R.string.action_content_fab_ignored
+                    )
+            }
         }
 
         // Btn functions
