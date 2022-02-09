@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.animation.doOnEnd
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        Log.d("aaa", "water" + R.drawable.ic_outline_water_drop_24.toString())
+        Log.d("aaa", "ele" + R.drawable.ic_outline_bolt_24.toString())
+        Log.d("aaa", "tree" + R.drawable.ic_outline_forest_24.toString())
 
         // Apply Dynamic Colors
 //        if (sharedPreference.getBoolean("dynamic_color", DynamicColors.isDynamicColorAvailable())) {
