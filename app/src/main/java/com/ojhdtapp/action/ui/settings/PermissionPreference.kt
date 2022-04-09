@@ -39,9 +39,9 @@ class PermissionPreference(context: Context, attrs: AttributeSet?) : Preference(
 
     lateinit var imageView: ImageView
     lateinit var permission: String
-    override fun onBindViewHolder(holder: PreferenceViewHolder?) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
-        imageView = holder?.findViewById(R.id.preferencePermissionState) as ImageView
+        imageView = holder.findViewById(R.id.preferencePermissionState) as ImageView
         refreshState()
     }
 

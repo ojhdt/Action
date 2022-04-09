@@ -176,21 +176,21 @@ class MainActivity : AppCompatActivity(),
         AchievementPusher.getPusher().tryPushingNewAchievement()
     }
 
-    override fun onPreferenceStartFragment(
-        caller: PreferenceFragmentCompat?,
-        pref: Preference?
-    ): Boolean {
-        pref?.let {
-            when (it.key) {
-                "permission" -> navController.navigate(R.id.action_settingsFragment_to_permissionsFragment)
-                "account" -> navController.navigate(R.id.action_settingsFragment_to_accountFragment)
-                "state" -> navController.navigate(R.id.action_settingsFragment_to_stateFragment)
-                "set_locate" -> navController.navigate(R.id.action_settingsFragment_to_mapFragment)
-                else -> {}
-            }
-        }
-        return true
-    }
+//    override fun onPreferenceStartFragment(
+//        caller: PreferenceFragmentCompat?,
+//        pref: Preference?
+//    ): Boolean {
+//        pref?.let {
+//            when (it.key) {
+//                "permission" -> navController.navigate(R.id.action_settingsFragment_to_permissionsFragment)
+//                "account" -> navController.navigate(R.id.action_settingsFragment_to_accountFragment)
+//                "state" -> navController.navigate(R.id.action_settingsFragment_to_stateFragment)
+//                "set_locate" -> navController.navigate(R.id.action_settingsFragment_to_mapFragment)
+//                else -> {}
+//            }
+//        }
+//        return true
+//    }
 
     override fun onApplyThemeResource(theme: Resources.Theme?, resid: Int, first: Boolean) {
         super.onApplyThemeResource(theme, resid, first)
@@ -210,5 +210,21 @@ class MainActivity : AppCompatActivity(),
                 else -> {}
             }
         }
+    }
+
+    override fun onPreferenceStartFragment(
+        caller: PreferenceFragmentCompat,
+        pref: Preference
+    ): Boolean {
+        pref.let {
+            when (it.key) {
+                "permission" -> navController.navigate(R.id.action_settingsFragment_to_permissionsFragment)
+                "account" -> navController.navigate(R.id.action_settingsFragment_to_accountFragment)
+                "state" -> navController.navigate(R.id.action_settingsFragment_to_stateFragment)
+                "set_locate" -> navController.navigate(R.id.action_settingsFragment_to_mapFragment)
+                else -> {}
+            }
+        }
+        return true
     }
 }

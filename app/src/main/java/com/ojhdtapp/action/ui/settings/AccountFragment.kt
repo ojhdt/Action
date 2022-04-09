@@ -29,8 +29,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class AccountFragment : PreferenceFragmentCompat() {
-    private val sharedPreference: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(context)
+    private val sharedPreference: SharedPreferences? by lazy {
+        context?.let {
+            PreferenceManager.getDefaultSharedPreferences(it)
+        }
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -54,22 +56,28 @@ class AccountFragment : PreferenceFragmentCompat() {
 //            }
         }
 
-        findPreference<Preference>("clear_account")?.run{
+        findPreference<Preference>("clear_account")?.run {
             setOnPreferenceClickListener {
                 MaterialAlertDialogBuilder(context)
                     .setTitle(R.string.clear_account_dialog_title)
                     .setMessage(R.string.clear_account_message)
                     .setPositiveButton(R.string.clear_account_positive) { dialogInterface: DialogInterface, i: Int ->
-                        sharedPreference.edit()
-                            .putInt("exp", 0)
-                            .apply()
+                        sharedPreference?.let {
+                            it.edit()
+                                .putInt("exp", 0)
+                                .apply()
+                        }
                         val job = Job()
                         CoroutineScope(job).launch {
                             val dataBase = AppDataBase.getDataBase()
                             dataBase.actionDao().deleteAll()
                             dataBase.achievementDao().deleteAll()
                         }
-                        Toast.makeText(context, getString(R.string.clear_account_toast), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            getString(R.string.clear_account_toast),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     .setNegativeButton(R.string.clear_account_negative) { dialogInterface: DialogInterface, i: Int -> }
                     .show()
@@ -119,11 +127,12 @@ class AccountFragment : PreferenceFragmentCompat() {
     }
 
     private fun showAvatarPickerDialog() {
-        val newFragment = AvatarPickerDialogFragment(object: AvatarPickerDialogFragment.AvatarChangedListener{
-            override fun onAvatarChange() {
-                findPreference<AvatarPreference>("userAvatarURI")?.updateAvatar()
-            }
-        })
+        val newFragment =
+            AvatarPickerDialogFragment(object : AvatarPickerDialogFragment.AvatarChangedListener {
+                override fun onAvatarChange() {
+                    findPreference<AvatarPreference>("userAvatarURI")?.updateAvatar()
+                }
+            })
         newFragment.show(parentFragmentManager, "avatar")
     }
 }

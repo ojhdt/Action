@@ -18,13 +18,13 @@ import com.ojhdtapp.action.BaseApplication
 import com.ojhdtapp.action.R
 import com.ojhdtapp.action.getUriToDrawable
 
-class AvatarPreference(context: Context?, attrs: AttributeSet?) : Preference(context, attrs) {
+class AvatarPreference(context: Context, attrs: AttributeSet?) : Preference(context, attrs) {
     @SuppressLint("CutPasteId")
     lateinit var imageView: ImageView
     private val sharedPreference: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(context)
+            PreferenceManager.getDefaultSharedPreferences(context)
     }
-    override fun onBindViewHolder(holder: PreferenceViewHolder?) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
         val imgURI = Uri.parse(
             sharedPreference.getString(
@@ -32,7 +32,7 @@ class AvatarPreference(context: Context?, attrs: AttributeSet?) : Preference(con
                 getUriToDrawable(R.drawable.avatar_a).toString()
             )
         )
-        imageView = holder?.findViewById(R.id.preferenceAvatar) as ImageView
+        imageView = holder.findViewById(R.id.preferenceAvatar) as ImageView
         Glide.with(context)
             .load(imgURI)
             .into(imageView)

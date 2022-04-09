@@ -48,8 +48,10 @@ class ActionFragment : Fragment() {
     val viewModel: SharedViewModel by activityViewModels()
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private val binding get() = _binding!!
-    private val sharedPreference: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(context)
+    private val sharedPreference: SharedPreferences? by lazy {
+        context?.let {
+            PreferenceManager.getDefaultSharedPreferences(it)
+        }
     }
     private val bottomSheetDialogBinding get() = _bottomSheetDialogBinding!!
 
@@ -400,7 +402,7 @@ class ActionFragment : Fragment() {
                 )
             )
         }
-        viewModel.actionNowLive.observe(this) {
+        viewModel.actionNowLive.observe(viewLifecycleOwner) {
             val emptyList = listOf(null)
             if (it.isEmpty()) {
                 actionNowAdapter.submitList(emptyList)
@@ -408,7 +410,7 @@ class ActionFragment : Fragment() {
                 actionNowAdapter.submitList(it)
             }
         }
-        viewModel.suggestMoreLive.observe(this) {
+        viewModel.suggestMoreLive.observe(viewLifecycleOwner) {
             val emptyList = listOf(null)
             if (it.isEmpty()) {
                 suggestMoreAdapter.submitList(emptyList)
@@ -422,14 +424,14 @@ class ActionFragment : Fragment() {
 
         // Welcome Text & Avatar
         binding.welcomeTextView.text =
-            resources.getStringArray(R.array.action_welcomes).random() + sharedPreference.getString(
+            resources.getStringArray(R.array.action_welcomes).random() + sharedPreference?.getString(
                 "username",
                 getString(R.string.default_username)
             )!!
-        Glide.with(context!!)
+        Glide.with(requireContext())
             .load(
                 Uri.parse(
-                    sharedPreference.getString(
+                    sharedPreference?.getString(
                         "userAvatarURI",
                         getUriToDrawable(R.drawable.avatar_a).toString()
                     )

@@ -41,9 +41,9 @@ class StatePreference(context: Context, attrs: AttributeSet?) : Preference(conte
         }
     }
 
-    override fun onBindViewHolder(holder: PreferenceViewHolder?) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
-        imageView = holder?.findViewById(R.id.preferenceServiceState) as ImageView
+        imageView = holder.findViewById(R.id.preferenceServiceState) as ImageView
         refreshState()
     }
 

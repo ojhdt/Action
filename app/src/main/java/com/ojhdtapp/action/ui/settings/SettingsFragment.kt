@@ -168,7 +168,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<SimpleMenuPreference>("dark_mode")?.apply {
             setOnPreferenceChangeListener { _, newValue ->
-                val oldValue = sharedPreferences.getString("dark_mode", "MODE_NIGHT_FOLLOW_SYSTEM")
+                val oldValue = sharedPreferences?.getString("dark_mode", "MODE_NIGHT_FOLLOW_SYSTEM")
                 if (oldValue != newValue) {
                     setDefaultNightMode(
                         when (newValue) {
@@ -187,7 +187,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             if (!DynamicColors.isDynamicColorAvailable()) {
 
             } else {
-                setOnPreferenceChangeListener { preference, newValue ->
+                setOnPreferenceChangeListener { _, _ ->
                     summary = getString(R.string.dynamic_color_summary_edited)
                     true
                 }

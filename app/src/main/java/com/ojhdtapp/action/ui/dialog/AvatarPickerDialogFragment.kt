@@ -32,8 +32,10 @@ class AvatarPickerDialogFragment(val listener: AvatarChangedListener) : DialogFr
 
     private var _binding: AvatarPickerDialogBinding? = null
     private val binding get() = _binding!!
-    private val sharedPreference: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(context)
+    private val sharedPreference: SharedPreferences? by lazy {
+        context?.let {
+            PreferenceManager.getDefaultSharedPreferences(it)
+        }
     }
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
 
@@ -58,7 +60,7 @@ class AvatarPickerDialogFragment(val listener: AvatarChangedListener) : DialogFr
 
     private fun selectAvatar() {
         if (ContextCompat.checkSelfPermission(
-                context!!,
+                requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -98,25 +100,25 @@ class AvatarPickerDialogFragment(val listener: AvatarChangedListener) : DialogFr
 
             binding.run {
                 // Selections
-                Glide.with(context!!)
+                Glide.with(requireContext())
                     .load(R.drawable.avatar_a)
                     .into(avatarDialogSelectionA)
-                Glide.with(context!!)
+                Glide.with(requireContext())
                     .load(R.drawable.avatar_b)
                     .into(avatarDialogSelectionB)
-                Glide.with(context!!)
+                Glide.with(requireContext())
                     .load(R.drawable.avatar_c)
                     .into(avatarDialogSelectionC)
-                Glide.with(context!!)
+                Glide.with(requireContext())
                     .load(R.drawable.avatar_d)
                     .into(avatarDialogSelectionD)
-                Glide.with(context!!)
+                Glide.with(requireContext())
                     .load(R.drawable.avatar_e)
                     .into(avatarDialogSelectionE)
-                Glide.with(context!!)
+                Glide.with(requireContext())
                     .load(R.drawable.avatar_f)
                     .into(avatarDialogSelectionF)
-                Glide.with(context!!)
+                Glide.with(requireContext())
                     .load(R.drawable.avatar_g)
                     .into(avatarDialogSelectionG)
 
@@ -169,9 +171,11 @@ class AvatarPickerDialogFragment(val listener: AvatarChangedListener) : DialogFr
 
 
     private fun updateUri(uri: Uri) {
-        sharedPreference.edit()
-            .putString("userAvatarURI", uri.toString())
-            .apply()
-        listener.onAvatarChange()
+        sharedPreference?.let {
+            it.edit()
+                .putString("userAvatarURI", uri.toString())
+                .apply()
+            listener.onAvatarChange()
+        }
     }
 }

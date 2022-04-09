@@ -49,8 +49,10 @@ class SuggestContentFragment : Fragment() {
     private var _binding: FragmentSuggestContentBinding? = null
     private val binding get() = _binding!!
     val viewModel by viewModels<SuggestContentViewModel>()
-    private val sharedPreference: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(context)
+    private val sharedPreference: SharedPreferences? by lazy {
+        context?.let {
+            PreferenceManager.getDefaultSharedPreferences(it)
+        }
     }
 
     private var processing = false
@@ -128,13 +130,13 @@ class SuggestContentFragment : Fragment() {
         }
 
         // Auto Switch State
-        if (sharedPreference.getBoolean("suggest_auto_mark", false)) {
+        if (sharedPreference?.getBoolean("suggest_auto_mark", false) == true) {
             switchReadState()
         }
 
         // Load Data & Initialize ViewModel
         viewModel.sumbitData(data)
-        viewModel.dataLive.observe(this) { it ->
+        viewModel.dataLive.observe(viewLifecycleOwner) { it ->
             it.imgUrl?.let {
                 Glide.with(this)
                     .load(it)
